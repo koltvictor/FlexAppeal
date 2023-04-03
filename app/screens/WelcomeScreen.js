@@ -1,5 +1,6 @@
 import React from "react";
 import colors from "../config/colors";
+import LoginScreen from "../components/LoginScreen";
 import {
   View,
   ImageBackground,
@@ -7,6 +8,7 @@ import {
   Image,
   Text,
   Button,
+  Alert,
 } from "react-native";
 
 function WelcomeScreen(props) {
@@ -20,7 +22,13 @@ function WelcomeScreen(props) {
         <Text>Get Fit</Text>
       </View>
       <View style={styles.loginButton}>
-        <Button style={styles.buttonText} title="Login" color={colors.white} />
+        <Button
+          style={styles.buttonText}
+          title="Login"
+          color={colors.white}
+          to="/login"
+          onPress={() => Alert.alert("You are not logged in")}
+        />
       </View>
       <View style={styles.registerButton}>
         <Button
