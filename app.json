@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "DoneWithIt",
-    "slug": "DoneWithIt",
+    "name": "FlexAppeal",
+    "slug": "FA",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./app/assets/initials.png",
+    "icon": "./app/assets/FAL1.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./app/assets/favicon.png",

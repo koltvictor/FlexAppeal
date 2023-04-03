@@ -1,6 +1,13 @@
 import React from "react";
 import colors from "../config/colors";
-import { View, ImageBackground, StyleSheet, Image, Text } from "react-native";
+import {
+  View,
+  ImageBackground,
+  StyleSheet,
+  Image,
+  Text,
+  Button,
+} from "react-native";
 
 function WelcomeScreen(props) {
   return (
@@ -12,8 +19,16 @@ function WelcomeScreen(props) {
         <Image style={styles.logo} source={require("../assets/FAL1.png")} />
         <Text>Get Fit</Text>
       </View>
-      <View style={styles.loginButton} />
-      <View style={styles.registerButton} />
+      <View style={styles.loginButton}>
+        <Button style={styles.buttonText} title="Login" color={colors.white} />
+      </View>
+      <View style={styles.registerButton}>
+        <Button
+          style={styles.buttonText}
+          title="Register"
+          color={colors.black}
+        />
+      </View>
     </ImageBackground>
   );
 }
@@ -23,6 +38,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
+  },
+  buttonText: {
+    textAlign: "center",
   },
   loginButton: {
     width: "100%",
