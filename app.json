@@ -4,10 +4,10 @@
     "slug": "DoneWithIt",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./app/assets/initials.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./app/assets/favicon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,10 +19,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/crumpledwhite.jpeg",
         "backgroundColor": "#ffffff"
       }
     },
+    "description": "DoneWithIt is a marketplace for buying and selling used items.",
     "web": {
       "favicon": "./assets/favicon.png"
     }
