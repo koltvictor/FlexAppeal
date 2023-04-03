@@ -7,7 +7,6 @@ import {
   Image,
   Text,
   Button,
-  Alert,
 } from "react-native";
 import { useNavigate } from "react-router-native";
 
@@ -35,7 +34,7 @@ function WelcomeScreen({}) {
           style={styles.buttonText}
           title="Register"
           color={colors.black}
-          onPress={() => Alert.alert("SignUp")}
+          onPress={() => navigate("/signup")}
         />
       </View>
     </ImageBackground>
