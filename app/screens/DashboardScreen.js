@@ -1,42 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-native";
 import {
   Button,
-  ImageBackground,
+  Link,
   SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+import ExercisesScreen from "./ExercisesScreen";
 
 export default function DashboardScreen() {
-  const [exercises, setExercises] = React.useState([]);
   const navigate = useNavigate();
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "9074bf701emsh2b8696dac91ac18p161ae0jsn7153acb84d2d",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    },
-  };
-  useEffect(() => {
-    fetch("https://exercisedb.p.rapidapi.com/exercises", options)
-      .then((r) => r.json())
-      .then((data) => setExercises(data));
-    //   .catch((err) => console.error(err));
-  }, []);
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      {/* <View style={{ backgroundColor: "black", flex: 1 }} />
-      <View style={{ backgroundColor: "red", flex: 1 }} />
-      <View style={{ backgroundColor: "gold", flex: 1 }} /> */}
+    <SafeAreaView>
       <Text>DashboardScreen</Text>
-      <Text>
-        {exercises.map((exercise) => (
-          <Text>{exercise.name}</Text>
-        ))}
-      </Text>
-      <Button title="back to login" onPress={() => navigate("/")} />
+      <Button title="exercises" onPress={() => navigate("/index")} />
+      <Button onPress={() => navigate("/")} title="back to welcome" />
     </SafeAreaView>
   );
 }

@@ -3,6 +3,7 @@ import { NativeRouter, Routes, Route } from "react-router-native";
 import LoginScreen from "./app/screens/LoginScreen";
 import SignupScreen from "./app/screens/SignupScreen";
 import DashboardScreen from "./app/screens/DashboardScreen";
+import ExercisesScreen from "./app/screens/ExercisesScreen";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/signup" element={<SignupScreen />} />
         <Route path="/dashboard" element={<DashboardScreen />} />
+        <Route path="/index" element={<ExercisesScreen />} />
       </Routes>
     </NativeRouter>
   );
