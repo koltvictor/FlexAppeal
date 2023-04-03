@@ -1,6 +1,5 @@
 import React from "react";
 import colors from "../config/colors";
-import LoginScreen from "../components/LoginScreen";
 import {
   View,
   ImageBackground,
@@ -10,8 +9,10 @@ import {
   Button,
   Alert,
 } from "react-native";
+import { useNavigate } from "react-router-native";
 
-function WelcomeScreen(props) {
+function WelcomeScreen({}) {
+  const navigate = useNavigate();
   return (
     <ImageBackground
       style={styles.background}
@@ -26,8 +27,7 @@ function WelcomeScreen(props) {
           style={styles.buttonText}
           title="Login"
           color={colors.white}
-          to="/login"
-          onPress={() => Alert.alert("You are not logged in")}
+          onPress={() => navigate("/login")}
         />
       </View>
       <View style={styles.registerButton}>
@@ -35,6 +35,7 @@ function WelcomeScreen(props) {
           style={styles.buttonText}
           title="Register"
           color={colors.black}
+          onPress={() => Alert.alert("SignUp")}
         />
       </View>
     </ImageBackground>
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     position: "absolute",
-    top: 70,
+    top: 100,
     alignItems: "center",
   },
   registerButton: {

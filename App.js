@@ -1,8 +1,14 @@
-import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
-import ViewImageScreen from "./app/screens/ViewImageScreen";
+import { NativeRouter, Routes, Route } from "react-router-native";
+import LoginScreen from "./app/screens/LoginScreen";
 
 export default function App() {
-  return <WelcomeScreen />;
+  return (
+    <NativeRouter>
+      <Routes>
+        <Route exact path="/" element={<WelcomeScreen />} />
+        <Route path="/login" element={<LoginScreen />} />
+      </Routes>
+    </NativeRouter>
+  );
 }
