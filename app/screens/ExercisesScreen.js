@@ -15,12 +15,19 @@ export default function ExercisesScreen({
   filteredExercises,
   search,
   setSearch,
+  clicked,
+  setClicked,
 }) {
   const navigate = useNavigate();
   return (
     <SafeAreaView>
       <View>
-        <Search search={search} setSearch={setSearch} />
+        <Search
+          search={search}
+          setSearch={setSearch}
+          clicked={clicked}
+          setClicked={setClicked}
+        />
         <Button
           title="back to dashboard"
           onPress={() => navigate("/dashboard")}

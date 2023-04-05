@@ -10,6 +10,7 @@ import Search from "./app/components/Search";
 export default function App() {
   const [exercises, setExercises] = React.useState([]);
   const [search, setSearch] = React.useState("");
+  const [clicked, setClicked] = React.useState(false);
   const filteredExercises = exercises.filter(
     (exercise) =>
       exercise.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -17,6 +18,7 @@ export default function App() {
       exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
       exercise.target.toLowerCase().includes(search.toLowerCase())
   );
+  console.log(filteredExercises.length);
   const options = {
     method: "GET",
     headers: {
@@ -24,10 +26,17 @@ export default function App() {
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
+
   useEffect(() => {
-    fetch("https://exercisedb.p.rapidapi.com/exercises", options)
-      .then((r) => r.json())
-      .then((data) => setExercises(data));
+    const getExercsises = async () => {
+      const response = await fetch(
+        "https://exercisedb.p.rapidapi.com/exercises",
+        options
+      );
+      const data = await response.json();
+      setExercises(data);
+    };
+    getExercsises();
   }, []);
 
   return (
@@ -40,13 +49,13 @@ export default function App() {
         <Route
           path="/index"
           element={
-            <>
-              <ExercisesScreen
-                filteredExercises={filteredExercises}
-                search={search}
-                setSearch={setSearch}
-              />
-            </>
+            <ExercisesScreen
+              filteredExercises={filteredExercises}
+              search={search}
+              setSearch={setSearch}
+              clicked={clicked}
+              setClicked={setClicked}
+            />
           }
         />
       </Routes>
