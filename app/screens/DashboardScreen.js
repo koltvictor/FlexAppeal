@@ -17,7 +17,7 @@ export default function DashboardScreen() {
     <SafeAreaView>
       <Text>DashboardScreen</Text>
       <Button title="exercises" onPress={() => navigate("/index")} />
-      <Button onPress={() => navigate("/")} title="back to welcome" />
+      <Button onPress={() => navigate("/")} title="logout" />
     </SafeAreaView>
   );
 }
