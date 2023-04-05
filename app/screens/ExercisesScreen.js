@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-native";
 import {
   Button,
-  FlatList,
   SafeAreaView,
   ScrollView,
+  StyleSheet,
   Text,
   View,
 } from "react-native";
+import Search from "../components/Search";
 
 export default function ExercisesScreen() {
   const navigate = useNavigate();
@@ -28,15 +29,21 @@ export default function ExercisesScreen() {
     <SafeAreaView>
       <View>
         <ScrollView vertical="true">
+          <Search />
           {exercises.map((exercise, id) => (
             <Text key={id}>{exercise.name}</Text>
           ))}
           <Button
             title="back to dashboard"
             onPress={() => navigate("/dashboard")}
+            style={styles.button}
           />
         </ScrollView>
       </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  button: { position: "absolute", bottom: 0 },
+});
