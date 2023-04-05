@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-native";
-import { Button, FlatList, SafeAreaView, Text, View } from "react-native";
+import {
+  Button,
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 
 export default function ExercisesScreen() {
   const navigate = useNavigate();
@@ -18,16 +25,18 @@ export default function ExercisesScreen() {
       .then((data) => setExercises(data));
   }, []);
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <FlatList
-        data={exercises.map((exercise, id) => (
-          <Text key={id}>{exercise.name}</Text>
-        ))}
-      />
-      <Button
-        title="back to dashboard"
-        onPress={() => navigate("/dashboard")}
-      />
-    </View>
+    <SafeAreaView>
+      <View>
+        <ScrollView vertical="true">
+          {exercises.map((exercise, id) => (
+            <Text key={id}>{exercise.name}</Text>
+          ))}
+          <Button
+            title="back to dashboard"
+            onPress={() => navigate("/dashboard")}
+          />
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
