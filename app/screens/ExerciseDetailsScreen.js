@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { SafeAreaView, Text, Button } from "react-native";
+import { SafeAreaView, Text, Button, Image } from "react-native";
 import { useParams } from "react-router-native";
 import { useNavigate } from "react-router-native";
 
@@ -40,6 +40,11 @@ export default function ExerciseDetailsScreen() {
       <Text>
         This is the exercise name: {exercise.name} with an id of {exercise.id}
       </Text>
+      <Image
+        source={{ uri: exercise.gifUrl }}
+        alt={"gif"}
+        style={{ width: "100%", height: "100%", resizeMode: "contain" }}
+      />
       <Button onPress={() => navigate("/index")} title="back to exercises" />
     </SafeAreaView>
   );
