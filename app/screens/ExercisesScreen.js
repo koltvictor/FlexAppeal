@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-native";
+import { Link } from "@react-navigation/native";
 import {
   Button,
   Image,
@@ -35,9 +36,11 @@ export default function ExercisesScreen({
         />
         <ScrollView vertical="true">
           {filteredExercises
-            // .sort((a, b) => a.id - b.id)
+            .sort((a, b) => a.id - b.id)
             .map((exercise, id) => (
-              <Text key={id}>{exercise.name}</Text>
+              <Text key={id} onPress={() => navigate(`/exercise/${id}`)}>
+                {exercise.name}
+              </Text>
             ))}
         </ScrollView>
       </View>

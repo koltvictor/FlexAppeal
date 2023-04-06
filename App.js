@@ -6,6 +6,7 @@ import SignupScreen from "./app/screens/SignupScreen";
 import DashboardScreen from "./app/screens/DashboardScreen";
 import ExercisesScreen from "./app/screens/ExercisesScreen";
 import Search from "./app/components/Search";
+import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
 
 export default function App() {
   const [exercises, setExercises] = React.useState([]);
@@ -18,7 +19,7 @@ export default function App() {
       exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
       exercise.target.toLowerCase().includes(search.toLowerCase())
   );
-  console.log(filteredExercises.length);
+
   const options = {
     method: "GET",
     headers: {
@@ -58,6 +59,7 @@ export default function App() {
             />
           }
         />
+        <Route path="/exercise/:id" element={<ExerciseDetailsScreen />} />
       </Routes>
     </NativeRouter>
   );
