@@ -35,13 +35,11 @@ export default function ExercisesScreen({
           style={styles.button}
         />
         <ScrollView vertical="true">
-          {filteredExercises
-            .sort((a, b) => a.id - b.id)
-            .map((exercise, id) => (
-              <Text key={id} onPress={() => navigate(`/exercise/${id}`)}>
-                {exercise.name}
-              </Text>
-            ))}
+          {filteredExercises.map((exercise, id) => (
+            <Text key={id} onPress={() => navigate(`/exercise/${id}`)}>
+              {id}
+            </Text>
+          ))}
         </ScrollView>
       </View>
     </SafeAreaView>
