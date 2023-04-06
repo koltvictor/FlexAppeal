@@ -37,6 +37,7 @@ export default function ExerciseDetailsScreen() {
 
   return (
     <SafeAreaView>
+      <Button onPress={() => navigate("/index")} title="back to exercises" />
       <Text>
         This is the exercise name: {exercise.name} with an id of {exercise.id}
       </Text>
@@ -45,7 +46,6 @@ export default function ExerciseDetailsScreen() {
         alt={"gif"}
         style={{ width: "100%", height: "100%", resizeMode: "contain" }}
       />
-      <Button onPress={() => navigate("/index")} title="back to exercises" />
     </SafeAreaView>
   );
 }

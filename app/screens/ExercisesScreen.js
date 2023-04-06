@@ -1,9 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-native";
-import { Link } from "@react-navigation/native";
 import {
   Button,
-  Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -37,7 +35,7 @@ export default function ExercisesScreen({
         <ScrollView vertical="true">
           {filteredExercises.map((exercise, id) => (
             <Text key={id} onPress={() => navigate(`/exercise/${id}`)}>
-              {id}
+              {exercise.name} {id}
             </Text>
           ))}
         </ScrollView>
