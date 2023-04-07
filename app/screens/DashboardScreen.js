@@ -16,5 +16,10 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: window.height,
+    width: window.width,
+    // marginBottom: 100,
+    paddingVertical: 20,
+    marginLeft: 20,
   },
 });

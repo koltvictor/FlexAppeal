@@ -41,12 +41,6 @@ export default function BottomNav() {
           >
             <Icon name="person" height={iconHeight} width={iconWidth} />
           </Pressable>
-          <Pressable
-            onPress={() => navigate("/index")}
-            style={styles.IconBehave}
-          >
-            <Icon name="settings" height={iconHeight} width={iconWidth} />
-          </Pressable>
           <Pressable onPress={() => navigate("/")} style={styles.IconBehave}>
             <Icon name="logout" height={iconHeight} width={iconWidth} />
           </Pressable>
@@ -74,7 +68,7 @@ const styles = StyleSheet.create({
 
   NavBar: {
     flexDirection: "row",
-    backgroundColor: "#eee",
+    backgroundColor: "lightblue",
     width: "90%",
     justifyContent: "space-evenly",
     borderRadius: 40,

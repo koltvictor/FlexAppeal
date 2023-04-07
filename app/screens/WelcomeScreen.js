@@ -13,13 +13,12 @@ import { useNavigate } from "react-router-native";
 function WelcomeScreen({}) {
   const navigate = useNavigate();
   return (
-    <ImageBackground
+    <View
       style={styles.background}
-      source={require("../assets/blue.jpeg")}
+      //   source={require("../assets/blue.jpeg")}
     >
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require("../assets/FAL1.png")} />
-        <Text>Get Fit</Text>
       </View>
       <View style={styles.loginButton}>
         <Button
@@ -37,7 +36,7 @@ function WelcomeScreen({}) {
           onPress={() => navigate("/signup")}
         />
       </View>
-    </ImageBackground>
+    </View>
   );
 }
 
@@ -46,6 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
+    backgroundColor: colors.white,
   },
   buttonText: {
     textAlign: "center",
