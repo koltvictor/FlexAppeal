@@ -39,6 +39,7 @@ export default function ExercisesScreen({
             .sort((a, b) => a.id - b.id)
             .map((exercise, id) => (
               <Text
+                style={styles.listItem}
                 key={exercise.id}
                 onPress={() => navigate(`/exercise/${exercise.id}`)}
               >
@@ -64,7 +65,10 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   listContainer: {
-    // flex: 1,
     marginBottom: 83,
+  },
+  listItem: {
+    fontSize: 16,
+    padding: 5,
   },
 });
