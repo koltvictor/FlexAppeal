@@ -1,30 +1,20 @@
 import React from "react";
-import { useNavigate } from "react-router-native";
-import {
-  Button,
-  Link,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import ExercisesScreen from "./ExercisesScreen";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import BottomNav from "../components/BottomNav";
 
 export default function DashboardScreen() {
-  const navigate = useNavigate();
-
   return (
-    <SafeAreaView>
-      <Text>DashboardScreen</Text>
-      <Button title="exercises" onPress={() => navigate("/index")} />
-      <Button onPress={() => navigate("/")} title="logout" />
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text>Welcome, user !</Text>
+      </View>
+      <BottomNav />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  nav: {
-    flexDirection: "row",
+  container: {
     flex: 1,
   },
 });

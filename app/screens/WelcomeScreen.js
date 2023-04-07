@@ -15,7 +15,7 @@ function WelcomeScreen({}) {
   return (
     <ImageBackground
       style={styles.background}
-      source={require("../assets/crumpledwhite.jpeg")}
+      source={require("../assets/blue.jpeg")}
     >
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require("../assets/FAL1.png")} />
@@ -33,7 +33,7 @@ function WelcomeScreen({}) {
         <Button
           style={styles.buttonText}
           title="Register"
-          color={colors.black}
+          color={colors.white}
           onPress={() => navigate("/signup")}
         />
       </View>
@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
   loginButton: {
     width: "100%",
     height: 70,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.tertiary,
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
     position: "absolute",
     top: 70,
   },
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   registerButton: {
     width: "100%",
     height: 70,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.quaternary,
   },
 });
 

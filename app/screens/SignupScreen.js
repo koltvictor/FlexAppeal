@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: "50%",
+    padding: 50,
   },
 });
