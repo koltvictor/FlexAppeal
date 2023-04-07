@@ -18,6 +18,12 @@ export default function BottomNav() {
       <View style={styles.NavContainer}>
         <View style={styles.NavBar}>
           <Pressable
+            onPress={() => navigate("/dashboard")}
+            style={styles.IconBehave}
+          >
+            <Icon name="home" height={iconHeight} width={iconWidth} />
+          </Pressable>
+          <Pressable
             onPress={() => navigate("/index")}
             style={styles.IconBehave}
           >
@@ -30,7 +36,7 @@ export default function BottomNav() {
             <Icon name="star" height={iconHeight} width={iconWidth} />
           </Pressable>
           <Pressable
-            onPress={() => navigate("/index")}
+            onPress={() => navigate("/profile")}
             style={styles.IconBehave}
           >
             <Icon name="person" height={iconHeight} width={iconWidth} />

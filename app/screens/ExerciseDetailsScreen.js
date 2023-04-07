@@ -3,6 +3,7 @@ import { SafeAreaView, Text, Button, Image } from "react-native";
 import { useParams } from "react-router-native";
 import { useNavigate } from "react-router-native";
 import ExerciseCard from "../components/ExerciseCard";
+import BottomNav from "../components/BottomNav";
 
 export default function ExerciseDetailsScreen() {
   const [exercise, setExercise] = React.useState([]);
@@ -33,6 +34,7 @@ export default function ExerciseDetailsScreen() {
   return (
     <SafeAreaView>
       <ExerciseCard exercise={exercise} id={id} />
+      <BottomNav />
     </SafeAreaView>
   );
 }

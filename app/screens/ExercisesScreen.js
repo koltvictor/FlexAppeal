@@ -33,6 +33,7 @@ export default function ExercisesScreen({
         <ScrollView
           vertical="true"
           //   contentInsetAdjustmentBehavior="scrollableAxes"
+          style={styles.listContainer}
         >
           {filteredExercises
             .sort((a, b) => a.id - b.id)
@@ -60,5 +61,10 @@ const styles = StyleSheet.create({
     width: window.width,
     marginBottom: 100,
     paddingVertical: 20,
+    marginLeft: 20,
+  },
+  listContainer: {
+    // flex: 1,
+    marginBottom: 83,
   },
 });

@@ -7,6 +7,7 @@ import DashboardScreen from "./app/screens/DashboardScreen";
 import ExercisesScreen from "./app/screens/ExercisesScreen";
 import Search from "./app/components/Search";
 import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
+import ProfileScreen from "./app/screens/ProfileScreen";
 
 export default function App() {
   const [exercises, setExercises] = React.useState([]);
@@ -60,6 +61,7 @@ export default function App() {
           }
         />
         <Route path="/exercise/:id" element={<ExerciseDetailsScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
       </Routes>
     </NativeRouter>
   );
