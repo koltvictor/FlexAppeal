@@ -39,9 +39,9 @@ export default function ExercisesScreen({
             .map((exercise, id) => (
               <Text
                 key={exercise.id}
-                onPress={() => navigate(`/exercise/${id}`)}
+                onPress={() => navigate(`/exercise/${exercise.id}`)}
               >
-                {exercise.name} {exercise.id}
+                {exercise.name}
               </Text>
             ))}
         </ScrollView>

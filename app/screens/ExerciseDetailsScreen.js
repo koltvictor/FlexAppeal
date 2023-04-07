@@ -17,17 +17,9 @@ export default function ExerciseDetailsScreen() {
     },
   };
 
-  function pad(n) {
-    return (n < 10 ? "000" : n < 100 ? "00" : n < 1000 ? "0" : "") + n;
-  }
-
-  const idNum = pad(id);
-  console.log(idNum);
-  console.log(id);
-
   const fetchExercise = async () => {
     const data = await fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/exercise/${idNum}`,
+      `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`,
       options
     );
     const detailData = await data.json();
@@ -40,7 +32,7 @@ export default function ExerciseDetailsScreen() {
 
   return (
     <SafeAreaView>
-      <ExerciseCard exercise={exercise} id={idNum} />
+      <ExerciseCard exercise={exercise} id={id} />
     </SafeAreaView>
   );
 }
