@@ -1,7 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-native";
+import { useNavigate, useParams } from "react-router-native";
 import {
   Button,
+  FlatList,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -9,6 +10,8 @@ import {
   View,
 } from "react-native";
 import Search from "../components/Search";
+import BottomNav from "../components/BottomNav";
+import ExerciseCard from "../components/ExerciseCard";
 
 export default function ExercisesScreen({
   filteredExercises,
@@ -19,7 +22,7 @@ export default function ExercisesScreen({
 }) {
   const navigate = useNavigate();
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View>
         <Search
           search={search}
@@ -27,23 +30,35 @@ export default function ExercisesScreen({
           clicked={clicked}
           setClicked={setClicked}
         />
-        <Button
-          title="back to dashboard"
-          onPress={() => navigate("/dashboard")}
-          style={styles.button}
-        />
-        <ScrollView vertical="true">
-          {filteredExercises.map((exercise, id) => (
-            <Text key={id} onPress={() => navigate(`/exercise/${id}`)}>
-              {exercise.name} {id}
-            </Text>
-          ))}
+        <ScrollView
+          vertical="true"
+          //   contentInsetAdjustmentBehavior="scrollableAxes"
+        >
+          {filteredExercises
+            .sort((a, b) => a.id - b.id)
+            .map((exercise, id) => (
+              <Text
+                key={exercise.id}
+                onPress={() => navigate(`/exercise/${id}`)}
+              >
+                {exercise.name} {exercise.id}
+              </Text>
+            ))}
         </ScrollView>
+      </View>
+      <View>
+        <BottomNav />
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  button: { position: "absolute", bottom: 0 },
+  container: {
+    flex: 1,
+    height: window.height,
+    width: window.width,
+    marginBottom: 100,
+    paddingVertical: 20,
+  },
 });

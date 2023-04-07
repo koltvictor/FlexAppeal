@@ -41,10 +41,7 @@ export default function BottomNav() {
           >
             <Icon name="settings" height={iconHeight} width={iconWidth} />
           </Pressable>
-          <Pressable
-            onPress={() => navigate("/index")}
-            style={styles.IconBehave}
-          >
+          <Pressable onPress={() => navigate("/")} style={styles.IconBehave}>
             <Icon name="logout" height={iconHeight} width={iconWidth} />
           </Pressable>
         </View>

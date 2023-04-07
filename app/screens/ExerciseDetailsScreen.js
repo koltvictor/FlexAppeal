@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { SafeAreaView, Text, Button, Image } from "react-native";
 import { useParams } from "react-router-native";
 import { useNavigate } from "react-router-native";
+import ExerciseCard from "../components/ExerciseCard";
 
 export default function ExerciseDetailsScreen() {
   const [exercise, setExercise] = React.useState([]);
@@ -21,6 +22,8 @@ export default function ExerciseDetailsScreen() {
   }
 
   const idNum = pad(id);
+  console.log(idNum);
+  console.log(id);
 
   const fetchExercise = async () => {
     const data = await fetch(
@@ -37,15 +40,7 @@ export default function ExerciseDetailsScreen() {
 
   return (
     <SafeAreaView>
-      <Button onPress={() => navigate("/index")} title="back to exercises" />
-      <Text>
-        This is the exercise name: {exercise.name} with an id of {exercise.id}
-      </Text>
-      <Image
-        source={{ uri: exercise.gifUrl }}
-        alt={"gif"}
-        style={{ width: "100%", height: "100%", resizeMode: "contain" }}
-      />
+      <ExerciseCard exercise={exercise} id={idNum} />
     </SafeAreaView>
   );
 }
