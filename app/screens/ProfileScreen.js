@@ -1,15 +1,22 @@
 import { Button } from "@rneui/base";
-import React from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, TextInput, View, SafeAreaView } from "react-native";
 import { useNavigate } from "react-router-native";
 import BottomNav from "../components/BottomNav";
-
-export default function ProfileScreen() {
+import {
+  db,
+  doc,
+  updateDoc,
+} from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
+export default function ProfileScreen({ user }) {
   let navigate = useNavigate();
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>ProfileScreen</Text>
+        <Text>
+          {user.firstName} {user.lastName}
+        </Text>
+        <Text>{user.email}</Text>
       </View>
       <BottomNav />
     </SafeAreaView>

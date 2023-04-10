@@ -7,9 +7,17 @@ import DashboardScreen from "./app/screens/DashboardScreen";
 import ExercisesScreen from "./app/screens/ExercisesScreen";
 import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
-// import { app, db, getFireStore, collection, addDoc } from "./firebase/index";
+import {
+  app,
+  db,
+  getFireStore,
+  collection,
+  addDoc,
+  getDocs,
+} from "./firebase/index";
 
 export default function App() {
+  const [user, setUser] = React.useState([]);
   const [exercises, setExercises] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [clicked, setClicked] = React.useState(false);
@@ -20,6 +28,21 @@ export default function App() {
       exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
       exercise.target.toLowerCase().includes(search.toLowerCase())
   );
+
+  const getUser = async () => {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      setUser({
+        ...doc.data(),
+        id: doc.id,
+      });
+      console.log(user.firstName);
+    });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const options = {
     method: "GET",
@@ -47,7 +70,7 @@ export default function App() {
         <Route exact path="/" element={<WelcomeScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/signup" element={<SignupScreen />} />
-        <Route path="/dashboard" element={<DashboardScreen />} />
+        <Route path="/dashboard" element={<DashboardScreen user={user} />} />
         <Route
           path="/index"
           element={
@@ -61,7 +84,7 @@ export default function App() {
           }
         />
         <Route path="/exercise/:id" element={<ExerciseDetailsScreen />} />
-        <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/profile" element={<ProfileScreen user={user} />} />
       </Routes>
     </NativeRouter>
   );
