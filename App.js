@@ -5,7 +5,6 @@ import LoginScreen from "./app/screens/LoginScreen";
 import SignupScreen from "./app/screens/SignupScreen";
 import DashboardScreen from "./app/screens/DashboardScreen";
 import ExercisesScreen from "./app/screens/ExercisesScreen";
-import Search from "./app/components/Search";
 import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
 
