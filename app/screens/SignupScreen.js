@@ -1,15 +1,14 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-native";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Form, FormItem, Modal } from "react-native-form-component";
 import {
-  Button,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { Form, FormItem } from "react-native-form-component";
-
+  app,
+  db,
+  getFirestore,
+  collection,
+  addDoc,
+} from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
 export default function SignupScreen() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = React.useState("");
@@ -21,11 +20,31 @@ export default function SignupScreen() {
   const lastNameInput = useRef();
   const emailInput = useRef();
   const passwordInput = useRef();
+
+  const addUser = async () => {
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      });
+      console.log("Document written with ID: ", docRef.id);
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Form>
+        <Form style={styles.form} onButtonPress={addUser}>
           <FormItem
+            style={styles.formInput}
             label="First Name"
             isRequired
             value={firstName}
@@ -58,6 +77,7 @@ export default function SignupScreen() {
             ref={passwordInput}
           />
           <FormItem
+            // errorBorderColor="black"
             label="Confirm Password"
             isRequired
             value={confirmPassword}
@@ -77,9 +97,16 @@ export default function SignupScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: "left",
     justifyContent: "center",
     // marginTop: "50%",
     padding: 50,
+  },
+  form: {
+    width: "100%",
+  },
+  formInput: {
+    border: "1px solid black !important",
+    fontSize: 36,
   },
 });

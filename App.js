@@ -7,6 +7,7 @@ import DashboardScreen from "./app/screens/DashboardScreen";
 import ExercisesScreen from "./app/screens/ExercisesScreen";
 import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
+// import { app, db, getFireStore, collection, addDoc } from "./firebase/index";
 
 export default function App() {
   const [exercises, setExercises] = React.useState([]);
