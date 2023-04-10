@@ -8,15 +8,46 @@ import {
   doc,
   updateDoc,
 } from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
-export default function ProfileScreen({ user }) {
+import { Form, FormItem } from "react-native-form-component";
+
+export default function ProfileScreen({ currentUser }) {
   let navigate = useNavigate();
+  const [firstName, setFirstName] = React.useState();
+  const [lastName, setLastName] = React.useState();
+
+  const updateUser = async () => {
+    const userRef = doc(db, "users", currentUser.id);
+    await updateDoc(userRef, {
+      firstName: firstName,
+      lastName: lastName,
+    });
+  };
+
+  useEffect(() => {
+    updateUser();
+  }, [currentUser]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <Text>
-          {user.firstName} {user.lastName}
+          {currentUser.firstName} {currentUser.lastName}
         </Text>
-        <Text>{user.email}</Text>
+        <Text>{currentUser.email}</Text>
+        <View>
+          <TextInput
+            value={firstName}
+            onChangeText={(firstName) => setFirstName(firstName)}
+            placeholder="update name"
+          />
+          <TextInput
+            value={lastName}
+            onChangeText={(lastName) => setLastName(lastName)}
+            placeholder="update name"
+          />
+          <Button title="update" onPress={updateUser} />
+        </View>
+        <TextInput />
       </View>
       <BottomNav />
     </SafeAreaView>
@@ -28,8 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: window.height,
     width: window.width,
-    // marginBottom: 100,
     paddingVertical: 20,
-    marginLeft: 20,
+    margin: 20,
   },
 });

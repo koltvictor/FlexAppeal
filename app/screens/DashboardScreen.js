@@ -2,11 +2,11 @@ import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import BottomNav from "../components/BottomNav";
 
-export default function DashboardScreen({ user }) {
+export default function DashboardScreen({ currentUser }) {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>Welcome, {user.firstName} !</Text>
+        <Text>Welcome, {currentUser.firstName} !</Text>
         <Text>
           Utitlise the button below to see an index of exercises and search{" "}
         </Text>

@@ -42,7 +42,7 @@ export default function App() {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [setUser]);
 
   const options = {
     method: "GET",
@@ -70,7 +70,10 @@ export default function App() {
         <Route exact path="/" element={<WelcomeScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/signup" element={<SignupScreen />} />
-        <Route path="/dashboard" element={<DashboardScreen user={user} />} />
+        <Route
+          path="/dashboard"
+          element={<DashboardScreen currentUser={user} />}
+        />
         <Route
           path="/index"
           element={
@@ -84,7 +87,7 @@ export default function App() {
           }
         />
         <Route path="/exercise/:id" element={<ExerciseDetailsScreen />} />
-        <Route path="/profile" element={<ProfileScreen user={user} />} />
+        <Route path="/profile" element={<ProfileScreen currentUser={user} />} />
       </Routes>
     </NativeRouter>
   );

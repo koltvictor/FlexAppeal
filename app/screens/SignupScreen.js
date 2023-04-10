@@ -29,7 +29,6 @@ export default function SignupScreen() {
         email: email,
         password: password,
       });
-      console.log("Document written with ID: ", docRef.id);
       setFirstName("");
       setLastName("");
       setEmail("");
