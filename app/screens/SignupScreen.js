@@ -11,7 +11,7 @@ import {
 import { auth } from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-export default function SignupScreen() {
+export default function SignupScreen({ isSignedIn, setIsSignedIn }) {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -26,7 +26,7 @@ export default function SignupScreen() {
         navigate("/login");
       })
       .catch((error) => {
-        console.log(error);
+        console.log("your error:", error);
       });
   };
   return (

@@ -58,7 +58,15 @@ export default function App() {
             />
           }
         />
-        <Route path="/signup" element={<SignupScreen />} />
+        <Route
+          path="/signup"
+          element={
+            <SignupScreen
+              isSignedIn={isSignedIn}
+              setIsSignedIn={setIsSignedIn}
+            />
+          }
+        />
         <Route
           path="/dashboard"
           element={
