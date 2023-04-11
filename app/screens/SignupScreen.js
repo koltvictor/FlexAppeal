@@ -1,97 +1,64 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-native";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import {
-  app,
-  db,
-  getFirestore,
-  collection,
-  addDoc,
-} from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
-import { TextInput } from "react-native-gesture-handler";
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { auth } from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 export default function SignupScreen() {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-  const firstNameInput = useRef();
-  const lastNameInput = useRef();
-  const emailInput = useRef();
-  const passwordInput = useRef();
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const addUser = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "users"), {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((r) => {
+        console.log(r);
+        setIsSignedIn(true);
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
   };
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <View style={styles.form}>
-          <TextInput
-            style={styles.formInput}
-            placeholder="First Name"
-            isRequired
-            value={firstName}
-            onChangeText={(firstName) => setFirstName(firstName)}
-            asterik
-            ref={firstNameInput}
-          />
-          <TextInput
-            style={styles.formInput}
-            placeholder="Last Name"
-            isRequired
-            value={lastName}
-            onChangeText={(lastName) => setLastName(lastName)}
-            asterik
-            ref={lastNameInput}
-          />
-          <TextInput
-            style={styles.formInput}
-            placeholder="Email"
-            isRequired
-            value={email}
-            onChangeText={(email) => setEmail(email)}
-            asterik
-            ref={emailInput}
-          />
-          <TextInput
-            style={styles.formInput}
-            placeholder="Password"
-            isRequired
-            value={password}
-            onChangeText={(password) => setPassword(password)}
-            asterik
-            ref={passwordInput}
-          />
-          <TextInput
-            style={styles.formInput}
-            // errorBorderColor="black"
-            placeholder="Confirm Password"
-            isRequired
-            value={confirmPassword}
-            onChangeText={(confirmPassword) =>
-              setConfirmPassword(confirmPassword)
-            }
-            asterik
-            ref={passwordInput}
-          />
-          <Button title="register" onPress={addUser} />
-        </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="username"
+          value={username}
+          onChangeText={(username) => setUsername(username)}
+          asterik
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+          asterik
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={(password) => setPassword(password)}
+          asterik
+          secureTextEntry
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={addUser} style={styles.button}>
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -99,16 +66,43 @@ export default function SignupScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "left",
+    flex: 1,
+    alignItems: "center",
     justifyContent: "center",
-    // marginTop: "50%",
-    padding: 50,
   },
-  form: {
+  inputContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "80%",
+  },
+  input: {
+    // fontSize: 36,
     width: "100%",
+    backgroundColor: "lightgrey",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
   },
-  formInput: {
-    border: "1px solid black !important",
-    fontSize: 36,
+  buttonContainer: {
+    width: "60%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+  },
+  button: {
+    backgroundColor: "lightblue",
+    width: "100%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: "white",
+    fontWeight: "700",
   },
 });

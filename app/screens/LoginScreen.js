@@ -1,35 +1,38 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-native";
-import Icon from "react-native-ico-material-design";
 import {
   Button,
   Pressable,
   SafeAreaView,
   StyleSheet,
+  Text,
   TextInput,
   View,
 } from "react-native";
-import { Form, FormItem } from "react-native-form-component";
+import { auth } from "../../firebase/index.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-export default function LoginScreen() {
+export default function LoginScreen({ setIsSignedIn, isSignedIn }) {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const firstNameInput = useRef();
+
+  const SignInUser = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setIsSignedIn(true);
+        const user = userCredential.user;
+        console.log(user.email);
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Form>
-          <FormItem
-            label="First Name"
-            isRequired
-            value={firstName}
-            onChangeText={(firstName) => setFirstName(firstName)}
-            asterik
-            ref={firstNameInput}
-          />
-        </Form>
         <TextInput
           placeholder="email address"
           value={email}
@@ -37,12 +40,12 @@ export default function LoginScreen() {
         />
         <TextInput
           placeholder="password"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
         />
       </View>
       <Button title="back" onPress={() => navigate("/")} />
-      <Button title="login" onPress={() => navigate("/dashboard")} />
+      <Button title="login" onPress={SignInUser} />
     </SafeAreaView>
   );
 }

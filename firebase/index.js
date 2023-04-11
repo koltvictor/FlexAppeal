@@ -1,5 +1,9 @@
-// Import the functions you need from the SDKs you need
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
 import {
   getFirestore,
   collection,
@@ -7,12 +11,8 @@ import {
   getDocs,
   updateDoc,
   doc,
-} from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+} from "firebase/firestore/lite";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyC2YgUJpEjM2lFJEsAiBKS2EJR16pNVjYc",
   authDomain: "flexappeal-6d5f9.firebaseapp.com",
@@ -23,8 +23,18 @@ const firebaseConfig = {
   measurementId: "G-NCYE8RTVSS",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { app, db, getFirestore, collection, addDoc, getDocs, updateDoc, doc };
+export {
+  app,
+  db,
+  auth,
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  updateDoc,
+  doc,
+};

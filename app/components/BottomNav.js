@@ -3,13 +3,20 @@ import React from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Icon } from "@rneui/themed";
 import { useNavigate } from "react-router";
-// import { Icon } from "@ant-design/icons";
+import { auth } from "../../firebase/index.js";
+import { signOut } from "firebase/auth";
 
 const iconHeight = 26;
 const iconWidth = 26;
 
-export default function BottomNav() {
+export default function BottomNav({ setIsSignedIn, isSignedIn }) {
   let navigate = useNavigate();
+
+  const SignOutUser = () => {
+    signOut(auth).then((r) => {
+      setIsSignedIn(false);
+    });
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View>

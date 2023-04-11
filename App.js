@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import { NativeRouter, Routes, Route } from "react-router-native";
 import LoginScreen from "./app/screens/LoginScreen";
@@ -7,17 +7,13 @@ import DashboardScreen from "./app/screens/DashboardScreen";
 import ExercisesScreen from "./app/screens/ExercisesScreen";
 import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
-import {
-  app,
-  db,
-  getFireStore,
-  collection,
-  addDoc,
-  getDocs,
-} from "./firebase/index";
+import { app, db, collection, addDoc, getDocs } from "./firebase/index";
+import { auth } from "./firebase/index";
+import BottomNav from "./app/components/BottomNav";
 
 export default function App() {
   const [user, setUser] = React.useState([]);
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [exercises, setExercises] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [clicked, setClicked] = React.useState(false);
@@ -28,21 +24,6 @@ export default function App() {
       exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
       exercise.target.toLowerCase().includes(search.toLowerCase())
   );
-
-  const getUser = async () => {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
-      setUser({
-        ...doc.data(),
-        id: doc.id,
-      });
-      console.log(user.firstName);
-    });
-  };
-
-  useEffect(() => {
-    getUser();
-  }, [setUser]);
 
   const options = {
     method: "GET",
@@ -68,11 +49,25 @@ export default function App() {
     <NativeRouter>
       <Routes>
         <Route exact path="/" element={<WelcomeScreen />} />
-        <Route path="/login" element={<LoginScreen />} />
+        <Route
+          path="/login"
+          element={
+            <LoginScreen
+              isSignedIn={isSignedIn}
+              setIsSignedIn={setIsSignedIn}
+            />
+          }
+        />
         <Route path="/signup" element={<SignupScreen />} />
         <Route
           path="/dashboard"
-          element={<DashboardScreen currentUser={user} />}
+          element={
+            <DashboardScreen
+              currentUser={user}
+              isSignedIn={isSignedIn}
+              setIsSignedIn={setIsSignedIn}
+            />
+          }
         />
         <Route
           path="/index"
@@ -92,3 +87,18 @@ export default function App() {
     </NativeRouter>
   );
 }
+
+// const getUser = async () => {
+//   const querySnapshot = await getDocs(collection(db, "users"));
+//   querySnapshot.forEach((doc) => {
+//     setUser({
+//       ...doc.data(),
+//       id: doc.id,
+//     });
+//     console.log(user.firstName);
+//   });
+// };
+
+// useEffect(() => {
+//   getUser();
+// }, [setUser]);
