@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-native";
 import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { Form, FormItem, Modal } from "react-native-form-component";
 import {
   app,
   db,
@@ -9,6 +8,7 @@ import {
   collection,
   addDoc,
 } from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
+import { TextInput } from "react-native-gesture-handler";
 export default function SignupScreen() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = React.useState("");
@@ -41,43 +41,47 @@ export default function SignupScreen() {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Form style={styles.form} onButtonPress={addUser}>
-          <FormItem
+        <View style={styles.form}>
+          <TextInput
             style={styles.formInput}
-            label="First Name"
+            placeholder="First Name"
             isRequired
             value={firstName}
             onChangeText={(firstName) => setFirstName(firstName)}
             asterik
             ref={firstNameInput}
           />
-          <FormItem
-            label="Last Name"
+          <TextInput
+            style={styles.formInput}
+            placeholder="Last Name"
             isRequired
             value={lastName}
             onChangeText={(lastName) => setLastName(lastName)}
             asterik
             ref={lastNameInput}
           />
-          <FormItem
-            label="Email"
+          <TextInput
+            style={styles.formInput}
+            placeholder="Email"
             isRequired
             value={email}
             onChangeText={(email) => setEmail(email)}
             asterik
             ref={emailInput}
           />
-          <FormItem
-            label="Password"
+          <TextInput
+            style={styles.formInput}
+            placeholder="Password"
             isRequired
             value={password}
             onChangeText={(password) => setPassword(password)}
             asterik
             ref={passwordInput}
           />
-          <FormItem
+          <TextInput
+            style={styles.formInput}
             // errorBorderColor="black"
-            label="Confirm Password"
+            placeholder="Confirm Password"
             isRequired
             value={confirmPassword}
             onChangeText={(confirmPassword) =>
@@ -86,10 +90,9 @@ export default function SignupScreen() {
             asterik
             ref={passwordInput}
           />
-        </Form>
+          <Button title="register" onPress={addUser} />
+        </View>
       </View>
-      <Button title="back to login" onPress={() => navigate("/")} />
-      <Button title="register" onPress={() => navigate("/dashboard")} />
     </SafeAreaView>
   );
 }
