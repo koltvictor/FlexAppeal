@@ -1,10 +1,9 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function TargetDetails({ target }) {
-  const [exercise, setExercise] = React.useState([]);
-  const id = useParams().id;
-  console.log(target);
+  const [exercise, setExercise] = useState([]);
+  //   console.log(target);
 
   const options = {
     method: "GET",
@@ -16,7 +15,7 @@ export default function TargetDetails({ target }) {
 
   const fetchExercise = async () => {
     const data = await fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`,
+      `https://exercisedb.p.rapidapi.com/exercises/exercise/${target.id}`,
       options
     );
     const detailData = await data.json();
@@ -25,7 +24,7 @@ export default function TargetDetails({ target }) {
 
   useEffect(() => {
     fetchExercise();
-  }, [id]);
+  }, []);
   return (
     <View>
       <Text>{target}</Text>

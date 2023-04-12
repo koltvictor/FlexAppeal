@@ -48,9 +48,7 @@ export default function ExercisesScreen({
             ))}
         </ScrollView>
       </View>
-      <View>
-        <BottomNav />
-      </View>
+      <BottomNav />
     </SafeAreaView>
   );
 }
@@ -58,17 +56,19 @@ export default function ExercisesScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: window.height,
-    width: window.width,
+    maxHeight: window.height,
+    maxWidth: window.width,
     marginBottom: 100,
     paddingVertical: 20,
-    marginLeft: 20,
+    // marginLeft: 20,
   },
   listContainer: {
     marginBottom: 83,
+    marginLeft: 20,
   },
   listItem: {
-    fontSize: 16,
+    fontSize: 14,
     padding: 5,
+    maxHeight: 100,
   },
 });

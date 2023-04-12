@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-native";
+import TargetDetails from "./TargetDetails";
 
 export default function TargetCard({ target }) {
   let navigate = useNavigate();
@@ -8,7 +9,7 @@ export default function TargetCard({ target }) {
   return (
     <View style={styles.card}>
       <Text key={target.id} onPress={() => navigate(`/${target}`)}>
-        {target}
+        <TargetDetails target={target} />
       </Text>
     </View>
   );

@@ -18,6 +18,12 @@ export default function LoginScreen({ setIsSignedIn }) {
   const [currentUser, setCurrentUser] = useState();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePassword = (e) => {
+    e.preventDefault();
+    setPasswordShown(!passwordShown);
+  };
 
   const SignInUser = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -47,8 +53,9 @@ export default function LoginScreen({ setIsSignedIn }) {
           placeholder="password"
           value={password}
           onChangeText={(text) => setPassword(text)}
-          secureTextEntry
+          secureTextEntry={!passwordShown}
         />
+        <Button title="show password" onPress={togglePassword} />
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={() => navigate("/")}>

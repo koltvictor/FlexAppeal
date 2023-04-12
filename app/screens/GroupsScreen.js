@@ -1,17 +1,7 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-  Button,
-  StyleSheet,
-  Image,
-} from "react-native";
+import { View, Text, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-native";
-import TargetCard from "../components/TargetCard";
-import TargetDetails from "../components/TargetDetails";
+import BottomNav from "../components/BottomNav";
 
 export default function GroupsScreen() {
   let params = useParams();
@@ -39,31 +29,26 @@ export default function GroupsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView vertical="true">
+      <ScrollView style={styles.listContainer} vertical="true">
         {specificTargets.map((specificTarget) => {
           return (
-            <View style={styles.listContainer}>
-              <Text style={styles.listItem} key={`target-${specificTarget.id}`}>
+            <View>
+              <Text
+                style={styles.listItem}
+                key={`${specificTarget.id}`}
+                onPress={() => navigate(`/exercise/${specificTarget.id}`)}
+              >
                 {specificTarget.name}
               </Text>
-              <Text>hey there</Text>
-              {/* <Image
-                source={{ uri: specificTarget.gifUrl }}
-                alt={"gif"}
-                style={{ width: "50%", height: "25%", resizeMode: "contain" }}
-              /> */}
-              <Button
-                title="details"
-                onPress={() => navigate(`/${specificTarget.id}`)}
-              />
             </View>
           );
         })}
-
-        <TouchableOpacity onPress={() => navigate("/targets")}>
-          <Text>Back</Text>
-        </TouchableOpacity>
       </ScrollView>
+      <View>
+        <BottomNav
+        //   isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -73,16 +58,16 @@ const styles = StyleSheet.create({
     flex: 1,
     height: window.height,
     width: window.width,
-    marginBottom: 100,
+    // marginBottom: 100,
     paddingVertical: 20,
-    marginLeft: 20,
+    // marginLeft: 20,
   },
   listContainer: {
-    // marginBottom: 83,
+    marginBottom: 83,
+    marginLeft: 20,
   },
   listItem: {
-    fontSize: 16,
+    fontSize: 14,
     padding: 5,
-    maxHeight: 100,
   },
 });
