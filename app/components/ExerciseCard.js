@@ -1,11 +1,8 @@
 import { Button } from "@rneui/base";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { useNavigate, useParams } from "react-router-native";
 
 export default function ExerciseCard({ exercise, idNum }) {
-  let navigate = useNavigate();
-  let id = useParams().id;
   return (
     <View style={styles.container}>
       <Text style={styles.headline}>{exercise.name}</Text>

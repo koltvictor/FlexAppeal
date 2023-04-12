@@ -38,7 +38,7 @@ export default function BottomNav({ setIsSignedIn }) {
             <Icon name="fitness-center" height={iconHeight} width={iconWidth} />
           </Pressable>
           <Pressable
-            onPress={() => navigate("/index")}
+            onPress={() => navigate("/targets")}
             style={styles.IconBehave}
           >
             <Icon name="star" height={iconHeight} width={iconWidth} />

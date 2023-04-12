@@ -8,11 +8,16 @@ import ExercisesScreen from "./app/screens/ExercisesScreen";
 import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
 import { app, db, collection, addDoc, getDocs } from "./firebase/index";
+import TargetsScreen from "./app/screens/TargetsScreen";
+import TargetCard from "./app/components/TargetCard";
+import GroupsScreen from "./app/screens/GroupsScreen";
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState([]);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [exercises, setExercises] = useState([]);
+  const [targets, setTargets] = useState([]);
+  const [specificTargets, setSpecificTargets] = useState([]);
   const [search, setSearch] = useState("");
   const [clicked, setClicked] = useState(false);
   const filteredExercises = exercises.filter(
@@ -47,8 +52,8 @@ export default function App() {
 
   // Firebase fetch
 
-  const getUser = async () => {
-    const querySnapshot = await getDocs(collection(db, "users"));
+  const getUser = async (uid) => {
+    const querySnapshot = await getDocs(collection(db, "users", uid));
     querySnapshot.forEach((doc) => {
       setCurrentUser({
         ...doc.data(),
@@ -60,6 +65,22 @@ export default function App() {
   useEffect(() => {
     getUser();
   }, [setCurrentUser]);
+
+  // API fetch targets
+
+  useEffect(() => {
+    const getTargets = async () => {
+      const response = await fetch(
+        "https://exercisedb.p.rapidapi.com/exercises/targetList",
+        options
+      );
+      const data = await response.json();
+      setTargets(data);
+    };
+    getTargets();
+  }, []);
+
+  // API fetch list by targets
 
   return (
     <NativeRouter>
@@ -88,6 +109,7 @@ export default function App() {
             />
           }
         />
+        <Route path="/targets" element={<TargetsScreen targets={targets} />} />
         <Route
           path="/index"
           element={
@@ -105,6 +127,7 @@ export default function App() {
           path="/profile"
           element={<ProfileScreen currentUser={currentUser} />}
         />
+        <Route path="/:target" element={<GroupsScreen />} />
       </Routes>
     </NativeRouter>
   );

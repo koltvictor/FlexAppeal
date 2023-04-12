@@ -30,10 +30,8 @@ export default function ProfileScreen({ currentUser }) {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>
-          {currentUser.firstName} {currentUser.lastName}
-        </Text>
-        <Text>{currentUser.email}</Text>
+        <Text>{/* {currentUser.firstName} {currentUser.lastName} */}</Text>
+        {/* <Text>{currentUser.email}</Text> */}
         <View>
           <TextInput
             value={firstName}
