@@ -6,6 +6,7 @@ export default function TargetsScreen({ targets }) {
   return (
     <SafeAreaView>
       <View>
+        <Text>hey</Text>
         <ScrollView vertical="true">
           {targets.map((target) => {
             return <TargetCard target={target} />;

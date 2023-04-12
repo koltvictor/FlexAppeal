@@ -7,9 +7,9 @@ import DashboardScreen from "./app/screens/DashboardScreen";
 import ExercisesScreen from "./app/screens/ExercisesScreen";
 import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
-import { app, db, collection, addDoc, getDocs } from "./firebase/index";
+import { db, collection, getDocs } from "./firebase/index";
 import TargetsScreen from "./app/screens/TargetsScreen";
-import TargetCard from "./app/components/TargetCard";
+import TargetDetails from "./app/components/TargetDetails";
 import GroupsScreen from "./app/screens/GroupsScreen";
 
 export default function App() {
@@ -17,7 +17,6 @@ export default function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [exercises, setExercises] = useState([]);
   const [targets, setTargets] = useState([]);
-  const [specificTargets, setSpecificTargets] = useState([]);
   const [search, setSearch] = useState("");
   const [clicked, setClicked] = useState(false);
   const filteredExercises = exercises.filter(
@@ -128,6 +127,7 @@ export default function App() {
           element={<ProfileScreen currentUser={currentUser} />}
         />
         <Route path="/:target" element={<GroupsScreen />} />
+        {/* <Route path="/exercise/:id" element={<TargetDetails />} /> */}
       </Routes>
     </NativeRouter>
   );

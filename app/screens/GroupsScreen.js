@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-native";
+import TargetCard from "../components/TargetCard";
+import TargetDetails from "../components/TargetDetails";
 
 export default function GroupsScreen() {
   let params = useParams();
@@ -44,13 +46,14 @@ export default function GroupsScreen() {
               <Text style={styles.listItem} key={`target-${specificTarget.id}`}>
                 {specificTarget.name}
               </Text>
+              <Text>hey there</Text>
               {/* <Image
                 source={{ uri: specificTarget.gifUrl }}
                 alt={"gif"}
                 style={{ width: "50%", height: "25%", resizeMode: "contain" }}
               /> */}
               <Button
-                title="Details"
+                title="details"
                 onPress={() => navigate(`/${specificTarget.id}`)}
               />
             </View>
