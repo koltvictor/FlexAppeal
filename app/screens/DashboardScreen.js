@@ -1,16 +1,20 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import BottomNav from "../components/BottomNav";
+import { useLocation } from "react-router-native";
 
 export default function DashboardScreen({
-  currentUser,
   isSignedIn,
   setIsSignedIn,
+  currentUser,
 }) {
+  const location = useLocation();
+  console.log(location.state);
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>Welcome, {currentUser.firstName} !</Text>
+        <Text>Welcome, {currentUser.email} !</Text>
         <Text>
           Utitlise the button below to see an index of exercises and search{" "}
         </Text>
@@ -25,9 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: window.height,
     width: window.width,
-    // marginBottom: 100,
     paddingVertical: 20,
     margin: 20,
-    // marginLeft: 20,
   },
 });

@@ -17,10 +17,10 @@ export default function ProfileScreen({ currentUser }) {
 
   const updateUser = async () => {
     const userRef = doc(db, "users", currentUser.id);
-    await updateDoc(userRef, {
-      firstName: firstName,
-      lastName: lastName,
-    });
+    // await updateDoc(userRef, {
+    //   firstName: firstName,
+    //   lastName: lastName,
+    // });
   };
 
   useEffect(() => {

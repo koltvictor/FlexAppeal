@@ -9,13 +9,14 @@ import { signOut } from "firebase/auth";
 const iconHeight = 26;
 const iconWidth = 26;
 
-export default function BottomNav({ setIsSignedIn, isSignedIn }) {
+export default function BottomNav({ setIsSignedIn }) {
   let navigate = useNavigate();
 
   const SignOutUser = () => {
     signOut(auth).then((r) => {
       setIsSignedIn(false);
     });
+    navigate("/");
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -48,7 +49,7 @@ export default function BottomNav({ setIsSignedIn, isSignedIn }) {
           >
             <Icon name="person" height={iconHeight} width={iconWidth} />
           </Pressable>
-          <Pressable onPress={() => navigate("/")} style={styles.IconBehave}>
+          <Pressable onPress={SignOutUser} style={styles.IconBehave}>
             <Icon name="logout" height={iconHeight} width={iconWidth} />
           </Pressable>
         </View>

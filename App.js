@@ -8,15 +8,13 @@ import ExercisesScreen from "./app/screens/ExercisesScreen";
 import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
 import { app, db, collection, addDoc, getDocs } from "./firebase/index";
-import { auth } from "./firebase/index";
-import BottomNav from "./app/components/BottomNav";
 
 export default function App() {
-  const [user, setUser] = React.useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [exercises, setExercises] = React.useState([]);
-  const [search, setSearch] = React.useState("");
-  const [clicked, setClicked] = React.useState(false);
+  const [exercises, setExercises] = useState([]);
+  const [search, setSearch] = useState("");
+  const [clicked, setClicked] = useState(false);
   const filteredExercises = exercises.filter(
     (exercise) =>
       exercise.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -24,6 +22,8 @@ export default function App() {
       exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
       exercise.target.toLowerCase().includes(search.toLowerCase())
   );
+
+  // API fetch
 
   const options = {
     method: "GET",
@@ -45,18 +45,29 @@ export default function App() {
     getExercsises();
   }, []);
 
+  // Firebase fetch
+
+  const getUser = async () => {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      setCurrentUser({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, [setCurrentUser]);
+
   return (
     <NativeRouter>
       <Routes>
         <Route exact path="/" element={<WelcomeScreen />} />
         <Route
           path="/login"
-          element={
-            <LoginScreen
-              isSignedIn={isSignedIn}
-              setIsSignedIn={setIsSignedIn}
-            />
-          }
+          element={<LoginScreen setIsSignedIn={setIsSignedIn} />}
         />
         <Route
           path="/signup"
@@ -71,7 +82,7 @@ export default function App() {
           path="/dashboard"
           element={
             <DashboardScreen
-              currentUser={user}
+              currentUser={currentUser}
               isSignedIn={isSignedIn}
               setIsSignedIn={setIsSignedIn}
             />
@@ -90,7 +101,10 @@ export default function App() {
           }
         />
         <Route path="/exercise/:id" element={<ExerciseDetailsScreen />} />
-        <Route path="/profile" element={<ProfileScreen currentUser={user} />} />
+        <Route
+          path="/profile"
+          element={<ProfileScreen currentUser={currentUser} />}
+        />
       </Routes>
     </NativeRouter>
   );

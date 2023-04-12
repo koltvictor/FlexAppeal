@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { auth } from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
+import {
+  auth,
+  db,
+} from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function SignupScreen({ isSignedIn, setIsSignedIn }) {
@@ -58,6 +61,9 @@ export default function SignupScreen({ isSignedIn, setIsSignedIn }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={addUser} style={styles.button}>
           <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigate("/")} style={styles.button}>
+          <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

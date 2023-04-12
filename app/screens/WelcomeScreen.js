@@ -60,11 +60,14 @@ const styles = StyleSheet.create({
     height: 200,
     position: "absolute",
     top: 70,
+    justifyContent: "center",
   },
   logoContainer: {
+    flex: 1,
     position: "absolute",
     top: 100,
     alignItems: "center",
+    justifyContent: "center",
   },
   registerButton: {
     width: "100%",
