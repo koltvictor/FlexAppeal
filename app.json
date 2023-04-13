@@ -4,10 +4,10 @@
     "slug": "FA",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./app/assets/FAL1.png",
+    "icon": "./src/assets/FAL1.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./app/assets/favicon.png",
+      "image": "./src/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/crumpledwhite.jpeg",
+        "foregroundImage": "./src/assets/crumpledwhite.jpeg",
         "backgroundColor": "#ffffff"
       }
     },

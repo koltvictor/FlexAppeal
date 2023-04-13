@@ -2,6 +2,8 @@ import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import BottomNav from "../components/BottomNav";
 import { useLocation } from "react-router-native";
+import { queryClient } from "../app/Provider";
+import { useQuery } from "@tanstack/react-query";
 
 export default function DashboardScreen({
   isSignedIn,
@@ -10,6 +12,15 @@ export default function DashboardScreen({
 }) {
   const location = useLocation();
   console.log(location.state);
+
+  const { data } = useQuery({
+    queryKey: ["foo"],
+    queryFn: () => {
+      queryClient.getQueryData(["foo"]);
+    },
+  });
+
+  console.log(data);
 
   return (
     <SafeAreaView style={styles.container}>

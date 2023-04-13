@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import WelcomeScreen from "./app/screens/WelcomeScreen";
+import WelcomeScreen from "./src/screens/WelcomeScreen";
 import { NativeRouter, Routes, Route } from "react-router-native";
-import LoginScreen from "./app/screens/LoginScreen";
-import SignupScreen from "./app/screens/SignupScreen";
-import DashboardScreen from "./app/screens/DashboardScreen";
-import ExercisesScreen from "./app/screens/ExercisesScreen";
-import ExerciseDetailsScreen from "./app/screens/ExerciseDetailsScreen";
-import ProfileScreen from "./app/screens/ProfileScreen";
+import LoginScreen from "./src/screens/LoginScreen";
+import SignupScreen from "./src/screens/SignupScreen";
+import DashboardScreen from "./src/screens/DashboardScreen";
+import ExercisesScreen from "./src/screens/ExercisesScreen";
+import ExerciseDetailsScreen from "./src/screens/ExerciseDetailsScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
 import { db, collection, getDocs } from "./firebase/index";
-import TargetsScreen from "./app/screens/TargetsScreen";
-import TargetDetails from "./app/components/TargetDetails";
-import GroupsScreen from "./app/screens/GroupsScreen";
+import TargetsScreen from "./src/screens/TargetsScreen";
+import TargetDetails from "./src/components/TargetDetails";
+import GroupsScreen from "./src/screens/GroupsScreen";
+import SplashScreen from "./src/app/SplashScreen";
+import { Provider } from "./src/app/Provider";
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState([]);
@@ -82,54 +84,61 @@ export default function App() {
   // API fetch list by targets
 
   return (
-    <NativeRouter>
-      <Routes>
-        <Route exact path="/" element={<WelcomeScreen />} />
-        <Route
-          path="/login"
-          element={<LoginScreen setIsSignedIn={setIsSignedIn} />}
-        />
-        <Route
-          path="/signup"
-          element={
-            <SignupScreen
-              isSignedIn={isSignedIn}
-              setIsSignedIn={setIsSignedIn}
+    <Provider>
+      <SplashScreen>
+        <NativeRouter>
+          <Routes>
+            <Route exact path="/" element={<WelcomeScreen />} />
+            <Route
+              path="/login"
+              element={<LoginScreen setIsSignedIn={setIsSignedIn} />}
             />
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <DashboardScreen
-              currentUser={currentUser}
-              isSignedIn={isSignedIn}
-              setIsSignedIn={setIsSignedIn}
+            <Route
+              path="/signup"
+              element={
+                <SignupScreen
+                  isSignedIn={isSignedIn}
+                  setIsSignedIn={setIsSignedIn}
+                />
+              }
             />
-          }
-        />
-        <Route path="/targets" element={<TargetsScreen targets={targets} />} />
-        <Route
-          path="/index"
-          element={
-            <ExercisesScreen
-              filteredExercises={filteredExercises}
-              search={search}
-              setSearch={setSearch}
-              clicked={clicked}
-              setClicked={setClicked}
+            <Route
+              path="/dashboard"
+              element={
+                <DashboardScreen
+                  currentUser={currentUser}
+                  isSignedIn={isSignedIn}
+                  setIsSignedIn={setIsSignedIn}
+                />
+              }
             />
-          }
-        />
-        <Route path="/exercise/:id" element={<ExerciseDetailsScreen />} />
-        <Route
-          path="/profile"
-          element={<ProfileScreen currentUser={currentUser} />}
-        />
-        <Route path="/:target" element={<GroupsScreen />} />
-        {/* <Route path="/exercise/:id" element={<TargetDetails />} /> */}
-      </Routes>
-    </NativeRouter>
+            <Route
+              path="/targets"
+              element={<TargetsScreen targets={targets} />}
+            />
+            <Route
+              path="/index"
+              element={
+                <ExercisesScreen
+                  filteredExercises={filteredExercises}
+                  search={search}
+                  setSearch={setSearch}
+                  clicked={clicked}
+                  setClicked={setClicked}
+                />
+              }
+            />
+            <Route path="/exercise/:id" element={<ExerciseDetailsScreen />} />
+            <Route
+              path="/profile"
+              element={<ProfileScreen currentUser={currentUser} />}
+            />
+            <Route path="/:target" element={<GroupsScreen />} />
+            {/* <Route path="/exercise/:id" element={<TargetDetails />} /> */}
+          </Routes>
+        </NativeRouter>
+      </SplashScreen>
+    </Provider>
   );
 }
 

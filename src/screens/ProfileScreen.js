@@ -38,11 +38,6 @@ export default function ProfileScreen({ currentUser }) {
             onChangeText={(firstName) => setFirstName(firstName)}
             placeholder="update name"
           />
-          <TextInput
-            value={lastName}
-            onChangeText={(lastName) => setLastName(lastName)}
-            placeholder="update name"
-          />
           <Button title="update" onPress={updateUser} />
         </View>
         <TextInput />

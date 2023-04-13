@@ -1,13 +1,6 @@
 import React from "react";
 import colors from "../config/colors";
-import {
-  View,
-  ImageBackground,
-  StyleSheet,
-  Image,
-  Text,
-  Button,
-} from "react-native";
+import { View, StyleSheet, Image, Button } from "react-native";
 import { useNavigate } from "react-router-native";
 
 function WelcomeScreen({}) {
@@ -60,7 +53,6 @@ const styles = StyleSheet.create({
     height: 200,
     position: "absolute",
     top: 70,
-    justifyContent: "center",
   },
   logoContainer: {
     flex: 1,

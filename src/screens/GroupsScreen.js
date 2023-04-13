@@ -26,16 +26,15 @@ export default function GroupsScreen() {
     };
     getSpecificTargets();
   }, []);
-
+  console.log("hello");
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.listContainer} vertical="true">
         {specificTargets.map((specificTarget) => {
           return (
-            <View>
+            <View key={`${specificTarget.id}`}>
               <Text
                 style={styles.listItem}
-                key={`${specificTarget.id}`}
                 onPress={() => navigate(`/exercise/${specificTarget.id}`)}
               >
                 {specificTarget.name}
