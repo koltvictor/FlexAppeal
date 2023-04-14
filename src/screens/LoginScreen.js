@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, useNavigate } from "react-router-native";
+import { useNavigation } from "@react-navigation/native";
 import {
   Button,
   Pressable,
@@ -13,9 +13,10 @@ import {
 import { auth } from "../../firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-export default function LoginScreen({ setIsSignedIn }) {
-  const navigate = useNavigate();
+export default function LoginScreen() {
+  const navigate = useNavigation();
   const [currentUser, setCurrentUser] = useState();
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
@@ -32,7 +33,7 @@ export default function LoginScreen({ setIsSignedIn }) {
         const user = userCredential.user;
         setCurrentUser(user);
         console.log(user.email);
-        navigate("/dashboard");
+        navigate.navigate("Dashboard");
       })
       .catch((error) => {
         console.log(error);
@@ -58,9 +59,6 @@ export default function LoginScreen({ setIsSignedIn }) {
         <Button title="show password" onPress={togglePassword} />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigate("/")}>
-          <Text style={styles.buttonText}>back</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={SignInUser}>
           <Text style={styles.buttonText}>login</Text>
         </TouchableOpacity>

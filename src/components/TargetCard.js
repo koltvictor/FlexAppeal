@@ -7,9 +7,9 @@ export default function TargetCard({ target }) {
   let navigate = useNavigate();
 
   return (
-    <View style={styles.card}>
+    <View style={styles.card} key={target.id}>
       <Text key={target.id} onPress={() => navigate(`/${target}`)}>
-        <TargetDetails target={target} />
+        <TargetDetails target={target} key={target.id} />
       </Text>
     </View>
   );

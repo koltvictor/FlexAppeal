@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-native";
+import { useNavigation } from "@react-navigation/native";
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,7 +15,7 @@ import {
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function SignupScreen({ isSignedIn, setIsSignedIn }) {
-  const navigate = useNavigate();
+  const navigate = useNavigation();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ export default function SignupScreen({ isSignedIn, setIsSignedIn }) {
       .then((r) => {
         console.log(r);
         setIsSignedIn(true);
-        navigate("/login");
+        navigate.navigate("Login");
       })
       .catch((error) => {
         console.log("your error:", error);

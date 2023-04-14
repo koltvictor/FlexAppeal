@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Icon } from "@rneui/themed";
-import { useNavigate } from "react-router";
+import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../firebase/index.js";
 import { signOut } from "firebase/auth";
 
@@ -10,13 +10,13 @@ const iconHeight = 26;
 const iconWidth = 26;
 
 export default function BottomNav({ setIsSignedIn }) {
-  let navigate = useNavigate();
+  let navigate = useNavigation();
 
   const SignOutUser = () => {
     signOut(auth).then((r) => {
       setIsSignedIn(false);
     });
-    navigate("/");
+    navigate.navigate("Welcome");
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -26,25 +26,25 @@ export default function BottomNav({ setIsSignedIn }) {
       <View style={styles.NavContainer}>
         <View style={styles.NavBar}>
           <Pressable
-            onPress={() => navigate("/dashboard")}
+            onPress={() => navigate.navigate("dashboard")}
             style={styles.IconBehave}
           >
             <Icon name="home" height={iconHeight} width={iconWidth} />
           </Pressable>
           <Pressable
-            onPress={() => navigate("/index")}
+            onPress={() => navigate.navigate("index")}
             style={styles.IconBehave}
           >
             <Icon name="fitness-center" height={iconHeight} width={iconWidth} />
           </Pressable>
           <Pressable
-            onPress={() => navigate("/targets")}
+            onPress={() => navigate.navigate("targets")}
             style={styles.IconBehave}
           >
             <Icon name="star" height={iconHeight} width={iconWidth} />
           </Pressable>
           <Pressable
-            onPress={() => navigate("/profile")}
+            onPress={() => navigate.navigate("profile")}
             style={styles.IconBehave}
           >
             <Icon name="person" height={iconHeight} width={iconWidth} />

@@ -1,7 +1,6 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import BottomNav from "../components/BottomNav";
-import { useLocation } from "react-router-native";
 import { queryClient } from "../app/Provider";
 import { useQuery } from "@tanstack/react-query";
 
@@ -10,9 +9,6 @@ export default function DashboardScreen({
   setIsSignedIn,
   currentUser,
 }) {
-  const location = useLocation();
-  console.log(location.state);
-
   const { data } = useQuery({
     queryKey: ["foo"],
     queryFn: () => {
@@ -25,7 +21,7 @@ export default function DashboardScreen({
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>Welcome, {currentUser.email} !</Text>
+        <Text>Welcome, !</Text>
         <Text>
           Utitlise the button below to see an index of exercises and search{" "}
         </Text>

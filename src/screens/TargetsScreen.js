@@ -7,10 +7,9 @@ export default function TargetsScreen({ targets }) {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        {/* <Text>hey</Text> */}
         <ScrollView vertical="true" style={styles.listContainer}>
           {targets.map((target) => {
-            return <TargetCard target={target} />;
+            return <TargetCard target={target} key={target.id} />;
           })}
         </ScrollView>
       </View>

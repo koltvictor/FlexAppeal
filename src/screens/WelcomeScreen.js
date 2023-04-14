@@ -1,10 +1,10 @@
 import React from "react";
 import colors from "../config/colors";
 import { View, StyleSheet, Image, Button } from "react-native";
-import { useNavigate } from "react-router-native";
+import { useNavigation } from "@react-navigation/native";
 
-function WelcomeScreen({}) {
-  const navigate = useNavigate();
+function WelcomeScreen() {
+  const navigate = useNavigation();
   return (
     <View
       style={styles.background}
@@ -18,7 +18,7 @@ function WelcomeScreen({}) {
           style={styles.buttonText}
           title="Login"
           color={colors.white}
-          onPress={() => navigate("/login")}
+          onPress={() => navigate.navigate("Login")}
         />
       </View>
       <View style={styles.registerButton}>
@@ -26,7 +26,7 @@ function WelcomeScreen({}) {
           style={styles.buttonText}
           title="Register"
           color={colors.white}
-          onPress={() => navigate("/signup")}
+          onPress={() => navigate.navigate("Signup")}
         />
       </View>
     </View>

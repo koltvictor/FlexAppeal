@@ -13,6 +13,10 @@ import TargetDetails from "./src/components/TargetDetails";
 import GroupsScreen from "./src/screens/GroupsScreen";
 import SplashScreen from "./src/app/SplashScreen";
 import { Provider } from "./src/app/Provider";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState([]);
@@ -84,61 +88,60 @@ export default function App() {
   // API fetch list by targets
 
   return (
-    <Provider>
-      <SplashScreen>
-        <NativeRouter>
-          <Routes>
-            <Route exact path="/" element={<WelcomeScreen />} />
-            <Route
-              path="/login"
-              element={<LoginScreen setIsSignedIn={setIsSignedIn} />}
+    <NavigationContainer>
+      <Provider>
+        <SplashScreen>
+          <Stack.Navigator initialRouteName="Welcome">
+            {/* <Routes> */}
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen
+              name="Signup"
+              component={SignupScreen}
+              initialParams={{
+                setIsSignedIn: { setIsSignedIn },
+                isSignedIn: { isSignedIn },
+              }}
             />
-            <Route
-              path="/signup"
-              element={
-                <SignupScreen
-                  isSignedIn={isSignedIn}
-                  setIsSignedIn={setIsSignedIn}
-                />
-              }
+
+            <Stack.Screen
+              name="Dashboard"
+              component={DashboardScreen}
+              initialParams={{
+                currentUser: { currentUser },
+                isSignedIn: { isSignedIn },
+                setIsSignedIn: { setIsSignedIn },
+              }}
             />
-            <Route
-              path="/dashboard"
-              element={
-                <DashboardScreen
-                  currentUser={currentUser}
-                  isSignedIn={isSignedIn}
-                  setIsSignedIn={setIsSignedIn}
-                />
-              }
+            <Stack.Screen
+              name="Targets"
+              component={TargetsScreen}
+              initialParams={{ targets: { targets } }}
             />
-            <Route
-              path="/targets"
-              element={<TargetsScreen targets={targets} />}
+            <Stack.Screen
+              name="Index"
+              component={ExercisesScreen}
+              initialParams={{
+                filteredExercises: { filteredExercises },
+
+                search: { search },
+                setSearch: { setSearch },
+                clicked: { clicked },
+                setClicked: { setClicked },
+              }}
             />
-            <Route
-              path="/index"
-              element={
-                <ExercisesScreen
-                  filteredExercises={filteredExercises}
-                  search={search}
-                  setSearch={setSearch}
-                  clicked={clicked}
-                  setClicked={setClicked}
-                />
-              }
+            <Stack.Screen
+              name="Exercise/:id"
+              component={ExerciseDetailsScreen}
             />
-            <Route path="/exercise/:id" element={<ExerciseDetailsScreen />} />
-            <Route
-              path="/profile"
-              element={<ProfileScreen currentUser={currentUser} />}
-            />
-            <Route path="/:target" element={<GroupsScreen />} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="/:target" component={GroupsScreen} />
             {/* <Route path="/exercise/:id" element={<TargetDetails />} /> */}
-          </Routes>
-        </NativeRouter>
-      </SplashScreen>
-    </Provider>
+            {/* </Routes> */}
+          </Stack.Navigator>
+        </SplashScreen>
+      </Provider>
+    </NavigationContainer>
   );
 }
 
