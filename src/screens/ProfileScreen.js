@@ -1,7 +1,7 @@
 import { Button } from "@rneui/base";
 import React, { useEffect } from "react";
 import { StyleSheet, Text, TextInput, View, SafeAreaView } from "react-native";
-import { useNavigate } from "react-router-native";
+import { useNavigation } from "react-router-native";
 import BottomNav from "../components/BottomNav";
 import {
   db,
@@ -10,22 +10,23 @@ import {
 } from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
 import { Form, FormItem } from "react-native-form-component";
 
-export default function ProfileScreen({ currentUser }) {
-  let navigate = useNavigate();
+export default function ProfileScreen() {
   const [firstName, setFirstName] = React.useState();
   const [lastName, setLastName] = React.useState();
 
-  const updateUser = async () => {
-    const userRef = doc(db, "users", currentUser.id);
-    // await updateDoc(userRef, {
-    //   firstName: firstName,
-    //   lastName: lastName,
-    // });
+  const UserProfileScreen = () => {
+    const navigation = useNavigation();
+    const { data: user } = useFirestore().useUser();
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>{user?.displayName}</Text>
+        <Text>{user?.email}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("UpdateProfile")}>
+          <Text>Edit Profile</Text>
+        </TouchableOpacity>
+      </View>
+    );
   };
-
-  useEffect(() => {
-    updateUser();
-  }, [currentUser]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -38,7 +39,7 @@ export default function ProfileScreen({ currentUser }) {
             onChangeText={(firstName) => setFirstName(firstName)}
             placeholder="update name"
           />
-          <Button title="update" onPress={updateUser} />
+          <Button title="update" onPress={console.log("updating")} />
         </View>
         <TextInput />
       </View>

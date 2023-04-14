@@ -23,6 +23,10 @@ const firebaseConfig = {
   measurementId: "G-NCYE8RTVSS",
 };
 
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
@@ -37,4 +41,5 @@ export {
   getDocs,
   updateDoc,
   doc,
+  firebaseConfig,
 };

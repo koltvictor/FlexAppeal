@@ -1,114 +1,137 @@
+import { auth } from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
-  SafeAreaView,
-  StyleSheet,
+  View,
   Text,
   TextInput,
+  StyleSheet,
   TouchableOpacity,
-  View,
+  Alert,
 } from "react-native";
-import {
-  auth,
-  db,
-} from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 
-export default function SignupScreen({ isSignedIn, setIsSignedIn }) {
-  const navigate = useNavigation();
-
-  const [username, setUsername] = useState("");
+const SignupScreen = () => {
+  const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const addUser = async () => {
+  const navigation = useNavigation();
+
+  const handleSignup = () => {
+    if (email === "" || password === "" || confirmPassword === "") {
+      Alert.alert("Error", "All fields are required");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "Passwords do not match");
+      return;
+    }
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((r) => {
         console.log(r);
-        setIsSignedIn(true);
-        navigate.navigate("Login");
+        navigation.navigate("Login");
       })
       .catch((error) => {
-        console.log("your error:", error);
+        if (error.code === "auth/email-already-in-use") {
+          Alert.alert("Error", "That email address is already in use!");
+        }
+
+        if (error.code === "auth/invalid-email") {
+          Alert.alert("Error", "That email address is invalid!");
+        }
+
+        console.error(error);
       });
   };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="username"
-          value={username}
-          onChangeText={(username) => setUsername(username)}
-          asterik
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={(email) => setEmail(email)}
-          asterik
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={(password) => setPassword(password)}
-          asterik
-          secureTextEntry
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={addUser} style={styles.button}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigate("/")} style={styles.button}>
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text style={styles.title}>Sign up</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        onChangeText={(text) => setDisplayName(text)}
+        value={displayName}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        secureTextEntry={true}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm Password"
+        onChangeText={(text) => setConfirmPassword(text)}
+        value={confirmPassword}
+        secureTextEntry={true}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleSignup}>
+        <Text style={styles.buttonText}>Sign up</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.link}>Already have an account? Log in</Text>
+      </TouchableOpacity>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    padding: 20,
   },
-  inputContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "80%",
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 30,
   },
   input: {
-    // fontSize: 36,
     width: "100%",
-    backgroundColor: "lightgrey",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    height: 50,
+    borderWidth: 1,
+    borderColor: "#ccc",
     borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: "60%",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    fontSize: 18,
   },
   button: {
-    backgroundColor: "lightblue",
     width: "100%",
-    padding: 15,
+    height: 50,
+    backgroundColor: "#3498db",
     borderRadius: 10,
     alignItems: "center",
-    borderColor: "black",
-    borderWidth: 1,
+    justifyContent: "center",
   },
   buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  link: {
+    marginTop: 20,
     fontSize: 16,
-    color: "white",
-    fontWeight: "700",
   },
 });
+
+export default SignupScreen;

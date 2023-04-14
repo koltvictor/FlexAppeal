@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { SafeAreaView, Text, Button, Image } from "react-native";
-import { useParams } from "react-router-native";
-import { useNavigate } from "react-router-native";
+import { useNavigation, useParams } from "react-router-native";
 import ExerciseCard from "../components/ExerciseCard";
 import BottomNav from "../components/BottomNav";
 
 export default function ExerciseDetailsScreen() {
   const [exercise, setExercise] = React.useState([]);
   const id = useParams().id;
-  let navigate = useNavigate();
+  let navigation = useNavigation();
 
   const options = {
     method: "GET",

@@ -1,8 +1,9 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-export const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 export const Provider = ({ children }) => {
+  console.log("QueryClientProvider initialized"); // <-- Add this line
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
