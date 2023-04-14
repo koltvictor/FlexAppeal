@@ -4,6 +4,7 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import Search from "../components/Search";
 import BottomNav from "../components/BottomNav";
 import ExerciseCard from "../components/ExerciseCard";
+import SplashScreen from "../app/SplashScreen";
 import { useQuery } from "react-query";
 
 export default function ExercisesScreen({
@@ -13,26 +14,26 @@ export default function ExercisesScreen({
   setClicked,
   // exercises,
 }) {
-  const {
-    data: exercises,
-    isLoading,
-    isError,
-  } = useQuery("exercises", async () => {
-    const response = await fetch(
-      "https://exercisedb.p.rapidapi.com/exercises",
-      {
-        headers: {
-          "X-RapidAPI-Key":
-            "9074bf701emsh2b8696dac91ac18p161ae0jsn7153acb84d2d",
-          "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-        },
-      }
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch exercises");
-    }
-    return response.json();
-  });
+  // const {
+  //   data: exercises,
+  //   isLoading,
+  //   isError,
+  // } = useQuery("exercises", async () => {
+  //   const response = await fetch(
+  //     "https://exercisedb.p.rapidapi.com/exercises",
+  //     {
+  //       headers: {
+  //         "X-RapidAPI-Key":
+  //           "9074bf701emsh2b8696dac91ac18p161ae0jsn7153acb84d2d",
+  //         "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+  //       },
+  //     }
+  //   );
+  //   if (!response.ok) {
+  //     throw new Error("Failed to fetch exercises");
+  //   }
+  //   return response.json();
+  // });
 
   // const filteredExercises = exercises
   //   ?.filter(
@@ -43,6 +44,39 @@ export default function ExercisesScreen({
   //       exercise.target.toLowerCase().includes(search.toLowerCase())
   //   )
   //   ?.sort((a, b) => a.id - b.id);
+
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "9074bf701emsh2b8696dac91ac18p161ae0jsn7153acb84d2d",
+      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+    },
+  };
+
+  const fetchExercsises = async () => {
+    const response = await fetch(
+      "https://exercisedb.p.rapidapi.com/exercises",
+      options
+    );
+    return response.json();
+  };
+
+  const { data, status } = useQuery("exercises", fetchExercsises);
+
+  if (status === "loading") return <SplashScreen />;
+  if (status === "error") return <div>Error fetching data</div>;
+
+  console.log(data);
+
+  // const filteredExercises = data
+  //   ? data.filter(
+  //       (exercise) =>
+  //         exercise.name.toLowerCase().includes(search.toLowerCase()) ||
+  //         exercise.bodyPart.toLowerCase().includes(search.toLowerCase()) ||
+  //         exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
+  //         exercise.target.toLowerCase().includes(search.toLowerCase())
+  //     )
+  //   : [];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,7 +92,7 @@ export default function ExercisesScreen({
           //   contentInsetAdjustmentBehavior="scrollableAxes"
           style={styles.listContainer}
         >
-          {/* {filteredExercises
+          {data
             // .sort((a, b) => a.id - b.id)
             .map((exercise, id) => (
               <Text
@@ -68,7 +102,7 @@ export default function ExercisesScreen({
               >
                 {exercise.name}
               </Text>
-            ))} */}
+            ))}
         </ScrollView>
       </View>
       <BottomNav />
