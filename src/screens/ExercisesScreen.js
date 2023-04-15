@@ -45,6 +45,8 @@ export default function ExercisesScreen({
   //   )
   //   ?.sort((a, b) => a.id - b.id);
 
+  // const navigation = useNavigation();
+
   const options = {
     method: "GET",
     headers: {
@@ -93,12 +95,12 @@ export default function ExercisesScreen({
           style={styles.listContainer}
         >
           {data
-            // .sort((a, b) => a.id - b.id)
+            .sort((a, b) => a.id - b.id)
             .map((exercise, id) => (
               <Text
                 style={styles.listItem}
                 key={exercise.id}
-                // onPress={() => navigation(`/exercise/${exercise.id}`)}
+                // onPress={() => navigation.navigate(`/exercise/${exercise.id}`)}
               >
                 {exercise.name}
               </Text>
