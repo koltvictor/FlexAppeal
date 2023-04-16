@@ -9,77 +9,60 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import routineStore from "../app/RoutineStore";
 
-const RoutineScreen = ({ route }) => {
-  const { routine } = routineStore;
+const RoutineScreen = ({ exercise }) => {
   const [repCount, setRepCount] = useState(0);
   const [timeInSeconds, setTimeInSeconds] = useState(0);
-
-  const handleSaveRoutine = () => {
-    // Save the routine to the appropriate user document in Firestore
-  };
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
-        {routine.length === 0 ? (
+        {exercise.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No exercises added to routine</Text>
           </View>
         ) : (
-          routine.map((exercise) => (
-            <View key={exercise.id} style={styles.exerciseContainer}>
-              <Text style={styles.exerciseTitle}>{exercise.name}</Text>
-              <View style={styles.inputContainer}>
-                <Text style={styles.inputLabel}>Reps</Text>
-                <TouchableOpacity style={styles.pickerContainer}>
-                  <Picker
-                    selectedValue={repCount}
-                    onValueChange={(value) => setRepCount(value)}
-                    style={styles.picker}
-                  >
-                    {Array.from({ length: 101 }, (_, i) => i).map((value) => (
-                      <Picker.Item
-                        key={value}
-                        label={value.toString()}
-                        value={value}
-                      />
-                    ))}
-                  </Picker>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.inputContainer}>
-                <Text style={styles.inputLabel}>Time (seconds)</Text>
-                <TouchableOpacity style={styles.pickerContainer}>
-                  <Picker
-                    selectedValue={timeInSeconds}
-                    onValueChange={(value) => setTimeInSeconds(value)}
-                    style={styles.picker}
-                  >
-                    {Array.from({ length: 61 }, (_, i) => i * 5).map(
-                      (value) => (
-                        <Picker.Item
-                          key={value}
-                          label={value.toString()}
-                          value={value}
-                        />
-                      )
-                    )}
-                  </Picker>
-                </TouchableOpacity>
-              </View>
+          <View key={exercise.id} style={styles.exerciseContainer}>
+            <Text style={styles.exerciseTitle}>{exercise.name}</Text>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Reps</Text>
+              <TouchableOpacity style={styles.pickerContainer}>
+                <Picker
+                  selectedValue={repCount}
+                  onValueChange={(value) => setRepCount(value)}
+                  style={styles.picker}
+                >
+                  {Array.from({ length: 101 }, (_, i) => i).map((value) => (
+                    <Picker.Item
+                      key={value}
+                      label={value.toString()}
+                      value={value}
+                    />
+                  ))}
+                </Picker>
+              </TouchableOpacity>
             </View>
-          ))
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Time (seconds)</Text>
+              <TouchableOpacity style={styles.pickerContainer}>
+                <Picker
+                  selectedValue={timeInSeconds}
+                  onValueChange={(value) => setTimeInSeconds(value)}
+                  style={styles.picker}
+                >
+                  {Array.from({ length: 61 }, (_, i) => i * 5).map((value) => (
+                    <Picker.Item
+                      key={value}
+                      label={value.toString()}
+                      value={value}
+                    />
+                  ))}
+                </Picker>
+              </TouchableOpacity>
+            </View>
+          </View>
         )}
       </ScrollView>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={[styles.button, routine.length === 0 && styles.disabledButton]}
-          onPress={handleSaveRoutine}
-          disabled={routine.length === 0}
-        >
-          <Text style={styles.buttonText}>Save Routine</Text>
-        </TouchableOpacity>
-      </View>
+      <View style={styles.buttonContainer}></View>
     </View>
   );
 };

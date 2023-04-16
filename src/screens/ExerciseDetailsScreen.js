@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { SafeAreaView, Text } from "react-native";
 import ExerciseCard from "../components/ExerciseCard";
 import { useQuery } from "react-query";
+import routineStore from "../app/RoutineStore";
 
 const ExerciseDetailsScreen = ({ route }) => {
   const { exerciseId } = route.params;
-
-  console.log(exerciseId);
 
   const options = {
     headers: {

@@ -20,7 +20,7 @@ const RoutineScreen = () => {
   useEffect(() => {
     const unsubscribe = subscribeToRoutineChanges();
     return unsubscribe;
-  }, []);
+  }, [routine]);
 
   const handleSaveRoutine = async () => {
     try {
@@ -72,12 +72,12 @@ const RoutineScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        {routine.length === 0 ? (
+        {routineStore.routine.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No exercises added to routine</Text>
           </View>
         ) : (
-          routine.map((exercise) => (
+          routineStore.routine.map((exercise) => (
             <RoutineItem key={exercise.id} exercise={exercise} />
           ))
         )}
@@ -94,6 +94,11 @@ const RoutineScreen = () => {
         <Button
           title="Save Routine"
           onPress={handleSaveRoutine}
+          disabled={routine.length === 0}
+        />
+        <Button
+          title="Clear Routine"
+          onPress={() => routineStore.clearRoutine()}
           disabled={routine.length === 0}
         />
       </View>

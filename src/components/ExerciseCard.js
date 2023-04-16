@@ -7,8 +7,9 @@ const ExerciseCard = ({ exercise }) => {
 
   const handleAddToRoutine = (exercise) => {
     addExercise(exercise);
+    console.log("added", exercise, "to routine");
+    console.log(routine);
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
