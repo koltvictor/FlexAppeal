@@ -1,9 +1,5 @@
-import {
-  auth,
-  db,
-} from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState, useEffect } from "react";
+import { auth, createUserWithEmailAndPassword, db } from "../../firebase";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -22,28 +18,6 @@ const SignupScreen = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // Create a user profile document in Firestore
-        db.collection("users")
-          .doc(user.uid)
-          .set({
-            displayName: displayName,
-            email: email,
-          })
-          .then(() => {
-            console.log("User profile document created successfully");
-          })
-          .catch((error) => {
-            console.error("Error creating user profile document: ", error);
-          });
-      }
-    });
-
-    return unsubscribe;
-  }, [displayName, email]);
-
   const handleSignup = () => {
     if (email === "" || password === "" || confirmPassword === "") {
       Alert.alert("Error", "All fields are required");
@@ -56,9 +30,62 @@ const SignupScreen = () => {
     }
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((r) => {
-        console.log(r);
-        navigation.navigate("Login");
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("User created successfully");
+        // Set the display name state variable
+        setDisplayName(displayName);
+        // Create a user profile document in Firestore
+        db.collection("users")
+          .doc(user.uid)
+          .set({
+            displayName: displayName,
+            email: email,
+          })
+          .then(() => {
+            console.log("User profile document created successfully");
+
+            // Create a user document in Firestore for the profile
+            db.collection("profiles")
+              .doc(user.uid)
+              .set({
+                username: displayName,
+                email: email,
+                icon: "", // This field will be updated later
+              })
+              .then(() => {
+                console.log("User document created successfully");
+
+                // Create an empty savedroutines collection in Firestore
+                db.collection("savedroutines")
+                  .doc(user.uid)
+                  .set({
+                    name: "",
+                    numberOfCycles: 0,
+                    exercises: [],
+                  })
+                  .then(() => {
+                    console.log(
+                      "SavedRoutines collection created successfully"
+                    );
+
+                    // Navigate to the Login screen
+                    navigation.navigate("Login");
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Error creating SavedRoutines collection: ",
+                      error
+                    );
+                  });
+              })
+              .catch((error) => {
+                console.error("Error creating user document: ", error);
+              });
+          })
+          .catch((error) => {
+            console.error("Error creating user profile document: ", error);
+          });
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
@@ -71,6 +98,7 @@ const SignupScreen = () => {
 
         console.error(error);
       });
+    navigation.navigate("Login");
   };
 
   return (

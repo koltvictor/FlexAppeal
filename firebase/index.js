@@ -2,8 +2,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   getFirestore,
   collection,
@@ -11,7 +10,7 @@ import {
   getDocs,
   updateDoc,
   doc,
-} from "firebase/firestore/lite";
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC2YgUJpEjM2lFJEsAiBKS2EJR16pNVjYc",
@@ -28,18 +27,21 @@ if (!firebase.apps.length) {
 }
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db = firebase.firestore();
 const auth = getAuth(app);
+const firestore = getFirestore(app);
 
 export {
   app,
   db,
   auth,
-  getFirestore,
+  createUserWithEmailAndPassword,
+  firestore,
   collection,
   addDoc,
   getDocs,
   updateDoc,
   doc,
   firebaseConfig,
+  firebase,
 };

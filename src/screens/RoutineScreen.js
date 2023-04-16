@@ -1,28 +1,26 @@
 import React from "react";
 import { Button, StyleSheet, ScrollView, View, Text } from "react-native";
-import { auth, firestore } from "../../firebase";
+import { auth, db } from "../../firebase";
 import routineStore from "../app/RoutineStore";
 import RoutineItem from "../components/RoutineItem";
 
 const RoutineScreen = ({ route }) => {
   const { routine } = routineStore;
+  console.log(routine);
+  console.log(auth.currentUser.uid);
+  console.log(db);
 
   const handleSaveRoutine = async () => {
     try {
-      const uid = auth.currentUser.uid;
-      const routinesRef = firestore.collection("routines");
-      const routineDoc = routinesRef.doc(uid);
-      const exerciseColl = routineDoc.collection("exercises");
-
-      await routineDoc.set({ routine });
-
-      for (const exercise of routine) {
-        await exerciseColl.add(exercise);
-      }
-
-      console.log("Routine saved successfully!");
+      const user = auth.currentUser;
+      const uid = user.uid;
+      console.log(uid);
+      const savedRoutineRef = db.collection("savedroutines").doc(uid);
+      const routineData = { exercises: [...routine], userId: uid };
+      await savedRoutineRef.set(routineData);
+      console.log("Routine saved successfully:", routineData);
     } catch (error) {
-      console.error(error);
+      console.error("Error saving routine:", error);
     }
   };
 
@@ -73,3 +71,35 @@ const styles = StyleSheet.create({
 });
 
 export default RoutineScreen;
+
+// const handleSaveRoutine = async () => {
+//   try {
+//     const uid = auth.currentUser.uid;
+//     const routinesRef = db.collection("routines");
+//     const routineDoc = routinesRef.doc(uid);
+//     const exerciseColl = routineDoc.collection("exercises");
+
+//     await routineDoc.set({ routine });
+
+//     for (const exercise of routine) {
+//       await exerciseColl.add(exercise);
+//     }
+
+//     console.log("Routine saved successfully!");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// const handleSaveRoutine = () => {
+//   const user = auth.currentUser;
+//   const uid = user.uid;
+//   console.log(uid);
+//   const savedRoutineRef = db
+//     .collection("savedroutines")
+//     .doc(uid.toString());
+//   savedRoutineRef
+//     .set({ exercises: [...routine], userId: uid })
+//     .then(() => console.log("Routine saved successfully"))
+//     .catch((error) => console.error("Error saving routine:", error));
+// };
