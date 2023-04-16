@@ -1,24 +1,61 @@
-import React from "react";
-import { Button, StyleSheet, ScrollView, View, Text } from "react-native";
+import React, { useState } from "react";
+import {
+  Button,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  TextInput,
+} from "react-native";
 import { auth, db } from "../../firebase";
 import routineStore from "../app/RoutineStore";
 import RoutineItem from "../components/RoutineItem";
 
-const RoutineScreen = ({ route }) => {
+const RoutineScreen = () => {
   const { routine } = routineStore;
-  console.log(routine);
-  console.log(auth.currentUser.uid);
-  console.log(db);
+  const [routineName, setRoutineName] = useState("");
 
   const handleSaveRoutine = async () => {
     try {
       const user = auth.currentUser;
+      if (!user) {
+        // If the user is not authenticated, display an error message and return
+        console.error("Error saving routine: User is not authenticated");
+        alert("Please sign in to save routines");
+        return;
+      }
       const uid = user.uid;
-      console.log(uid);
-      const savedRoutineRef = db.collection("savedroutines").doc(uid);
-      const routineData = { exercises: [...routine], userId: uid };
-      await savedRoutineRef.set(routineData);
+      const routineId = `${uid}_${routineName}`;
+      const savedRoutineRef = db.collection("savedroutines").doc(routineId);
+
+      // Check if routine name already exists
+      const routineNameExists = await db
+        .collection("savedroutines")
+        .where("userId", "==", uid)
+        .where("name", "==", routineName)
+        .get()
+        .then((snapshot) => !snapshot.empty);
+
+      if (routineNameExists) {
+        // If routine name already exists, send an error message
+        console.error("Error saving routine: Routine name already exists");
+        alert(
+          "This name already exists, please choose a different name to save the routine under"
+        );
+        return;
+      }
+
+      const routineData = {
+        exercises: [...routine],
+        userId: uid,
+        name: routineName,
+      };
+      await savedRoutineRef.set(routineData, { merge: true });
       console.log("Routine saved successfully:", routineData);
+
+      // Clear routine stateful variable after successful save
+      routineStore.clearRoutine();
+      setRoutineName("");
     } catch (error) {
       console.error("Error saving routine:", error);
     }
@@ -37,6 +74,14 @@ const RoutineScreen = ({ route }) => {
           ))
         )}
       </ScrollView>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Routine Name"
+          value={routineName}
+          onChangeText={(text) => setRoutineName(text)}
+        />
+      </View>
       <View style={styles.buttonContainer}>
         <Button
           title="Save Routine"
@@ -71,35 +116,3 @@ const styles = StyleSheet.create({
 });
 
 export default RoutineScreen;
-
-// const handleSaveRoutine = async () => {
-//   try {
-//     const uid = auth.currentUser.uid;
-//     const routinesRef = db.collection("routines");
-//     const routineDoc = routinesRef.doc(uid);
-//     const exerciseColl = routineDoc.collection("exercises");
-
-//     await routineDoc.set({ routine });
-
-//     for (const exercise of routine) {
-//       await exerciseColl.add(exercise);
-//     }
-
-//     console.log("Routine saved successfully!");
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// const handleSaveRoutine = () => {
-//   const user = auth.currentUser;
-//   const uid = user.uid;
-//   console.log(uid);
-//   const savedRoutineRef = db
-//     .collection("savedroutines")
-//     .doc(uid.toString());
-//   savedRoutineRef
-//     .set({ exercises: [...routine], userId: uid })
-//     .then(() => console.log("Routine saved successfully"))
-//     .catch((error) => console.error("Error saving routine:", error));
-// };

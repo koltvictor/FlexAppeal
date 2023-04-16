@@ -4,14 +4,11 @@ import routineStore from "../app/RoutineStore";
 
 const ExerciseCard = ({ exercise }) => {
   const { routine, addExercise } = routineStore;
-  console.log("this is Dashboard", routine, addExercise);
 
   const handleAddToRoutine = (exercise) => {
     addExercise(exercise);
-    console.log("added", exercise, "to routine");
-    console.log(routine);
   };
-  console.log("this is the card:", routine, handleAddToRoutine);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

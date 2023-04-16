@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import ProfileScreen from "./ProfileScreen";
 import ExercisesScreen from "./ExercisesScreen";
 import RoutineScreen from "./RoutineScreen";
+import SavedRoutinesScreen from "./SavedRoutinesScreen";
 import { DataContext } from "../app/DataContext";
 import { auth } from "../../firebase";
 
@@ -62,7 +63,7 @@ export default function DashboardScreen() {
             }}
           />
           <Tab.Screen
-            name="Routines"
+            name="Routine"
             component={RoutineScreen}
             options={{
               tabBarIcon: ({ color, size }) => (
@@ -71,6 +72,20 @@ export default function DashboardScreen() {
                   onPress={() => navigation.navigate("Routines")}
                 >
                   <Ionicons name="fitness" size={size} color={color} />
+                </TouchableOpacity>
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Saved Routines"
+            component={SavedRoutinesScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <TouchableOpacity
+                  style={styles.icon}
+                  onPress={() => navigation.navigate("SavedRoutines")}
+                >
+                  <Ionicons name="save" size={size} color={color} />
                 </TouchableOpacity>
               ),
             }}

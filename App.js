@@ -10,6 +10,8 @@ import DashboardScreen from "./src/screens/DashboardScreen";
 import ExercisesScreen from "./src/screens/ExercisesScreen";
 import ExerciseDetailsScreen from "./src/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import RoutineScreen from "./src/components/RoutineItem";
+import SavedRoutinesScreen from "./src/screens/SavedRoutinesScreen";
 import Provider from "./src/app/Provider";
 import { DataContextProvider } from "./src/app/DataContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -44,11 +46,11 @@ const App = observer(() => {
                 name="ExerciseDetails"
                 component={ExerciseDetailsScreen}
               />
-              <Stack.Screen name="Routine">
-                {({ route }) => (
-                  <RoutineScreen routine={route.params.routine} />
-                )}
-              </Stack.Screen>
+              <Stack.Screen name="Routine" component={RoutineScreen} />
+              <Stack.Screen
+                name="Saved Routines"
+                component={SavedRoutinesScreen}
+              />
               <Stack.Screen name="Profile" component={ProfileScreen} />
             </Stack.Navigator>
           </NavigationContainer>
