@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, StyleSheet, ScrollView, View, Text } from "react-native";
 import routineStore from "../app/RoutineStore";
+import RoutineItem from "../components/RoutineItem";
 
 const RoutineScreen = ({ route }) => {
   const { routine } = routineStore;
-  console.log(routine);
 
   const handleSaveRoutine = () => {
     // Save the routine to the appropriate user document in Firestore
@@ -19,7 +19,7 @@ const RoutineScreen = ({ route }) => {
           </View>
         ) : (
           routine.map((exercise) => (
-            <Text key={exercise.id}>{exercise.name}</Text>
+            <RoutineItem key={exercise.id} exercise={exercise} />
           ))
         )}
       </ScrollView>
