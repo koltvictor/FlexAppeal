@@ -1,6 +1,9 @@
-import { auth } from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
+import {
+  auth,
+  db,
+} from "/Users/kolt/Development/FlexAppeal/DoneWithIt/firebase/index.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -18,6 +21,28 @@ const SignupScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // Create a user profile document in Firestore
+        db.collection("users")
+          .doc(user.uid)
+          .set({
+            displayName: displayName,
+            email: email,
+          })
+          .then(() => {
+            console.log("User profile document created successfully");
+          })
+          .catch((error) => {
+            console.error("Error creating user profile document: ", error);
+          });
+      }
+    });
+
+    return unsubscribe;
+  }, [displayName, email]);
 
   const handleSignup = () => {
     if (email === "" || password === "" || confirmPassword === "") {

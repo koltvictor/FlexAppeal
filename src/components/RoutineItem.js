@@ -87,11 +87,14 @@ const RoutineScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#1f1f1f",
+    alignItems: "center",
+    justifyContent: "center",
   },
   scrollContainer: {
-    paddingTop: 20,
+    width: "100%",
     paddingHorizontal: 20,
+    paddingTop: 20,
   },
   emptyContainer: {
     flex: 1,
@@ -100,27 +103,28 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 18,
-    color: "#888",
+    color: "#fff",
   },
   exerciseContainer: {
     marginBottom: 20,
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderRadius: 10,
-    backgroundColor: "#f8f8f8",
-    shadowColor: "#000",
+    backgroundColor: "#141414",
+    shadowColor: "#ffffff",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 0,
     },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
   },
   exerciseTitle: {
     fontSize: 22,
     fontWeight: "600",
     marginBottom: 10,
+    color: "#fff",
   },
   inputContainer: {
     flexDirection: "row",
@@ -130,12 +134,13 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 16,
     marginRight: 10,
-    color: "#333",
+    color: "#fff",
     fontWeight: "500",
   },
   pickerContainer: {
+    flex: 1,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#fff",
     borderRadius: 5,
     padding: 10,
     marginLeft: "auto",
@@ -144,18 +149,21 @@ const styles = StyleSheet.create({
     width: 100,
     height: 30,
     fontSize: 16,
-    color: "#333",
+    color: "#fff",
   },
   buttonContainer: {
     paddingHorizontal: 20,
     paddingBottom: 20,
+    marginTop: 20,
   },
   button: {
-    backgroundColor: "#007aff",
-    borderRadius: 5,
+    backgroundColor: "#ff2d55",
+    borderRadius: 50,
     paddingVertical: 10,
     alignItems: "center",
     justifyContent: "center",
+    width: "100%",
+    height: 50,
   },
   disabledButton: {
     opacity: 0.5,

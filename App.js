@@ -14,6 +14,7 @@ import Provider from "./src/app/Provider";
 import { DataContextProvider } from "./src/app/DataContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { observer } from "mobx-react-lite";
+import { auth } from "./firebase";
 
 const Stack = createNativeStackNavigator();
 

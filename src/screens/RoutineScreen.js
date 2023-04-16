@@ -1,13 +1,29 @@
 import React from "react";
 import { Button, StyleSheet, ScrollView, View, Text } from "react-native";
+import { auth, firestore } from "../../firebase";
 import routineStore from "../app/RoutineStore";
 import RoutineItem from "../components/RoutineItem";
 
 const RoutineScreen = ({ route }) => {
   const { routine } = routineStore;
 
-  const handleSaveRoutine = () => {
-    // Save the routine to the appropriate user document in Firestore
+  const handleSaveRoutine = async () => {
+    try {
+      const uid = auth.currentUser.uid;
+      const routinesRef = firestore.collection("routines");
+      const routineDoc = routinesRef.doc(uid);
+      const exerciseColl = routineDoc.collection("exercises");
+
+      await routineDoc.set({ routine });
+
+      for (const exercise of routine) {
+        await exerciseColl.add(exercise);
+      }
+
+      console.log("Routine saved successfully!");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

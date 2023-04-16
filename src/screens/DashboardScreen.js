@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -7,6 +7,7 @@ import ProfileScreen from "./ProfileScreen";
 import ExercisesScreen from "./ExercisesScreen";
 import RoutineScreen from "./RoutineScreen";
 import { DataContext } from "../app/DataContext";
+import { auth } from "../../firebase";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -18,6 +19,15 @@ const styles = StyleSheet.create({
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <DataContext.Consumer>
@@ -58,7 +68,7 @@ export default function DashboardScreen() {
               tabBarIcon: ({ color, size }) => (
                 <TouchableOpacity
                   style={styles.icon}
-                  onPress={() => navigation.navigate("AllExercises")}
+                  onPress={() => navigation.navigate("Routines")}
                 >
                   <Ionicons name="fitness" size={size} color={color} />
                 </TouchableOpacity>
