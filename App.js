@@ -13,18 +13,12 @@ import ProfileScreen from "./src/screens/ProfileScreen";
 import Provider from "./src/app/Provider";
 import { DataContextProvider } from "./src/app/DataContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { observer } from "mobx-react-lite";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+const App = observer(() => {
   const [search, setSearch] = useState("");
-  const [routine, setRoutine] = useState([]);
-
-  const handleAddToRoutine = (exercise) => {
-    setRoutine([...routine, exercise]);
-    console.log("added", exercise, "to routine");
-    console.log(routine);
-  };
 
   return (
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
@@ -44,24 +38,8 @@ export default function App() {
               />
               <Stack.Screen name="Login" component={LoginScreen} />
               <Stack.Screen name="Signup" component={SignupScreen} />
-              <Stack.Screen
-                name="Dashboard"
-                component={DashboardScreen}
-                initialParams={{
-                  addToRoutine: handleAddToRoutine,
-                  routine: routine,
-                }}
-              />
-              <Stack.Screen
-                name="Exercises"
-                component={ExercisesScreen}
-                options={({ route }) => ({
-                  title: "Exercises",
-                  exercises: route.params?.exercises || [],
-                  addToRoutine: route.params.handleAddToRoutine,
-                  routine: route.params.routine,
-                })}
-              />
+              <Stack.Screen name="Dashboard" component={DashboardScreen} />
+              <Stack.Screen name="Exercises" component={ExercisesScreen} />
               <Stack.Screen
                 name="ExerciseDetails"
                 component={ExerciseDetailsScreen}
@@ -78,4 +56,6 @@ export default function App() {
       </Provider>
     </FirebaseAppProvider>
   );
-}
+});
+
+export default App;

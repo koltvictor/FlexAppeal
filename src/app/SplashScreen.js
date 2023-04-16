@@ -11,9 +11,6 @@ const SplashScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
-  console.log("navigation prop in SplashScreen:", navigation);
-  console.log("fetched exercises:", exercises);
-
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text style={{ fontSize: 24, fontWeight: "bold" }}>Flex Appeal</Text>

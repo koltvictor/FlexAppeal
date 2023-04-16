@@ -1,8 +1,17 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import routineStore from "../app/RoutineStore";
 
-const ExerciseCard = ({ addToRoutine, exercise }) => {
-  console.log(exercise);
+const ExerciseCard = ({ exercise }) => {
+  const { routine, addExercise } = routineStore;
+  console.log("this is Dashboard", routine, addExercise);
+
+  const handleAddToRoutine = (exercise) => {
+    addExercise(exercise);
+    console.log("added", exercise, "to routine");
+    console.log(routine);
+  };
+  console.log("this is the card:", routine, handleAddToRoutine);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -23,19 +32,11 @@ const ExerciseCard = ({ addToRoutine, exercise }) => {
         alt={"gif"}
         style={styles.image}
       />
-      <TouchableOpacity style={styles.button}>
-        <Text
-          style={styles.buttonText}
-          // onPress={() => addToRoutine(exercise)}
-          // onPress={() =>
-          //   navigation.navigate("Routine", {
-          //     addToRoutine: addToRoutine,
-          //     routine: routine,
-          //   })
-          // }
-        >
-          Add to routine
-        </Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => handleAddToRoutine(exercise)}
+      >
+        <Text style={styles.buttonText}>Add to routine</Text>
       </TouchableOpacity>
     </View>
   );

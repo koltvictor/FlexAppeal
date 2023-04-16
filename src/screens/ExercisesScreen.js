@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
   SafeAreaView,
   ScrollView,
@@ -8,17 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Search from "../components/Search";
 import { DataContext } from "../app/DataContext";
 
-export default function ExercisesScreen({ route }) {
-  const { routine, handleAddToRoutine } = route.params ?? {};
-  const navigation = useNavigation();
-
+export default function ExercisesScreen() {
+  // imported data
   const { exercises } = useContext(DataContext);
+  let navigation = useNavigation();
 
   // searching logic
-
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (query) => {
@@ -26,7 +24,6 @@ export default function ExercisesScreen({ route }) {
   };
 
   // filtering data
-
   const filteredExercises = exercises
     ? exercises.filter(
         (exercise) =>
@@ -43,15 +40,13 @@ export default function ExercisesScreen({ route }) {
     <SafeAreaView style={styles.container}>
       <View>
         <Search search={searchQuery} onSearch={handleSearch} />
-        <ScrollView vertical="true" style={styles.listContainer}>
+        <ScrollView vertical={true} style={styles.listContainer}>
           {filteredExercises.map((exercise, id) => (
             <TouchableOpacity
               key={exercise.id}
               onPress={() =>
                 navigation.navigate("ExerciseDetails", {
                   exerciseId: exercise.id,
-                  addToRoutine: handleAddToRoutine,
-                  routine: routine,
                 })
               }
             >
