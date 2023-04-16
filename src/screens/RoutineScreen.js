@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   StyleSheet,
@@ -10,10 +10,17 @@ import {
 import { auth, db } from "../../firebase";
 import routineStore from "../app/RoutineStore";
 import RoutineItem from "../components/RoutineItem";
+import { useNavigation } from "@react-navigation/native";
 
 const RoutineScreen = () => {
-  const { routine } = routineStore;
+  const { routine, subscribeToRoutineChanges } = routineStore;
   const [routineName, setRoutineName] = useState("");
+  let navigation = useNavigation();
+
+  useEffect(() => {
+    const unsubscribe = subscribeToRoutineChanges();
+    return unsubscribe;
+  }, []);
 
   const handleSaveRoutine = async () => {
     try {
@@ -59,6 +66,7 @@ const RoutineScreen = () => {
     } catch (error) {
       console.error("Error saving routine:", error);
     }
+    navigation.navigate("Saved Routines");
   };
 
   return (
