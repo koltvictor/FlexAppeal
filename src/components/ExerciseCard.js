@@ -1,37 +1,108 @@
-import { Button } from "@rneui/base";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
-export default function ExerciseCard({ exercise, idNum }) {
+const ExerciseCard = ({ addToRoutine, exercise }) => {
+  console.log(exercise);
   return (
     <View style={styles.container}>
-      <Text style={styles.headline}>{exercise.name}</Text>
-      <Text style={styles.info}>target muscle: {exercise.target}</Text>
-      <Text style={styles.info}>equipment: {exercise.equipment}</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>{exercise.name}</Text>
+      </View>
+      <View style={styles.infoContainer}>
+        <View style={styles.info}>
+          <Text style={styles.label}>Target Muscle</Text>
+          <Text style={styles.value}>{exercise.target}</Text>
+        </View>
+        <View style={styles.info}>
+          <Text style={styles.label}>Equipment</Text>
+          <Text style={styles.value}>{exercise.equipment}</Text>
+        </View>
+      </View>
       <Image
         source={{ uri: exercise.gifUrl }}
         alt={"gif"}
-        style={{ width: "100%", height: "75%", resizeMode: "contain" }}
+        style={styles.image}
       />
-      <Button title="Add to routine" />
+      <TouchableOpacity style={styles.button}>
+        <Text
+          style={styles.buttonText}
+          // onPress={() => addToRoutine(exercise)}
+          // onPress={() =>
+          //   navigation.navigate("Routine", {
+          //     addToRoutine: addToRoutine,
+          //     routine: routine,
+          //   })
+          // }
+        >
+          Add to routine
+        </Text>
+      </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 50,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    elevation: 2,
+    margin: 10,
+    overflow: "hidden",
+    paddingBottom: 20,
   },
-  headline: {
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+  },
+  title: {
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
+    textTransform: "capitalize",
+  },
+  button: {
+    backgroundColor: "#007AFF",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
     padding: 10,
+    marginTop: "auto",
+    marginBottom: 10,
+    marginHorizontal: 20,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    textTransform: "uppercase",
+  },
+  infoContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   info: {
-    fontSize: 15,
-    textAlign: "center",
+    alignItems: "center",
+  },
+  label: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  value: {
+    fontSize: 16,
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    resizeMode: "contain",
   },
 });
+
+export default ExerciseCard;

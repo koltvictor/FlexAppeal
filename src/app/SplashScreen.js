@@ -1,12 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { View, Text } from "react-native";
+import { DataContext } from "./DataContext";
 
 const SplashScreen = ({ navigation }) => {
+  const { exercises } = useContext(DataContext);
+
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate("Welcome");
-    }, 3000); // Wait 3 seconds before navigating to the next screen
+    });
   }, [navigation]);
+
+  console.log("navigation prop in SplashScreen:", navigation);
+  console.log("fetched exercises:", exercises);
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>

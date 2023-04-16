@@ -1,39 +1,43 @@
-import React, { useEffect } from "react";
-import { SafeAreaView, Text, Button, Image } from "react-native";
-import { useNavigation, useParams } from "react-router-native";
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, Text } from "react-native";
 import ExerciseCard from "../components/ExerciseCard";
-import BottomNav from "../components/BottomNav";
+import { useQuery } from "react-query";
+// import { useNavigation } from "@react-navigation/native";
+import { useParams } from "react-router-native";
 
-export default function ExerciseDetailsScreen() {
-  const [exercise, setExercise] = React.useState([]);
-  const id = useParams().id;
-  let navigation = useNavigation();
+const ExerciseDetailsScreen = ({ route }) => {
+  const { exerciseId } = route.params;
+  console.log(exerciseId);
 
   const options = {
-    method: "GET",
     headers: {
       "X-RapidAPI-Key": "9074bf701emsh2b8696dac91ac18p161ae0jsn7153acb84d2d",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+      "Content-Type": "application/json",
     },
   };
 
-  const fetchExercise = async () => {
-    const data = await fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`,
+  const { data: exercise, isLoading } = useQuery(["exercise"], () =>
+    fetch(
+      `https://exercisedb.p.rapidapi.com/exercises/exercise/${exerciseId}`,
       options
-    );
-    const detailData = await data.json();
-    setExercise(detailData);
-  };
+    ).then((res) => res.json())
+  );
 
-  useEffect(() => {
-    fetchExercise();
-  }, [id]);
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+  console.log(exercise);
+
+  // useEffect(() => {
+  //   navigation.setParams({ routine });
+  // }, [routine]);
 
   return (
     <SafeAreaView>
-      <ExerciseCard exercise={exercise} id={id} />
-      <BottomNav />
+      <ExerciseCard exercise={exercise} />
     </SafeAreaView>
   );
-}
+};
+
+export default ExerciseDetailsScreen;

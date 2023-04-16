@@ -1,113 +1,65 @@
-import React from "react";
-import { useNavigation, useParams } from "react-router-native";
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useContext, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Search from "../components/Search";
-import BottomNav from "../components/BottomNav";
-import ExerciseCard from "../components/ExerciseCard";
-import SplashScreen from "../app/SplashScreen";
-import { useQuery } from "react-query";
+import { DataContext } from "../app/DataContext";
 
-export default function ExercisesScreen({
-  search,
-  setSearch,
-  clicked,
-  setClicked,
-  // exercises,
-}) {
-  // const {
-  //   data: exercises,
-  //   isLoading,
-  //   isError,
-  // } = useQuery("exercises", async () => {
-  //   const response = await fetch(
-  //     "https://exercisedb.p.rapidapi.com/exercises",
-  //     {
-  //       headers: {
-  //         "X-RapidAPI-Key":
-  //           "9074bf701emsh2b8696dac91ac18p161ae0jsn7153acb84d2d",
-  //         "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-  //       },
-  //     }
-  //   );
-  //   if (!response.ok) {
-  //     throw new Error("Failed to fetch exercises");
-  //   }
-  //   return response.json();
-  // });
+export default function ExercisesScreen({ route }) {
+  const { routine, handleAddToRoutine } = route.params ?? {};
+  const navigation = useNavigation();
 
-  // const filteredExercises = exercises
-  //   ?.filter(
-  //     (exercise) =>
-  //       exercise.name.toLowerCase().includes(search.toLowerCase()) ||
-  //       exercise.bodyPart.toLowerCase().includes(search.toLowerCase()) ||
-  //       exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
-  //       exercise.target.toLowerCase().includes(search.toLowerCase())
-  //   )
-  //   ?.sort((a, b) => a.id - b.id);
+  const { exercises } = useContext(DataContext);
 
-  // const navigation = useNavigation();
+  // searching logic
 
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "9074bf701emsh2b8696dac91ac18p161ae0jsn7153acb84d2d",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    },
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
   };
 
-  const fetchExercsises = async () => {
-    const response = await fetch(
-      "https://exercisedb.p.rapidapi.com/exercises",
-      options
-    );
-    return response.json();
-  };
+  // filtering data
 
-  const { data, status } = useQuery("exercises", fetchExercsises);
-
-  if (status === "loading") return <SplashScreen />;
-  if (status === "error") return <div>Error fetching data</div>;
-
-  console.log(data);
-
-  // const filteredExercises = data
-  //   ? data.filter(
-  //       (exercise) =>
-  //         exercise.name.toLowerCase().includes(search.toLowerCase()) ||
-  //         exercise.bodyPart.toLowerCase().includes(search.toLowerCase()) ||
-  //         exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
-  //         exercise.target.toLowerCase().includes(search.toLowerCase())
-  //     )
-  //   : [];
+  const filteredExercises = exercises
+    ? exercises.filter(
+        (exercise) =>
+          exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          exercise.bodyPart.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          exercise.equipment
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          exercise.target.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Search
-          search={search}
-          setSearch={setSearch}
-          clicked={clicked}
-          setClicked={setClicked}
-        />
-        <ScrollView
-          vertical="true"
-          //   contentInsetAdjustmentBehavior="scrollableAxes"
-          style={styles.listContainer}
-        >
-          {data
-            .sort((a, b) => a.id - b.id)
-            .map((exercise, id) => (
-              <Text
-                style={styles.listItem}
-                key={exercise.id}
-                // onPress={() => navigation.navigate(`/exercise/${exercise.id}`)}
-              >
-                {exercise.name}
-              </Text>
-            ))}
+        <Search search={searchQuery} onSearch={handleSearch} />
+        <ScrollView vertical="true" style={styles.listContainer}>
+          {filteredExercises.map((exercise, id) => (
+            <TouchableOpacity
+              key={exercise.id}
+              onPress={() =>
+                navigation.navigate("ExerciseDetails", {
+                  exerciseId: exercise.id,
+                  addToRoutine: handleAddToRoutine,
+                  routine: routine,
+                })
+              }
+            >
+              <Text style={styles.listItem}>{exercise.name}</Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
-      <BottomNav />
     </SafeAreaView>
   );
 }
@@ -115,7 +67,6 @@ export default function ExercisesScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
   },
   headerContainer: {
     flexDirection: "row",

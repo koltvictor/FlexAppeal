@@ -2,7 +2,6 @@ import { Button } from "@rneui/base";
 import React, { useEffect } from "react";
 import { StyleSheet, Text, TextInput, View, SafeAreaView } from "react-native";
 import { useNavigation } from "react-router-native";
-import BottomNav from "../components/BottomNav";
 import {
   db,
   doc,
@@ -43,7 +42,6 @@ export default function ProfileScreen() {
         </View>
         <TextInput />
       </View>
-      <BottomNav />
     </SafeAreaView>
   );
 }

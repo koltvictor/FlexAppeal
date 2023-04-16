@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileScreen from "./ProfileScreen";
 import ExercisesScreen from "./ExercisesScreen";
+import RoutineScreen from "./RoutineScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -14,7 +15,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function DashboardScreen() {
+export default function DashboardScreen({ route }) {
+  const { routine, handleAddToRoutine } = route?.params ?? {};
+  console.log("this is the routine", routine);
   const navigation = useNavigation();
   return (
     <Tab.Navigator>
@@ -39,82 +42,33 @@ export default function DashboardScreen() {
           tabBarIcon: ({ color, size }) => (
             <TouchableOpacity
               style={styles.icon}
-              onPress={() => navigation.navigate("AllExercises")}
+              onPress={() =>
+                navigation.navigate("Exercises", {
+                  exercises: data,
+                  addToRoutine: handleAddToRoutine,
+                  routine: routine,
+                })
+              }
             >
               <Ionicons name="barbell" size={size} color={color} />
             </TouchableOpacity>
           ),
         }}
       />
+      {/* <Tab.Screen
+        name="Routines"
+        component={RoutineScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <TouchableOpacity
+              style={styles.icon}
+              onPress={() => navigation.navigate("AllExercises")}
+            >
+              <Ionicons name="fitness" size={size} color={color} />
+            </TouchableOpacity>
+          ),
+        }}
+      /> */}
     </Tab.Navigator>
   );
 }
-
-// define UserProfileScreen component
-// const UserProfileScreen = () => {
-//   const navigation = useNavigation();
-//   const { data: user } = useFirestore().useUser();
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <Text>{user?.displayName}</Text>
-//       <Text>{user?.email}</Text>
-//       <TouchableOpacity onPress={() => navigation.navigate("UpdateProfile")}>
-//         <Text>Edit Profile</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// };
-
-// define AllExercisesScreen component
-// const AllExercisesScreen = () => {
-//   const { data: exercises } = useQuery("exercises", async () => {
-//     const response = await fetch(
-//       "https://exercisedb.p.rapidapi.com/exercises",
-//       {
-//         headers: {
-//           "X-RapidAPI-Key":
-//             "9074bf701emsh2b8696dac91ac18p161ae0jsn7153acb84d2d",
-//           "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-//         },
-//       }
-//     );
-//     return response.json();
-//   });
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       {exercises?.map((exercise) => (
-//         <Text key={exercise.id}>{exercise.name}</Text>
-//       ))}
-//     </View>
-//   );
-// };
-
-// define AllRoutinesScreen component
-// const AllRoutinesScreen = () => {
-//   const { data: routines } = useFirestoreCollectionData(
-//     useFirestore().collection("routines"),
-//     { idField: "id" }
-//   );
-//   const navigation = useNavigation();
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <TouchableOpacity
-//         onPress={() =>
-//           navigation.navigate("FilteredRoutines", { isFavorite: true })
-//         }
-//       >
-//         <Text>Favorite Routines</Text>
-//       </TouchableOpacity>
-//       <TouchableOpacity
-//         onPress={() =>
-//           navigation.navigate("FilteredRoutines", { isFavorite: false })
-//         }
-//       >
-//         <Text>All Routines</Text>
-//       </TouchableOpacity>
-//       {routines?.map((routine) => (
-//         <Text key={routine.id}>{routine.name}</Text>
-//       ))}
-//     </View>
-//   );
-// };
