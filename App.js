@@ -9,6 +9,7 @@ import DashboardScreen from "./src/screens/DashboardScreen";
 import ExercisesScreen from "./src/screens/ExercisesScreen";
 import ExerciseDetailsScreen from "./src/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import UpdateProfileScreen from "./src/screens/UpdateProfileScreen";
 import RoutineScreen from "./src/components/RoutineItem";
 import SavedRoutinesScreen from "./src/screens/SavedRoutinesScreen";
 import SpecificRoutineScreen from "./src/screens/SpecificRoutineScreen";
@@ -17,6 +18,7 @@ import { DataContextProvider } from "./src/app/DataContext";
 import { RoutineProvider } from "./src/app/RoutineContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { observer } from "mobx-react-lite";
+import TargetsScreen from "./src/screens/TargetsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,15 +32,20 @@ const App = observer(() => {
           <RoutineProvider>
             <NavigationContainer>
               <Stack.Navigator initialRouteName="Splash">
-                <Stack.Screen name="Splash">
+                <Stack.Screen name="Splash" options={{ headerShown: false }}>
                   {(props) => (
                     <SplashScreen {...props} navigation={props.navigation} />
                   )}
                 </Stack.Screen>
-                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen
+                  name="Login"
+                  component={LoginScreen}
+                  options={{ headerShown: false }}
+                />
                 <Stack.Screen name="Signup" component={SignupScreen} />
                 <Stack.Screen name="Dashboard" component={DashboardScreen} />
                 <Stack.Screen name="Exercises" component={ExercisesScreen} />
+                <Stack.Screen name="TargetsScreen" component={TargetsScreen} />
                 <Stack.Screen
                   name="ExerciseDetails"
                   component={ExerciseDetailsScreen}
@@ -49,6 +56,10 @@ const App = observer(() => {
                   component={SavedRoutinesScreen}
                 />
                 <Stack.Screen name="Profile" component={ProfileScreen} />
+                <Stack.Screen
+                  name="Update Profile"
+                  component={UpdateProfileScreen}
+                />
                 <Stack.Screen
                   name="Specific Routine"
                   component={SpecificRoutineScreen}

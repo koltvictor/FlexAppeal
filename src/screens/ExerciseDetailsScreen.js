@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { SafeAreaView, Text } from "react-native";
 import ExerciseCard from "../components/ExerciseCard";
 import { useQuery } from "react-query";
-import routineStore from "../app/RoutineStore";
 
 const ExerciseDetailsScreen = ({ route }) => {
-  const { exerciseId } = route.params;
+  const { exercise } = route.params;
 
   const options = {
     headers: {
@@ -15,24 +14,22 @@ const ExerciseDetailsScreen = ({ route }) => {
     },
   };
 
-  const { data: exercise, isLoading } = useQuery(["exercise"], () =>
+  const { data: fetchedExercise, isLoading } = useQuery(["exercise"], () =>
     fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/exercise/${exerciseId}`,
+      `https://exercisedb.p.rapidapi.com/exercises/exercise/${exercise.id}`,
       options
     ).then((res) => res.json())
   );
+
+  const exerciseDetails = fetchedExercise || exercise;
 
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
 
-  // useEffect(() => {
-  //   navigation.setParams({ routine });
-  // }, [routine]);
-
   return (
     <SafeAreaView>
-      <ExerciseCard exercise={exercise} />
+      <ExerciseCard exercise={exerciseDetails} />
     </SafeAreaView>
   );
 };

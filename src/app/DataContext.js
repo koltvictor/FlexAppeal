@@ -19,18 +19,32 @@ const fetchExercisesData = async () => {
   return response.json();
 };
 
+const fetchTargetsData = async (target) => {
+  const response = await fetch(
+    `https://exercisedb.p.rapidapi.com/exercises?target=${target}`,
+    options
+  );
+  return response.json();
+};
+
 const DataContextProvider = ({ children }) => {
-  const { data: exercises = [], isLoading } = useQuery(
+  const { data: exercises = [], isLoading: isExercisesLoading } = useQuery(
     "exercises",
     fetchExercisesData
   );
 
-  if (isLoading) {
+  const { data: targets = [], isLoading: isTargetsLoading } = useQuery(
+    "targets",
+    () => fetchTargetsData(""),
+    { enabled: false }
+  );
+
+  if (isExercisesLoading || isTargetsLoading) {
     return <Text>Loading...</Text>;
   }
 
   return (
-    <DataContext.Provider value={{ exercises }}>
+    <DataContext.Provider value={{ exercises, targets }}>
       {children}
     </DataContext.Provider>
   );

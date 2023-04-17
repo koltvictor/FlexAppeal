@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, View, SafeAreaView } from "react-native";
 import { useNavigation } from "react-router-native";
 import { db, doc, auth, updateDoc } from "../../firebase";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [username, setUsername] = useState("");
 
@@ -27,13 +28,17 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>{currentUser ? currentUser.username : ""}</Text>
+        <Icon name="account-circle" size={100} />
+        {/* <Text>{currentUser ? currentUser.username : ""}</Text> */}
         <Text>{currentUser ? currentUser.email : ""}</Text>
-        <View>
-          <TextInput placeholder="update name" onChangeText={setUsername} />
-          <Button title="update" onPress={handleUpdateUsername} />
-        </View>
       </View>
+      <Button
+        onPress={() => {
+          navigation.navigate("Update Profile");
+        }}
+      >
+        Update Profile
+      </Button>
     </SafeAreaView>
   );
 }

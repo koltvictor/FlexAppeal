@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Feather } from "@expo/vector-icons";
 import Search from "../components/Search";
 import { DataContext } from "../app/DataContext";
 
@@ -36,23 +37,56 @@ export default function ExercisesScreen() {
       )
     : [];
 
+  // targets data
+  const targets = [
+    "abductors",
+    "abs",
+    "adductors",
+    "biceps",
+    "calves",
+    "cardiovascular system",
+    "delts",
+    "forearms",
+    "glutes",
+    "hamstrings",
+    "lats",
+    "pectorals",
+    "quads",
+    "spine",
+    "traps",
+    "triceps",
+    "upper back",
+  ];
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <Search search={searchQuery} onSearch={handleSearch} />
         <ScrollView vertical={true} style={styles.listContainer}>
-          {filteredExercises.map((exercise, id) => (
+          {targets.map((target) => (
             <TouchableOpacity
-              key={exercise.id}
+              key={target}
               onPress={() =>
-                navigation.navigate("ExerciseDetails", {
-                  exerciseId: exercise.id,
+                navigation.navigate("TargetsScreen", {
+                  target: target.toLowerCase(),
+                  targets: filteredExercises.filter(
+                    (exercise) => exercise.target === target.toLowerCase()
+                  ),
                 })
               }
+              style={styles.targetItem}
             >
-              <Text style={styles.listItem}>{exercise.name}</Text>
+              <Feather name="target" size={24} color="black" />
+              <Text style={styles.targetText}>{target}</Text>
             </TouchableOpacity>
           ))}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ExercisesScreen")}
+            style={styles.targetItem}
+          >
+            <Feather name="list" size={24} color="black" />
+            <Text style={styles.targetText}>All Exercises</Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -62,46 +96,24 @@ export default function ExercisesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff",
   },
-  headerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#CCCCCC",
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  searchContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#CCCCCC",
-  },
-  searchInput: {
-    height: 40,
-    borderColor: "#CCCCCC",
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 16,
+  listContainer: {
+    paddingHorizontal: 10,
+    paddingTop: 10,
   },
   listItem: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#CCCCCC",
-  },
-  listItemText: {
+    paddingVertical: 5,
     fontSize: 16,
     fontWeight: "bold",
   },
-  bottomNavContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
+  targetItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+  },
+  targetText: {
+    fontSize: 18,
+    marginLeft: 10,
   },
 });

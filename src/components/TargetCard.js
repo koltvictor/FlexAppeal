@@ -1,15 +1,18 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-native";
+import { useNavigation } from "@react-navigation/native";
 import TargetDetails from "./TargetDetails";
 
-export default function TargetCard({ target }) {
-  let navigate = useNavigate();
-
+export default function TargetCard({ exercise }) {
+  let navigation = useNavigation();
   return (
-    <View style={styles.card} key={target.id}>
-      <Text key={target.id} onPress={() => navigate(`/${target}`)}>
-        <TargetDetails target={target} key={target.id} />
+    <View style={styles.card} key={exercise.id}>
+      <Text
+        key={exercise.id}
+        onPress={() => navigation.navigate("ExerciseDetails", { exercise })}
+      >
+        {exercise.name}
+        {/* // <TargetDetails target={exercise} key={exercise.id} /> */}
       </Text>
     </View>
   );

@@ -1,19 +1,28 @@
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import TargetCard from "../components/TargetCard";
-import BottomNav from "../components/BottomNav";
+import { DataContext } from "../app/DataContext";
 
-export default function TargetsScreen({ targets }) {
+export default function TargetsScreen({ route }) {
+  const { exercises } = useContext(DataContext);
+
+  const target = route.params.target.toLowerCase();
+
+  // filtering data based on selected target
+  const filteredExercises = exercises.filter(
+    (exercise) => exercise.target.toLowerCase() === target
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <ScrollView vertical="true" style={styles.listContainer}>
-          {targets.map((target) => {
-            return <TargetCard target={target} key={target.id} />;
+        <Text style={styles.header}>{target}</Text>
+        <ScrollView vertical={true} style={styles.listContainer}>
+          {filteredExercises.map((exercise) => {
+            return <TargetCard exercise={exercise} key={exercise.id} />;
           })}
         </ScrollView>
       </View>
-      <BottomNav />
     </SafeAreaView>
   );
 }
@@ -21,13 +30,15 @@ export default function TargetsScreen({ targets }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: window.height,
-    width: window.width,
-    paddingVertical: 20,
-    margin: 20,
   },
-
   listContainer: {
-    marginBottom: 83,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: "bold",
+    paddingHorizontal: 16,
+    paddingBottom: 8,
   },
 });
