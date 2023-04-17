@@ -1,29 +1,52 @@
-import { Text, View, FlatList } from "react-native";
-import React, { Component } from "react";
-import SavedRoutinesComponent from "../components/SavedRoutinesComponent";
-import useSavedRoutines from "../app/hooks/useSavedRoutines";
-import { auth } from "../../firebase";
+import { useState, useEffect } from "react";
+import { db, auth } from "../../firebase";
+import { Text, FlatList, View, Button } from "react-native";
 
-export default function SavedRoutinesScreen() {
-  const uid = auth.currentUser.uid;
+function SavedRoutinesScreen({ navigation }) {
+  const [savedRoutines, setSavedRoutines] = useState([]);
 
-  const { isLoading, isError, data: savedRoutines } = useSavedRoutines(uid);
-  if (isLoading) {
-    return <Text>Loading saved routines...</Text>;
-  }
+  useEffect(() => {
+    const uid = auth.currentUser.uid;
+    const savedRoutinesRef = db
+      .collection("savedroutines")
+      .where("userId", "==", uid);
 
-  if (isError) {
-    return <Text>Error loading saved routines</Text>;
-  }
+    const unsubscribe = savedRoutinesRef.onSnapshot((snapshot) => {
+      const routines = [];
+      snapshot.forEach((doc) => {
+        routines.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setSavedRoutines(routines);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <View>
-      <Text>Saved Routines</Text>
+      <Text>My Saved Routines:</Text>
       <FlatList
         data={savedRoutines}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{item.name}</Text>
+            <Button
+              title="View Routine"
+              onPress={() =>
+                navigation.navigate("Specific Routine", { routine: item })
+              }
+            />
+          </View>
+        )}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Text>{item.name}</Text>}
       />
     </View>
   );
 }
+
+export default SavedRoutinesScreen;

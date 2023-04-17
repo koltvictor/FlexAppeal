@@ -2,6 +2,7 @@ import { auth } from "../../firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import {
+  Image,
   View,
   Text,
   TextInput,
@@ -19,7 +20,6 @@ const LoginScreen = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isSignedIn, setIsSignedIn] = useState(false);
-
   const togglePassword = (e) => {
     e.preventDefault();
     setPasswordShown(!passwordShown);
@@ -43,23 +43,42 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <View style={styles.topSection}>
+        <Text style={styles.title}>Login</Text>
+        <Text style={styles.subTitle}>Welcome back!</Text>
+      </View>
       {error && <Text style={styles.error}>{error}</Text>}
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+      <View style={styles.inputContainer}>
+        <View style={styles.inputIcon}>
+          <Image
+            // source={require("./assets/email.png")}
+            style={styles.inputIconImage}
+          />
+        </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <View style={styles.inputIcon}>
+          <Image
+            // source={require("./assets/password.png")}
+            style={styles.inputIconImage}
+          />
+        </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+      </View>
       <TouchableOpacity
         style={styles.button}
         onPress={handleLogin}
@@ -79,45 +98,67 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#000000",
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+  },
+  topSection: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 30,
   },
   title: {
-    fontSize: 24,
+    color: "#FFFFFF",
+    fontSize: 30,
     fontWeight: "bold",
+    marginBottom: 10,
+  },
+  subTitle: {
+    color: "#7C7C7C",
+    fontSize: 18,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#FFFFFF",
   },
   input: {
-    width: "100%",
-    height: 50,
-    backgroundColor: "#f0f0f0",
-    borderRadius: 10,
-    paddingLeft: 10,
-    marginVertical: 10,
+    flex: 1,
+    color: "#FFFFFF",
+    fontSize: 18,
+    marginLeft: 10,
+  },
+  inputIcon: {
+    marginRight: 10,
+  },
+  inputIconImage: {
+    width: 20,
+    height: 20,
   },
   button: {
-    width: "100%",
-    height: 50,
-    backgroundColor: "#1abc9c",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginVertical: 10,
+    backgroundColor: "#1ED760",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    marginTop: 30,
   },
   buttonText: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "bold",
+    textAlign: "center",
   },
   link: {
-    marginTop: 20,
-    color: "#1abc9c",
-    textDecorationLine: "underline",
+    color: "#1ED760",
+    fontSize: 16,
+    marginTop: 30,
   },
   error: {
-    color: "red",
-    marginBottom: 10,
+    color: "#FF0000",
+    fontSize: 16,
+    marginTop: 30,
   },
 });
 

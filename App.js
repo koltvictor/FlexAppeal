@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { FirebaseAppProvider } from "reactfire";
 import { firebaseConfig } from "./firebase";
 import SplashScreen from "./src/app/SplashScreen";
-import WelcomeScreen from "./src/screens/WelcomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import DashboardScreen from "./src/screens/DashboardScreen";
@@ -12,8 +11,10 @@ import ExerciseDetailsScreen from "./src/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import RoutineScreen from "./src/components/RoutineItem";
 import SavedRoutinesScreen from "./src/screens/SavedRoutinesScreen";
+import SpecificRoutineScreen from "./src/screens/SpecificRoutineScreen";
 import Provider from "./src/app/Provider";
 import { DataContextProvider } from "./src/app/DataContext";
+import { RoutineProvider } from "./src/app/RoutineContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { observer } from "mobx-react-lite";
 
@@ -26,34 +27,35 @@ const App = observer(() => {
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
       <Provider>
         <DataContextProvider>
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName="Splash">
-              <Stack.Screen name="Splash">
-                {(props) => (
-                  <SplashScreen {...props} navigation={props.navigation} />
-                )}
-              </Stack.Screen>
-              <Stack.Screen
-                name="Welcome"
-                component={WelcomeScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="Signup" component={SignupScreen} />
-              <Stack.Screen name="Dashboard" component={DashboardScreen} />
-              <Stack.Screen name="Exercises" component={ExercisesScreen} />
-              <Stack.Screen
-                name="ExerciseDetails"
-                component={ExerciseDetailsScreen}
-              />
-              <Stack.Screen name="Routine" component={RoutineScreen} />
-              <Stack.Screen
-                name="Saved Routines"
-                component={SavedRoutinesScreen}
-              />
-              <Stack.Screen name="Profile" component={ProfileScreen} />
-            </Stack.Navigator>
-          </NavigationContainer>
+          <RoutineProvider>
+            <NavigationContainer>
+              <Stack.Navigator initialRouteName="Splash">
+                <Stack.Screen name="Splash">
+                  {(props) => (
+                    <SplashScreen {...props} navigation={props.navigation} />
+                  )}
+                </Stack.Screen>
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Signup" component={SignupScreen} />
+                <Stack.Screen name="Dashboard" component={DashboardScreen} />
+                <Stack.Screen name="Exercises" component={ExercisesScreen} />
+                <Stack.Screen
+                  name="ExerciseDetails"
+                  component={ExerciseDetailsScreen}
+                />
+                <Stack.Screen name="Routine" component={RoutineScreen} />
+                <Stack.Screen
+                  name="Saved Routines"
+                  component={SavedRoutinesScreen}
+                />
+                <Stack.Screen name="Profile" component={ProfileScreen} />
+                <Stack.Screen
+                  name="Specific Routine"
+                  component={SpecificRoutineScreen}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </RoutineProvider>
         </DataContextProvider>
       </Provider>
     </FirebaseAppProvider>

@@ -25,7 +25,6 @@ const ExerciseDetailsScreen = ({ route }) => {
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
-  console.log(exercise);
 
   // useEffect(() => {
   //   navigation.setParams({ routine });
