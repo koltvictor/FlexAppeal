@@ -25,6 +25,15 @@ export default function ProfileScreen({ navigation }) {
     console.log("username updated successfully");
   };
 
+  const handleLogOut = async () => {
+    try {
+      await auth.signOut();
+      navigation.navigate("Login");
+    } catch (error) {
+      console.log("Error signing out: ", error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -39,6 +48,7 @@ export default function ProfileScreen({ navigation }) {
       >
         Update Profile
       </Button>
+      <Button onPress={handleLogOut}>Log Out</Button>
     </SafeAreaView>
   );
 }
