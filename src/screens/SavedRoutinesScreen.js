@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db, auth } from "../../firebase";
-import { Text, FlatList, View, Button } from "react-native";
+import { Text, FlatList, View, Button, StyleSheet } from "react-native";
 
 function SavedRoutinesScreen({ navigation }) {
   const [savedRoutines, setSavedRoutines] = useState([]);
@@ -28,13 +28,13 @@ function SavedRoutinesScreen({ navigation }) {
   }, []);
 
   return (
-    <View>
-      <Text>My Saved Routines:</Text>
+    <View style={styles.container}>
+      <Text style={styles.header}>My Saved Routines:</Text>
       <FlatList
         data={savedRoutines}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.name}</Text>
+          <View style={styles.routineContainer}>
+            <Text style={styles.routineName}>{item.name}</Text>
             <Button
               title="View Routine"
               onPress={() =>
@@ -48,5 +48,42 @@ function SavedRoutinesScreen({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#000000",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  header: {
+    color: "#ffffff",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: 50,
+    marginBottom: 20,
+    textAlign: "center",
+    textTransform: "uppercase",
+    fontFamily: "Helvetica",
+  },
+  routineContainer: {
+    backgroundColor: "#2f2f2f",
+    borderRadius: 10,
+    marginBottom: 20,
+    padding: 20,
+    width: "80%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  routineName: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    textTransform: "uppercase",
+    fontFamily: "Helvetica",
+  },
+});
 
 export default SavedRoutinesScreen;
