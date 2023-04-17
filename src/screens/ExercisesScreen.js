@@ -61,7 +61,7 @@ export default function ExercisesScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Search search={searchQuery} onSearch={handleSearch} />
+        {/* <Search search={searchQuery} onSearch={handleSearch} /> */}
         <ScrollView vertical={true} style={styles.listContainer}>
           {targets.map((target) => (
             <TouchableOpacity
@@ -81,7 +81,7 @@ export default function ExercisesScreen() {
             </TouchableOpacity>
           ))}
           <TouchableOpacity
-            onPress={() => navigation.navigate("ExercisesScreen")}
+            onPress={() => navigation.navigate("ExerciseIndexScreen")}
             style={styles.targetItem}
           >
             <Feather name="list" size={24} color="black" />

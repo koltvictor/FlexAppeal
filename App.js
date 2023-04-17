@@ -7,6 +7,7 @@ import LoginScreen from "./src/screens/LoginScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import DashboardScreen from "./src/screens/DashboardScreen";
 import ExercisesScreen from "./src/screens/ExercisesScreen";
+import ExerciseIndexScreen from "./src/screens/ExerciseIndexScreen";
 import ExerciseDetailsScreen from "./src/screens/ExerciseDetailsScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import UpdateProfileScreen from "./src/screens/UpdateProfileScreen";
@@ -45,6 +46,10 @@ const App = observer(() => {
                 <Stack.Screen name="Signup" component={SignupScreen} />
                 <Stack.Screen name="Dashboard" component={DashboardScreen} />
                 <Stack.Screen name="Exercises" component={ExercisesScreen} />
+                <Stack.Screen
+                  name="ExerciseIndexScreen"
+                  component={ExerciseIndexScreen}
+                />
                 <Stack.Screen name="TargetsScreen" component={TargetsScreen} />
                 <Stack.Screen
                   name="ExerciseDetails"
