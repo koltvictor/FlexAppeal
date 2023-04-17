@@ -44,7 +44,11 @@ const App = observer(() => {
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen name="Signup" component={SignupScreen} />
-                <Stack.Screen name="Dashboard" component={DashboardScreen} />
+                <Stack.Screen
+                  name="Dashboard"
+                  component={DashboardScreen}
+                  options={{ headerShown: false }}
+                />
                 <Stack.Screen name="Exercises" component={ExercisesScreen} />
                 <Stack.Screen
                   name="ExerciseIndexScreen"

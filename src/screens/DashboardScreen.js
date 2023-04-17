@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { StyleSheet, TouchableOpacity, Text, SafeAreaView } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,15 +13,10 @@ import { auth } from "../../firebase";
 
 const Tab = createMaterialTopTabNavigator();
 
-const styles = StyleSheet.create({
-  icon: {
-    marginRight: 10,
-  },
-});
-
 export default function DashboardScreen() {
   const navigation = useNavigation();
   const [currentUser, setCurrentUser] = useState(null);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -33,65 +29,63 @@ export default function DashboardScreen() {
   return (
     <DataContext.Consumer>
       {({ exercises }) => (
-        <Tab.Navigator>
-          <Tab.Screen
-            name="Profile"
-            component={ProfileScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <TouchableOpacity
-                  style={styles.icon}
-                  onPress={() => navigation.navigate("UpdateProfile")}
-                >
-                  <Ionicons name="person" size={size} color={color} />
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === "Profile") {
+                iconName = focused ? "person" : "person-outline";
+              } else if (route.name === "Exercises") {
+                iconName = focused ? "barbell" : "barbell-outline";
+              } else if (route.name === "Routine") {
+                iconName = focused ? "fitness" : "fitness-outline";
+              } else if (route.name === "Saved Routines") {
+                iconName = focused ? "save" : "save-outline";
+              }
+
+              return (
+                <TouchableOpacity style={styles.tabIcon}>
+                  <Ionicons name={iconName} size={size} color={color} />
                 </TouchableOpacity>
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Exercises"
-            component={ExercisesScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <TouchableOpacity
-                  style={styles.icon}
-                  onPress={() => navigation.navigate("Exercises")}
-                >
-                  <Ionicons name="barbell" size={size} color={color} />
-                </TouchableOpacity>
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Routine"
-            component={RoutineScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <TouchableOpacity
-                  style={styles.icon}
-                  onPress={() => navigation.navigate("Routines")}
-                >
-                  <Ionicons name="fitness" size={size} color={color} />
-                </TouchableOpacity>
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Saved Routines"
-            component={SavedRoutinesScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <TouchableOpacity
-                  style={styles.icon}
-                  onPress={() => navigation.navigate("SavedRoutines")}
-                >
-                  <Ionicons name="save" size={size} color={color} />
-                </TouchableOpacity>
-              ),
-            }}
-          />
+              );
+            },
+            tabBarActiveTintColor: "#FFFFFF",
+            tabBarInactiveTintColor: "rgba(255, 255, 255, 0.6)",
+            tabBarStyle: {
+              backgroundColor: "#000000",
+              borderTopWidth: 0,
+              elevation: 0,
+              height: 80,
+
+              paddingTop: 10,
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+            },
+          })}
+        >
+          <Tab.Screen name="Profile" component={ProfileScreen} />
+          <Tab.Screen name="Exercises" component={ExercisesScreen} />
+          <Tab.Screen name="Routine" component={RoutineScreen} />
+          <Tab.Screen name="Saved Routines" component={SavedRoutinesScreen} />
         </Tab.Navigator>
       )}
     </DataContext.Consumer>
   );
 }
+
+const styles = StyleSheet.create({
+  tabIcon: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tabText: {
+    color: "#FFFFFF",
+    fontSize: 12,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    marginTop: 5,
+    alignSelf: "center", // align the text to the center of the tab
+  },
+});
