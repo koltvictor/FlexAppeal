@@ -1,9 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import routineStore from "../app/RoutineStore";
 
 const ExerciseCard = ({ exercise }) => {
   const { routine, addExercise } = routineStore;
+  const navigation = useNavigation();
 
   const handleAddToRoutine = (exercise) => {
     addExercise(exercise);
@@ -33,6 +35,12 @@ const ExerciseCard = ({ exercise }) => {
         onPress={() => handleAddToRoutine(exercise)}
       >
         <Text style={styles.buttonText}>Add to routine</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.goBackButton}
+        onPress={() => navigation.goBack()}
+      >
+        <Text style={styles.buttonText}>Go Back</Text>
       </TouchableOpacity>
     </View>
   );
@@ -99,6 +107,17 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     resizeMode: "contain",
+  },
+  goBackButton: {
+    backgroundColor: "#ddd",
+    borderRadius: 10,
+    padding: 10,
+    margin: 20,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    textAlign: "center",
   },
 });
 

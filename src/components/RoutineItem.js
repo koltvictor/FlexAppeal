@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import Slider from "@react-native-community/slider";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
 
-const RoutineScreen = ({ exercise }) => {
+const RoutineItem = ({ exercise }) => {
   const [repCount, setRepCount] = useState(0);
   const [timeInSeconds, setTimeInSeconds] = useState(0);
+  const navigation = useNavigation();
+
+  const handleNavigateToExerciseCard = () => {
+    navigation.navigate("ExerciseDetails", { exercise });
+  };
 
   return (
     <View style={styles.container}>
@@ -16,6 +22,12 @@ const RoutineScreen = ({ exercise }) => {
           </View>
         ) : (
           <View key={exercise.id} style={styles.exerciseContainer}>
+            <TouchableOpacity
+              style={styles.navigateButton}
+              onPress={handleNavigateToExerciseCard}
+            >
+              <MaterialIcons name="arrow-forward" size={30} color="#fff" />
+            </TouchableOpacity>
             <Text style={styles.exerciseTitle}>{exercise.name}</Text>
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Reps</Text>
@@ -27,6 +39,9 @@ const RoutineScreen = ({ exercise }) => {
                   step={1}
                   value={repCount}
                   onValueChange={(value) => setRepCount(value)}
+                  minimumTrackTintColor="#fff"
+                  maximumTrackTintColor="#333"
+                  thumbTintColor="#fff"
                 />
                 <Text style={styles.sliderValue}>{repCount}</Text>
               </View>
@@ -41,6 +56,9 @@ const RoutineScreen = ({ exercise }) => {
                   step={5}
                   value={timeInSeconds}
                   onValueChange={(value) => setTimeInSeconds(value)}
+                  minimumTrackTintColor="#fff"
+                  maximumTrackTintColor="#333"
+                  thumbTintColor="#fff"
                 />
                 <Text style={styles.sliderValue}>{timeInSeconds}</Text>
               </View>
@@ -51,11 +69,10 @@ const RoutineScreen = ({ exercise }) => {
     </View>
   );
 };
-
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#fff",
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 10,
@@ -70,26 +87,28 @@ const styles = {
     alignItems: "center",
   },
   emptyText: {
-    color: "#fff",
+    color: "#000",
     fontSize: 16,
   },
   exerciseContainer: {
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 20,
+    marginBottom: 20,
   },
   exerciseTitle: {
-    color: "#fff",
+    color: "#000",
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+    marginLeft: 5,
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
+    marginLeft: 5,
   },
   inputLabel: {
-    color: "#fff",
+    color: "#000",
     fontSize: 18,
     marginRight: 10,
   },
@@ -102,18 +121,19 @@ const styles = {
     flex: 1,
   },
   sliderValue: {
-    color: "#fff",
+    color: "#000",
     fontSize: 18,
     marginLeft: 10,
   },
-  buttonContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-  },
-  button: {
+  navigateButton: {
     backgroundColor: "#000",
+    borderRadius: 50,
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
   },
 };
 
-export default RoutineScreen;
+export default RoutineItem;

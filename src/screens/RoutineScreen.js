@@ -92,63 +92,70 @@ const RoutineScreen = observer(() => {
           placeholder="Routine Name"
           value={routineName}
           onChangeText={(text) => setRoutineName(text)}
+          placeholderTextColor="gray"
         />
         <TouchableOpacity
           onPress={handleSaveRoutine}
           disabled={routineStore.routine.length === 0}
         >
-          <Ionicons name="checkmark-circle-outline" size={32} color="white" />
+          <Ionicons name="checkmark-circle-outline" size={32} color="#2980b9" />
         </TouchableOpacity>
       </View>
     </View>
   );
 });
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "#f2f2f2",
   },
   contentContainer: {
-    flexGrow: 1,
-    paddingBottom: 24,
+    padding: 20,
   },
   emptyContainer: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
   },
   emptyText: {
-    color: "white",
-    fontSize: 16,
+    fontSize: 20,
+    color: "gray",
   },
   exerciseContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#555555",
+    marginBottom: 20,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    padding: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
   },
   exerciseName: {
-    color: "white",
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "#2980b9",
   },
   inputContainer: {
+    backgroundColor: "#fff",
+    padding: 20,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderTopWidth: 1,
-    borderTopColor: "#555555",
   },
   input: {
     flex: 1,
-    color: "white",
-    fontSize: 18,
-    marginRight: 16,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 10,
+    padding: 10,
+    marginRight: 10,
+    fontSize: 16,
   },
 });
 

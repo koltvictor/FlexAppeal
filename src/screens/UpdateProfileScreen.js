@@ -25,7 +25,7 @@ const icons = [
   "face-man",
 ];
 
-export default function UpdateProfileScreen({ navigation, route }) {
+export default function UpdateProfileScreen({ navigation }) {
   const { profile, handleUpdateProfile } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [icon, setIcon] = useState("");
