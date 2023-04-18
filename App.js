@@ -5,6 +5,7 @@ import { firebaseConfig } from "./firebase";
 import SplashScreen from "./src/app/SplashScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import SignupScreen from "./src/screens/SignupScreen";
+import WelcomeScreen from "./src/screens/WelcomeScreen";
 import DashboardScreen from "./src/screens/DashboardScreen";
 import ExercisesScreen from "./src/screens/ExercisesScreen";
 import ExerciseIndexScreen from "./src/screens/ExerciseIndexScreen";
@@ -44,6 +45,11 @@ const App = observer(() => {
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen name="Signup" component={SignupScreen} />
+                <Stack.Screen
+                  name="Welcome"
+                  component={WelcomeScreen}
+                  options={{ headerShown: false }}
+                />
                 <Stack.Screen
                   name="Dashboard"
                   component={DashboardScreen}

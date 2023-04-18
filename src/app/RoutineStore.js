@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, autorun } from "mobx";
+import { makeObservable, observable, action, runInAction, autorun } from "mobx";
 
 class RoutineStore {
   routine = [];
@@ -7,16 +7,28 @@ class RoutineStore {
     makeObservable(this, {
       routine: observable,
       addExercise: action,
+      clearRoutine: action,
+      setRoutine: action,
+      subscribeToRoutineChanges: action.bound,
     });
     this.addExercise = this.addExercise.bind(this);
+    this.clearRoutine = this.clearRoutine.bind(this);
+    this.setRoutine = this.setRoutine.bind(this);
     this.subscribeToRoutineChanges = this.subscribeToRoutineChanges.bind(this);
   }
 
   addExercise(exercise) {
     this.routine.push(exercise);
   }
+
   clearRoutine() {
     this.routine = [];
+  }
+
+  setRoutine(routine) {
+    runInAction(() => {
+      this.routine = routine;
+    });
   }
 
   subscribeToRoutineChanges(callback) {

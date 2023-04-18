@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
-  StyleSheet,
-  ScrollView,
   View,
+  ScrollView,
   Text,
   TextInput,
+  TouchableOpacity,
+  StyleSheet,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { auth, db } from "../../firebase";
 import routineStore from "../app/RoutineStore";
 import RoutineItem from "../components/RoutineItem";
 import { useNavigation } from "@react-navigation/native";
+import { observer } from "mobx-react-lite";
 
-const RoutineScreen = () => {
-  const { routine, subscribeToRoutineChanges } = routineStore;
+const RoutineScreen = observer(() => {
+  const { routine, setRoutine, subscribeToRoutineChanges } = routineStore;
   const [routineName, setRoutineName] = useState("");
   let navigation = useNavigation();
 
@@ -78,7 +80,9 @@ const RoutineScreen = () => {
           </View>
         ) : (
           routineStore.routine.map((exercise) => (
-            <RoutineItem key={exercise.id} exercise={exercise} />
+            <View key={exercise.id} style={styles.exerciseContainer}>
+              <RoutineItem style={styles.exerciseName} exercise={exercise} />
+            </View>
           ))
         )}
       </ScrollView>
@@ -89,30 +93,25 @@ const RoutineScreen = () => {
           value={routineName}
           onChangeText={(text) => setRoutineName(text)}
         />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Save Routine"
+        <TouchableOpacity
           onPress={handleSaveRoutine}
-          disabled={routine.length === 0}
-        />
-        <Button
-          title="Clear Routine"
-          onPress={() => routineStore.clearRoutine()}
-          disabled={routine.length === 0}
-        />
+          disabled={routineStore.routine.length === 0}
+        >
+          <Ionicons name="checkmark-circle-outline" size={32} color="white" />
+        </TouchableOpacity>
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#1a1a1a",
   },
   contentContainer: {
-    paddingVertical: 20,
+    flexGrow: 1,
+    paddingBottom: 24,
   },
   emptyContainer: {
     flex: 1,
@@ -120,11 +119,36 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   emptyText: {
-    fontSize: 18,
-    color: "#888",
+    color: "white",
+    fontSize: 16,
   },
-  buttonContainer: {
-    padding: 20,
+  exerciseContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#555555",
+  },
+  exerciseName: {
+    color: "white",
+    fontSize: 18,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: "#555555",
+  },
+  input: {
+    flex: 1,
+    color: "white",
+    fontSize: 18,
+    marginRight: 16,
   },
 });
 

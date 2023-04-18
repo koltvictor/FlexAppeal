@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-} from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import routineStore from "../app/RoutineStore";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import Slider from "@react-native-community/slider";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const RoutineScreen = ({ exercise }) => {
   const [repCount, setRepCount] = useState(0);
@@ -25,137 +19,101 @@ const RoutineScreen = ({ exercise }) => {
             <Text style={styles.exerciseTitle}>{exercise.name}</Text>
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Reps</Text>
-              <TouchableOpacity style={styles.pickerContainer}>
-                <Picker
-                  selectedValue={repCount}
+              <View style={styles.sliderContainer}>
+                <Slider
+                  style={styles.slider}
+                  minimumValue={0}
+                  maximumValue={100}
+                  step={1}
+                  value={repCount}
                   onValueChange={(value) => setRepCount(value)}
-                  style={styles.picker}
-                >
-                  {Array.from({ length: 101 }, (_, i) => i).map((value) => (
-                    <Picker.Item
-                      key={value}
-                      label={value.toString()}
-                      value={value}
-                    />
-                  ))}
-                </Picker>
-              </TouchableOpacity>
+                />
+                <Text style={styles.sliderValue}>{repCount}</Text>
+              </View>
             </View>
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Time (seconds)</Text>
-              <TouchableOpacity style={styles.pickerContainer}>
-                <Picker
-                  selectedValue={timeInSeconds}
+              <View style={styles.sliderContainer}>
+                <Slider
+                  style={styles.slider}
+                  minimumValue={0}
+                  maximumValue={300}
+                  step={5}
+                  value={timeInSeconds}
                   onValueChange={(value) => setTimeInSeconds(value)}
-                  style={styles.picker}
-                >
-                  {Array.from({ length: 61 }, (_, i) => i * 5).map((value) => (
-                    <Picker.Item
-                      key={value}
-                      label={value.toString()}
-                      value={value}
-                    />
-                  ))}
-                </Picker>
-              </TouchableOpacity>
+                />
+                <Text style={styles.sliderValue}>{timeInSeconds}</Text>
+              </View>
             </View>
           </View>
         )}
       </ScrollView>
-      <View style={styles.buttonContainer}></View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#1f1f1f",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#000",
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   scrollContainer: {
-    width: "100%",
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    flex: 1,
   },
   emptyContainer: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
   },
   emptyText: {
-    fontSize: 18,
     color: "#fff",
+    fontSize: 16,
   },
   exerciseContainer: {
-    marginBottom: 20,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    backgroundColor: "#141414",
-    shadowColor: "#ffffff",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 10,
+    marginTop: 10,
+    marginBottom: 10,
   },
   exerciseTitle: {
-    fontSize: 22,
-    fontWeight: "600",
-    marginBottom: 10,
     color: "#fff",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 5,
+    marginBottom: 10,
   },
   inputLabel: {
-    fontSize: 16,
-    marginRight: 10,
-    color: "#fff",
-    fontWeight: "500",
-  },
-  pickerContainer: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: "#fff",
-    borderRadius: 5,
-    padding: 10,
-    marginLeft: "auto",
-  },
-  picker: {
-    width: 100,
-    height: 30,
-    fontSize: 16,
-    color: "#fff",
-  },
-  buttonContainer: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    marginTop: 20,
-  },
-  button: {
-    backgroundColor: "#ff2d55",
-    borderRadius: 50,
-    paddingVertical: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    height: 50,
-  },
-  disabledButton: {
-    opacity: 0.5,
-  },
-  buttonText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: "500",
+    marginRight: 10,
   },
-});
+  sliderContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  slider: {
+    flex: 1,
+  },
+  sliderValue: {
+    color: "#fff",
+    fontSize: 18,
+    marginLeft: 10,
+  },
+  buttonContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  button: {
+    backgroundColor: "#000",
+  },
+};
 
 export default RoutineScreen;

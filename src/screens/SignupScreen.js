@@ -32,9 +32,8 @@ const SignupScreen = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log("User created successfully");
-        // Set the display name state variable
         setDisplayName(displayName);
+
         // Create a user profile document in Firestore
         db.collection("users")
           .doc(user.uid)
@@ -69,8 +68,8 @@ const SignupScreen = () => {
                       "SavedRoutines collection created successfully"
                     );
 
-                    // Navigate to the Login screen
-                    navigation.navigate("Login");
+                    // // Navigate to the Login screen
+                    // navigation.navigate("Welcome");
                   })
                   .catch((error) => {
                     console.error(
@@ -98,7 +97,7 @@ const SignupScreen = () => {
 
         console.error(error);
       });
-    navigation.navigate("Login");
+    navigation.navigate("Welcome");
   };
 
   return (
