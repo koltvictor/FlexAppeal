@@ -7,7 +7,7 @@ import {
   getFirestore,
   collection,
   addDoc,
-  getDocs,
+  getDoc,
   updateDoc,
   doc,
 } from "firebase/firestore";
@@ -39,7 +39,7 @@ export {
   firestore,
   collection,
   addDoc,
-  getDocs,
+  getDoc,
   updateDoc,
   doc,
   firebaseConfig,
