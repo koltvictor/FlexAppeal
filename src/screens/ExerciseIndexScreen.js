@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
-import { DataContext } from "../app/DataContext";
+import { DataContext } from "../app/contexts/DataContext";
 import { useNavigation } from "@react-navigation/native";
 
 export default function ExerciseIndexScreen() {

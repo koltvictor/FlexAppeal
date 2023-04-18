@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import React, { useContext } from "react";
 import TargetCard from "../components/TargetCard";
-import { DataContext } from "../app/DataContext";
+import { DataContext } from "../app/contexts/DataContext";
 
 export default function TargetsScreen({ route }) {
   const { exercises } = useContext(DataContext);

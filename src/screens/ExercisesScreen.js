@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import Search from "../components/Search";
-import { DataContext } from "../app/DataContext";
+import { DataContext } from "../app/contexts/DataContext";
 
 export default function ExercisesScreen() {
   // imported data

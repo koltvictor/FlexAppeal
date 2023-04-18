@@ -1,4 +1,4 @@
-import { queryClient } from "./Provider";
+import { queryClient } from "./providers/Provider";
 
 const BASE_URL = "https://exercisedb.p.rapidapi.com";
 

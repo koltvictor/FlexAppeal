@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db, auth } from "../../firebase";
+import { db, auth } from "../app/firebase";
 import { Text, FlatList, View, Button, StyleSheet } from "react-native";
 
 function SavedRoutinesScreen({ navigation }) {

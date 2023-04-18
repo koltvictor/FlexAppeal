@@ -1,8 +1,7 @@
 import { useQuery } from "react-query";
-import { firestore } from "../../../firebase";
+import { firestore } from "../firebase";
 
 const useSavedRoutines = (uid) => {
-  console.log(uid);
   const fetchSavedRoutines = async () => {
     const snapshot = await firestore
       .collection("savedRoutines")

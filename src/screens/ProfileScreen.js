@@ -1,13 +1,14 @@
 import { Button } from "@rneui/base";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, View, SafeAreaView } from "react-native";
-import { db, doc, auth, updateDoc, getDoc } from "../../firebase"; // add getDoc import
+import { db, doc, auth, updateDoc, getDoc } from "../app/firebase"; // add getDoc import
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function ProfileScreen({ navigation }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [username, setUsername] = useState("");
   const [profile, setProfile] = useState(null); // add profile state
+  const [updatedProfile, setUpdatedProfile] = useState(null); // add updatedProfile state
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -38,14 +39,6 @@ export default function ProfileScreen({ navigation }) {
     }
   }, [auth.currentUser, db]);
 
-  const handleUpdateUsername = async () => {
-    const userRef = doc(db, "users", currentUser.uid);
-    await updateDoc(userRef, {
-      username: username,
-    });
-    console.log("username updated successfully");
-  };
-
   const handleLogOut = async () => {
     try {
       await auth.signOut();
@@ -54,6 +47,14 @@ export default function ProfileScreen({ navigation }) {
       console.log("Error signing out: ", error);
     }
   };
+
+  useEffect(() => {
+    if (updatedProfile) {
+      setProfile(updatedProfile);
+    }
+  }, [updatedProfile]);
+
+  console.log(profile);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -64,12 +65,15 @@ export default function ProfileScreen({ navigation }) {
       </View>
       <Button
         onPress={() => {
-          navigation.navigate("Update Profile");
+          navigation.navigate("Update Profile", {
+            profile: profile,
+          });
         }}
         style={styles.button}
       >
         Update Profile
       </Button>
+
       <Button onPress={handleLogOut} style={styles.button}>
         Log Out
       </Button>

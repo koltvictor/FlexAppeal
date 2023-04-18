@@ -1,7 +1,7 @@
 import { View, Text, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../app/firebase";
 
 export default function SavedRoutinesComponent({ data }) {
   return (

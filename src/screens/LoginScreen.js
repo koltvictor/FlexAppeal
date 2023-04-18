@@ -1,4 +1,4 @@
-import { auth } from "../../firebase/index.js";
+import { auth } from "../app/firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import {

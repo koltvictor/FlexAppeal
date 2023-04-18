@@ -8,8 +8,8 @@ import ProfileScreen from "./ProfileScreen";
 import ExercisesScreen from "./ExercisesScreen";
 import RoutineScreen from "./RoutineScreen";
 import SavedRoutinesScreen from "./SavedRoutinesScreen";
-import { DataContext } from "../app/DataContext";
-import { auth } from "../../firebase";
+import { DataContext } from "../app/contexts/DataContext";
+import { auth } from "../app/firebase";
 
 const Tab = createMaterialTopTabNavigator();
 

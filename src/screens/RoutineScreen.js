@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../app/firebase";
 import routineStore from "../app/RoutineStore";
 import RoutineItem from "../components/RoutineItem";
 import { useNavigation } from "@react-navigation/native";
