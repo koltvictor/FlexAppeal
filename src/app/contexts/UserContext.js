@@ -1,7 +1,9 @@
 import React, { useState, useEffect, createContext } from "react";
 import { auth, db, doc, getDoc, updateDoc } from "../firebase/index";
 
-export const UserContext = createContext();
+const UserContext = createContext();
+
+export default UserContext;
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);

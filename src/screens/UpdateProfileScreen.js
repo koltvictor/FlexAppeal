@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Button } from "@rneui/base";
-import { auth, db, doc, updateDoc, getDoc } from "../app/firebase";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Modal from "react-native-modal";
+import UserContext from "../app/contexts/UserContext";
 
 const icons = [
   "account",
@@ -26,33 +26,10 @@ const icons = [
 ];
 
 export default function UpdateProfileScreen({ navigation, route }) {
+  const { profile, handleUpdateProfile } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [icon, setIcon] = useState("");
   const [showModal, setShowModal] = useState(false);
-
-  const { profile } = route.params;
-
-  const handleUpdateProfile = async () => {
-    try {
-      const uid = auth.currentUser.uid;
-      const profileDocRef = doc(db, "profiles", uid);
-      const updatedFields = {};
-      if (username) {
-        updatedFields.username = username;
-      }
-      if (icon) {
-        updatedFields.icon = icon;
-      }
-      await updateDoc(profileDocRef, updatedFields);
-      console.log("Profile updated successfully");
-      const updatedProfileDoc = await getDoc(profileDocRef);
-      const updatedProfile = updatedProfileDoc.data();
-      navigation.goBack();
-      profile.onUpdateProfile(updatedProfile);
-    } catch (error) {
-      console.log("Error updating profile:", error);
-    }
-  };
 
   const handleIconPress = () => {
     setShowModal(true);
@@ -92,10 +69,19 @@ export default function UpdateProfileScreen({ navigation, route }) {
               <Icon name={iconName} size={50} style={styles.modalIcon} />
             </TouchableOpacity>
           ))}
+          <TouchableOpacity onPress={() => setShowModal(false)}>
+            <Text style={styles.modalClose}>Close</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
-      <Button onPress={handleUpdateProfile} style={styles.button}>
-        Update Profile
+      <Button
+        onPress={() => {
+          handleUpdateProfile(username, icon);
+          navigation.goBack();
+        }}
+        style={styles.button}
+      >
+        Save Changes
       </Button>
     </SafeAreaView>
   );

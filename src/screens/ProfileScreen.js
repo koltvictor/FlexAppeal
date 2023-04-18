@@ -1,82 +1,47 @@
-import { Button } from "@rneui/base";
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TextInput, View, SafeAreaView } from "react-native";
-import { db, doc, auth, updateDoc, getDoc } from "../app/firebase"; // add getDoc import
+import React, { useContext } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
+import UserContext from "../app/contexts/UserContext";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function ProfileScreen({ navigation }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [username, setUsername] = useState("");
-  const [profile, setProfile] = useState(null); // add profile state
-  const [updatedProfile, setUpdatedProfile] = useState(null); // add updatedProfile state
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-
-    return unsubscribe;
-  }, []);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const uid = auth.currentUser.uid;
-        const profileDoc = doc(db, "profiles", uid);
-        const profileSnapshot = await getDoc(profileDoc);
-        if (profileSnapshot.exists()) {
-          setProfile(profileSnapshot.data());
-        } else {
-          console.log("No such document!");
-        }
-      } catch (error) {
-        console.log("Error fetching profile:", error);
-      }
-    };
-
-    if (auth.currentUser) {
-      fetchProfile();
-    }
-  }, [auth.currentUser, db]);
-
-  const handleLogOut = async () => {
-    try {
-      await auth.signOut();
-      navigation.navigate("Login");
-    } catch (error) {
-      console.log("Error signing out: ", error);
-    }
-  };
-
-  useEffect(() => {
-    if (updatedProfile) {
-      setProfile(updatedProfile);
-    }
-  }, [updatedProfile]);
-
-  console.log(profile);
+  const { user, profile, handleLogOut, handleUpdateProfile } =
+    useContext(UserContext);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Icon name="account-circle" size={100} style={styles.avatar} />
+        <Icon
+          name={profile ? profile.icon : "account-circle"}
+          size={100}
+          color="#00c9ff"
+          style={styles.avatar}
+        />
         <Text style={styles.username}>{profile ? profile.username : ""}</Text>
-        <Text style={styles.email}>{currentUser ? currentUser.email : ""}</Text>
+        <Text style={styles.email}>{user ? user.email : ""}</Text>
       </View>
-      <Button
+      <TouchableOpacity
         onPress={() => {
           navigation.navigate("Update Profile", {
             profile: profile,
           });
         }}
-        style={styles.button}
+        style={[styles.button, { backgroundColor: "#00c9ff" }]}
       >
-        Update Profile
-      </Button>
+        <Text style={styles.buttonText}>Update Profile</Text>
+      </TouchableOpacity>
 
-      <Button onPress={handleLogOut} style={styles.button}>
-        Log Out
-      </Button>
+      <TouchableOpacity
+        onPress={handleLogOut}
+        style={[styles.button, { backgroundColor: "#ff2d55" }]}
+      >
+        <Text style={styles.buttonText}>Log Out</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -84,34 +49,41 @@ export default function ProfileScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#242424",
+    backgroundColor: "#000000",
     alignItems: "center",
     justifyContent: "center",
   },
   avatarContainer: {
     alignItems: "center",
-    marginBottom: 50,
+    marginTop: 50,
+    marginBottom: 20,
   },
   avatar: {
-    color: "#fff",
-  },
-  email: {
-    color: "#fff",
-    fontSize: 18,
-    marginTop: 20,
-  },
-  button: {
-    marginTop: 20,
-    borderRadius: 20,
-    backgroundColor: "#00ADEF",
-    width: 200,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    marginBottom: 10,
   },
   username: {
-    color: "#fff",
-    fontSize: 24,
-    marginTop: 10,
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#ffffff",
+    marginBottom: 10,
+  },
+  email: {
+    fontSize: 20,
+    color: "#00c9ff",
+    marginBottom: 30,
+  },
+  button: {
+    borderRadius: 30,
+    marginVertical: 10,
+    marginHorizontal: 40,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
