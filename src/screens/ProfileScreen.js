@@ -10,8 +10,15 @@ import UserContext from "../app/contexts/UserContext";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function ProfileScreen({ navigation }) {
-  const { user, profile, handleLogOut, handleUpdateProfile } =
-    useContext(UserContext);
+  const { user, profile, handleLogOut } = useContext(UserContext);
+
+  const handleLogoutAndNavigate = async () => {
+    await handleLogOut();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Login" }],
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,7 +44,7 @@ export default function ProfileScreen({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={handleLogOut}
+        onPress={handleLogoutAndNavigate}
         style={[styles.button, { backgroundColor: "#ff2d55" }]}
       >
         <Text style={styles.buttonText}>Log Out</Text>

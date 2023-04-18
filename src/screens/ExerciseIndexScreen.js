@@ -1,11 +1,30 @@
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import React, { useContext, useState } from "react";
 import { DataContext } from "../app/contexts/DataContext";
 import { useNavigation } from "@react-navigation/native";
 
 export default function ExerciseIndexScreen() {
   const { exercises } = useContext(DataContext);
-  let navigation = useNavigation();
+  const navigation = useNavigation();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredExercises = exercises
+    ? exercises.filter(
+        (exercise) =>
+          exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          exercise.bodyPart.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          exercise.equipment
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          exercise.target.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   const renderExercise = ({ item }) => {
     return (
@@ -21,8 +40,13 @@ export default function ExerciseIndexScreen() {
 
   return (
     <View>
+      <TextInput
+        placeholder="Search exercises"
+        onChangeText={(text) => setSearchQuery(text)}
+        value={searchQuery}
+      />
       <FlatList
-        data={exercises}
+        data={filteredExercises}
         renderItem={renderExercise}
         keyExtractor={(item) => item.id}
       />
