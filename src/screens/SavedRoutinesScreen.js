@@ -29,7 +29,7 @@ function SavedRoutinesScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>My Saved Routines:</Text>
+      <Text style={styles.header}>My Routines</Text>
       <FlatList
         data={savedRoutines}
         renderItem={({ item }) => (
@@ -40,6 +40,7 @@ function SavedRoutinesScreen({ navigation }) {
               onPress={() =>
                 navigation.navigate("Specific Routine", { routine: item })
               }
+              color="#ffffff"
             />
           </View>
         )}
@@ -53,34 +54,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000000",
+    paddingHorizontal: 20,
+    paddingTop: 50,
     alignItems: "center",
-    justifyContent: "center",
   },
   header: {
     color: "#ffffff",
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
-    marginTop: 50,
     marginBottom: 20,
-    textAlign: "center",
     textTransform: "uppercase",
     fontFamily: "Helvetica",
   },
   routineContainer: {
-    backgroundColor: "#2f2f2f",
+    backgroundColor: "#333333",
     borderRadius: 10,
     marginBottom: 20,
     padding: 20,
-    width: "80%",
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
   routineName: {
     color: "#ffffff",
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
-    textAlign: "center",
     textTransform: "uppercase",
     fontFamily: "Helvetica",
   },

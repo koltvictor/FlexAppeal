@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { auth, db, doc, getDoc, updateDoc } from "../firebase/index";
+import { auth, db, doc, setDoc, getDoc, updateDoc } from "../firebase/index";
 
 const UserContext = createContext();
 
@@ -34,6 +34,43 @@ export const UserProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  const handleSignUp = async (email, password, profileData) => {
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      const { uid } = user;
+      const profileDoc = doc(db, "profiles", uid);
+      await setDoc(profileDoc, profileData);
+      setProfile(profileData);
+      setUser(user); // added
+      return { success: true };
+    } catch (error) {
+      console.log("Error signing up: ", error);
+      return { success: false, message: error.message };
+    }
+  };
+
+  const handleLogIn = async (email, password) => {
+    try {
+      const { user } = await auth.signInWithEmailAndPassword(email, password);
+      const uid = user.uid;
+      const profileDoc = doc(db, "profiles", uid);
+      const profileSnapshot = await getDoc(profileDoc);
+      if (profileSnapshot.exists()) {
+        setProfile(profileSnapshot.data());
+      } else {
+        console.log("No such document!");
+      }
+      setUser(user); // added
+      return { success: true };
+    } catch (error) {
+      console.log("Error logging in: ", error);
+      return { success: false, message: error.message };
+    }
+  };
+
   const handleLogOut = async () => {
     try {
       await auth.signOut();
@@ -66,6 +103,8 @@ export const UserProvider = ({ children }) => {
   const value = {
     user,
     profile,
+    handleSignUp,
+    handleLogIn,
     handleLogOut,
     handleUpdateProfile,
   };

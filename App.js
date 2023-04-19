@@ -65,10 +65,12 @@ const App = observer(() => {
                   <Stack.Screen
                     name="TargetsScreen"
                     component={TargetsScreen}
+                    options={{ title: "Exercises" }}
                   />
                   <Stack.Screen
                     name="ExerciseDetails"
                     component={ExerciseDetailsScreen}
+                    options={{ headerShown: false }}
                   />
                   <Stack.Screen name="Routine" component={RoutineScreen} />
                   <Stack.Screen

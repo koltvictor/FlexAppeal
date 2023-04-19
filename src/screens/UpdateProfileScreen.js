@@ -27,6 +27,7 @@ const icons = [
 
 export default function UpdateProfileScreen({ navigation }) {
   const { profile, handleUpdateProfile } = useContext(UserContext);
+  console.log(profile);
   const [username, setUsername] = useState("");
   const [icon, setIcon] = useState("");
   const [showModal, setShowModal] = useState(false);

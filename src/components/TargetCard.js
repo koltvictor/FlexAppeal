@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import TargetDetails from "./TargetDetails";
 
 export default function TargetCard({ exercise }) {
   let navigation = useNavigation();
@@ -12,7 +11,6 @@ export default function TargetCard({ exercise }) {
         onPress={() => navigation.navigate("ExerciseDetails", { exercise })}
       >
         {exercise.name}
-        {/* // <TargetDetails target={exercise} key={exercise.id} /> */}
       </Text>
     </View>
   );

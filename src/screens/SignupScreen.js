@@ -68,8 +68,8 @@ const SignupScreen = () => {
                       "SavedRoutines collection created successfully"
                     );
 
-                    // // Navigate to the Login screen
-                    // navigation.navigate("Welcome");
+                    // Navigate to the Login screen
+                    navigation.navigate("Welcome");
                   })
                   .catch((error) => {
                     console.error(
@@ -97,7 +97,6 @@ const SignupScreen = () => {
 
         console.error(error);
       });
-    navigation.navigate("Welcome");
   };
 
   return (

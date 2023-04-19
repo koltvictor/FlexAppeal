@@ -15,7 +15,7 @@ export default function TargetsScreen({ route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={styles.content}>
         <Text style={styles.header}>{target}</Text>
         <ScrollView vertical={true} style={styles.listContainer}>
           {filteredExercises.map((exercise) => {
@@ -30,15 +30,25 @@ export default function TargetsScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#000",
+  },
+  content: {
+    flex: 1,
+    backgroundColor: "#000",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingTop: 32,
   },
   listContainer: {
     paddingHorizontal: 16,
     paddingTop: 16,
+    paddingBottom: 32,
   },
   header: {
     fontSize: 24,
     fontWeight: "bold",
     paddingHorizontal: 16,
-    paddingBottom: 8,
+    paddingBottom: 16,
+    color: "#FFF",
   },
 });

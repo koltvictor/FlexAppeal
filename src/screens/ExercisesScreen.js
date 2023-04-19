@@ -62,7 +62,6 @@ export default function ExercisesScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        {/* <Search search={searchQuery} onSearch={handleSearch} /> */}
         <ScrollView vertical={true} style={styles.listContainer}>
           {targets.map((target) => (
             <TouchableOpacity
@@ -77,7 +76,7 @@ export default function ExercisesScreen() {
               }
               style={styles.targetItem}
             >
-              <Feather name="target" size={24} color="black" />
+              <Feather name="target" size={24} color="white" />
               <Text style={styles.targetText}>{target}</Text>
             </TouchableOpacity>
           ))}
@@ -85,7 +84,7 @@ export default function ExercisesScreen() {
             onPress={() => navigation.navigate("ExerciseIndexScreen")}
             style={styles.targetItem}
           >
-            <Feather name="list" size={24} color="black" />
+            <Feather name="list" size={24} color="white" />
             <Text style={styles.targetText}>All Exercises</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -93,28 +92,25 @@ export default function ExercisesScreen() {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
   },
   listContainer: {
-    paddingHorizontal: 10,
-    paddingTop: 10,
-  },
-  listItem: {
-    paddingVertical: 5,
-    fontSize: 16,
-    fontWeight: "bold",
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
   targetItem: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 10,
+    paddingVertical: 15,
+    borderBottomColor: "#444",
+    borderBottomWidth: 1,
   },
   targetText: {
-    fontSize: 18,
-    marginLeft: 10,
+    fontSize: 20,
+    color: "#fff",
+    marginLeft: 20,
   },
 });
