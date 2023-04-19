@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,9 +8,28 @@ import {
 } from "react-native";
 import UserContext from "../app/contexts/UserContext";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { observer } from "mobx-react-lite";
+import userStore from "../stores/UserStore";
+import { db } from "../app/firebase";
 
-export default function ProfileScreen({ navigation }) {
-  const { user, profile, handleLogOut } = useContext(UserContext);
+const ProfileScreen = observer(({ navigation }) => {
+  const { user } = useContext(UserContext);
+  const { profile } = userStore;
+  const { handleLogOut } = useContext(UserContext);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const profileRef = db.collection("profiles").doc(user.uid);
+      const doc = await profileRef.get();
+      if (doc.exists) {
+        userStore.setProfile(doc.data());
+      } else {
+        console.log("No profile data available");
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleLogoutAndNavigate = async () => {
     await handleLogOut();
@@ -29,8 +48,8 @@ export default function ProfileScreen({ navigation }) {
           color="#00c9ff"
           style={styles.avatar}
         />
-        <Text style={styles.username}>{profile ? profile.username : ""}</Text>
-        <Text style={styles.email}>{user ? user.email : ""}</Text>
+        <Text style={styles.username}>{profile?.username}</Text>
+        <Text style={styles.email}>{profile ? profile.email : ""}</Text>
       </View>
       <TouchableOpacity
         onPress={() => {
@@ -42,7 +61,6 @@ export default function ProfileScreen({ navigation }) {
       >
         <Text style={styles.buttonText}>Update Profile</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         onPress={handleLogoutAndNavigate}
         style={[styles.button, { backgroundColor: "#ff2d55" }]}
@@ -51,7 +69,7 @@ export default function ProfileScreen({ navigation }) {
       </TouchableOpacity>
     </SafeAreaView>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -94,3 +112,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+export default ProfileScreen;
+
+{
+  /* <SafeAreaView style={styles.container}>
+<View style={styles.avatarContainer}>
+  <Icon
+    name={profile ? profile.icon : "account-circle"}
+
+  />
+  <Text style={styles.username}>{profile ? profile.username : ""}</Text>
+  
+</View>
+
+
+
+</SafeAreaView> */
+}

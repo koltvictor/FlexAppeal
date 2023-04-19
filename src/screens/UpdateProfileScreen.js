@@ -11,6 +11,7 @@ import { Button } from "@rneui/base";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Modal from "react-native-modal";
 import UserContext from "../app/contexts/UserContext";
+import userStore from "../../src/stores/UserStore";
 
 const icons = [
   "account",
@@ -25,11 +26,10 @@ const icons = [
   "face-man",
 ];
 
-export default function UpdateProfileScreen({ navigation }) {
-  const { profile, handleUpdateProfile } = useContext(UserContext);
-  console.log(profile);
-  const [username, setUsername] = useState("");
-  const [icon, setIcon] = useState("");
+export default function UpdateProfileScreen({ navigation, route }) {
+  const { profile } = route.params;
+  const [username, setUsername] = useState(profile.username || "");
+  const [icon, setIcon] = useState(profile.icon || "");
   const [showModal, setShowModal] = useState(false);
 
   const handleIconPress = () => {
@@ -41,9 +41,13 @@ export default function UpdateProfileScreen({ navigation }) {
     setShowModal(false);
   };
 
-  if (!profile) {
-    return null; // or render a loading indicator
-  }
+  const handleUpdateProfile = (username, icon) => {
+    userStore.setProfile({
+      ...profile,
+      username,
+      icon,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>

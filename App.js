@@ -26,8 +26,6 @@ import TargetsScreen from "./src/screens/TargetsScreen";
 const Stack = createNativeStackNavigator();
 
 const App = observer(() => {
-  const [search, setSearch] = useState("");
-
   return (
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
       <Provider>

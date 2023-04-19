@@ -1,5 +1,14 @@
 import React, { useState, useEffect, createContext } from "react";
-import { auth, db, doc, setDoc, getDoc, updateDoc } from "../firebase/index";
+import {
+  auth,
+  db,
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  onSnapshot,
+} from "../firebase/index";
+import userStore from "../../stores/UserStore";
 
 const UserContext = createContext();
 
@@ -13,18 +22,16 @@ export const UserProvider = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         setUser(userAuth);
-        try {
-          const uid = userAuth.uid;
-          const profileDoc = doc(db, "profiles", uid);
-          const profileSnapshot = await getDoc(profileDoc);
+        const uid = userAuth.uid;
+        const profileDoc = doc(db, "profiles", uid);
+        const unsubscribeProfile = onSnapshot(profileDoc, (profileSnapshot) => {
           if (profileSnapshot.exists()) {
             setProfile(profileSnapshot.data());
           } else {
             console.log("No such document!");
           }
-        } catch (error) {
-          console.log("Error fetching profile:", error);
-        }
+        });
+        return () => unsubscribeProfile();
       } else {
         setUser(null);
         setProfile(null);
@@ -34,17 +41,18 @@ export const UserProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  const handleSignUp = async (email, password, profileData) => {
+  const handleSignUp = async (email, password, username) => {
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
-      const { uid } = user;
+      const uid = user.uid;
       const profileDoc = doc(db, "profiles", uid);
+      const profileData = { email, username, icon: "" };
       await setDoc(profileDoc, profileData);
-      setProfile(profileData);
-      setUser(user); // added
+      userStore.setProfile(profileData);
+      setUser(user);
       return { success: true };
     } catch (error) {
       console.log("Error signing up: ", error);
@@ -59,11 +67,12 @@ export const UserProvider = ({ children }) => {
       const profileDoc = doc(db, "profiles", uid);
       const profileSnapshot = await getDoc(profileDoc);
       if (profileSnapshot.exists()) {
-        setProfile(profileSnapshot.data());
+        userStore.setProfile(profileSnapshot.data());
       } else {
         console.log("No such document!");
       }
-      setUser(user); // added
+      setUser(user);
+      userStore.setUser(user);
       return { success: true };
     } catch (error) {
       console.log("Error logging in: ", error);
@@ -94,6 +103,7 @@ export const UserProvider = ({ children }) => {
       console.log("Profile updated successfully");
       const updatedProfileDoc = await getDoc(profileDocRef);
       const updatedProfile = updatedProfileDoc.data();
+      userStore.setProfile(updatedProfile); // update userStore instead of state
       setProfile(updatedProfile);
     } catch (error) {
       console.log("Error updating profile:", error);

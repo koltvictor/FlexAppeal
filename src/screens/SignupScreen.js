@@ -1,4 +1,3 @@
-import { auth, createUserWithEmailAndPassword, db } from "../app/firebase";
 import React, { useState } from "react";
 import {
   View,
@@ -9,9 +8,10 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { auth, createUserWithEmailAndPassword, db } from "../app/firebase";
 
 const SignupScreen = () => {
-  const [displayName, setDisplayName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -32,13 +32,13 @@ const SignupScreen = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        setDisplayName(displayName);
+        setUsername(username);
 
         // Create a user profile document in Firestore
         db.collection("users")
           .doc(user.uid)
           .set({
-            displayName: displayName,
+            username: username,
             email: email,
           })
           .then(() => {
@@ -48,7 +48,7 @@ const SignupScreen = () => {
             db.collection("profiles")
               .doc(user.uid)
               .set({
-                username: displayName,
+                username: username,
                 email: email,
                 icon: "", // This field will be updated later
               })
@@ -101,44 +101,31 @@ const SignupScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign up</Text>
-
+      <Text style={styles.header}>Sign up</Text>
       <TextInput
         style={styles.input}
-        placeholder="Name"
-        onChangeText={(text) => setDisplayName(text)}
-        value={displayName}
+        placeholder="Username"
+        onChangeText={(text) => setUsername(text)}
       />
-
       <TextInput
         style={styles.input}
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
-        value={email}
       />
-
       <TextInput
         style={styles.input}
         placeholder="Password"
-        onChangeText={(text) => setPassword(text)}
-        value={password}
         secureTextEntry={true}
+        onChangeText={(text) => setPassword(text)}
       />
-
       <TextInput
         style={styles.input}
-        placeholder="Confirm Password"
-        onChangeText={(text) => setConfirmPassword(text)}
-        value={confirmPassword}
+        placeholder="Confirm password"
         secureTextEntry={true}
+        onChangeText={(text) => setConfirmPassword(text)}
       />
-
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign up</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-        <Text style={styles.link}>Already have an account? Log in</Text>
       </TouchableOpacity>
     </View>
   );
