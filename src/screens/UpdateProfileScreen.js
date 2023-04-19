@@ -11,7 +11,6 @@ import { Button } from "@rneui/base";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Modal from "react-native-modal";
 import UserContext from "../app/contexts/UserContext";
-import userStore from "../../src/stores/UserStore";
 
 const icons = [
   "account",
@@ -32,6 +31,8 @@ export default function UpdateProfileScreen({ navigation, route }) {
   const [icon, setIcon] = useState(profile.icon || "");
   const [showModal, setShowModal] = useState(false);
 
+  const { handleUpdateProfile } = useContext(UserContext);
+
   const handleIconPress = () => {
     setShowModal(true);
   };
@@ -41,53 +42,49 @@ export default function UpdateProfileScreen({ navigation, route }) {
     setShowModal(false);
   };
 
-  const handleUpdateProfile = (username, icon) => {
-    userStore.setProfile({
-      ...profile,
-      username,
-      icon,
-    });
+  const handleSaveChanges = () => {
+    handleUpdateProfile(username, icon)
+      .then(() => {
+        navigation.goBack();
+      })
+      .catch((error) => {
+        console.log("Error updating profile:", error);
+      });
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.avatarContainer}>
-        <Icon name={icon || profile.icon} size={100} style={styles.avatar} />
-        <TouchableOpacity onPress={handleIconPress}>
-          <Text style={styles.changeIcon}>Change icon</Text>
+      <View style={styles.formContainer}>
+        <Text style={styles.label}>Username:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+        />
+        <Text style={styles.label}>Icon:</Text>
+        <TouchableOpacity style={styles.iconButton} onPress={handleIconPress}>
+          <Icon name={icon} size={30} color="#555" />
+          <Icon name="chevron-down" size={30} color="#555" />
         </TouchableOpacity>
-        <Text style={styles.username}>{profile.username}</Text>
+        <Button onPress={handleSaveChanges} title="Save Changes" />
       </View>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter username"
-        value={username}
-        onChangeText={(value) => setUsername(value)}
-      />
       <Modal isVisible={showModal}>
         <View style={styles.modalContainer}>
           {icons.map((iconName) => (
             <TouchableOpacity
               key={iconName}
+              style={[
+                styles.iconOption,
+                iconName === icon ? styles.selectedIcon : null,
+              ]}
               onPress={() => handleIconSelect(iconName)}
             >
-              <Icon name={iconName} size={50} style={styles.modalIcon} />
+              <Icon name={iconName} size={30} color="#555" />
             </TouchableOpacity>
           ))}
-          <TouchableOpacity onPress={() => setShowModal(false)}>
-            <Text style={styles.modalClose}>Close</Text>
-          </TouchableOpacity>
         </View>
       </Modal>
-      <Button
-        onPress={() => {
-          handleUpdateProfile(username, icon);
-          navigation.goBack();
-        }}
-        style={styles.button}
-      >
-        Save Changes
-      </Button>
     </SafeAreaView>
   );
 }

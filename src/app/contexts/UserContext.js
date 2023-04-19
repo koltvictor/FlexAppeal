@@ -101,9 +101,13 @@ export const UserProvider = ({ children }) => {
       }
       await updateDoc(profileDocRef, updatedFields);
       console.log("Profile updated successfully");
+
+      // Update userStore
       const updatedProfileDoc = await getDoc(profileDocRef);
       const updatedProfile = updatedProfileDoc.data();
-      userStore.setProfile(updatedProfile); // update userStore instead of state
+      userStore.setProfile(updatedProfile);
+
+      // Update local state
       setProfile(updatedProfile);
     } catch (error) {
       console.log("Error updating profile:", error);

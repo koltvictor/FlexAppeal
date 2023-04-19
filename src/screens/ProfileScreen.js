@@ -114,19 +114,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileScreen;
-
-{
-  /* <SafeAreaView style={styles.container}>
-<View style={styles.avatarContainer}>
-  <Icon
-    name={profile ? profile.icon : "account-circle"}
-
-  />
-  <Text style={styles.username}>{profile ? profile.username : ""}</Text>
-  
-</View>
-
-
-
-</SafeAreaView> */
-}
