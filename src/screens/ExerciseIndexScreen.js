@@ -62,7 +62,7 @@ export default function ExerciseIndexScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "black",
     padding: 16,
   },
   input: {
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   exerciseContainer: {
-    backgroundColor: "#F7F7F7",
+    backgroundColor: "black",
     borderRadius: 8,
     marginBottom: 8,
     padding: 16,
@@ -88,5 +88,6 @@ const styles = StyleSheet.create({
   exerciseName: {
     fontSize: 16,
     fontWeight: "600",
+    color: "white",
   },
 });

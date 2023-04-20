@@ -1,74 +1,90 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import Picker from "react-native-picker-select";
 import Slider from "@react-native-community/slider";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
+import { observer } from "mobx-react-lite";
+import { makeObservable, observable } from "mobx-react-lite";
+import routineStore from "../stores/RoutineStore";
 
-const RoutineItem = ({ exercise }) => {
-  const [repCount, setRepCount] = useState(0);
-  const [timeInSeconds, setTimeInSeconds] = useState(0);
-  const navigation = useNavigation();
+const RoutineItem = observer(({ exercise, index }) => {
+  const [name, setName] = useState(exercise.name);
+  const [sets, setSets] = useState(exercise.sets);
 
-  const handleNavigateToExerciseCard = () => {
-    navigation.navigate("ExerciseDetails", { exercise });
+  const handleNameChange = (value) => {
+    setName(value);
+  };
+
+  const handleSetsChange = (value) => {
+    setSets(value);
+  };
+
+  const handleRepsChange = (value) => {
+    routineStore.handleRepsChange(index, value);
+  };
+
+  const handleTimeChange = (value) => {
+    routineStore.handleTimeChange(index, value);
   };
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollContainer}>
-        {exercise.length === 0 ? (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No exercises added to routine</Text>
-          </View>
-        ) : (
-          <View key={exercise.id} style={styles.exerciseContainer}>
-            <TouchableOpacity
-              style={styles.navigateButton}
-              onPress={handleNavigateToExerciseCard}
-            >
-              <MaterialIcons name="arrow-forward" size={30} color="#fff" />
-            </TouchableOpacity>
-            <Text style={styles.exerciseTitle}>{exercise.name}</Text>
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Reps</Text>
-              <View style={styles.sliderContainer}>
-                <Slider
-                  style={styles.slider}
-                  minimumValue={0}
-                  maximumValue={100}
-                  step={1}
-                  value={repCount}
-                  onValueChange={(value) => setRepCount(value)}
-                  minimumTrackTintColor="#fff"
-                  maximumTrackTintColor="#333"
-                  thumbTintColor="#fff"
-                />
-                <Text style={styles.sliderValue}>{repCount}</Text>
-              </View>
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Time (seconds)</Text>
-              <View style={styles.sliderContainer}>
-                <Slider
-                  style={styles.slider}
-                  minimumValue={0}
-                  maximumValue={300}
-                  step={5}
-                  value={timeInSeconds}
-                  onValueChange={(value) => setTimeInSeconds(value)}
-                  minimumTrackTintColor="#fff"
-                  maximumTrackTintColor="#333"
-                  thumbTintColor="#fff"
-                />
-                <Text style={styles.sliderValue}>{timeInSeconds}</Text>
-              </View>
-            </View>
-          </View>
-        )}
-      </ScrollView>
+      <TextInput
+        style={styles.input}
+        value={name}
+        onChangeText={handleNameChange}
+      />
+      <View style={styles.setsRepsContainer}>
+        <TextInput
+          style={[styles.input, styles.setsInput]}
+          value={sets}
+          onChangeText={handleSetsChange}
+        />
+        <Text style={styles.label}>sets</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={routineStore.reps[index]}
+            onValueChange={handleRepsChange}
+            style={styles.picker}
+          >
+            {[...Array(20).keys()].map((num) => (
+              <Picker.Item
+                key={num}
+                label={`${num + 1}`}
+                value={`${num + 1}`}
+              />
+            ))}
+          </Picker>
+        </View>
+        <Text style={styles.label}>reps</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={routineStore.time[index]}
+            onValueChange={handleTimeChange}
+            style={styles.picker}
+          >
+            {[...Array(120).keys()].map((num) => (
+              <Picker.Item
+                key={num}
+                label={`${num + 1}`}
+                value={`${num + 1}`}
+              />
+            ))}
+          </Picker>
+        </View>
+        <Text style={styles.label}>time</Text>
+      </View>
     </View>
   );
-};
+});
+
 const styles = {
   container: {
     flex: 1,

@@ -9,6 +9,7 @@ export default function TargetCard({ exercise }) {
       <Text
         key={exercise.id}
         onPress={() => navigation.navigate("ExerciseDetails", { exercise })}
+        style={styles.cardText}
       >
         {exercise.name}
       </Text>
@@ -18,14 +19,17 @@ export default function TargetCard({ exercise }) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "white",
+    backgroundColor: "#1c1c1e",
     padding: 10,
-    margin: 10,
+    marginVertical: 8,
     borderRadius: 10,
-    width: "90%",
     alignItems: "center",
-    justifyContent: "center",
-    borderColor: "black",
+    borderColor: "#444",
     borderWidth: 1,
+  },
+  cardText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

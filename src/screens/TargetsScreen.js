@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingTop: 32,
+    paddingHorizontal: 16,
   },
   listContainer: {
     paddingHorizontal: 16,
@@ -47,8 +48,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     fontWeight: "bold",
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-    color: "#FFF",
+    color: "#fff",
+    marginBottom: 16,
   },
 });

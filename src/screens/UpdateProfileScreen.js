@@ -55,6 +55,12 @@ export default function UpdateProfileScreen({ navigation, route }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.formContainer}>
+        <TouchableOpacity
+          style={styles.iconContainer}
+          onPress={handleIconPress}
+        >
+          <Icon name={icon} size={100} color="#FFA500" />
+        </TouchableOpacity>
         <Text style={styles.label}>Username:</Text>
         <TextInput
           style={styles.input}
@@ -62,27 +68,24 @@ export default function UpdateProfileScreen({ navigation, route }) {
           value={username}
           onChangeText={(text) => setUsername(text)}
         />
-        <Text style={styles.label}>Icon:</Text>
-        <TouchableOpacity style={styles.iconButton} onPress={handleIconPress}>
-          <Icon name={icon} size={30} color="#555" />
-          <Icon name="chevron-down" size={30} color="#555" />
-        </TouchableOpacity>
         <Button onPress={handleSaveChanges} title="Save Changes" />
       </View>
       <Modal isVisible={showModal}>
         <View style={styles.modalContainer}>
-          {icons.map((iconName) => (
-            <TouchableOpacity
-              key={iconName}
-              style={[
-                styles.iconOption,
-                iconName === icon ? styles.selectedIcon : null,
-              ]}
-              onPress={() => handleIconSelect(iconName)}
-            >
-              <Icon name={iconName} size={30} color="#555" />
-            </TouchableOpacity>
-          ))}
+          <View style={styles.iconGrid}>
+            {icons.map((iconName) => (
+              <TouchableOpacity
+                key={iconName}
+                style={[
+                  styles.iconOption,
+                  iconName === icon ? styles.selectedIcon : null,
+                ]}
+                onPress={() => handleIconSelect(iconName)}
+              >
+                <Icon name={iconName} size={30} color="#555" />
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
       </Modal>
     </SafeAreaView>
@@ -92,52 +95,89 @@ export default function UpdateProfileScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+    backgroundColor: "#000000",
     justifyContent: "center",
-    padding: 20,
-  },
-  avatarContainer: {
     alignItems: "center",
-    marginBottom: 20,
   },
-  avatar: {
-    marginBottom: 10,
+  formContainer: {
+    marginHorizontal: 30,
+    marginVertical: 40,
   },
-  changeIcon: {
-    color: "#007aff",
+  label: {
     fontSize: 18,
-  },
-  username: {
-    fontSize: 24,
-    fontWeight: "bold",
+    color: "#ffffff",
     marginBottom: 10,
   },
   input: {
+    backgroundColor: "#ffffff",
     height: 40,
-    width: "100%",
-    borderColor: "gray",
-    borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 20,
   },
+  iconContainer: {
+    alignItems: "center",
+  },
+  iconButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+    borderRadius: 5,
+    height: 80,
+    width: 80,
+    marginBottom: 20,
+    alignSelf: "center",
+  },
+  icon: {
+    alignSelf: "center",
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginTop: 10,
+  },
   modalContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
+    borderRadius: 5,
     padding: 20,
-    borderRadius: 10,
+  },
+  iconGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    marginBottom: 20,
   },
-  modalIcon: {
+  iconOption: {
+    width: 50,
+    height: 50,
     margin: 5,
-    color: "#007aff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  button: {
-    width: "100%",
-    backgroundColor: "#007aff",
+  iconOptionSelected: {
+    backgroundColor: "#00c9ff",
     borderRadius: 5,
-    paddingVertical: 10,
+  },
+  iconOptionUnselected: {
+    backgroundColor: "#ffffff",
+  },
+  iconOptionCheckmark: {
+    color: "#ffffff",
+    fontSize: 20,
+  },
+  changeIconButton: {
+    alignSelf: "center",
+    backgroundColor: "#ffffff",
+    borderRadius: 5,
+    height: 40,
+    width: 120,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  changeButtonText: {
+    color: "#555",
+    fontSize: 16,
   },
 });

@@ -9,26 +9,27 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { auth, db } from "../app/firebase";
-import routineStore from "../app/RoutineStore";
+import routineStore from "../stores/RoutineStore";
 import RoutineItem from "../components/RoutineItem";
 import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react-lite";
 
 const RoutineScreen = observer(() => {
-  const { routine, setRoutine, subscribeToRoutineChanges } = routineStore;
   const [routineName, setRoutineName] = useState("");
+  const [reps, setReps] = useState([]);
+  const [time, setTime] = useState([]);
   let navigation = useNavigation();
 
   useEffect(() => {
-    const unsubscribe = subscribeToRoutineChanges();
+    // Subscribe to changes in the routine array in the routineStore
+    const unsubscribe = routineStore.subscribeToRoutineChanges();
     return unsubscribe;
-  }, [routine]);
+  }, []);
 
   const handleSaveRoutine = async () => {
     try {
       const user = auth.currentUser;
       if (!user) {
-        // If the user is not authenticated, display an error message and return
         console.error("Error saving routine: User is not authenticated");
         alert("Please sign in to save routines");
         return;
@@ -37,38 +38,34 @@ const RoutineScreen = observer(() => {
       const routineId = `${uid}_${routineName}`;
       const savedRoutineRef = db.collection("savedroutines").doc(routineId);
 
-      // Check if routine name already exists
-      const routineNameExists = await db
-        .collection("savedroutines")
-        .where("userId", "==", uid)
-        .where("name", "==", routineName)
-        .get()
-        .then((snapshot) => !snapshot.empty);
-
-      if (routineNameExists) {
-        // If routine name already exists, send an error message
-        console.error("Error saving routine: Routine name already exists");
-        alert(
-          "This name already exists, please choose a different name to save the routine under"
-        );
-        return;
-      }
-
       const routineData = {
-        exercises: [...routine],
+        exercises: routineStore.routine.map((exercise) => {
+          return {
+            ...exercise,
+            reps: exercise.reps || null,
+            time: exercise.time || null,
+          };
+        }),
         userId: uid,
         name: routineName,
       };
       await savedRoutineRef.set(routineData, { merge: true });
       console.log("Routine saved successfully:", routineData);
-
-      // Clear routine stateful variable after successful save
+      // Clear routine variable in routineStore
       routineStore.clearRoutine();
       setRoutineName("");
     } catch (error) {
       console.error("Error saving routine:", error);
     }
     navigation.navigate("Saved Routines");
+  };
+
+  const handleRepsChange = (index, value) => {
+    routineStore.handleRepsChange(index, value);
+  };
+
+  const handleTimeChange = (index, value) => {
+    routineStore.handleTimeChange(index, value);
   };
 
   return (
@@ -79,9 +76,15 @@ const RoutineScreen = observer(() => {
             <Text style={styles.emptyText}>No exercises added to routine</Text>
           </View>
         ) : (
-          routineStore.routine.map((exercise) => (
+          routineStore.routine.map((exercise, index) => (
             <View key={exercise.id} style={styles.exerciseContainer}>
-              <RoutineItem style={styles.exerciseName} exercise={exercise} />
+              <RoutineItem
+                exercise={exercise}
+                index={index}
+                exerciseId={exercise.id}
+                handleRepsChange={handleRepsChange}
+                handleTimeChange={handleTimeChange}
+              />
             </View>
           ))
         )}
@@ -104,6 +107,7 @@ const RoutineScreen = observer(() => {
     </View>
   );
 });
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

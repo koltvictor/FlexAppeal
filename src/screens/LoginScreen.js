@@ -38,6 +38,8 @@ const LoginScreen = () => {
       })
       .catch((error) => {
         setError(error.message);
+        setLoading(false); // Added this line to stop the loading spinner
+        console.error(error); // added this line to log the error
       });
   };
 

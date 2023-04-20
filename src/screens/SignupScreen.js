@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { auth, createUserWithEmailAndPassword, db } from "../app/firebase";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const SignupScreen = () => {
   const [username, setUsername] = useState("");
@@ -17,6 +18,8 @@ const SignupScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigation = useNavigation();
+
+  const initialIcon = ["account-circle"];
 
   const handleSignup = () => {
     if (email === "" || password === "" || confirmPassword === "") {
@@ -50,7 +53,7 @@ const SignupScreen = () => {
               .set({
                 username: username,
                 email: email,
-                icon: "", // This field will be updated later
+                icon: initialIcon,
               })
               .then(() => {
                 console.log("User document created successfully");
