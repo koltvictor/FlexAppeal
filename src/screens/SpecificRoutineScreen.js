@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import React from "react";
 import SpecificRoutineItem from "../components/SpecificRoutineItem";
 import styles from "../config/styles/SpecificRoutineStyles";

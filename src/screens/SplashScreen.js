@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, Image, StyleSheet, Animated } from "react-native";
+import { View, Text, Animated } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/SplashScreenStyles";
 

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import React, { useContext } from "react";
 import TargetCard from "../components/TargetCard";
 import { DataContext } from "../app/contexts/DataContext";

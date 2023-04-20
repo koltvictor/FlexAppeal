@@ -1,7 +1,7 @@
 import { auth } from "../app/firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { Image, View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/LoginStyles.js";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,9 +14,8 @@ const LoginScreen = () => {
   let navigation = useNavigation();
   const [passwordShown, setPasswordShown] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const togglePassword = (e) => {
-    e.preventDefault();
+
+  const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
   };
 
@@ -25,7 +24,6 @@ const LoginScreen = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setIsSignedIn(true);
         const user = userCredential.user;
         setCurrentUser(user);
         console.log(currentUser);
@@ -75,8 +73,18 @@ const LoginScreen = () => {
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry
+          secureTextEntry={!passwordShown}
         />
+        <TouchableOpacity
+          style={styles.inputIcon}
+          onPress={togglePasswordVisibility}
+        >
+          <Ionicons
+            name={passwordShown ? "eye-outline" : "eye-off-outline"}
+            size={24}
+            color="#FFFFFF"
+          />
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
         style={styles.button}
