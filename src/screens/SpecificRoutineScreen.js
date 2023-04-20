@@ -1,15 +1,73 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import SpecificRoutineItem from "../components/SpecificRoutineItem";
 
 export default function SpecificRoutineScreen({ route }) {
   const { routine } = route.params;
-  console.log(routine);
+
   return (
-    <View>
-      <Text>{routine.name}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>{routine.name}</Text>
       {routine.exercises.map((exercise) => (
-        <Text key={exercise.id}>{exercise.name}</Text>
+        <SpecificRoutineItem key={exercise.id} exercise={exercise} />
       ))}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    padding: 16,
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 16,
+  },
+  exerciseContainer: {
+    marginTop: 16,
+    marginBottom: 16,
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    backgroundColor: "#f5f5f5",
+    alignItems: "center",
+  },
+  exerciseName: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  timerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  timerText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginRight: 16,
+  },
+  timerButton: {
+    backgroundColor: "#007aff",
+    padding: 8,
+    borderRadius: 8,
+  },
+  timerButtonText: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  repsContainer: {
+    marginTop: 8,
+  },
+  repsText: {
+    fontSize: 16,
+  },
+});
