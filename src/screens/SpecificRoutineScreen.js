@@ -18,7 +18,7 @@ export default function SpecificRoutineScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "black",
     padding: 16,
     alignItems: "center",
   },
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 16,
+    color: "white",
   },
   exerciseContainer: {
     marginTop: 16,

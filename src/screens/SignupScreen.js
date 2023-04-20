@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { auth, createUserWithEmailAndPassword, db } from "../app/firebase";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const SignupScreen = () => {
   const [username, setUsername] = useState("");
@@ -107,28 +106,38 @@ const SignupScreen = () => {
       <Text style={styles.header}>Sign up</Text>
       <TextInput
         style={styles.input}
+        placeholderTextColor="#777777"
         placeholder="Username"
         onChangeText={(text) => setUsername(text)}
       />
       <TextInput
         style={styles.input}
+        placeholderTextColor="#777777"
         placeholder="Email"
         onChangeText={(text) => setEmail(text)}
       />
       <TextInput
         style={styles.input}
+        placeholderTextColor="#777777"
         placeholder="Password"
         secureTextEntry={true}
         onChangeText={(text) => setPassword(text)}
       />
       <TextInput
         style={styles.input}
+        placeholderTextColor="#777777"
         placeholder="Confirm password"
         secureTextEntry={true}
         onChangeText={(text) => setConfirmPassword(text)}
       />
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign up</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("Login")}
+      >
+        <Text style={styles.buttonText}>Back to Login</Text>
       </TouchableOpacity>
     </View>
   );
@@ -137,41 +146,44 @@ const SignupScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#000000",
+    paddingHorizontal: 20,
+    paddingTop: 100,
     alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
   },
-  title: {
-    fontSize: 24,
+  header: {
+    color: "#00C6FF",
+    fontSize: 48,
     fontWeight: "bold",
-    marginBottom: 30,
+    marginBottom: 40,
+    fontFamily: "Helvetica Neue",
   },
   input: {
     width: "100%",
     height: 50,
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderWidth: 2,
+    borderColor: "#00C6FF",
     borderRadius: 10,
     paddingHorizontal: 20,
     marginBottom: 20,
     fontSize: 18,
+    color: "#FFFFFF",
+    fontFamily: "Helvetica Neue",
   },
   button: {
     width: "100%",
     height: 50,
-    backgroundColor: "#3498db",
+    backgroundColor: "#00C6FF",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 20,
   },
   buttonText: {
-    color: "#fff",
+    color: "#000000",
     fontSize: 18,
     fontWeight: "bold",
-  },
-  link: {
-    marginTop: 20,
-    fontSize: 16,
+    fontFamily: "Helvetica Neue",
   },
 });
 

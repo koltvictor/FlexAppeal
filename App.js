@@ -44,7 +44,11 @@ const App = observer(() => {
                     component={LoginScreen}
                     options={{ headerShown: false }}
                   />
-                  <Stack.Screen name="Signup" component={SignupScreen} />
+                  <Stack.Screen
+                    name="Signup"
+                    component={SignupScreen}
+                    options={{ headerShown: false }}
+                  />
                   <Stack.Screen
                     name="Welcome"
                     component={WelcomeScreen}
@@ -55,34 +59,50 @@ const App = observer(() => {
                     component={DashboardScreen}
                     options={{ headerShown: false }}
                   />
-                  <Stack.Screen name="Exercises" component={ExercisesScreen} />
+                  <Stack.Screen
+                    name="Exercises"
+                    component={ExercisesScreen}
+                    options={{ headerShown: false }}
+                  />
                   <Stack.Screen
                     name="ExerciseIndexScreen"
                     component={ExerciseIndexScreen}
+                    options={{ headerShown: false }}
                   />
                   <Stack.Screen
                     name="TargetsScreen"
                     component={TargetsScreen}
-                    options={{ title: "Exercises" }}
+                    options={{ title: "Exercises", headerShown: false }}
                   />
                   <Stack.Screen
                     name="ExerciseDetails"
                     component={ExerciseDetailsScreen}
                     options={{ headerShown: false }}
                   />
-                  <Stack.Screen name="Routine" component={RoutineScreen} />
+                  <Stack.Screen
+                    name="Routine"
+                    component={RoutineScreen}
+                    options={{ headerShown: false }}
+                  />
                   <Stack.Screen
                     name="Saved Routines"
                     component={SavedRoutinesScreen}
+                    options={{ headerShown: false }}
                   />
-                  <Stack.Screen name="Profile" component={ProfileScreen} />
+                  <Stack.Screen
+                    name="Profile"
+                    component={ProfileScreen}
+                    options={{ headerShown: false }}
+                  />
                   <Stack.Screen
                     name="Update Profile"
                     component={UpdateProfileScreen}
+                    options={{ headerShown: false }}
                   />
                   <Stack.Screen
                     name="Specific Routine"
                     component={SpecificRoutineScreen}
+                    options={{ headerShown: true }}
                   />
                 </Stack.Navigator>
               </NavigationContainer>
