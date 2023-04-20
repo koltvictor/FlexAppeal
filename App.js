@@ -72,7 +72,15 @@ const App = observer(() => {
                   <Stack.Screen
                     name="TargetsScreen"
                     component={TargetsScreen}
-                    options={{ title: "Exercises", headerShown: false }}
+                    options={{
+                      title: "",
+                      headerStyle: {
+                        backgroundColor: "black",
+                      },
+                      headerTitleStyle: {
+                        display: "none",
+                      },
+                    }}
                   />
                   <Stack.Screen
                     name="ExerciseDetails"
@@ -102,7 +110,15 @@ const App = observer(() => {
                   <Stack.Screen
                     name="Specific Routine"
                     component={SpecificRoutineScreen}
-                    options={{ headerShown: true }}
+                    options={{
+                      title: "",
+                      headerStyle: {
+                        backgroundColor: "black",
+                      },
+                      headerTitleStyle: {
+                        display: "none",
+                      },
+                    }}
                   />
                 </Stack.Navigator>
               </NavigationContainer>

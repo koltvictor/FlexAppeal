@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { observer } from "mobx-react-lite";
@@ -7,12 +7,11 @@ import routineStore from "../stores/RoutineStore";
 
 const RoutineItem = observer(({ exercise, index }) => {
   const [name, setName] = useState(exercise.name);
-  const [sets, setSets] = useState(exercise.sets);
   const [time, setTime] = useState(routineStore.time[index]);
   const [reps, setReps] = useState(routineStore.reps[index]);
 
-  const handleSetsChange = (value) => {
-    setSets(value);
+  const removeExercise = () => {
+    routineStore.removeExercise(index);
   };
 
   const handleRepsChange = (value) => {
@@ -28,7 +27,7 @@ const RoutineItem = observer(({ exercise, index }) => {
   const renderTimePicker = () => {
     const timeOptions = [];
 
-    for (let i = 0; i < 60; i += 5) {
+    for (let i = 0; i < 1000; i += 5) {
       const value = i * 1000;
       const label = `${i} ${i === 1 ? "second" : "seconds"}`;
 
@@ -52,7 +51,6 @@ const RoutineItem = observer(({ exercise, index }) => {
             <Picker
               selectedValue={reps}
               onValueChange={handleRepsChange}
-              style={{ height: 50, width: 100 }}
               itemStyle={styles.pickerItem}
             >
               {[...Array(201).keys()].map((value) => (
@@ -70,13 +68,18 @@ const RoutineItem = observer(({ exercise, index }) => {
           <View style={styles.timeInput}>{renderTimePicker()}</View>
         </View>
       </View>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={removeExercise}>
+          <MaterialIcons name="close" size={24} color="red" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#000000",
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
@@ -90,6 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
+    color: "#FFFFFF",
   },
   setsRepsContainer: {
     flexDirection: "row",
@@ -104,6 +108,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 5,
+    backgroundColor: "#FFFFFF",
   },
   pickerItem: {
     fontSize: 16,
@@ -116,6 +121,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 5,
+    backgroundColor: "#FFFFFF",
   },
 });
 

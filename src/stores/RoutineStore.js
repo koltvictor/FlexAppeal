@@ -15,6 +15,7 @@ class RoutineStore {
       setRoutine: action,
       handleRepsChange: action,
       handleTimeChange: action,
+      removeExercise: action,
       subscribeToRoutineChanges: action.bound,
     });
     this.addExercise = this.addExercise.bind(this);
@@ -27,6 +28,10 @@ class RoutineStore {
 
   addExercise(exercise) {
     this.routine.push(exercise);
+  }
+
+  removeExercise(index) {
+    this.routine.splice(index, 1);
   }
 
   clearRoutine() {

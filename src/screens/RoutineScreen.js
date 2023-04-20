@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { auth, db } from "../app/firebase";
@@ -15,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react-lite";
 
 const RoutineScreen = observer(() => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [routineName, setRoutineName] = useState("");
   const [reps, setReps] = useState([]);
   const [time, setTime] = useState([]);
@@ -57,6 +59,7 @@ const RoutineScreen = observer(() => {
     } catch (error) {
       console.error("Error saving routine:", error);
     }
+    setIsModalVisible(false);
     navigation.navigate("Saved Routines");
   };
 
@@ -89,19 +92,40 @@ const RoutineScreen = observer(() => {
           ))
         )}
       </ScrollView>
+      <Modal visible={isModalVisible} animationType="slide">
+        <View style={styles.modalContainer}>
+          <TextInput
+            style={styles.modalInput}
+            placeholder="Routine Name"
+            value={routineName}
+            onChangeText={(text) => setRoutineName(text)}
+            placeholderTextColor="gray"
+          />
+          <View style={styles.modalButtonsContainer}>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => setIsModalVisible(false)}
+            >
+              <Text style={styles.modalButtonText}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={handleSaveRoutine}
+              disabled={!routineName}
+            >
+              <Text style={styles.modalButtonText}>Save</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
       <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Routine Name"
-          value={routineName}
-          onChangeText={(text) => setRoutineName(text)}
-          placeholderTextColor="gray"
-        />
         <TouchableOpacity
-          onPress={handleSaveRoutine}
+          onPress={() => setIsModalVisible(true)}
           disabled={routineStore.routine.length === 0}
         >
           <Ionicons name="checkmark-circle-outline" size={32} color="#2980b9" />
+          <Text style={{ color: "white" }}>SAVE</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -111,7 +135,7 @@ const RoutineScreen = observer(() => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "black",
   },
   contentContainer: {
     padding: 20,
@@ -127,7 +151,7 @@ const styles = StyleSheet.create({
   },
   exerciseContainer: {
     marginBottom: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "grey",
     borderRadius: 10,
     padding: 20,
     shadowColor: "#000",
@@ -146,7 +170,7 @@ const styles = StyleSheet.create({
     color: "#2980b9",
   },
   inputContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
     padding: 20,
     flexDirection: "row",
     alignItems: "center",
@@ -159,6 +183,36 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginRight: 10,
+    fontSize: 16,
+    color: "white",
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "black",
+    padding: 20,
+    justifyContent: "center",
+  },
+  modalInput: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 20,
+    fontSize: 16,
+    color: "white",
+  },
+  modalButtonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  modalButton: {
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "#2980b9",
+    marginRight: 10,
+  },
+  modalButtonText: {
+    color: "white",
     fontSize: 16,
   },
 });

@@ -7,7 +7,7 @@ const SplashScreen = () => {
 
   // Animation values
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
-  const scaleAnim = React.useRef(new Animated.Value(0.5)).current;
+  const slideAnim = React.useRef(new Animated.Value(-50)).current;
 
   useEffect(() => {
     // Fade in animation
@@ -17,9 +17,9 @@ const SplashScreen = () => {
       useNativeDriver: true,
     }).start();
 
-    // Scale animation
-    Animated.timing(scaleAnim, {
-      toValue: 1,
+    // Slide animation
+    Animated.timing(slideAnim, {
+      toValue: 0,
       duration: 1000,
       useNativeDriver: true,
     }).start();
@@ -28,18 +28,19 @@ const SplashScreen = () => {
     setTimeout(() => {
       navigation.navigate("Login");
     }, 2000);
-  }, [fadeAnim, navigation, scaleAnim]);
+  }, [fadeAnim, navigation, slideAnim]);
 
   return (
     <View style={styles.container}>
-      <Animated.Image
+      <Animated.View
         style={[
-          styles.logo,
-          { opacity: fadeAnim, transform: [{ scale: scaleAnim }] },
+          styles.textContainer,
+          { opacity: fadeAnim, transform: [{ translateY: slideAnim }] },
         ]}
-        source={require("../assets/FAL1.png")}
-        resizeMode="contain"
-      />
+      >
+        <Text style={styles.textFlex}>Flex</Text>
+        <Text style={styles.textAppeal}>Appeal</Text>
+      </Animated.View>
     </View>
   );
 };
@@ -51,9 +52,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  logo: {
-    width: 250,
-    height: 250,
+  textContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  textFlex: {
+    fontSize: 36,
+    color: "#FFF",
+    fontWeight: "bold",
+  },
+  textAppeal: {
+    fontSize: 36,
+    color: "#FFF",
+    fontWeight: "normal",
   },
 });
 

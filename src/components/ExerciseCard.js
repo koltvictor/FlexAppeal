@@ -37,7 +37,7 @@ const ExerciseCard = ({ exercise }) => {
         <Text style={styles.buttonText}>Add to routine</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.goBackButton}
+        style={styles.button}
         onPress={() => navigation.goBack()}
       >
         <Text style={styles.buttonText}>Go Back</Text>
