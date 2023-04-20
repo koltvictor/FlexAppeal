@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db, auth } from "../app/firebase";
-import { Text, FlatList, View, Button } from "react-native";
+import { Text, FlatList, View, Button, TouchableOpacity } from "react-native";
 import styles from "../config/styles/SavedRoutinesStyles";
 
 function SavedRoutinesScreen({ navigation }) {
@@ -28,6 +28,10 @@ function SavedRoutinesScreen({ navigation }) {
     };
   }, []);
 
+  const handleDelete = (id) => {
+    db.collection("savedroutines").doc(id).delete();
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>My Routines</Text>
@@ -43,6 +47,13 @@ function SavedRoutinesScreen({ navigation }) {
               }
               color="#ffffff"
             />
+            <TouchableOpacity
+              title="Delete Routine"
+              onPress={() => handleDelete(item.id)}
+              color="#ffffff"
+            >
+              <Text style={styles.deleteText}>Delete Routine</Text>
+            </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item) => item.id}

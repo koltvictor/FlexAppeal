@@ -1,22 +1,28 @@
 import { auth } from "../app/firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/LoginStyles.js";
 import { Ionicons } from "@expo/vector-icons";
+import UserContext from "../app/contexts/UserContext.js";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [rememberMe, setRememberMe] = useState(false);
   let navigation = useNavigation();
   const [passwordShown, setPasswordShown] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
+  };
+
+  const toggleRememberMe = () => {
+    setRememberMe(!rememberMe);
   };
 
   const handleLogin = async () => {
@@ -91,9 +97,7 @@ const LoginScreen = () => {
         onPress={handleLogin}
         disabled={loading}
       >
-        <Text style={styles.buttonText} onPress={handleLogin}>
-          Login
-        </Text>
+        <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
         <Text style={styles.link}>Don't have an account? Sign up here</Text>
