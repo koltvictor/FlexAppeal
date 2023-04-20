@@ -2,6 +2,7 @@ import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import React, { useContext } from "react";
 import TargetCard from "../components/TargetCard";
 import { DataContext } from "../app/contexts/DataContext";
+import styles from "../config/styles/TargetsScreenStyles";
 
 export default function TargetsScreen({ route }) {
   const { exercises } = useContext(DataContext);
@@ -26,29 +27,3 @@ export default function TargetsScreen({ route }) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-  },
-  content: {
-    flex: 1,
-    backgroundColor: "#000",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    paddingTop: 32,
-    paddingHorizontal: 16,
-  },
-  listContainer: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 32,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#fff",
-    marginBottom: 16,
-  },
-});

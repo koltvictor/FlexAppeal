@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, Text, StyleSheet } from "react-native";
+import React from "react";
+import { SafeAreaView, Text } from "react-native";
 import ExerciseCard from "../components/ExerciseCard";
 import { useQuery } from "react-query";
+import styles from "../config/styles/ExerciseDetailsStyles";
 
 const ExerciseDetailsScreen = ({ route }) => {
   const { exercise } = route.params;
@@ -33,13 +34,5 @@ const ExerciseDetailsScreen = ({ route }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-    justifyContent: "center",
-  },
-});
 
 export default ExerciseDetailsScreen;

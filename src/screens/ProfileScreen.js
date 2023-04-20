@@ -1,11 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import UserContext from "../app/contexts/UserContext";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { observer } from "mobx-react-lite";

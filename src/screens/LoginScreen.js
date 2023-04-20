@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Image, View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/LoginStyles.js";
+import { Ionicons } from "@expo/vector-icons";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -32,8 +33,8 @@ const LoginScreen = () => {
       })
       .catch((error) => {
         setError(error.message);
-        setLoading(false); // Added this line to stop the loading spinner
-        console.error(error); // added this line to log the error
+        setLoading(false);
+        console.error(error);
       });
   };
 
@@ -46,9 +47,11 @@ const LoginScreen = () => {
       {error && <Text style={styles.error}>{error}</Text>}
       <View style={styles.inputContainer}>
         <View style={styles.inputIcon}>
-          <Image
-            // source={require("./assets/email.png")}
-            style={styles.inputIconImage}
+          <Ionicons
+            name="mail-outline"
+            size={24}
+            color="#FFFFFF"
+            style={styles.inputIcon}
           />
         </View>
         <TextInput
@@ -61,12 +64,12 @@ const LoginScreen = () => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <View style={styles.inputIcon}>
-          <Image
-            // source={require("./assets/password.png")}
-            style={styles.inputIconImage}
-          />
-        </View>
+        <Ionicons
+          name="lock-closed-outline"
+          size={24}
+          color="#FFFFFF"
+          style={styles.inputIcon}
+        />
         <TextInput
           style={styles.input}
           placeholder="Password"

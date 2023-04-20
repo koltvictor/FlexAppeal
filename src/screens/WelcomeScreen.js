@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Animated, Easing } from "react-native";
+import { View, Animated, Easing } from "react-native";
+import styles from "../config/styles/WelcomeScreenStyles";
 
 export default function WelcomeScreen({ navigation }) {
   const scaleValue = new Animated.Value(0);
@@ -27,21 +28,3 @@ export default function WelcomeScreen({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: "#fff",
-    fontSize: 50,
-    fontWeight: "bold",
-    fontFamily: "Arial",
-    textShadowColor: "rgba(255, 255, 255, 0.5)",
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10,
-  },
-});

@@ -67,7 +67,15 @@ const App = observer(() => {
                   <Stack.Screen
                     name="ExerciseIndexScreen"
                     component={ExerciseIndexScreen}
-                    options={{ headerShown: false }}
+                    options={{
+                      title: "",
+                      headerStyle: {
+                        backgroundColor: "black",
+                      },
+                      headerTitleStyle: {
+                        display: "none",
+                      },
+                    }}
                   />
                   <Stack.Screen
                     name="TargetsScreen"

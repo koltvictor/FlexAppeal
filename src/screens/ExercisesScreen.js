@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -10,6 +9,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { DataContext } from "../app/contexts/DataContext";
+import styles from "../config/styles/ExercisesScreenStyles";
+import targets from "../assets/targets";
 
 export default function ExercisesScreen() {
   // imported data
@@ -35,29 +36,6 @@ export default function ExercisesScreen() {
           exercise.target.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : [];
-
-  // targets data
-  const targets = [
-    "abductors",
-    "abs",
-    "adductors",
-    "biceps",
-    "calves",
-    "cardiovascular system",
-    "delts",
-    "forearms",
-    "glutes",
-    "hamstrings",
-    "lats",
-    "levator scapulae",
-    "pectorals",
-    "quads",
-    "serratus anterior",
-    "spine",
-    "traps",
-    "triceps",
-    "upper back",
-  ];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -92,25 +70,3 @@ export default function ExercisesScreen() {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-  },
-  listContainer: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
-  },
-  targetItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 15,
-    borderBottomColor: "#444",
-    borderBottomWidth: 1,
-  },
-  targetText: {
-    fontSize: 20,
-    color: "#fff",
-    marginLeft: 20,
-  },
-});

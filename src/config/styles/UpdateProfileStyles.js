@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   changeIconText: {
-    color: "#007fff",
+    color: "white",
     fontSize: 16,
   },
   formContainer: {
