@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { auth, createUserWithEmailAndPassword, db } from "../app/firebase";
+import { Ionicons } from "@expo/vector-icons";
+import styles from "../config/styles/SignupStyles.js";
 
 const SignupScreen = () => {
   const [username, setUsername] = useState("");
@@ -103,88 +105,79 @@ const SignupScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Sign up</Text>
-      <TextInput
-        style={styles.input}
-        placeholderTextColor="#777777"
-        placeholder="Username"
-        onChangeText={(text) => setUsername(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholderTextColor="#777777"
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholderTextColor="#777777"
-        placeholder="Password"
-        secureTextEntry={true}
-        onChangeText={(text) => setPassword(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholderTextColor="#777777"
-        placeholder="Confirm password"
-        secureTextEntry={true}
-        onChangeText={(text) => setConfirmPassword(text)}
-      />
+      <View style={styles.topSection}>
+        <Text style={styles.title}>Sign up</Text>
+        <Text style={styles.subTitle}>Create your account</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <Ionicons
+          name="person-outline"
+          size={24}
+          color="#FFFFFF"
+          style={styles.inputIcon}
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#777777"
+          placeholder="Username"
+          onChangeText={(text) => setUsername(text)}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Ionicons
+          name="mail-outline"
+          size={24}
+          color="#FFFFFF"
+          style={styles.inputIcon}
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#777777"
+          placeholder="Email"
+          onChangeText={(text) => setEmail(text)}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Ionicons
+          name="lock-closed-outline"
+          size={24}
+          color="#FFFFFF"
+          style={styles.inputIcon}
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#777777"
+          placeholder="Password"
+          secureTextEntry={true}
+          onChangeText={(text) => setPassword(text)}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Ionicons
+          name="lock-closed-outline"
+          size={24}
+          color="#FFFFFF"
+          style={styles.inputIcon}
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#777777"
+          placeholder="Confirm password"
+          secureTextEntry={true}
+          onChangeText={(text) => setConfirmPassword(text)}
+        />
+      </View>
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign up</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.button}
+        style={styles.link}
         onPress={() => navigation.navigate("Login")}
       >
-        <Text style={styles.buttonText}>Back to Login</Text>
+        <Text style={styles.linkText}>Already have an account? Login</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000000",
-    paddingHorizontal: 20,
-    paddingTop: 100,
-    alignItems: "center",
-  },
-  header: {
-    color: "#00C6FF",
-    fontSize: 48,
-    fontWeight: "bold",
-    marginBottom: 40,
-    fontFamily: "Helvetica Neue",
-  },
-  input: {
-    width: "100%",
-    height: 50,
-    borderWidth: 2,
-    borderColor: "#00C6FF",
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    marginBottom: 20,
-    fontSize: 18,
-    color: "#FFFFFF",
-    fontFamily: "Helvetica Neue",
-  },
-  button: {
-    width: "100%",
-    height: 50,
-    backgroundColor: "#00C6FF",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-  },
-  buttonText: {
-    color: "#000000",
-    fontSize: 18,
-    fontWeight: "bold",
-    fontFamily: "Helvetica Neue",
-  },
-});
 
 export default SignupScreen;

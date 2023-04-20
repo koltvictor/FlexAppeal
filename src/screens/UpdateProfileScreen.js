@@ -7,23 +7,11 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import { Button } from "@rneui/base";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Modal from "react-native-modal";
 import UserContext from "../app/contexts/UserContext";
-
-const icons = [
-  "account",
-  "account-box",
-  "account-circle",
-  "account-heart",
-  "account-multiple",
-  "account-star",
-  "account-supervisor",
-  "alien",
-  "face-agent",
-  "face-man",
-];
+import styles from "../config/styles/UpdateProfileStyles";
+import icons from "../assets/icons";
 
 export default function UpdateProfileScreen({ navigation, route }) {
   const { profile } = route.params;
@@ -59,7 +47,13 @@ export default function UpdateProfileScreen({ navigation, route }) {
           style={styles.iconContainer}
           onPress={handleIconPress}
         >
-          <Icon name={icon} size={100} color="#FFA500" />
+          <Icon name={icon} size={100} color="rgb(0, 127, 255)" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleIconPress}
+          style={styles.changeIconContainer}
+        >
+          <Text style={styles.changeIconText}>Change Icon</Text>
         </TouchableOpacity>
         <Text style={styles.label}>Username:</Text>
         <TextInput
@@ -68,10 +62,25 @@ export default function UpdateProfileScreen({ navigation, route }) {
           value={username}
           onChangeText={(text) => setUsername(text)}
         />
-        <Button onPress={handleSaveChanges} title="Save Changes" />
+        <TouchableOpacity onPress={handleSaveChanges} style={styles.button}>
+          <Text style={styles.buttonText}>Save Changes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>Back to Profile</Text>
+        </TouchableOpacity>
       </View>
       <Modal isVisible={showModal}>
         <View style={styles.modalContainer}>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => setShowModal(false)}
+          >
+            <Icon name="close" size={30} color="#555" />
+          </TouchableOpacity>
+
           <View style={styles.iconGrid}>
             {icons.map((iconName) => (
               <TouchableOpacity
@@ -91,93 +100,3 @@ export default function UpdateProfileScreen({ navigation, route }) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000000",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  formContainer: {
-    marginHorizontal: 30,
-    marginVertical: 40,
-  },
-  label: {
-    fontSize: 18,
-    color: "#ffffff",
-    marginBottom: 10,
-  },
-  input: {
-    backgroundColor: "#ffffff",
-    height: 40,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 20,
-  },
-  iconContainer: {
-    alignItems: "center",
-  },
-  iconButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ffffff",
-    borderRadius: 5,
-    height: 80,
-    width: 80,
-    marginBottom: 20,
-    alignSelf: "center",
-  },
-  icon: {
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: "#ffffff",
-    fontWeight: "bold",
-    fontSize: 16,
-    marginTop: 10,
-  },
-  modalContainer: {
-    backgroundColor: "#ffffff",
-    borderRadius: 5,
-    padding: 20,
-  },
-  iconGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginBottom: 20,
-  },
-  iconOption: {
-    width: 50,
-    height: 50,
-    margin: 5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  iconOptionSelected: {
-    backgroundColor: "#00c9ff",
-    borderRadius: 5,
-  },
-  iconOptionUnselected: {
-    backgroundColor: "#ffffff",
-  },
-  iconOptionCheckmark: {
-    color: "#ffffff",
-    fontSize: 20,
-  },
-  changeIconButton: {
-    alignSelf: "center",
-    backgroundColor: "#ffffff",
-    borderRadius: 5,
-    height: 40,
-    width: 120,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  changeButtonText: {
-    color: "#555",
-    fontSize: 16,
-  },
-});

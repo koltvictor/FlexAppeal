@@ -11,6 +11,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { observer } from "mobx-react-lite";
 import userStore from "../stores/UserStore";
 import { db } from "../app/firebase";
+import styles from "../config/styles/ProfileStyles";
 
 const ProfileScreen = observer(({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -45,7 +46,7 @@ const ProfileScreen = observer(({ navigation }) => {
         <Icon
           name={profile ? profile.icon : "account-circle"}
           size={100}
-          color="#00c9ff"
+          color="rgb(0, 127, 255)"
           style={styles.avatar}
         />
         <Text style={styles.username}>{profile?.username}</Text>
@@ -69,48 +70,6 @@ const ProfileScreen = observer(({ navigation }) => {
       </TouchableOpacity>
     </SafeAreaView>
   );
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000000",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  avatarContainer: {
-    alignItems: "center",
-    marginTop: 50,
-    marginBottom: 20,
-  },
-  avatar: {
-    marginBottom: 10,
-  },
-  username: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "#ffffff",
-    marginBottom: 10,
-  },
-  email: {
-    fontSize: 20,
-    color: "#00c9ff",
-    marginBottom: 30,
-  },
-  button: {
-    borderRadius: 30,
-    marginVertical: 10,
-    marginHorizontal: 40,
-    height: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 20,
-  },
-  buttonText: {
-    color: "#ffffff",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
 });
 
 export default ProfileScreen;
