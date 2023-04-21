@@ -18,10 +18,10 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
   const toggleModal = () => setShowModal(!showModal);
   const navigation = useNavigation();
 
-  const playSound = async () => {
+  const playSound = async (sound) => {
     try {
-      const { sound } = await Audio.Sound.createAsync(beep);
-      await sound.playAsync();
+      const { sound: soundObject } = await Audio.Sound.createAsync(sound);
+      await soundObject.playAsync();
     } catch (error) {
       console.log(error);
     }
@@ -41,10 +41,12 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
           setTimerReachedZero(true);
           setResetVisible(true); // show reset button
           toggleModal();
-          playSound(); // play the beep sound when the timer reaches zero
-        } else if (timeRemaining <= 3000) {
+        } else if (timeRemaining <= 1000) {
+          // play the end beep sound when the timer reaches 0
+          playSound(endBeep);
+        } else if (timeRemaining <= 4000 && timeRemaining > 1000) {
           // play the beep sound when the timer reaches 3 seconds
-          playSound();
+          playSound(beep);
         }
       }, 1000);
     }
