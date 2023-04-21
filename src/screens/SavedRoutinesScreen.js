@@ -1,10 +1,21 @@
 import { useState, useEffect } from "react";
 import { db, auth } from "../app/firebase";
-import { Text, FlatList, View, Button, TouchableOpacity } from "react-native";
+import {
+  Text,
+  FlatList,
+  View,
+  Button,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 import styles from "../config/styles/SavedRoutinesStyles";
 
 function SavedRoutinesScreen({ navigation }) {
   const [savedRoutines, setSavedRoutines] = useState([]);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [deleteSuccessModalVisible, setDeleteSuccessModalVisible] =
+    useState(false);
+  const [routineToDelete, setRoutineToDelete] = useState(null);
 
   useEffect(() => {
     const uid = auth.currentUser.uid;
@@ -28,8 +39,13 @@ function SavedRoutinesScreen({ navigation }) {
     };
   }, []);
 
-  const handleDelete = (id) => {
-    db.collection("savedroutines").doc(id).delete();
+  const handleDelete = () => {
+    db.collection("savedroutines").doc(routineToDelete.id).delete();
+    setDeleteModalVisible(false);
+    setDeleteSuccessModalVisible(true);
+    setTimeout(() => {
+      setDeleteSuccessModalVisible(false);
+    }, 1500);
   };
 
   return (
@@ -49,7 +65,10 @@ function SavedRoutinesScreen({ navigation }) {
             />
             <TouchableOpacity
               title="Delete Routine"
-              onPress={() => handleDelete(item.id)}
+              onPress={() => {
+                setRoutineToDelete(item);
+                setDeleteModalVisible(true);
+              }}
               color="#ffffff"
             >
               <Text style={styles.deleteText}>Delete Routine</Text>
@@ -58,6 +77,45 @@ function SavedRoutinesScreen({ navigation }) {
         )}
         keyExtractor={(item) => item.id}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={deleteModalVisible}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>
+              Are you sure you want to delete this routine?
+            </Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={styles.modalButtonNo}
+                onPress={() => setDeleteModalVisible(false)}
+              >
+                <Text style={styles.modalButtonText}>NO</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={handleDelete}
+              >
+                <Text style={styles.modalButtonText}>YES</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={deleteSuccessModalVisible}
+      >
+        <View style={styles.modalContainer}>
+          <View>
+            <Text style={styles.modalText}>Routine Deleted!</Text>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
