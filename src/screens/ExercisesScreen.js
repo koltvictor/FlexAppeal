@@ -41,6 +41,13 @@ export default function ExercisesScreen() {
     <SafeAreaView style={styles.container}>
       <View>
         <ScrollView vertical={true} style={styles.listContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ExerciseIndexScreen")}
+            style={styles.targetItem}
+          >
+            <Feather name="list" size={24} color="white" />
+            <Text style={styles.targetText}>All Exercises</Text>
+          </TouchableOpacity>
           {targets.map((target) => (
             <TouchableOpacity
               key={target}
@@ -58,13 +65,6 @@ export default function ExercisesScreen() {
               <Text style={styles.targetText}>{target}</Text>
             </TouchableOpacity>
           ))}
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ExerciseIndexScreen")}
-            style={styles.targetItem}
-          >
-            <Feather name="list" size={24} color="white" />
-            <Text style={styles.targetText}>All Exercises</Text>
-          </TouchableOpacity>
         </ScrollView>
       </View>
     </SafeAreaView>

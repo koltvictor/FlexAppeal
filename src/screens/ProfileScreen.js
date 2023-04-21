@@ -52,7 +52,7 @@ const ProfileScreen = observer(({ navigation }) => {
             profile: profile,
           });
         }}
-        style={[styles.button, { backgroundColor: "#00c9ff" }]}
+        style={styles.button}
       >
         <Text style={styles.buttonText}>Update Profile</Text>
       </TouchableOpacity>

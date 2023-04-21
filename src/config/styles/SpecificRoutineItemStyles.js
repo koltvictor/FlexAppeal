@@ -30,7 +30,25 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(128, 128, 128, 0.5)",
     padding: 8,
   },
-
+  modalContainer: {
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  gif: {
+    width: 300,
+    height: 300,
+    backgroundColor: "black",
+  },
+  closeButton: {
+    position: "absolute",
+    top: 100,
+    left: 30,
+    backgroundColor: "black",
+    borderRadius: 20,
+    padding: 5,
+  },
   timerButton: {
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -41,6 +59,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  timerModalContainer: {
+    padding: 20,
+  },
+  timerModalText: {
+    fontSize: 50,
+    fontWeight: "bold",
+    color: "grey",
   },
   resetButton: {
     backgroundColor: "black",

@@ -29,7 +29,7 @@ const ExerciseCard = ({ exercise }) => {
             duration: 500,
             useNativeDriver: true,
           }).start();
-        }, 2000);
+        }, 500);
       });
     }
   }, [showModal]);

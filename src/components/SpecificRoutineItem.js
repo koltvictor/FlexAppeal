@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image, Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import styles from "../config/styles/SpecificRoutineItemStyles";
 
-export default function SpecificRoutineItem({ exercise }) {
+export default function SpecificRoutineItem({ exercise, inModal = false }) {
   const [timer, setTimer] = useState(exercise.time || null);
   const [timeRemaining, setTimeRemaining] = useState(timer);
   const [isRunning, setIsRunning] = useState(false);
   const [resetVisible, setResetVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => setShowModal(!showModal);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -20,6 +23,10 @@ export default function SpecificRoutineItem({ exercise }) {
         const elapsedTime = Date.now() - startTime;
         const timeRemaining = Math.max(timer - elapsedTime, 0);
         setTimeRemaining(timeRemaining);
+        if (timeRemaining === 0) {
+          setIsRunning(false);
+          toggleModal();
+        }
       }, 1000);
     }
     return () => clearInterval(intervalId);
@@ -47,6 +54,7 @@ export default function SpecificRoutineItem({ exercise }) {
   };
 
   const startTimer = () => {
+    toggleModal();
     setIsRunning(true);
     setTimeRemaining(timer - 1000); // update the timeRemaining state to the initial value of the timer state
     setResetVisible(false);
@@ -55,7 +63,9 @@ export default function SpecificRoutineItem({ exercise }) {
   const resetTimer = () => {
     setIsRunning(false);
     setTimeRemaining(timer);
-    setResetVisible(false);
+    if (inModal) {
+      setResetVisible(true);
+    }
   };
 
   const handleExerciseNamePress = () => {
@@ -85,7 +95,7 @@ export default function SpecificRoutineItem({ exercise }) {
                 >
                   <Text style={styles.timerButtonText}>Start</Text>
                 </TouchableOpacity>
-                {resetVisible && (
+                {resetVisible && !inModal && (
                   <TouchableOpacity
                     style={styles.resetButton}
                     onPress={resetTimer}
@@ -103,6 +113,21 @@ export default function SpecificRoutineItem({ exercise }) {
           <Text style={styles.repsText}>{exercise.reps} Reps</Text>
         </View>
       )}
+      <Modal visible={showModal} transparent={true}>
+        <View style={styles.modalContainer}>
+          <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>
+            <MaterialIcons name="close" size={24} color="white" />
+          </TouchableOpacity>
+
+          <Image source={{ uri: exercise.gifUrl }} style={styles.gif} />
+
+          <View style={styles.timerModalContainer}>
+            <Text style={styles.timerModalText}>
+              {formatTime(timeRemaining !== null ? timeRemaining : timer)}
+            </Text>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

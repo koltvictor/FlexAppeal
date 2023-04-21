@@ -32,15 +32,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
+    backgroundColor: "#00c9ff",
   },
   buttonText: {
     fontSize: 18,
     color: "#FFFFFF",
     fontWeight: "bold",
   },
-  updateButton: {
-    backgroundColor: "#FFD700",
-  },
+  updateButton: {},
   logoutButton: {
     backgroundColor: "#FF4500",
   },
