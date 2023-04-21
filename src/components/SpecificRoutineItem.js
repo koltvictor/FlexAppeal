@@ -3,6 +3,9 @@ import { View, Text, TouchableOpacity, Image, Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import styles from "../config/styles/SpecificRoutineItemStyles";
+import beep from "../assets/sounds/beep.wav";
+import endBeep from "../assets/sounds/endBeep.wav";
+import { Audio } from "expo-av";
 
 export default function SpecificRoutineItem({ exercise, inModal = false }) {
   const [timer, setTimer] = useState(exercise.time || null);
@@ -14,6 +17,15 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
 
   const toggleModal = () => setShowModal(!showModal);
   const navigation = useNavigation();
+
+  const playSound = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(beep);
+      await sound.playAsync();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     let intervalId;
@@ -29,6 +41,10 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
           setTimerReachedZero(true);
           setResetVisible(true); // show reset button
           toggleModal();
+          playSound(); // play the beep sound when the timer reaches zero
+        } else if (timeRemaining <= 3000) {
+          // play the beep sound when the timer reaches 3 seconds
+          playSound();
         }
       }, 1000);
     }

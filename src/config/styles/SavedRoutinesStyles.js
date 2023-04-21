@@ -88,7 +88,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000",
   },
-  modalDeletedText: {},
+  viewText: {
+    fontSize: 20,
+    color: "yellow",
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
 });
 
 export default styles;

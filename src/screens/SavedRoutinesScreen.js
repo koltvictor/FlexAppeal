@@ -56,13 +56,14 @@ function SavedRoutinesScreen({ navigation }) {
         renderItem={({ item }) => (
           <View style={styles.routineContainer}>
             <Text style={styles.routineName}>{item.name}</Text>
-            <Button
-              title="View Routine"
+            <TouchableOpacity
               onPress={() =>
                 navigation.navigate("Specific Routine", { routine: item })
               }
               color="#ffffff"
-            />
+            >
+              <Text style={styles.viewText}>View Routine</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               title="Delete Routine"
               onPress={() => {
