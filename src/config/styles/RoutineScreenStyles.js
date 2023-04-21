@@ -83,6 +83,17 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
   },
+  errorContainer: {
+    alignItems: "center",
+    padding: 10,
+  },
+  errorMessage: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "red",
+    marginHorizontal: 20,
+    marginTop: 10,
+  },
 });
 
 export default styles;

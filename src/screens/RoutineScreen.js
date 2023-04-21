@@ -18,6 +18,7 @@ import styles from "../config/styles/RoutineScreenStyles";
 const RoutineScreen = observer(() => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [routineName, setRoutineName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   let navigation = useNavigation();
 
   useEffect(() => {
@@ -27,6 +28,15 @@ const RoutineScreen = observer(() => {
   }, []);
 
   const handleSaveRoutine = async () => {
+    if (!routineName || /^\s*$/.test(routineName)) {
+      setErrorMessage("Please give your routine a name");
+      return;
+    }
+    const invalidInput = /[^a-zA-Z0-9]/.test(routineName);
+    if (invalidInput) {
+      setErrorMessage("Please only use letters and numbers!");
+      return;
+    }
     try {
       const user = auth.currentUser;
       if (!user) {
@@ -61,6 +71,12 @@ const RoutineScreen = observer(() => {
     navigation.navigate("Saved Routines");
   };
 
+  const onCancel = () => {
+    setIsModalVisible(false);
+    setRoutineName("");
+    setErrorMessage("");
+  };
+
   const handleRepsChange = (index, value) => {
     routineStore.handleRepsChange(index, value);
   };
@@ -92,6 +108,11 @@ const RoutineScreen = observer(() => {
       </ScrollView>
       <Modal visible={isModalVisible} animationType="slide">
         <View style={styles.modalContainer}>
+          <View style={styles.errorContainer}>
+            {errorMessage ? (
+              <Text style={styles.errorMessage}>{errorMessage}</Text>
+            ) : null}
+          </View>
           <TextInput
             style={styles.modalInput}
             placeholder="Routine Name"
@@ -102,7 +123,7 @@ const RoutineScreen = observer(() => {
           <View style={styles.modalButtonsContainer}>
             <TouchableOpacity
               style={styles.modalButton}
-              onPress={() => setIsModalVisible(false)}
+              onPress={() => onCancel()}
             >
               <Text style={styles.modalButtonText}>Cancel</Text>
             </TouchableOpacity>

@@ -7,6 +7,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  inner: {
+    flex: 1,
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    padding: 20,
+  },
   topSection: {
     alignItems: "center",
     justifyContent: "center",
