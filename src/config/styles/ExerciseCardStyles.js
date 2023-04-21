@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     resizeMode: "contain",
+    position: "relative",
   },
   goBackButton: {
     backgroundColor: "#ddd",
@@ -68,9 +69,31 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 20,
   },
-  buttonText: {
+  modalContainer: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  modal: {
+    backgroundColor: "rgba(0,0,0,0.7)",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  modalText: {
     color: "#fff",
     fontSize: 18,
+    fontWeight: "bold",
     textAlign: "center",
   },
 });

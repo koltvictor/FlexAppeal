@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, View, Image, TouchableOpacity, Animated } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
@@ -7,10 +7,33 @@ import styles from "../config/styles/ExerciseCardStyles";
 const ExerciseCard = ({ exercise }) => {
   const { routine, addExercise } = routineStore;
   const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
+  const [fadeAnim] = useState(new Animated.Value(0));
 
   const handleAddToRoutine = (exercise) => {
     addExercise(exercise);
+    setShowModal(true);
   };
+
+  useEffect(() => {
+    if (showModal) {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => {
+        setTimeout(() => {
+          setShowModal(false);
+          Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+          }).start();
+        }, 2000);
+      });
+    }
+  }, [showModal]);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -43,6 +66,13 @@ const ExerciseCard = ({ exercise }) => {
       >
         <Text style={styles.buttonText}>Go Back</Text>
       </TouchableOpacity>
+      {showModal && (
+        <Animated.View
+          style={[styles.modal, { opacity: fadeAnim, top: 0, left: 0 }]}
+        >
+          <Text style={styles.modalText}>Added to routine!</Text>
+        </Animated.View>
+      )}
     </View>
   );
 };
