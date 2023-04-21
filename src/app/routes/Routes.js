@@ -2,8 +2,8 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SplashScreen from "../../screens/SplashScreen";
 import LoginScreen from "../../screens/LoginScreen";
-
 import SignupScreen from "../../screens/SignupScreen";
+import IntroductionScreen from "../../screens/IntroductionScreen";
 import WelcomeScreen from "../../screens/WelcomeScreen";
 import DashboardScreen from "../../screens/DashboardScreen";
 import ExercisesScreen from "../../screens/ExercisesScreen";
@@ -37,6 +37,11 @@ const Routes = () => {
       <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Introduction"
+        component={IntroductionScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

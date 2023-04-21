@@ -13,7 +13,7 @@ export default function WelcomeScreen({ navigation }) {
       useNativeDriver: true,
     }).start(() => {
       setTimeout(() => {
-        navigation.navigate("Dashboard");
+        navigation.navigate("Introduction");
       }, 1000);
     });
   }, []);
