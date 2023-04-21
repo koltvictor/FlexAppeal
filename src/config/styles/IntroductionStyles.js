@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   introImage: {
     width: "100%",
     height: "105%",
-    marginTop: 20,
+    marginTop: 70,
   },
 });
 
