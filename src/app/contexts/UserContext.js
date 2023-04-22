@@ -1,14 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
-import {
-  auth,
-  db,
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
-  onSnapshot,
-} from "../firebase/index";
+import { auth, db, doc, setDoc, getDoc, updateDoc } from "../firebase/index";
 import userStore from "../../stores/UserStore";
+import { onSnapshot } from "firebase/firestore";
 
 const UserContext = createContext();
 
@@ -20,21 +13,28 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        setUser(userAuth);
-        const uid = userAuth.uid;
-        const profileDoc = doc(db, "profiles", uid);
-        const unsubscribeProfile = onSnapshot(profileDoc, (profileSnapshot) => {
-          if (profileSnapshot.exists()) {
-            setProfile(profileSnapshot.data());
-          } else {
-            console.log("No such document!");
-          }
-        });
-        return () => unsubscribeProfile();
-      } else {
-        setUser(null);
-        setProfile(null);
+      try {
+        if (userAuth) {
+          setUser(userAuth);
+          const uid = userAuth.uid;
+          const profileDoc = doc(db, "profiles", uid);
+          const unsubscribeProfile = onSnapshot(
+            profileDoc,
+            (profileSnapshot) => {
+              if (profileSnapshot.exists()) {
+                setProfile(profileSnapshot.data());
+              } else {
+                console.log("No such document!");
+              }
+            }
+          );
+          return () => unsubscribeProfile();
+        } else {
+          setUser(null);
+          setProfile(null);
+        }
+      } catch (error) {
+        console.log("Error in onAuthStateChanged: ", error);
       }
     });
 

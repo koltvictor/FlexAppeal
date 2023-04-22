@@ -1,7 +1,6 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   getFirestore,
@@ -26,13 +25,11 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const app = initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const auth = getAuth(app);
-const firestore = getFirestore(app);
+const auth = getAuth();
+const firestore = getFirestore();
 
 export {
-  app,
   db,
   auth,
   createUserWithEmailAndPassword,

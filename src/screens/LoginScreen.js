@@ -1,6 +1,6 @@
 import { auth } from "../app/firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -17,11 +17,29 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   let navigation = useNavigation();
   const [passwordShown, setPasswordShown] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+
+  const handleLogin = async () => {
+    try {
+      console.log("Logging in with email and password:", email, password);
+      setLoading(true);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User logged in:", userCredential.user.uid);
+      setLoading(false);
+      navigation.navigate("Dashboard");
+    } catch (error) {
+      console.warn("Error logging in:", error);
+      setLoading(false);
+      setError(error.message);
+    }
+  };
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
@@ -29,23 +47,6 @@ const LoginScreen = () => {
 
   const toggleRememberMe = () => {
     setRememberMe(!rememberMe);
-  };
-
-  const handleLogin = async () => {
-    setLoading(true);
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setCurrentUser(user);
-        console.log(currentUser);
-        navigation.navigate("Dashboard");
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-        console.error(error);
-      });
   };
 
   return (
