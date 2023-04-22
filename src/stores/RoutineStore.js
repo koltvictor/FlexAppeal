@@ -16,6 +16,7 @@ class RoutineStore {
       handleRepsChange: action,
       handleTimeChange: action,
       removeExercise: action,
+      updateRoutine: action,
       subscribeToRoutineChanges: action.bound,
     });
     this.addExercise = this.addExercise.bind(this);
@@ -23,6 +24,8 @@ class RoutineStore {
     this.setRoutine = this.setRoutine.bind(this);
     this.handleRepsChange = this.handleRepsChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.removeExercise = this.removeExercise.bind(this);
+    this.updateRoutine = this.updateRoutine.bind(this);
     this.subscribeToRoutineChanges = this.subscribeToRoutineChanges.bind(this);
   }
 
@@ -43,6 +46,12 @@ class RoutineStore {
   setRoutine(routine) {
     runInAction(() => {
       this.routine = routine;
+    });
+  }
+
+  updateRoutine(updatedRoutine) {
+    runInAction(() => {
+      this.routine = updatedRoutine;
     });
   }
 

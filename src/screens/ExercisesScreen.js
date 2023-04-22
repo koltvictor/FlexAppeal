@@ -12,7 +12,8 @@ import { DataContext } from "../app/contexts/DataContext";
 import styles from "../config/styles/ExercisesScreenStyles";
 import targets from "../assets/targets";
 
-export default function ExercisesScreen() {
+export default function ExercisesScreen({ route }) {
+  console.log(route);
   // imported data
   const { exercises } = useContext(DataContext);
   let navigation = useNavigation();

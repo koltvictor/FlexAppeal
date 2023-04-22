@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "black",
   },
   slide: {
     flex: 1,
@@ -14,24 +15,41 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 20,
   },
-  button: {
+  buttonContainer: {
     position: "absolute",
-    bottom: 100,
-    width: "70%",
-    backgroundColor: "orange",
-    borderRadius: 5,
-    padding: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    bottom: 50,
+    width: "100%",
+    marginBottom: 50,
   },
+  button: {
+    backgroundColor: "#008CBA",
+    borderRadius: 50,
+    padding: 15,
+    paddingHorizontal: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+
   buttonText: {
-    color: "black",
-    fontSize: 25,
+    color: "#fff",
     fontWeight: "bold",
-    textAlign: "center",
+    fontSize: 18,
   },
+
   introImage: {
     width: "100%",
-    height: "105%",
-    marginTop: 70,
+    height: "95%",
+    marginTop: 50,
   },
 });
 

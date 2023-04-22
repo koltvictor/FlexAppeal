@@ -24,14 +24,12 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      console.log("Logging in with email and password:", email, password);
       setLoading(true);
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log("User logged in:", userCredential.user.uid);
       setLoading(false);
       navigation.navigate("Dashboard");
     } catch (error) {

@@ -4,14 +4,19 @@ import { useNavigation } from "@react-navigation/native";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 
-const ExerciseCard = ({ exercise }) => {
+const ExerciseCard = ({ exercise, fromUpdateRoutineScreen }) => {
   const { routine, addExercise } = routineStore;
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   const [fadeAnim] = useState(new Animated.Value(0));
 
   const handleAddToRoutine = (exercise) => {
-    addExercise(exercise);
+    if (fromUpdateRoutineScreen) {
+      const exercises = [...routine.exercises, exercise];
+      routineStore.setRoutine({ ...routine, exercises });
+    } else {
+      addExercise(exercise);
+    }
     setShowModal(true);
   };
 

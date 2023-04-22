@@ -15,6 +15,7 @@ import RoutineScreen from "../../components/RoutineItem";
 import SavedRoutinesScreen from "../../screens/SavedRoutinesScreen";
 import SpecificRoutineScreen from "../../screens/SpecificRoutineScreen";
 import TargetsScreen from "../../screens/TargetsScreen";
+import UpdateRoutineScreen from "../../screens/UpdateRoutineScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -94,6 +95,11 @@ const Routes = () => {
         name="Saved Routines"
         component={SavedRoutinesScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Update Routine"
+        component={UpdateRoutineScreen}
+        // options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Profile"

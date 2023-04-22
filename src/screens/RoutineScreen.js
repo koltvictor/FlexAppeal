@@ -28,11 +28,11 @@ const RoutineScreen = observer(() => {
   }, []);
 
   const handleSaveRoutine = async () => {
-    if (!routineName || /^\s*$/.test(routineName)) {
+    if (!routineName || !/^\s*([a-zA-Z0-9]+\s*)+$/.test(routineName)) {
       setErrorMessage("Please give your routine a name");
       return;
     }
-    const invalidInput = /[^a-zA-Z0-9]/.test(routineName);
+    const invalidInput = /[^a-zA-Z0-9\s]/.test(routineName);
     if (invalidInput) {
       setErrorMessage("Please only use letters and numbers!");
       return;

@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 import { db, auth } from "../app/firebase";
-import {
-  Text,
-  FlatList,
-  View,
-  Button,
-  TouchableOpacity,
-  Modal,
-} from "react-native";
+import { Text, FlatList, View, TouchableOpacity, Modal } from "react-native";
 import styles from "../config/styles/SavedRoutinesStyles";
 
 function SavedRoutinesScreen({ navigation }) {
@@ -63,6 +56,13 @@ function SavedRoutinesScreen({ navigation }) {
               color="#ffffff"
             >
               <Text style={styles.viewText}>View Routine</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Update Routine", { routine: item })
+              }
+            >
+              <Text style={styles.viewText}>Update Routine</Text>
             </TouchableOpacity>
             <TouchableOpacity
               title="Delete Routine"
