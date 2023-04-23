@@ -21,6 +21,17 @@ const styles = StyleSheet.create({
     padding: 10,
     color: "#FFFFFF",
   },
+  addExerciseButtonContainer: {
+    backgroundColor: "#2980b9",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  addExerciseButtonText: {
+    fontSize: 16,
+    color: "#FFFFFF",
+  },
   exerciseContainer: {
     marginBottom: 20,
     backgroundColor: "grey",
@@ -125,6 +136,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 1,
     right: 20,
+    padding: 10,
+  },
+  deleteButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  deleteButton: {
     padding: 10,
   },
 });

@@ -3,18 +3,56 @@ import { Text, View, Image, TouchableOpacity, Animated } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
+import { db } from "../app/firebase";
 
-const ExerciseCard = ({ exercise, fromUpdateRoutineScreen }) => {
+const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
   const { routine, addExercise } = routineStore;
   const navigation = useNavigation();
+  const [updatedRoutine, setUpdatedRoutine] = useState(routineVariable);
   const [showModal, setShowModal] = useState(false);
   const [fadeAnim] = useState(new Animated.Value(0));
 
+  const routineId = routineVariable
+    ? `${routineVariable.userId}_${routineVariable.name}`
+    : null;
+
   const handleAddToRoutine = (exercise) => {
-    if (fromUpdateRoutineScreen) {
-      const exercises = [...routine.exercises, exercise];
-      routineStore.setRoutine({ ...routine, exercises });
+    if (isUpdatingRoutine) {
+      // Find the index of the exercise object in the updatedRoutine object
+      const exerciseIndex = updatedRoutine.exercises.findIndex(
+        (ex) => ex.id === exercise.id
+      );
+
+      // If the exercise object exists in the updatedRoutine object, update it with the new exercise object
+      if (exerciseIndex !== -1) {
+        const updatedExercises = [...updatedRoutine.exercises];
+        updatedExercises[exerciseIndex] = exercise;
+        setUpdatedRoutine({ ...updatedRoutine, exercises: updatedExercises });
+
+        // Update the exercise in the database
+        db.collection("savedroutines")
+          .doc(routineId)
+          .update({
+            exercises: updatedExercises,
+          })
+          .then(() => console.log("Exercise updated in routine"))
+          .catch((error) => console.log(error));
+      } else {
+        // Add the new exercise object to the updatedRoutine object
+        const updatedExercises = [...updatedRoutine.exercises, exercise];
+        setUpdatedRoutine({ ...updatedRoutine, exercises: updatedExercises });
+
+        // Add the new exercise object to the database
+        db.collection("savedroutines")
+          .doc(routineId)
+          .update({
+            exercises: updatedExercises,
+          })
+          .then(() => console.log("Exercise added to routine"))
+          .catch((error) => console.log(error));
+      }
     } else {
+      // Add the exercise to the routine
       addExercise(exercise);
     }
     setShowModal(true);

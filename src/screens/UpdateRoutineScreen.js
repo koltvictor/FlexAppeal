@@ -16,11 +16,12 @@ import { Ionicons } from "@expo/vector-icons";
 
 function UpdateRoutineScreen({ route }) {
   const { routine } = route.params;
-  const [updatedRoutine, setUpdatedRoutine] = useState(routine);
+  const [routineId, setRoutineId] = useState(routine.id);
+  const [routineData, setRoutineData] = useState(routine);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [initialReps, setInitialReps] = useState([]);
   const [initialTime, setInitialTime] = useState(
-    updatedRoutine.exercises.length > 0 ? updatedRoutine.exercises[0].time : 0
+    routineData.exercises.length > 0 ? routineData.exercises[0].time : 0
   );
   const [time, setTime] = useState(0);
 
@@ -28,49 +29,63 @@ function UpdateRoutineScreen({ route }) {
   const isUpdatingRoutine = true;
 
   useEffect(() => {
+    const unsubscribe = db
+      .collection("savedroutines")
+      .doc(routineId)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          setRoutineData(doc.data());
+        }
+      });
+    return () => unsubscribe();
+  }, [routineId]);
+
+  useEffect(() => {
     // Get the initial reps and time values of the routine
-    const reps = updatedRoutine.exercises.map((exercise) => exercise.reps);
-    const time = updatedRoutine.exercises.map((exercise) => exercise.time);
+    const reps = routineData.exercises.map((exercise) => exercise.reps);
+    const time = routineData.exercises.map((exercise) => exercise.time);
     setInitialReps(reps);
     setInitialTime(time);
-  }, []);
+  }, [routineData]);
 
   const handleRepsChange = (exercise, index, value) => {
-    const exercises = [...updatedRoutine.exercises];
+    const exercises = [...routineData.exercises];
     exercises[index] = { ...exercise, reps: value };
-    setUpdatedRoutine({ ...updatedRoutine, exercises });
+    setRoutineData({ ...routineData, exercises });
   };
 
   const handleTimeChange = (exerciseIndex, value) => {
-    const exercises = [...updatedRoutine.exercises];
+    const exercises = [...routineData.exercises];
     exercises[exerciseIndex] = { ...exercises[exerciseIndex], time: value };
-    setUpdatedRoutine({ ...updatedRoutine, exercises });
+    setRoutineData({ ...routineData, exercises });
   };
 
   const handleDeleteExercise = (index) => {
-    const exercises = [...updatedRoutine.exercises];
+    const exercises = [...routineData.exercises];
     exercises.splice(index, 1);
-    setUpdatedRoutine({ ...updatedRoutine, exercises });
+    setRoutineData({ ...routineData, exercises });
   };
 
   const handleAddExercise = () => {
-    navigation.navigate("Exercises", { isUpdatingRoutine });
+    navigation.navigate("Exercises", {
+      isUpdatingRoutine,
+      routine: routineData,
+    });
   };
 
   const handleSaveChanges = async () => {
     try {
-      const savedRoutineRef = db.collection("savedroutines").doc(routine.id);
+      const savedRoutineRef = db.collection("savedroutines").doc(routineId);
       const updatedRoutineObj = {
-        ...routine,
-        name: updatedRoutine.name,
-        exercises: updatedRoutine.exercises,
+        ...routineData,
+        name: routineData.name,
+        exercises: routineData.exercises,
       };
       await savedRoutineRef.update(updatedRoutineObj);
     } catch (error) {
-      console.error("Error updating routine: ", error);
+      console.log(error);
     }
     setIsModalVisible(false);
-    navigation.navigate("Saved Routines");
   };
 
   const onCancel = () => {
@@ -78,7 +93,7 @@ function UpdateRoutineScreen({ route }) {
   };
 
   const renderTimePicker = (exerciseIndex) => {
-    const exercise = updatedRoutine.exercises[exerciseIndex];
+    const exercise = routineData.exercises[exerciseIndex];
     const timeOptions = [];
 
     for (let i = 0; i < 1000; i += 5) {
@@ -101,11 +116,11 @@ function UpdateRoutineScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.contenContainer}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
         <Text style={styles.routineName}>{routine.name}</Text>
-        <View style={styles.exerciseContainer}>
-          {updatedRoutine.exercises.map((exercise, index) => (
-            <View key={index}>
+        <View>
+          {routineData.exercises.map((exercise, index) => (
+            <View key={index} style={styles.exerciseContainer}>
               <Text style={styles.label}>{exercise.name}</Text>
 
               <View style={styles.setsRepsContainer}>
@@ -136,16 +151,22 @@ function UpdateRoutineScreen({ route }) {
                   </View>
                 </View>
               </View>
-              <TouchableOpacity
-                onPress={() => handleDeleteExercise(index)}
-                style={styles.deleteButton}
-              >
-                <MaterialIcons name="close" size={24} color="red" />
-              </TouchableOpacity>
+
+              <View style={styles.deleteButtonContainer}>
+                <TouchableOpacity
+                  onPress={() => handleDeleteExercise(index)}
+                  style={styles.deleteButton}
+                >
+                  <MaterialIcons name="close" size={24} color="red" />
+                  <Text>Remove Exercise</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           ))}
+        </View>
+        <View style={styles.addExerciseButtonContainer}>
           <TouchableOpacity onPress={handleAddExercise}>
-            <Text>+ Add Exercise</Text>
+            <Text style={styles.addExerciseButtonText}>+ Add Exercise</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

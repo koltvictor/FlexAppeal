@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -13,10 +13,15 @@ import styles from "../config/styles/ExercisesScreenStyles";
 import targets from "../assets/targets";
 
 export default function ExercisesScreen({ route }) {
-  console.log(route);
   // imported data
   const { exercises } = useContext(DataContext);
   let navigation = useNavigation();
+
+  const [isUpdatingRoutine, setIsUpdatingRoutine] = useState(null);
+
+  useEffect(() => {
+    setIsUpdatingRoutine(route.params?.isUpdatingRoutine ?? null);
+  }, [route.params]);
 
   // searching logic
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,6 +60,8 @@ export default function ExercisesScreen({ route }) {
               onPress={() =>
                 navigation.navigate("TargetsScreen", {
                   target: target.toLowerCase(),
+                  isUpdatingRoutine: isUpdatingRoutine,
+                  routine: route.params?.routine ?? null,
                   targets: filteredExercises.filter(
                     (exercise) => exercise.target === target.toLowerCase()
                   ),

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView, Text } from "react-native";
 import ExerciseCard from "../components/ExerciseCard";
 import { useQuery } from "react-query";
@@ -6,6 +6,13 @@ import styles from "../config/styles/ExerciseDetailsStyles";
 
 const ExerciseDetailsScreen = ({ route }) => {
   const { exercise } = route.params;
+  const { routine } = route.params;
+
+  const [isUpdatingRoutine, setIsUpdatingRoutine] = useState(null);
+
+  useEffect(() => {
+    setIsUpdatingRoutine(route.params?.isUpdatingRoutine ?? null);
+  }, [route.params]);
 
   const options = {
     headers: {
@@ -30,7 +37,11 @@ const ExerciseDetailsScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ExerciseCard exercise={exerciseDetails} />
+      <ExerciseCard
+        exercise={exerciseDetails}
+        isUpdatingRoutine={isUpdatingRoutine}
+        routineVariable={routine}
+      />
     </SafeAreaView>
   );
 };

@@ -3,13 +3,20 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/TargetCardStyles";
 
-export default function TargetCard({ exercise }) {
+export default function TargetCard({ exercise, isUpdatingRoutine, routine }) {
   let navigation = useNavigation();
+
   return (
     <View style={styles.card} key={exercise.id}>
       <Text
         key={exercise.id}
-        onPress={() => navigation.navigate("ExerciseDetails", { exercise })}
+        onPress={() =>
+          navigation.navigate("ExerciseDetails", {
+            exercise,
+            isUpdatingRoutine,
+            routine,
+          })
+        }
         style={styles.cardText}
       >
         {exercise.name}
