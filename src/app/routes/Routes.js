@@ -53,7 +53,15 @@ const Routes = () => {
       <Stack.Screen
         name="Exercises"
         component={ExercisesScreen}
-        options={{ headerShown: false }}
+        options={{
+          title: "",
+          headerStyle: {
+            backgroundColor: "black",
+          },
+          headerTitleStyle: {
+            display: "none",
+          },
+        }}
       />
       <Stack.Screen
         name="ExerciseIndexScreen"
@@ -99,7 +107,15 @@ const Routes = () => {
       <Stack.Screen
         name="Update Routine"
         component={UpdateRoutineScreen}
-        // options={{ headerShown: false }}
+        options={{
+          title: "",
+          headerStyle: {
+            backgroundColor: "black",
+          },
+          headerTitleStyle: {
+            display: "none",
+          },
+        }}
       />
       <Stack.Screen
         name="Profile"

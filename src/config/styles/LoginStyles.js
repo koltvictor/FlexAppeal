@@ -69,8 +69,10 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "#FF0000",
-    fontSize: 16,
+    fontSize: 20,
     marginTop: 30,
+    marginBottom: 30,
+    textAlign: "center",
   },
 });
 
