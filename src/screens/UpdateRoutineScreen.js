@@ -18,6 +18,7 @@ function UpdateRoutineScreen({ route }) {
   const { routine } = route.params;
   const [routineId, setRoutineId] = useState(routine.id);
   const [routineData, setRoutineData] = useState(routine);
+  const [routineName, setRoutineName] = useState(routine.name);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [initialReps, setInitialReps] = useState([]);
   const [initialTime, setInitialTime] = useState(
