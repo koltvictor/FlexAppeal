@@ -29,10 +29,15 @@ const styles = StyleSheet.create({
   iconsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    width: "75%",
     alignItems: "center",
-    width: "50%",
   },
-  icon: {},
+  icon: {
+    marginHorizontal: 10,
+  },
+  sharedIcon: {
+    alignItems: "center",
+  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -79,6 +84,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#000",
+  },
+  listHeader: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: colors.sandy,
+    textAlign: "center",
   },
 });
 

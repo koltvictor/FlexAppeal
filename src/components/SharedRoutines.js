@@ -7,10 +7,29 @@ import colors from "../config/colors";
 export default function SharedRoutines({ sharedRoutines }) {
   return (
     <View>
-      <Text style={styles.title}>Shared Routines</Text>
+      <Text style={styles.listHeader}>Shared Routines</Text>
       <FlatList
         data={sharedRoutines}
-        renderItem={({ item }) => <Text>{item.name}</Text>}
+        renderItem={({ item }) => (
+          <View style={styles.routineContainer}>
+            <Text style={styles.routineName}>{item.name}</Text>
+            <View style={styles.iconsContainer}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Specific Routine", { routine: item })
+                }
+              >
+                <Ionicons
+                  name="eye"
+                  size={24}
+                  color={colors.brightblue}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );
