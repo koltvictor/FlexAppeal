@@ -9,6 +9,7 @@ import {
   Modal,
   ScrollView,
   Dimensions,
+  SafeAreaView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
@@ -136,139 +137,138 @@ function SavedRoutinesScreen({ navigation }) {
     }, 1500);
   };
 
-  const windowHeight = Dimensions.get("window").height;
-
-  const savedScrollViewMaxHeight = windowHeight;
-
   return (
     <View style={styles.container}>
       <Text style={styles.listHeader}>My Saved Routines</Text>
       <ScrollView style={{ flex: 1 }}>
-        <FlatList
-          data={savedRoutines}
-          renderItem={({ item }) => (
-            <View style={styles.routineContainer}>
-              <Text style={styles.routineName}>{item.name}</Text>
-              <View style={styles.iconsContainer}>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("Specific Routine", { routine: item })
-                  }
+        <View>
+          <FlatList
+            data={savedRoutines}
+            renderItem={({ item }) => (
+              <View style={styles.routineContainer}>
+                <Text style={styles.routineName}>{item.name}</Text>
+                <View style={styles.iconsContainer}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("Specific Routine", { routine: item })
+                    }
+                  >
+                    <Ionicons
+                      name="eye"
+                      size={24}
+                      color={colors.brightblue}
+                      style={styles.icon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("Update Routine", { routine: item })
+                    }
+                  >
+                    <Ionicons
+                      name="pencil"
+                      size={24}
+                      color={colors.sandy}
+                      style={styles.icon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => handleShare(item)}>
+                    <Ionicons
+                      name="share"
+                      size={24}
+                      color={colors.lightgrey}
+                      style={styles.icon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    title="Delete Routine"
+                    onPress={() => {
+                      setRoutineToDelete(item);
+                      setDeleteModalVisible(true);
+                    }}
+                  >
+                    <Ionicons
+                      name="trash"
+                      size={24}
+                      color={colors.black}
+                      style={styles.icon}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={shareModalVisible}
                 >
-                  <Ionicons
-                    name="eye"
-                    size={24}
-                    color={colors.brightblue}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("Update Routine", { routine: item })
-                  }
-                >
-                  <Ionicons
-                    name="pencil"
-                    size={24}
-                    color={colors.sandy}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleShare(item)}>
-                  <Ionicons
-                    name="share"
-                    size={24}
-                    color={colors.lightgrey}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  title="Delete Routine"
-                  onPress={() => {
-                    setRoutineToDelete(item);
-                    setDeleteModalVisible(true);
-                  }}
-                >
-                  <Ionicons
-                    name="trash"
-                    size={24}
-                    color={colors.black}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
+                  <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                      <Text style={styles.modalText}>
+                        Enter the email address of the user you want to share
+                        this routine with:
+                      </Text>
+                      <TextInput
+                        style={styles.modalInput}
+                        value={shareEmail}
+                        onChangeText={setShareEmail}
+                        placeholder="Email"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                      />
+                      {shareError ? (
+                        <Text style={styles.modalError}>{shareError}</Text>
+                      ) : null}
+                      <View style={styles.modalButtons}>
+                        <TouchableOpacity
+                          style={styles.modalButton}
+                          onPress={() => setShareModalVisible(false)}
+                        >
+                          <Text style={styles.modalButtonText}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.modalButton}
+                          onPress={() => handleShareSubmit(item)}
+                        >
+                          <Text style={styles.modalButtonText}>Share</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                </Modal>
               </View>
-            </View>
-          )}
-          keyExtractor={(item) => item.id}
-        />
-
-        <Text style={styles.listHeader}>Shared Routines</Text>
-
-        <FlatList
-          data={sharedRoutines}
-          renderItem={({ item }) => (
-            <View style={styles.routineContainer}>
-              <Text style={styles.routineName}>{item.name}</Text>
-              <View style={styles.sharedIcon}>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("Specific Routine", { routine: item })
-                  }
-                >
-                  <Ionicons
-                    name="eye"
-                    size={24}
-                    color={colors.brightblue}
-                    style={styles.sharedIcon}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-          keyExtractor={(item) => item.id}
-        />
-      </ScrollView>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={shareModalVisible}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>
-              Enter the email address of the user you want to share this routine
-              with:
-            </Text>
-            <TextInput
-              style={styles.modalInput}
-              value={shareEmail}
-              onChangeText={setShareEmail}
-              placeholder="Email"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-            {shareError ? (
-              <Text style={styles.modalError}>{shareError}</Text>
-            ) : null}
-            <View style={styles.modalButtons}>
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={() => setShareModalVisible(false)}
-              >
-                <Text style={styles.modalButtonText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={() => handleShareSubmit(item)}
-              >
-                <Text style={styles.modalButtonText}>Share</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+            )}
+            keyExtractor={(item) => item.id}
+          />
         </View>
-      </Modal>
+        <View>
+          <Text style={styles.listHeader}>Shared Routines</Text>
+
+          <FlatList
+            data={sharedRoutines}
+            renderItem={({ item }) => (
+              <View style={styles.routineContainer}>
+                <Text style={styles.routineName}>{item.name}</Text>
+                <View style={styles.sharedIcon}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("Specific Routine", { routine: item })
+                    }
+                  >
+                    <Ionicons
+                      name="eye"
+                      size={24}
+                      color={colors.brightblue}
+                      style={styles.sharedIcon}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+      </ScrollView>
 
       <Modal
         animationType="slide"

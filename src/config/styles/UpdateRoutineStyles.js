@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 10,
     color: colors.white,
+    textAlign: "center",
   },
   addExerciseButtonContainer: {
     backgroundColor: colors.brightblue,

@@ -175,13 +175,7 @@ function UpdateRoutineScreen({ route }) {
       <View style={styles.inputContainer}>
         <Modal visible={isModalVisible} animationType="slide">
           <View style={styles.modalContainer}>
-            <TextInput
-              style={styles.modalInput}
-              placeholder="Routine Name"
-              value={routine.name}
-              onChangeText={(text) => setRoutineName(text)}
-              placeholderTextColor="gray"
-            />
+            <Text style={styles.routineName}>{routine.name}</Text>
             <View style={styles.modalButtonsContainer}>
               <TouchableOpacity
                 style={styles.modalButton}
