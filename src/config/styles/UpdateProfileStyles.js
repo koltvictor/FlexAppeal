@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     backgroundColor: colors.softblue,
-    padding: 20,
+    padding: 40,
     borderRadius: 10,
   },
   iconGrid: {

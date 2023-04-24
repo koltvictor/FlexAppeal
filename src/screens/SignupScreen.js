@@ -13,7 +13,7 @@ const SignupScreen = () => {
 
   const navigation = useNavigation();
 
-  const initialIcon = ["account-circle"];
+  const initialIcon = ["smile"];
 
   const handleSignup = () => {
     if (email === "" || password === "" || confirmPassword === "") {

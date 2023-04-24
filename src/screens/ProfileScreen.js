@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import UserContext from "../app/contexts/UserContext";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Feather from "react-native-vector-icons/Feather";
 import { observer } from "mobx-react-lite";
 import userStore from "../stores/UserStore";
 import { db } from "../app/firebase";
@@ -38,7 +38,7 @@ const ProfileScreen = observer(({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Icon
+        <Feather
           name={profile ? profile.icon : "account-circle"}
           size={100}
           color={colors.softblue}

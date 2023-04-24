@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Feather from "react-native-vector-icons/Feather";
 import Modal from "react-native-modal";
 import UserContext from "../app/contexts/UserContext";
 import styles from "../config/styles/UpdateProfileStyles";
@@ -47,7 +47,7 @@ export default function UpdateProfileScreen({ navigation, route }) {
           style={styles.iconContainer}
           onPress={handleIconPress}
         >
-          <Icon name={icon} size={100} color={colors.brightblue} />
+          <Feather name={icon} size={100} color={colors.brightblue} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleIconPress}
@@ -72,7 +72,7 @@ export default function UpdateProfileScreen({ navigation, route }) {
             style={styles.closeButton}
             onPress={() => setShowModal(false)}
           >
-            <Icon name="close" size={30} color="#555" />
+            <Feather name="x" size={30} />
           </TouchableOpacity>
 
           <View style={styles.iconGrid}>
@@ -85,7 +85,7 @@ export default function UpdateProfileScreen({ navigation, route }) {
                 ]}
                 onPress={() => handleIconSelect(iconName)}
               >
-                <Icon name={iconName} size={30} color="#555" />
+                <Feather name={iconName} size={30} color="#555" />
               </TouchableOpacity>
             ))}
           </View>
