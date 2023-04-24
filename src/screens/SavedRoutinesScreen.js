@@ -250,10 +250,19 @@ function SavedRoutinesScreen({ navigation }) {
                   </View>
                 );
               } else if (item.type === "shared") {
+                const sharedByUser = item.sharedBy
+                  ? db
+                      .collection("users")
+                      .doc(sharedBy)
+                      .get()
+                      .then((doc) => doc.data().username)
+                  : null;
                 routineView = (
                   <View style={styles.routineContainer}>
                     <Text style={styles.listHeader}>Shared Routine</Text>
+
                     <Text style={styles.routineName}>{item.name}</Text>
+
                     <View style={styles.sharedIcon}>
                       <TouchableOpacity
                         onPress={() =>

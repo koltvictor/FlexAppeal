@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#000000",
+    backgroundColor: colors.sandy,
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
-    shadowColor: "#000000",
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#FFFFFF",
+    color: colors.white,
   },
   setsRepsContainer: {
     flexDirection: "row",
@@ -27,11 +28,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   repsInput: {
-    borderColor: "#C4C4C4",
+    borderColor: colors.black,
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 5,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.white,
   },
   pickerItem: {
     fontSize: 16,
@@ -40,11 +41,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   timeInput: {
-    borderColor: "#C4C4C4",
+    borderColor: colors.black,
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 5,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.white,
   },
 });
 

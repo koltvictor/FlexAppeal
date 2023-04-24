@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.black,
   },
   slide: {
     flex: 1,
@@ -24,14 +25,14 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   button: {
-    backgroundColor: "#008CBA",
+    backgroundColor: colors.brightblue,
     borderRadius: 50,
     padding: 15,
     paddingHorizontal: 40,
     alignItems: "center",
     justifyContent: "center",
     elevation: 3,
-    shadowColor: "#000",
+    shadowColor: colors.black,
     shadowOffset: {
       width: 0,
       height: 2,
