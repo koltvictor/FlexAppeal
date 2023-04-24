@@ -1,6 +1,11 @@
 import { auth } from "../app/firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState, useEffect } from "react";
+// import {
+//   setPersistence,
+//   browserSessionPersistence,
+//   browserLocalPersistence,
+// } from "firebase/auth";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -25,6 +30,15 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     try {
       setLoading(true);
+
+      // // Set the persistence type to 'SESSION' if 'rememberMe' checkbox is not checked
+      // const persistence = rememberMe
+      //   ? browserLocalPersistence
+      //   : browserSessionPersistence;
+
+      // // Set the persistence type before signing in with email and password
+      // await setPersistence(auth, persistence);
+
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -109,6 +123,21 @@ const LoginScreen = () => {
           <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
             <Text style={styles.link}>Don't have an account? Sign up here</Text>
           </TouchableOpacity>
+          <View style={styles.checkboxContainer}>
+            <TouchableOpacity
+              style={styles.checkboxContainer}
+              onPress={toggleRememberMe}
+            >
+              <View
+                style={rememberMe ? styles.checkedBox : styles.uncheckedBox}
+              >
+                {rememberMe && (
+                  <Ionicons name="checkmark" size={24} color="#000000" />
+                )}
+              </View>
+              <Text style={styles.label}>Remember me</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </View>

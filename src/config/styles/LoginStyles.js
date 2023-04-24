@@ -74,6 +74,32 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     textAlign: "center",
   },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  uncheckedBox: {
+    width: 24,
+    height: 24,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
+    marginRight: 10,
+  },
+  checkedBox: {
+    width: 24,
+    height: 24,
+    borderRadius: 4,
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  label: {
+    color: "#FFFFFF",
+    fontSize: 16,
+  },
 });
 
 export default styles;

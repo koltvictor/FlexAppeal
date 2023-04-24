@@ -4,7 +4,7 @@
     "slug": "FA",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/FAL1.png",
+    "icon": "./src/assets/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./src/assets/splash.png",
@@ -20,17 +20,23 @@
         "UIBackgroundModes": [
           "audio"
         ]
-      }
+      },
+      "bundleIdentifier": "com.koltvictor.FA"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/splash.png",
+        "foregroundImage": "./src/assets/logo.png",
         "backgroundColor": "#ffffff"
       }
     },
-    "description": "DoneWithIt is a marketplace for buying and selling used items.",
+    "description": "FlexAppeal is an app used to build workout routines.",
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "96f16341-0f56-4f01-895f-c773b3a79695"
+      }
     }
   }
 }
