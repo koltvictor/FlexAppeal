@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.navy,
     padding: 16,
     alignItems: "center",
   },
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 16,
-    color: "white",
+    color: colors.softblue,
   },
   exerciseContainer: {
     marginTop: 16,
@@ -20,8 +21,8 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#cccccc",
-    backgroundColor: "#f5f5f5",
+    borderColor: colors.softblue,
+    backgroundColor: colors.navy,
     alignItems: "center",
   },
   exerciseName: {

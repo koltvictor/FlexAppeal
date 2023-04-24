@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   tabIcon: {
@@ -7,7 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   tabText: {
-    color: "#FFFFFF",
+    color: colors.navy,
     fontSize: 12,
     fontWeight: "bold",
     textTransform: "uppercase",

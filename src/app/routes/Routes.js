@@ -16,6 +16,7 @@ import SavedRoutinesScreen from "../../screens/SavedRoutinesScreen";
 import SpecificRoutineScreen from "../../screens/SpecificRoutineScreen";
 import TargetsScreen from "../../screens/TargetsScreen";
 import UpdateRoutineScreen from "../../screens/UpdateRoutineScreen";
+import colors from "../../config/colors";
 
 const Stack = createNativeStackNavigator();
 
@@ -56,7 +57,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: colors.navy,
           },
           headerTitleStyle: {
             display: "none",
@@ -69,7 +70,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: colors.navy,
           },
           headerTitleStyle: {
             display: "none",
@@ -82,7 +83,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: colors.navy,
           },
           headerTitleStyle: {
             display: "none",
@@ -92,7 +93,15 @@ const Routes = () => {
       <Stack.Screen
         name="ExerciseDetails"
         component={ExerciseDetailsScreen}
-        options={{ headerShown: false }}
+        options={{
+          title: "",
+          headerStyle: {
+            backgroundColor: colors.navy,
+          },
+          headerTitleStyle: {
+            display: "none",
+          },
+        }}
       />
       <Stack.Screen
         name="Routine"
@@ -102,7 +111,15 @@ const Routes = () => {
       <Stack.Screen
         name="Saved Routines"
         component={SavedRoutinesScreen}
-        options={{ headerShown: false }}
+        options={{
+          title: "",
+          headerStyle: {
+            backgroundColor: colors.navy,
+          },
+          headerTitleStyle: {
+            display: "none",
+          },
+        }}
       />
       <Stack.Screen
         name="Update Routine"
@@ -110,7 +127,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: colors.navy,
           },
           headerTitleStyle: {
             display: "none",
@@ -125,7 +142,15 @@ const Routes = () => {
       <Stack.Screen
         name="Update Profile"
         component={UpdateProfileScreen}
-        options={{ headerShown: false }}
+        options={{
+          title: "",
+          headerStyle: {
+            backgroundColor: colors.navy,
+          },
+          headerTitleStyle: {
+            display: "none",
+          },
+        }}
       />
       <Stack.Screen
         name="Specific Routine"
@@ -133,7 +158,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: colors.navy,
           },
           headerTitleStyle: {
             display: "none",

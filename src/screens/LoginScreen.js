@@ -1,10 +1,5 @@
 import { auth } from "../app/firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
-// import {
-//   setPersistence,
-//   browserSessionPersistence,
-//   browserLocalPersistence,
-// } from "firebase/auth";
 import React, { useState } from "react";
 import {
   View,
@@ -17,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/LoginStyles.js";
 import { Ionicons } from "@expo/vector-icons";
 import { Keyboard } from "react-native";
+import colors from "../config/colors.js";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -30,14 +26,6 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     try {
       setLoading(true);
-
-      // // Set the persistence type to 'SESSION' if 'rememberMe' checkbox is not checked
-      // const persistence = rememberMe
-      //   ? browserLocalPersistence
-      //   : browserSessionPersistence;
-
-      // // Set the persistence type before signing in with email and password
-      // await setPersistence(auth, persistence);
 
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -75,7 +63,7 @@ const LoginScreen = () => {
               <Ionicons
                 name="mail-outline"
                 size={24}
-                color="#FFFFFF"
+                color={colors.white}
                 style={styles.inputIcon}
               />
             </View>
@@ -92,7 +80,7 @@ const LoginScreen = () => {
             <Ionicons
               name="lock-closed-outline"
               size={24}
-              color="#FFFFFF"
+              color={colors.white}
               style={styles.inputIcon}
             />
             <TextInput
@@ -109,7 +97,7 @@ const LoginScreen = () => {
               <Ionicons
                 name={passwordShown ? "eye-outline" : "eye-off-outline"}
                 size={24}
-                color="#FFFFFF"
+                color={colors.white}
               />
             </TouchableOpacity>
           </View>
@@ -120,6 +108,7 @@ const LoginScreen = () => {
           >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
+
           <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
             <Text style={styles.link}>Don't have an account? Sign up here</Text>
           </TouchableOpacity>

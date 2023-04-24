@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import userStore from "../stores/UserStore";
 import { db } from "../app/firebase";
 import styles from "../config/styles/ProfileStyles";
+import colors from "../config/colors";
 
 const ProfileScreen = observer(({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -40,7 +41,7 @@ const ProfileScreen = observer(({ navigation }) => {
         <Icon
           name={profile ? profile.icon : "account-circle"}
           size={100}
-          color="rgb(0, 127, 255)"
+          color={colors.softblue}
           style={styles.avatar}
         />
         <Text style={styles.username}>{profile?.username}</Text>
@@ -58,7 +59,7 @@ const ProfileScreen = observer(({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={handleLogoutAndNavigate}
-        style={[styles.button, { backgroundColor: "#ff2d55" }]}
+        style={styles.logoutButton}
       >
         <Text style={styles.buttonText}>Log Out</Text>
       </TouchableOpacity>

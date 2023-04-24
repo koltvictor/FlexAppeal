@@ -1,23 +1,16 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000000",
+    backgroundColor: colors.navy,
     paddingHorizontal: 20,
     paddingTop: 50,
     alignItems: "center",
   },
-  header: {
-    color: "#ffffff",
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textTransform: "uppercase",
-    fontFamily: "Helvetica",
-  },
   routineContainer: {
-    backgroundColor: "#333333",
+    backgroundColor: colors.slate,
     borderRadius: 10,
     marginBottom: 20,
     padding: 30,
@@ -26,21 +19,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   routineName: {
-    color: "#ffffff",
+    color: colors.white,
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
     textTransform: "uppercase",
     fontFamily: "Helvetica",
   },
-  deleteText: {
-    color: "red",
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textTransform: "uppercase",
-    fontFamily: "Helvetica",
+  iconsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "50%",
   },
+  icon: {},
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -87,12 +79,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#000",
-  },
-  viewText: {
-    fontSize: 20,
-    color: "yellow",
-    fontWeight: "bold",
-    marginBottom: 20,
   },
 });
 

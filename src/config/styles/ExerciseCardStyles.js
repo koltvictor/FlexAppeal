@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     borderRadius: 10,
     elevation: 2,
     margin: 10,
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    borderBottomColor: colors.slate,
   },
   title: {
     fontSize: 20,
@@ -24,17 +25,17 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: colors.brightblue,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    marginTop: "auto",
+    marginTop: 25,
     marginBottom: 10,
     marginHorizontal: 20,
   },
   buttonText: {
-    color: "#fff",
+    color: colors.white,
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
@@ -62,12 +63,6 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "contain",
     position: "relative",
-  },
-  goBackButton: {
-    backgroundColor: "#ddd",
-    borderRadius: 10,
-    padding: 10,
-    margin: 20,
   },
   modalContainer: {
     position: "absolute",

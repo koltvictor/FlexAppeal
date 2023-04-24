@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.navy,
   },
   contentContainer: {
     padding: 20,
@@ -15,14 +16,14 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 20,
-    color: "gray",
+    color: colors.lightgrey,
   },
   exerciseContainer: {
     marginBottom: 20,
-    backgroundColor: "grey",
+    backgroundColor: colors.slate,
     borderRadius: 10,
     padding: 20,
-    shadowColor: "#000",
+    shadowColor: colors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -35,11 +36,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#2980b9",
+    color: colors.sandy,
   },
   inputContainer: {
-    backgroundColor: "#000",
-    padding: 20,
+    backgroundColor: colors.navy,
+    paddingBottom: 30,
+    paddingLeft: 20,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -47,27 +49,27 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: colors.lightgrey,
     borderRadius: 10,
     padding: 10,
     marginRight: 10,
     fontSize: 16,
-    color: "white",
+    color: colors.white,
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.sandy,
     padding: 20,
     justifyContent: "center",
   },
   modalInput: {
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: colors.white,
     borderRadius: 10,
     padding: 10,
     marginBottom: 20,
     fontSize: 16,
-    color: "white",
+    color: colors.navy,
   },
   modalButtonsContainer: {
     flexDirection: "row",
@@ -76,11 +78,11 @@ const styles = StyleSheet.create({
   modalButton: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#2980b9",
+    backgroundColor: colors.slate,
     marginRight: 10,
   },
   modalButtonText: {
-    color: "white",
+    color: colors.white,
     fontSize: 16,
   },
   errorContainer: {
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   errorMessage: {
     fontWeight: "bold",
     fontSize: 16,
-    color: "red",
+    color: colors.red,
     marginHorizontal: 20,
     marginTop: 10,
   },

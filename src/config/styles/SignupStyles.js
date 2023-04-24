@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000000",
+    backgroundColor: colors.sandy,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -13,13 +14,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
-    color: "#FFFFFF",
+    color: colors.white,
     fontSize: 30,
     fontWeight: "bold",
     marginBottom: 10,
   },
   subTitle: {
-    color: "#7C7C7C",
+    color: colors.slate,
     fontSize: 18,
   },
   inputContainer: {
@@ -27,11 +28,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#FFFFFF",
+    borderBottomColor: colors.lightgrey,
   },
   input: {
     flex: 1,
-    color: "#FFFFFF",
+    color: colors.white,
     fontSize: 18,
     marginLeft: 10,
   },
@@ -39,25 +40,25 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   button: {
-    backgroundColor: "#1ED760",
+    backgroundColor: colors.brightblue,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 25,
     marginTop: 30,
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: colors.white,
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
   },
   link: {
-    color: "#1ED760",
+    color: colors.softblue,
     fontSize: 16,
     marginTop: 30,
   },
   linkText: {
-    color: "#1ED760",
+    color: colors.black,
     fontSize: 16,
     marginTop: 30,
   },

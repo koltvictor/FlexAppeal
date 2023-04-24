@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.navy,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -12,8 +13,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   changeIconText: {
-    color: "white",
+    color: colors.lightgrey,
     fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 16,
   },
   formContainer: {
     alignItems: "center",
@@ -25,17 +28,17 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: colors.white,
     marginBottom: 10,
   },
   input: {
     width: 200,
     height: 40,
     borderRadius: 20,
-    borderColor: "#FFFFFF",
+    borderColor: colors.slate,
     borderWidth: 1,
     padding: 10,
-    color: "#FFFFFF",
+    color: colors.white,
     marginBottom: 20,
   },
   button: {
@@ -45,15 +48,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
-    backgroundColor: "#00c9ff",
+    backgroundColor: colors.brightblue,
   },
   buttonText: {
     fontSize: 18,
-    color: "#FFFFFF",
+    color: colors.white,
     fontWeight: "bold",
   },
   modalContainer: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.softblue,
     padding: 20,
     borderRadius: 10,
   },
@@ -67,10 +70,10 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "#555",
+    borderColor: colors.lightgrey,
   },
   selectedIcon: {
-    backgroundColor: "#00c9ff",
+    backgroundColor: colors.brightblue,
   },
   closeButton: {
     position: "absolute",

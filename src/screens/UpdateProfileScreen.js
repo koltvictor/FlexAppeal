@@ -11,6 +11,7 @@ import Modal from "react-native-modal";
 import UserContext from "../app/contexts/UserContext";
 import styles from "../config/styles/UpdateProfileStyles";
 import icons from "../assets/icons";
+import colors from "../config/colors";
 
 export default function UpdateProfileScreen({ navigation, route }) {
   const { profile } = route.params;
@@ -46,7 +47,7 @@ export default function UpdateProfileScreen({ navigation, route }) {
           style={styles.iconContainer}
           onPress={handleIconPress}
         >
-          <Icon name={icon} size={100} color="rgb(0, 127, 255)" />
+          <Icon name={icon} size={100} color={colors.brightblue} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleIconPress}
@@ -63,12 +64,6 @@ export default function UpdateProfileScreen({ navigation, route }) {
         />
         <TouchableOpacity onPress={handleSaveChanges} style={styles.button}>
           <Text style={styles.buttonText}>Save Changes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Back to Profile</Text>
         </TouchableOpacity>
       </View>
       <Modal isVisible={showModal}>

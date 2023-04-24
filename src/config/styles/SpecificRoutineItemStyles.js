@@ -1,16 +1,17 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.navy,
     alignItems: "center",
     justifyContent: "center",
   },
   exerciseName: {
     fontSize: 20,
     marginBottom: 8,
-    color: "darkgrey",
+    color: colors.white,
   },
   timerAndButtonContainer: {
     flexDirection: "row",
@@ -23,15 +24,15 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   timerText: {
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: "bold",
     marginRight: 8,
-    color: "red",
+    color: colors.white,
     backgroundColor: "rgba(128, 128, 128, 0.5)",
     padding: 8,
   },
   modalContainer: {
-    backgroundColor: "rgba(0, 0, 0, 0.9)",
+    backgroundColor: colors.navy,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -40,13 +41,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 20,
-    color: "grey",
+    color: colors.softblue,
   },
   modalGoalText: {
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: "bold",
     marginTop: 20,
-    color: "grey",
+    color: colors.lightgrey,
   },
   gif: {
     width: 350,
@@ -65,11 +66,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
-    backgroundColor: "#007AFF",
+    backgroundColor: colors.brightblue,
   },
   timerButtonText: {
-    color: "#fff",
-    fontSize: 16,
+    color: colors.white,
+    fontSize: 20,
     fontWeight: "bold",
   },
   timerModalContainer: {
@@ -94,8 +95,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   repsText: {
-    fontSize: 18,
-    color: "red",
+    fontSize: 20,
+    color: colors.lightgrey,
     fontWeight: "bold",
   },
 });

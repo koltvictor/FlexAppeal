@@ -1,15 +1,16 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000000",
+    backgroundColor: colors.navy,
   },
   label: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#FFFFFF",
+    color: colors.white,
   },
   header: {
     fontSize: 30,
@@ -19,10 +20,10 @@ const styles = StyleSheet.create({
   routineName: {
     fontSize: 20,
     padding: 10,
-    color: "#FFFFFF",
+    color: colors.white,
   },
   addExerciseButtonContainer: {
-    backgroundColor: "#2980b9",
+    backgroundColor: colors.brightblue,
     padding: 20,
     borderRadius: 10,
     alignItems: "center",
@@ -30,14 +31,14 @@ const styles = StyleSheet.create({
   },
   addExerciseButtonText: {
     fontSize: 16,
-    color: "#FFFFFF",
+    color: colors.white,
   },
   exerciseContainer: {
     marginBottom: 20,
-    backgroundColor: "grey",
+    backgroundColor: colors.slate,
     borderRadius: 10,
     padding: 20,
-    shadowColor: "#000",
+    shadowColor: colors.white,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -48,11 +49,11 @@ const styles = StyleSheet.create({
   },
   exerciseName: {
     fontSize: 18,
-    color: "#FFFFFF",
+    color: colors.white,
     padding: 10,
   },
   inputContainer: {
-    backgroundColor: "#000",
+    backgroundColor: colors.navy,
     padding: 20,
     flexDirection: "row",
     alignItems: "center",
@@ -61,30 +62,30 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: colors.white,
     borderRadius: 10,
     padding: 10,
     marginRight: 10,
     fontSize: 16,
-    color: "white",
+    color: colors.white,
   },
   contentContainer: {
     padding: 20,
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.slate,
     padding: 20,
     justifyContent: "center",
   },
   modalInput: {
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: colors.sandy,
     borderRadius: 10,
     padding: 10,
     marginBottom: 20,
     fontSize: 16,
-    color: "white",
+    color: colors.white,
   },
   modalButtonsContainer: {
     flexDirection: "row",
@@ -93,11 +94,11 @@ const styles = StyleSheet.create({
   modalButton: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#2980b9",
+    backgroundColor: colors.brightblue,
     marginRight: 10,
   },
   modalButtonText: {
-    color: "white",
+    color: colors.slate,
     fontSize: 16,
   },
   setsRepsContainer: {
@@ -109,11 +110,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   repsInput: {
-    borderColor: "#C4C4C4",
+    borderColor: colors.black,
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 5,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.white,
   },
   pickerItem: {
     fontSize: 16,
@@ -122,15 +123,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   timeInput: {
-    borderColor: "#C4C4C4",
+    borderColor: colors.black,
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 5,
-    backgroundColor: "#FFFFFF",
-  },
-  updateButton: {
-    fontSize: 16,
-    color: "#FFFFFF",
+    backgroundColor: colors.white,
   },
   saveButton: {
     position: "absolute",

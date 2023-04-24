@@ -1,15 +1,16 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.navy,
     padding: 16,
   },
   input: {
     height: 40,
     borderWidth: 1,
-    borderColor: "#CCCCCC",
+    borderColor: colors.sandy,
     borderRadius: 8,
     paddingHorizontal: 16,
     marginBottom: 16,
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   exerciseContainer: {
-    backgroundColor: "black",
+    backgroundColor: colors.navy,
     borderRadius: 8,
     marginBottom: 8,
     padding: 16,
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   exerciseName: {
     fontSize: 16,
     fontWeight: "600",
-    color: "white",
+    color: colors.white,
   },
 });
 

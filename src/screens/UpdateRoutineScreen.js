@@ -86,6 +86,7 @@ function UpdateRoutineScreen({ route }) {
       console.log(error);
     }
     setIsModalVisible(false);
+    navigation.navigate("Saved Routines");
   };
 
   const onCancel = () => {

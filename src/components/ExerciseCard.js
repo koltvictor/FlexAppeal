@@ -103,12 +103,6 @@ const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
       >
         <Text style={styles.buttonText}>Add to routine</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.goBack()}
-      >
-        <Text style={styles.buttonText}>Go Back</Text>
-      </TouchableOpacity>
       {showModal && (
         <Animated.View
           style={[styles.modal, { opacity: fadeAnim, top: 0, left: 0 }]}

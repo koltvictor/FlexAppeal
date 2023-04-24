@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: colors.navy,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -17,12 +18,12 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: colors.white,
     marginBottom: 10,
   },
   email: {
     fontSize: 18,
-    color: "#FFFFFF",
+    color: colors.softblue,
     marginBottom: 50,
   },
   button: {
@@ -32,16 +33,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
-    backgroundColor: "#00c9ff",
+    backgroundColor: colors.brightblue,
   },
   buttonText: {
     fontSize: 18,
     color: "#FFFFFF",
     fontWeight: "bold",
   },
-  updateButton: {},
   logoutButton: {
-    backgroundColor: "#FF4500",
+    width: 200,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    backgroundColor: colors.sandy,
   },
 });
 

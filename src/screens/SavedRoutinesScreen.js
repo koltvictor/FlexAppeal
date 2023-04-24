@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { db, auth } from "../app/firebase";
 import { Text, FlatList, View, TouchableOpacity, Modal } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import colors from "../config/colors";
 import styles from "../config/styles/SavedRoutinesStyles";
 
 function SavedRoutinesScreen({ navigation }) {
@@ -43,37 +45,51 @@ function SavedRoutinesScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>My Routines</Text>
       <FlatList
         data={savedRoutines}
         renderItem={({ item }) => (
           <View style={styles.routineContainer}>
             <Text style={styles.routineName}>{item.name}</Text>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Specific Routine", { routine: item })
-              }
-              color="#ffffff"
-            >
-              <Text style={styles.viewText}>View Routine</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Update Routine", { routine: item })
-              }
-            >
-              <Text style={styles.viewText}>Update Routine</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              title="Delete Routine"
-              onPress={() => {
-                setRoutineToDelete(item);
-                setDeleteModalVisible(true);
-              }}
-              color="#ffffff"
-            >
-              <Text style={styles.deleteText}>Delete Routine</Text>
-            </TouchableOpacity>
+            <View style={styles.iconsContainer}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Specific Routine", { routine: item })
+                }
+              >
+                <Ionicons
+                  name="eye"
+                  size={24}
+                  color={colors.brightblue}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Update Routine", { routine: item })
+                }
+              >
+                <Ionicons
+                  name="pencil"
+                  size={24}
+                  color={colors.sandy}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                title="Delete Routine"
+                onPress={() => {
+                  setRoutineToDelete(item);
+                  setDeleteModalVisible(true);
+                }}
+              >
+                <Ionicons
+                  name="trash"
+                  size={24}
+                  color={colors.black}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         )}
         keyExtractor={(item) => item.id}

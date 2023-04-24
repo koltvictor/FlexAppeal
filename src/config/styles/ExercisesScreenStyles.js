@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: colors.navy,
   },
   listContainer: {
     paddingHorizontal: 20,
@@ -13,12 +14,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 15,
-    borderBottomColor: "#444",
+    borderBottomColor: colors.slate,
     borderBottomWidth: 1,
   },
   targetText: {
     fontSize: 20,
-    color: "#fff",
+    color: colors.sandy,
     marginLeft: 20,
   },
 });

@@ -7,6 +7,7 @@ import ExercisesScreen from "./ExercisesScreen";
 import RoutineScreen from "./RoutineScreen";
 import SavedRoutinesScreen from "./SavedRoutinesScreen";
 import styles from "../config/styles/DashboardStyles";
+import colors from "../config/colors";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -33,10 +34,10 @@ export default function DashboardScreen() {
             </TouchableOpacity>
           );
         },
-        tabBarActiveTintColor: "#FFFFFF",
+        tabBarActiveTintColor: colors.white,
         tabBarInactiveTintColor: "rgba(255, 255, 255, 0.6)",
         tabBarStyle: {
-          backgroundColor: "#000000",
+          backgroundColor: colors.navy,
           borderTopWidth: 0,
           elevation: 0,
           height: 100,

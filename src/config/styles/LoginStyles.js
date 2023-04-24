@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000000",
+    backgroundColor: colors.navy,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -17,16 +18,16 @@ const styles = StyleSheet.create({
   topSection: {
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 30,
+    marginBottom: 50,
   },
   title: {
-    color: "#FFFFFF",
+    color: colors.white,
     fontSize: 30,
     fontWeight: "bold",
     marginBottom: 10,
   },
   subTitle: {
-    color: "#7C7C7C",
+    color: colors.lightgrey,
     fontSize: 18,
   },
   inputContainer: {
@@ -34,11 +35,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#FFFFFF",
+    borderBottomColor: colors.lightgrey,
   },
   input: {
     flex: 1,
-    color: "#FFFFFF",
+    color: colors.white,
     fontSize: 18,
     marginLeft: 10,
   },
@@ -50,54 +51,54 @@ const styles = StyleSheet.create({
     height: 20,
   },
   button: {
-    backgroundColor: "#1ED760",
+    backgroundColor: colors.softblue,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 25,
     marginTop: 30,
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: colors.white,
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
   },
   link: {
-    color: "#1ED760",
+    color: colors.brightblue,
     fontSize: 16,
     marginTop: 30,
+    textAlign: "center",
   },
   error: {
-    color: "#FF0000",
+    color: colors.red,
     fontSize: 20,
-    marginTop: 30,
-    marginBottom: 30,
     textAlign: "center",
   },
   checkboxContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
+    paddingTop: 10,
   },
   uncheckedBox: {
     width: 24,
     height: 24,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: "#FFFFFF",
+    borderColor: colors.softblue,
     marginRight: 10,
   },
   checkedBox: {
     width: 24,
     height: 24,
     borderRadius: 4,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.sandy,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
   },
   label: {
-    color: "#FFFFFF",
+    color: colors.sandy,
     fontSize: 16,
   },
 });
