@@ -36,7 +36,8 @@ const SignupScreen = () => {
           .doc(user.uid)
           .set({
             username: username,
-            email: email,
+            email: email.toLowerCase(),
+            icon: initialIcon,
           })
           .then(() => {
             console.log("User profile document created successfully");
@@ -46,7 +47,7 @@ const SignupScreen = () => {
               .doc(user.uid)
               .set({
                 username: username,
-                email: email,
+                email: email.toLowerCase(),
                 icon: initialIcon,
               })
               .then(() => {

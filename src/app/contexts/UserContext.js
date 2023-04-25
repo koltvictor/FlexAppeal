@@ -49,7 +49,7 @@ export const UserProvider = ({ children }) => {
       );
       const uid = user.uid;
       const profileDoc = doc(db, "profiles", uid);
-      const profileData = { email, username, icon: "" };
+      const profileData = { email, username, icon };
       await setDoc(profileDoc, profileData);
       userStore.setProfile(profileData);
       setUser(user);

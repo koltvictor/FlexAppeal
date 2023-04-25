@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   addExerciseButtonContainer: {
-    backgroundColor: colors.brightblue,
+    backgroundColor: colors.palegreen,
     padding: 20,
     borderRadius: 10,
     alignItems: "center",
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   addExerciseButtonText: {
     fontSize: 16,
-    color: colors.white,
+    color: colors.slate,
   },
   exerciseContainer: {
     marginBottom: 20,

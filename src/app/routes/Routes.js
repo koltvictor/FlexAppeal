@@ -13,6 +13,7 @@ import ProfileScreen from "../../screens/ProfileScreen";
 import UpdateProfileScreen from "../../screens/UpdateProfileScreen";
 import RoutineScreen from "../../components/RoutineItem";
 import SavedRoutinesScreen from "../../screens/SavedRoutinesScreen";
+import SharedRoutinesScreen from "../../screens/SharedRoutinesScreen";
 import SpecificRoutineScreen from "../../screens/SpecificRoutineScreen";
 import TargetsScreen from "../../screens/TargetsScreen";
 import UpdateRoutineScreen from "../../screens/UpdateRoutineScreen";
@@ -111,6 +112,19 @@ const Routes = () => {
       <Stack.Screen
         name="Saved Routines"
         component={SavedRoutinesScreen}
+        options={{
+          title: "",
+          headerStyle: {
+            backgroundColor: colors.navy,
+          },
+          headerTitleStyle: {
+            display: "none",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Shared Routines"
+        component={SharedRoutinesScreen}
         options={{
           title: "",
           headerStyle: {
