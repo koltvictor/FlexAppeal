@@ -3,6 +3,7 @@ import { makeObservable, observable, action } from "mobx";
 class UserStore {
   @observable user = null;
   @observable profile = null;
+  @observable savedroutines = null;
 
   constructor() {
     makeObservable(this);
@@ -14,6 +15,10 @@ class UserStore {
 
   @action setProfile(profile) {
     this.profile = profile;
+  }
+
+  @action setSavedRoutines(savedroutines) {
+    this.savedroutines = savedroutines;
   }
 }
 

@@ -10,6 +10,7 @@ export default UserContext;
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [savedroutines, setSavedRoutines] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
@@ -66,8 +67,15 @@ export const UserProvider = ({ children }) => {
       const uid = user.uid;
       const profileDoc = doc(db, "profiles", uid);
       const profileSnapshot = await getDoc(profileDoc);
+      const savedroutinesDoc = doc(db, "savedroutines", uid);
+      const savedroutinesSnapshot = await getDoc(savedroutinesDoc);
       if (profileSnapshot.exists()) {
         userStore.setProfile(profileSnapshot.data());
+      } else {
+        console.log("No such document!");
+      }
+      if (savedroutinesSnapshot.exists()) {
+        userStore.setSavedRoutines(savedroutinesSnapshot.data());
       } else {
         console.log("No such document!");
       }
@@ -117,6 +125,7 @@ export const UserProvider = ({ children }) => {
   const value = {
     user,
     profile,
+    savedroutines,
     handleSignUp,
     handleLogIn,
     handleLogOut,

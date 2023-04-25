@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import UserContext from "../app/contexts/UserContext";
 import Feather from "react-native-vector-icons/Feather";
 import { observer } from "mobx-react-lite";
 import userStore from "../stores/UserStore";
-import { db } from "../app/firebase";
+import { auth, db } from "../app/firebase";
 import styles from "../config/styles/ProfileStyles";
 import colors from "../config/colors";
 
@@ -12,6 +12,9 @@ const ProfileScreen = observer(({ navigation }) => {
   const { user } = useContext(UserContext);
   const { profile } = userStore;
   const { handleLogOut } = useContext(UserContext);
+  const { savedroutines } = userStore;
+  const [numSavedRoutines, setNumSavedRoutines] = useState(0);
+  const [numSharedRoutines, setNumSharedRoutines] = useState(0);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -27,6 +30,30 @@ const ProfileScreen = observer(({ navigation }) => {
     fetchProfile();
   }, []);
 
+  useEffect(() => {
+    const fetchSavedRoutines = async () => {
+      const savedRoutinesRef = db.collection("savedroutines");
+      const query = savedRoutinesRef.where("userId", "==", user.uid);
+      const querySnapshot = await query.get();
+      const savedRoutines = {};
+      let numSharedRoutines = 0; // Initialize the counter for shared routines
+      querySnapshot.forEach((doc) => {
+        const routineName = doc.id.split("_")[1];
+        savedRoutines[routineName] = doc.data();
+        if (doc.data().sharedWith) {
+          // Check if the sharedWith field exists
+          numSharedRoutines += 1;
+        }
+      });
+      userStore.setSavedRoutines(savedRoutines);
+      const numSavedRoutines = querySnapshot.size;
+      setNumSavedRoutines(numSavedRoutines);
+      setNumSharedRoutines(numSharedRoutines); // Set the state for the number of shared routines
+    };
+
+    fetchSavedRoutines();
+  }, []);
+
   const handleLogoutAndNavigate = async () => {
     await handleLogOut();
     navigation.reset({
@@ -39,13 +66,21 @@ const ProfileScreen = observer(({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.avatarContainer}>
         <Feather
-          name={profile ? profile.icon : "account-circle"}
+          name={profile ? profile.icon : "smile"}
           size={100}
           color={colors.softblue}
           style={styles.avatar}
         />
         <Text style={styles.username}>{profile?.username}</Text>
         <Text style={styles.email}>{profile ? profile.email : ""}</Text>
+        <View style={styles.routineContainer}>
+          <Text style={styles.routines}>
+            saved routines: {numSavedRoutines}
+          </Text>
+          <Text style={styles.routines}>
+            shared routines: {numSharedRoutines}
+          </Text>
+        </View>
       </View>
       <TouchableOpacity
         onPress={() => {

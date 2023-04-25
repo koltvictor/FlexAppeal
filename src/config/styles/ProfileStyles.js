@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   email: {
     fontSize: 18,
     color: colors.white,
-    marginBottom: 50,
+    marginBottom: 30,
   },
   button: {
     width: 200,
@@ -48,6 +48,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     backgroundColor: colors.brightblue,
+  },
+  routines: {
+    fontSize: 18,
+    color: colors.white,
+    marginBottom: 10,
+  },
+  routineContainer: {
+    backgroundColor: colors.slate,
+    borderRadius: 10,
+    marginBottom: 30,
+    padding: 30,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
