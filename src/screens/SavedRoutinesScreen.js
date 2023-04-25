@@ -24,12 +24,23 @@ function SavedRoutinesScreen({ navigation }) {
   const [shareModalVisible, setShareModalVisible] = useState(false);
   const [shareEmail, setShareEmail] = useState("");
   const [shareError, setShareError] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
 
   const [sharedRoutines, setSharedRoutines] = useState([]);
 
   // fetching savedroutines and sharedroutines from firebase
   useEffect(() => {
     const uid = auth.currentUser.uid;
+    const userRef = db.collection("users").doc(uid);
+    const unsubscribeUser = userRef.onSnapshot(
+      (doc) => {
+        const user = doc.data();
+        setCurrentUser(user.username);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
     const savedRoutinesRef = db
       .collection("savedroutines")
       .where("userId", "==", uid);
@@ -52,6 +63,7 @@ function SavedRoutinesScreen({ navigation }) {
     );
     return () => {
       unsubscribeSavedRoutines();
+      unsubscribeUser();
     };
   }, []);
 
@@ -116,7 +128,7 @@ function SavedRoutinesScreen({ navigation }) {
             await db
               .collection("savedroutines")
               .doc(routineToDelete.id)
-              .update({ sharedWith });
+              .update({ sharedWith, sharedBy: currentUser });
           }
           setShareModalVisible(false);
         }
@@ -250,17 +262,12 @@ function SavedRoutinesScreen({ navigation }) {
                   </View>
                 );
               } else if (item.type === "shared") {
-                const sharedByUser = item.sharedBy
-                  ? db
-                      .collection("users")
-                      .doc(sharedBy)
-                      .get()
-                      .then((doc) => doc.data().username)
-                  : null;
                 routineView = (
                   <View style={styles.routineContainer}>
                     <Text style={styles.listHeader}>Shared Routine</Text>
-
+                    <Text style={styles.sharedByText}>
+                      Shared by: {item.sharedBy}
+                    </Text>
                     <Text style={styles.routineName}>{item.name}</Text>
 
                     <View style={styles.sharedIcon}>

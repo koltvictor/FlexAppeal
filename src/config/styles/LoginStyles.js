@@ -4,7 +4,7 @@ import colors from "../colors";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.navy,
+    backgroundColor: colors.white,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   title: {
-    color: colors.white,
+    color: colors.black,
     fontSize: 30,
     fontWeight: "bold",
     marginBottom: 10,
   },
   subTitle: {
-    color: colors.lightgrey,
+    color: colors.slate,
     fontSize: 18,
   },
   inputContainer: {
@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: colors.lightgrey,
+    borderBottomColor: colors.slate,
   },
   input: {
     flex: 1,
-    color: colors.white,
+    color: colors.slate,
     fontSize: 18,
     marginLeft: 10,
   },
@@ -51,20 +51,20 @@ const styles = StyleSheet.create({
     height: 20,
   },
   button: {
-    backgroundColor: colors.softblue,
+    backgroundColor: colors.sandy,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 25,
     marginTop: 30,
   },
   buttonText: {
-    color: colors.white,
+    color: colors.black,
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
   },
   link: {
-    color: colors.brightblue,
+    color: colors.slate,
     fontSize: 16,
     marginTop: 30,
     textAlign: "center",
@@ -85,20 +85,20 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: colors.softblue,
+    borderColor: colors.slate,
     marginRight: 10,
   },
   checkedBox: {
     width: 24,
     height: 24,
     borderRadius: 4,
-    backgroundColor: colors.sandy,
+    backgroundColor: colors.white,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
   },
   label: {
-    color: colors.sandy,
+    color: colors.black,
     fontSize: 16,
   },
 });

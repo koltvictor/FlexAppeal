@@ -1,11 +1,12 @@
 export default {
-  navy: "#1c2331",
-  lightgrey: "#d3d3d3",
+  black: "#000000",
   white: "#ffffff",
-  brightblue: "#00bfff",
   sandy: "#C9AE74",
   slate: "#6c7a89",
+  palegreen: "#98FB98",
   softblue: "#A6BECB",
   red: "#FF0000",
-  black: "#000000",
+  lightgrey: "#d3d3d3",
+  brightblue: "#00bfff",
+  navy: "#1c2331",
 };

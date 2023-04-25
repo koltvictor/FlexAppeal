@@ -92,6 +92,13 @@ const styles = StyleSheet.create({
     color: colors.sandy,
     textAlign: "center",
   },
+  sharedByText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: colors.palegreen,
+    textAlign: "center",
+  },
 });
 
 export default styles;

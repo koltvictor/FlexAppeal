@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   email: {
     fontSize: 18,
-    color: colors.softblue,
+    color: colors.white,
     marginBottom: 50,
   },
   button: {
@@ -33,11 +33,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
-    backgroundColor: colors.brightblue,
+    backgroundColor: colors.palegreen,
   },
   buttonText: {
     fontSize: 18,
-    color: "#FFFFFF",
+    color: colors.black,
     fontWeight: "bold",
   },
   logoutButton: {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
-    backgroundColor: colors.sandy,
+    backgroundColor: colors.brightblue,
   },
 });
 

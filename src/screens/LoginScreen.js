@@ -54,8 +54,7 @@ const LoginScreen = () => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
           <View style={styles.topSection}>
-            <Text style={styles.title}>Login</Text>
-            <Text style={styles.subTitle}>Welcome back!</Text>
+            <Text style={styles.title}>Welcome back!</Text>
           </View>
           {error && <Text style={styles.error}>{error}</Text>}
           <View style={styles.inputContainer}>
