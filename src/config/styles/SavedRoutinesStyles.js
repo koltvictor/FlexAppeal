@@ -120,6 +120,13 @@ const styles = StyleSheet.create({
     color: colors.palegreen,
     textAlign: "center",
   },
+  sharedWith: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 20,
+    color: colors.palegreen,
+    textAlign: "center",
+  },
 });
 
 export default styles;
