@@ -12,9 +12,8 @@ const ProfileScreen = observer(({ navigation }) => {
   const { user } = useContext(UserContext);
   const { profile } = userStore;
   const { handleLogOut } = useContext(UserContext);
-  const { savedroutines } = userStore;
-  const [numSavedRoutines, setNumSavedRoutines] = useState(0);
-  const [numSharedRoutines, setNumSharedRoutines] = useState(0);
+  const numSharedRoutines = userStore.numSharedRoutines;
+  const numSavedRoutines = userStore.numSavedRoutines;
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -36,23 +35,15 @@ const ProfileScreen = observer(({ navigation }) => {
       const query = savedRoutinesRef.where("userId", "==", user.uid);
       const querySnapshot = await query.get();
       const savedRoutines = {};
-      let numSharedRoutines = 0; // Initialize the counter for shared routines
       querySnapshot.forEach((doc) => {
         const routineName = doc.id.split("_")[1];
         savedRoutines[routineName] = doc.data();
-        if (doc.data().sharedWith) {
-          // Check if the sharedWith field exists
-          numSharedRoutines += 1;
-        }
       });
       userStore.setSavedRoutines(savedRoutines);
-      const numSavedRoutines = querySnapshot.size;
-      setNumSavedRoutines(numSavedRoutines);
-      setNumSharedRoutines(numSharedRoutines); // Set the state for the number of shared routines
     };
 
     fetchSavedRoutines();
-  }, []);
+  }, [userStore.savedRoutines]); // add userStore.savedRoutines as a dependency
 
   const handleLogoutAndNavigate = async () => {
     await handleLogOut();
