@@ -1,23 +1,100 @@
-import { useQuery } from "react-query";
-import { firestore } from "../firebase";
+import { useState, useEffect } from "react";
+import { db, auth } from "../firebase";
 
-const useSavedRoutines = (uid) => {
-  const fetchSavedRoutines = async () => {
-    const snapshot = await firestore
-      .collection("savedRoutines")
-      .where("userId", "==", uid)
-      .get();
+export default function useSavedRoutines() {
+  const [savedRoutines, setSavedRoutines] = useState([]);
+  const [sharedRoutines, setSharedRoutines] = useState([]);
+  const [userIdToUsername, setUserIdToUsername] = useState({});
 
-    const savedRoutines = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      name: doc.data().name,
-      exercises: doc.data().exercises,
-    }));
+  // fetching savedroutines and sharedroutines from firebase
+  useEffect(() => {
+    const uid = auth.currentUser.uid;
+    const userRef = db.collection("users").doc(uid);
+    const unsubscribeUser = userRef.onSnapshot(
+      (doc) => {
+        const user = doc.data();
+        setCurrentUser(user.username);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    const savedRoutinesRef = db
+      .collection("savedroutines")
+      .where("userId", "==", uid);
 
-    return savedRoutines;
-  };
+    const unsubscribeSavedRoutines = savedRoutinesRef.onSnapshot(
+      (snapshot) => {
+        const routines = [];
+        snapshot.forEach((doc) => {
+          const routine = {
+            id: doc.id,
+            ...doc.data(),
+          };
+          routines.push(routine);
+        });
+        setSavedRoutines(routines);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    return () => {
+      unsubscribeSavedRoutines();
+      unsubscribeUser();
+    };
+  }, []);
 
-  return useQuery(["savedRoutines", uid], fetchSavedRoutines);
-};
+  // map user ids to usernames for shared routines
 
-export default useSavedRoutines;
+  useEffect(() => {
+    const unsubscribe = db.collection("users").onSnapshot((snapshot) => {
+      const users = {};
+      snapshot.forEach((doc) => {
+        const user = doc.data();
+        users[doc.id] = user.username;
+      });
+      setUserIdToUsername(users);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const uid = auth.currentUser.uid;
+
+    // Query for routines that have been shared with the current user
+    const savedRoutinesRef = db
+      .collection("savedroutines")
+      .where("sharedWith", "array-contains", uid);
+
+    const unsubscribeSavedRoutines = savedRoutinesRef.onSnapshot(
+      (snapshot) => {
+        const routines = [];
+        snapshot.forEach((doc) => {
+          const routine = {
+            id: doc.id,
+            ...doc.data(),
+          };
+          routines.push(routine);
+        });
+        setSharedRoutines(routines);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    return () => {
+      unsubscribeSavedRoutines();
+    };
+  }, []);
+
+  const combinedRoutines = [
+    ...savedRoutines.map((item) => ({ ...item, type: "saved" })),
+    ...sharedRoutines.map((item) => ({ ...item, type: "shared" })),
+  ];
+
+  return { savedRoutines, sharedRoutines, userIdToUsername, combinedRoutines };
+}

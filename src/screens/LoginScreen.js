@@ -1,6 +1,6 @@
 import { auth } from "../app/firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -26,7 +26,6 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     try {
       setLoading(true);
-
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -40,6 +39,15 @@ const LoginScreen = () => {
       setError(error.message);
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate("Dashboard");
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);

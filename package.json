@@ -59,7 +59,8 @@
     "react-native-tab-view": "^3.5.1",
     "react-query": "^3.39.3",
     "react-router-native": "^6.10.0",
-    "reactfire": "^4.2.2"
+    "reactfire": "^4.2.2",
+    "recyclerlistview": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

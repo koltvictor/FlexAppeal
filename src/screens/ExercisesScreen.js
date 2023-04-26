@@ -26,10 +26,6 @@ export default function ExercisesScreen({ route }) {
   // searching logic
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-  };
-
   // filtering data
   const filteredExercises = exercises
     ? exercises.filter(

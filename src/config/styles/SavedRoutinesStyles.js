@@ -127,6 +127,13 @@ const styles = StyleSheet.create({
     color: colors.palegreen,
     textAlign: "center",
   },
+  buttonText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 50,
+    color: colors.brightblue,
+    textAlign: "center",
+  },
 });
 
 export default styles;

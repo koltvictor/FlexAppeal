@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, Text } from "react-native";
 import ExerciseCard from "../components/ExerciseCard";
-import { useQuery } from "react-query";
+import useExerciseDetails from "../app/hooks/useExerciseDetails";
 import styles from "../config/styles/ExerciseDetailsStyles";
 
 const ExerciseDetailsScreen = ({ route }) => {
   const { exercise } = route.params;
   const { routine } = route.params;
-
   const [isUpdatingRoutine, setIsUpdatingRoutine] = useState(null);
 
   useEffect(() => {
@@ -22,14 +21,10 @@ const ExerciseDetailsScreen = ({ route }) => {
     },
   };
 
-  const { data: fetchedExercise, isLoading } = useQuery(["exercise"], () =>
-    fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/exercise/${exercise.id}`,
-      options
-    ).then((res) => res.json())
+  const { exerciseDetails, isLoading } = useExerciseDetails(
+    exercise.id,
+    options
   );
-
-  const exerciseDetails = fetchedExercise || exercise;
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -38,7 +33,7 @@ const ExerciseDetailsScreen = ({ route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ExerciseCard
-        exercise={exerciseDetails}
+        exercise={exerciseDetails || exercise}
         isUpdatingRoutine={isUpdatingRoutine}
         routineVariable={routine}
       />
