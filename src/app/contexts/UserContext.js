@@ -11,9 +11,10 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [savedroutines, setSavedRoutines] = useState(null);
+  const [unsubscribeProfile, setUnsubscribeProfile] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
+    const onAuthStateChanged = async (userAuth) => {
       try {
         if (userAuth) {
           setUser(userAuth);
@@ -29,7 +30,10 @@ export const UserProvider = ({ children }) => {
               }
             }
           );
-          return () => unsubscribeProfile();
+          // Call the unsubscribe function inside the onAuthStateChanged callback
+          const unsubscribe = () => {
+            unsubscribeProfile();
+          };
         } else {
           setUser(null);
           setProfile(null);
@@ -37,9 +41,13 @@ export const UserProvider = ({ children }) => {
       } catch (error) {
         console.log("Error in onAuthStateChanged: ", error);
       }
-    });
+    };
 
-    return unsubscribe;
+    const unsubscribe = auth.onAuthStateChanged(onAuthStateChanged);
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const handleSignUp = async (email, password, username) => {

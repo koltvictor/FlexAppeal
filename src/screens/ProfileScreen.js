@@ -7,6 +7,10 @@ import userStore from "../stores/UserStore";
 import { auth, db } from "../app/firebase";
 import styles from "../config/styles/ProfileStyles";
 import colors from "../config/colors";
+import {
+  useFetchUserProfile,
+  useFetchSavedRoutines,
+} from "../app/hooks/useProfileHooks.js";
 
 const ProfileScreen = observer(({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -15,38 +19,13 @@ const ProfileScreen = observer(({ navigation }) => {
   const numSharedRoutines = userStore.numSharedRoutines;
   const numSavedRoutines = userStore.numSavedRoutines;
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const profileRef = db.collection("profiles").doc(user.uid);
-      const doc = await profileRef.get();
-      if (doc.exists) {
-        userStore.setProfile(doc.data());
-      } else {
-        console.log("No profile data available");
-      }
-    };
+  if (user) {
+    useFetchUserProfile(user.uid);
+    useFetchSavedRoutines(user.uid);
+  }
 
-    fetchProfile();
-  }, []);
-
-  useEffect(() => {
-    const fetchSavedRoutines = async () => {
-      const savedRoutinesRef = db.collection("savedroutines");
-      const query = savedRoutinesRef.where("userId", "==", user.uid);
-      const querySnapshot = await query.get();
-      const savedRoutines = {};
-      querySnapshot.forEach((doc) => {
-        const routineName = doc.id.split("_")[1];
-        savedRoutines[routineName] = doc.data();
-      });
-      userStore.setSavedRoutines(savedRoutines);
-    };
-
-    fetchSavedRoutines();
-  }, [userStore.savedRoutines]); // add userStore.savedRoutines as a dependency
-
-  const handleLogoutAndNavigate = async () => {
-    await handleLogOut();
+  const handleLogout = () => {
+    handleLogOut();
     navigation.reset({
       index: 0,
       routes: [{ name: "Login" }],
@@ -83,10 +62,7 @@ const ProfileScreen = observer(({ navigation }) => {
       >
         <Text style={styles.buttonText}>Update Profile</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={handleLogoutAndNavigate}
-        style={styles.logoutButton}
-      >
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
         <Text style={styles.buttonText}>Log Out</Text>
       </TouchableOpacity>
     </SafeAreaView>
