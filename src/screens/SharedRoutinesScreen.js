@@ -33,7 +33,8 @@ export default function SharedRoutinesScreen({ navigation }) {
           return (
             <View style={styles.routineContainer}>
               <Text style={styles.routineName}>{item.name}</Text>
-              <View style={styles.iconsContainer}>
+              <Text style={styles.cycles}>Cycles: {item.numberOfCycles}</Text>
+              <View>
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate("Specific Routine", {

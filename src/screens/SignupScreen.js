@@ -4,16 +4,22 @@ import { useNavigation } from "@react-navigation/native";
 import { auth, createUserWithEmailAndPassword, db } from "../app/firebase";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "../config/styles/SignupStyles.js";
+import colors from "../config/colors.js";
 
 const SignupScreen = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const navigation = useNavigation();
 
   const initialIcon = ["smile"];
+
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
+  };
 
   const handleSignup = () => {
     if (email === "" || password === "" || confirmPassword === "") {
@@ -107,12 +113,12 @@ const SignupScreen = () => {
         <Ionicons
           name="person-outline"
           size={24}
-          color="#FFFFFF"
+          color={colors.slate}
           style={styles.inputIcon}
         />
         <TextInput
           style={styles.input}
-          placeholderTextColor="#777777"
+          placeholderTextColor={colors.slate}
           placeholder="Username"
           onChangeText={(text) => setUsername(text)}
         />
@@ -121,12 +127,12 @@ const SignupScreen = () => {
         <Ionicons
           name="mail-outline"
           size={24}
-          color="#FFFFFF"
+          color={colors.slate}
           style={styles.inputIcon}
         />
         <TextInput
           style={styles.input}
-          placeholderTextColor="#777777"
+          placeholderTextColor={colors.slate}
           placeholder="Email"
           onChangeText={(text) => setEmail(text)}
         />
@@ -135,12 +141,12 @@ const SignupScreen = () => {
         <Ionicons
           name="lock-closed-outline"
           size={24}
-          color="#FFFFFF"
+          color={colors.slate}
           style={styles.inputIcon}
         />
         <TextInput
           style={styles.input}
-          placeholderTextColor="#777777"
+          placeholderTextColor={colors.slate}
           placeholder="Password"
           secureTextEntry={true}
           onChangeText={(text) => setPassword(text)}
@@ -150,12 +156,12 @@ const SignupScreen = () => {
         <Ionicons
           name="lock-closed-outline"
           size={24}
-          color="#FFFFFF"
+          color={colors.slate}
           style={styles.inputIcon}
         />
         <TextInput
           style={styles.input}
-          placeholderTextColor="#777777"
+          placeholderTextColor={colors.slate}
           placeholder="Confirm password"
           secureTextEntry={true}
           onChangeText={(text) => setConfirmPassword(text)}

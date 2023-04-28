@@ -134,6 +134,12 @@ const styles = StyleSheet.create({
     color: colors.brightblue,
     textAlign: "center",
   },
+  cycles: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: colors.softblue,
+  },
 });
 
 export default styles;

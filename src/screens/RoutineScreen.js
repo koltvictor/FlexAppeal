@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
 import { auth, db } from "../app/firebase";
 import routineStore from "../stores/RoutineStore";
@@ -19,6 +20,7 @@ const RoutineScreen = observer(() => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [routineName, setRoutineName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [cycles, setCycles] = useState("");
   let navigation = useNavigation();
 
   useEffect(() => {
@@ -58,12 +60,14 @@ const RoutineScreen = observer(() => {
         }),
         userId: uid,
         name: routineName,
+        numberOfCycles: parseInt(cycles),
       };
       await savedRoutineRef.set(routineData, { merge: true });
       console.log("Routine saved successfully:", routineData);
       // Clear routine variable in routineStore
       routineStore.clearRoutine();
       setRoutineName("");
+      setCycles(1);
     } catch (error) {
       console.error("Error saving routine:", error);
     }
@@ -75,6 +79,7 @@ const RoutineScreen = observer(() => {
     setIsModalVisible(false);
     setRoutineName("");
     setErrorMessage("");
+    setCycles("");
   };
 
   const handleRepsChange = (index, value) => {
@@ -120,6 +125,25 @@ const RoutineScreen = observer(() => {
             onChangeText={(text) => setRoutineName(text)}
             placeholderTextColor="gray"
           />
+          <View style={styles.cyclesContainer}>
+            <Text style={styles.pickerTitle}>Number of Cycles:</Text>
+            <Picker
+              selectedValue={cycles}
+              onValueChange={(value) => setCycles(value)}
+              style={styles.cyclesInput}
+            >
+              <Picker.Item label="1" value={1} />
+              <Picker.Item label="2" value={2} />
+              <Picker.Item label="3" value={3} />
+              <Picker.Item label="4" value={4} />
+              <Picker.Item label="5" value={5} />
+              <Picker.Item label="6" value={6} />
+              <Picker.Item label="7" value={7} />
+              <Picker.Item label="8" value={8} />
+              <Picker.Item label="9" value={9} />
+              <Picker.Item label="10" value={10} />
+            </Picker>
+          </View>
           <View style={styles.modalButtonsContainer}>
             <TouchableOpacity
               style={styles.modalButton}

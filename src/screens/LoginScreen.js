@@ -128,7 +128,7 @@ const LoginScreen = () => {
                 style={rememberMe ? styles.checkedBox : styles.uncheckedBox}
               >
                 {rememberMe && (
-                  <Ionicons name="checkmark" size={24} color="#000000" />
+                  <Ionicons name="checkmark" size={24} color={colors.black} />
                 )}
               </View>
               <Text style={styles.label}>Remember me</Text>

@@ -4,7 +4,7 @@ import colors from "../colors";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.navy,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   title: {
-    color: colors.black,
+    color: colors.palegreen,
     fontSize: 30,
     fontWeight: "bold",
     marginBottom: 10,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   button: {
-    backgroundColor: colors.sandy,
+    backgroundColor: colors.brightblue,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 25,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   label: {
-    color: colors.black,
+    color: colors.white,
     fontSize: 16,
   },
 });

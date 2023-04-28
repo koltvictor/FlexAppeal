@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: colors.sandy,
+    backgroundColor: colors.palegreen,
     padding: 20,
     justifyContent: "center",
   },
@@ -95,6 +95,28 @@ const styles = StyleSheet.create({
     color: colors.red,
     marginHorizontal: 20,
     marginTop: 10,
+  },
+  pickerTitle: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 10,
+    color: colors.navy,
+    textAlign: "left",
+  },
+  cyclesContainer: {
+    marginBottom: 50,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  cyclesInput: {
+    width: 120,
+    borderColor: colors.black,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    backgroundColor: colors.white,
   },
 });
 

@@ -183,6 +183,7 @@ function SavedRoutinesScreen({ navigation }) {
           return (
             <View style={styles.routineContainer}>
               <Text style={styles.routineName}>{item.name}</Text>
+              <Text style={styles.cycles}>Cycles: {item.numberOfCycles}</Text>
               <View style={styles.iconsContainer}>
                 <TouchableOpacity
                   onPress={() =>

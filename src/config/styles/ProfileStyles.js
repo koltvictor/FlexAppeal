@@ -63,6 +63,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  humanButton: {
+    width: 200,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    backgroundColor: colors.softblue,
+  },
 });
 
 export default styles;

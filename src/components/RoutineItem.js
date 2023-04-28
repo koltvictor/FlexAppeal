@@ -17,16 +17,34 @@ const RoutineItem = observer(({ exercise, index }) => {
 
   const handleRepsChange = (value) => {
     setReps(value);
-    routineStore.handleRepsChange(index, value);
+    routineStore.handleRepsChange(index, value === null ? 0 : value);
   };
 
   const handleTimeChange = (value) => {
     setTime(value);
-    routineStore.handleTimeChange(index, value);
+    routineStore.handleTimeChange(index, value === null ? 0 : value);
+  };
+
+  const renderRepsPicker = () => {
+    const repsOptions = [<Picker.Item key={-1} label="--" value={null} />];
+
+    for (let i = 0; i < 201; i++) {
+      repsOptions.push(<Picker.Item key={i} label={i.toString()} value={i} />);
+    }
+
+    return (
+      <Picker
+        selectedValue={reps}
+        onValueChange={handleRepsChange}
+        itemStyle={styles.pickerItem}
+      >
+        {repsOptions}
+      </Picker>
+    );
   };
 
   const renderTimePicker = () => {
-    const timeOptions = [];
+    const timeOptions = [<Picker.Item key={-1} label="--" value={null} />];
 
     for (let i = 0; i < 1000; i += 5) {
       const value = i * 1000;
@@ -48,21 +66,7 @@ const RoutineItem = observer(({ exercise, index }) => {
       <View style={styles.setsRepsContainer}>
         <View style={styles.repsContainer}>
           <Text style={styles.label}>Reps</Text>
-          <View style={styles.repsInput}>
-            <Picker
-              selectedValue={reps}
-              onValueChange={handleRepsChange}
-              itemStyle={styles.pickerItem}
-            >
-              {[...Array(201).keys()].map((value) => (
-                <Picker.Item
-                  key={value}
-                  label={value.toString()}
-                  value={value}
-                />
-              ))}
-            </Picker>
-          </View>
+          <View style={styles.repsInput}>{renderRepsPicker()}</View>
         </View>
         <View style={styles.timeContainer}>
           <Text style={styles.label}>Time</Text>
