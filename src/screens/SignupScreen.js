@@ -148,9 +148,19 @@ const SignupScreen = () => {
           style={styles.input}
           placeholderTextColor={colors.slate}
           placeholder="Password"
-          secureTextEntry={true}
+          secureTextEntry={!passwordShown}
           onChangeText={(text) => setPassword(text)}
         />
+        <TouchableOpacity
+          style={styles.inputIcon}
+          onPress={togglePasswordVisibility}
+        >
+          <Ionicons
+            name={passwordShown ? "eye-outline" : "eye-off-outline"}
+            size={24}
+            color={colors.white}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.inputContainer}>
         <Ionicons
@@ -163,7 +173,8 @@ const SignupScreen = () => {
           style={styles.input}
           placeholderTextColor={colors.slate}
           placeholder="Confirm password"
-          secureTextEntry={true}
+          secureTextEntry={!passwordShown}
+          value={confirmPassword}
           onChangeText={(text) => setConfirmPassword(text)}
         />
       </View>

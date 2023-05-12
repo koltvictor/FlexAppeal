@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import userStore from "../../stores/UserStore";
 
 export const useFetchUserProfile = (userId) => {

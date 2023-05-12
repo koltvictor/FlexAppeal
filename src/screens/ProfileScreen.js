@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import UserContext from "../app/contexts/UserContext";
 import Feather from "react-native-vector-icons/Feather";
 import { observer } from "mobx-react-lite";
 import userStore from "../stores/UserStore";
-import { auth, db } from "../app/firebase";
 import styles from "../config/styles/ProfileStyles";
 import colors from "../config/colors";
 import {
@@ -42,7 +41,7 @@ const ProfileScreen = observer(({ navigation }) => {
           style={styles.avatar}
         />
         <Text style={styles.username}>{profile?.username}</Text>
-        <Text style={styles.email}>{profile ? profile.email : ""}</Text>
+        {/* <Text style={styles.email}>{profile ? profile.email : ""}</Text> */}
         <View style={styles.routineContainer}>
           <Text style={styles.routines}>
             saved routines: {numSavedRoutines}

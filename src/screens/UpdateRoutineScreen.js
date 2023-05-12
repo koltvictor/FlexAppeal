@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  TextInput,
-  View,
-  TouchableOpacity,
-  Modal,
-  ScrollView,
-} from "react-native";
+import { Text, View, TouchableOpacity, Modal, ScrollView } from "react-native";
 import { db } from "../app/firebase";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/UpdateRoutineStyles";
@@ -51,13 +44,16 @@ function UpdateRoutineScreen({ route }) {
 
   const handleRepsChange = (exercise, index, value) => {
     const exercises = [...routineData.exercises];
-    exercises[index] = { ...exercise, reps: value };
+    exercises[index] = { ...exercise, reps: value || null };
     setRoutineData({ ...routineData, exercises });
   };
 
   const handleTimeChange = (exerciseIndex, value) => {
     const exercises = [...routineData.exercises];
-    exercises[exerciseIndex] = { ...exercises[exerciseIndex], time: value };
+    exercises[exerciseIndex] = {
+      ...exercises[exerciseIndex],
+      time: value || null,
+    };
     setRoutineData({ ...routineData, exercises });
   };
 

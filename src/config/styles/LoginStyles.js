@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    color: colors.slate,
+    color: colors.white,
     fontSize: 18,
     marginLeft: 10,
   },
@@ -64,10 +64,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   link: {
-    color: colors.slate,
+    color: colors.white,
     fontSize: 16,
     marginTop: 30,
     textAlign: "center",
+    fontWeight: "bold",
   },
   error: {
     color: colors.red,

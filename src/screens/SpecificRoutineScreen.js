@@ -9,7 +9,7 @@ export default function SpecificRoutineScreen({ route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{routine.name}</Text>
-      <Text style={styles.title}>Cycles: {routine.numberOfCycles}</Text>
+      <Text style={styles.titleyarn}>Cycles: {routine.numberOfCycles}</Text>
       {routine.exercises.map((exercise) => (
         <SpecificRoutineItem key={exercise.id} exercise={exercise} />
       ))}
