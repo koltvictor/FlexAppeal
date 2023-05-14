@@ -119,7 +119,7 @@ const LoginScreen = () => {
           <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
             <Text style={styles.link}>Don't have an account? Sign up here</Text>
           </TouchableOpacity>
-          <View style={styles.checkboxContainer}>
+          {/* <View style={styles.checkboxContainer}>
             <TouchableOpacity
               style={styles.checkboxContainer}
               onPress={toggleRememberMe}
@@ -133,7 +133,7 @@ const LoginScreen = () => {
               </View>
               <Text style={styles.label}>Remember me</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </TouchableWithoutFeedback>
     </View>

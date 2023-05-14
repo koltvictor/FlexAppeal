@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   subTitle: {
-    color: colors.slate,
+    color: colors.white,
     fontSize: 18,
   },
   inputContainer: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   linkText: {
-    color: colors.slate,
+    color: colors.softblue,
     fontSize: 16,
     marginTop: 30,
     fontWeight: "bold",
