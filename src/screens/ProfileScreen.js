@@ -37,7 +37,7 @@ const ProfileScreen = observer(({ navigation }) => {
         <Feather
           name={profile ? profile.icon : "smile"}
           size={100}
-          color={colors.softblue}
+          color={colors.sandy}
           style={styles.avatar}
         />
         <Text style={styles.username}>{profile?.username}</Text>

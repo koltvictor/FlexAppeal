@@ -251,8 +251,8 @@ function SavedRoutinesScreen({ navigation }) {
                 <View style={styles.shareModalContainer}>
                   <View style={styles.modalContent}>
                     <Text style={styles.modalText}>
-                      Enter the email address of the user you want to share this
-                      routine with:
+                      Enter the email address of the user with whom you would
+                      like to share this routine:
                     </Text>
                     <TextInput
                       style={styles.modalInput}

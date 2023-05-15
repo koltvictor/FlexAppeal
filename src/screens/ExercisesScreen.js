@@ -47,8 +47,8 @@ export default function ExercisesScreen({ route }) {
             onPress={() => navigation.navigate("ExerciseIndexScreen")}
             style={styles.targetItem}
           >
-            <Feather name="list" size={24} color="white" />
-            <Text style={styles.targetText}>All Exercises</Text>
+            <Feather name="list" size={24} color="lightblue" />
+            <Text style={styles.targetText}>View All Exercises</Text>
           </TouchableOpacity>
           {targets.map((target) => (
             <TouchableOpacity
@@ -65,7 +65,7 @@ export default function ExercisesScreen({ route }) {
               }
               style={styles.targetItem}
             >
-              <Feather name="target" size={24} color="white" />
+              {/* <Feather name="target" size={24} color="grey" /> */}
               <Text style={styles.targetText}>{target}</Text>
             </TouchableOpacity>
           ))}
