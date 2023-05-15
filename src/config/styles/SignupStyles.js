@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.palegreen,
     alignItems: "center",
     justifyContent: "center",
+    padding: 10,
   },
   topSection: {
     alignItems: "center",
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   subTitle: {
-    color: colors.white,
+    color: colors.slate,
     fontSize: 18,
   },
   inputContainer: {
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: colors.white,
+    borderBottomColor: colors.lightgrey,
   },
   input: {
     flex: 1,

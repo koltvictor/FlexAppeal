@@ -113,7 +113,7 @@ const SignupScreen = () => {
         <Ionicons
           name="person-outline"
           size={24}
-          color={colors.white}
+          color={colors.navy}
           style={styles.inputIcon}
         />
         <TextInput
@@ -127,7 +127,7 @@ const SignupScreen = () => {
         <Ionicons
           name="mail-outline"
           size={24}
-          color={colors.white}
+          color={colors.navy}
           style={styles.inputIcon}
         />
         <TextInput
@@ -141,7 +141,7 @@ const SignupScreen = () => {
         <Ionicons
           name="lock-closed-outline"
           size={24}
-          color={colors.white}
+          color={colors.navy}
           style={styles.inputIcon}
         />
         <TextInput
@@ -158,7 +158,7 @@ const SignupScreen = () => {
           <Ionicons
             name={passwordShown ? "eye-outline" : "eye-off-outline"}
             size={24}
-            color={colors.white}
+            color={colors.brightblue}
           />
         </TouchableOpacity>
       </View>
@@ -166,7 +166,7 @@ const SignupScreen = () => {
         <Ionicons
           name="lock-closed-outline"
           size={24}
-          color={colors.white}
+          color={colors.navy}
           style={styles.inputIcon}
         />
         <TextInput
