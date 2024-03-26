@@ -1,5 +1,5 @@
 # FlexAppeal
-Welcome to the FlexAppeal app! The app is temporarily hosted on expo.
+Welcome to the FlexAppeal app!
 
 This application was made to help those in need of new workout routines. It allows for users to create custom workout plans based on their goals, helping them to achieve their desired outcome.
 
