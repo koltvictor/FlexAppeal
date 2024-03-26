@@ -4,8 +4,9 @@ import {
   FlatList,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { DataContext } from "../app/contexts/DataContext";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/ExerciseIndexStyles";
@@ -14,6 +15,24 @@ export default function ExerciseIndexScreen() {
   const { exercises } = useContext(DataContext);
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [displayedExercises, setDisplayedExercises] = useState([]); // Store display subset
+  const [offset, setOffset] = useState(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  useEffect(() => {
+    setDisplayedExercises(exercises.slice(0, 20)); // Initially display first 20
+  }, [exercises]);
+
+  const loadMore = () => {
+    setIsLoadingMore(true);
+    setDisplayedExercises((prevExercises) => [
+      ...prevExercises,
+      ...exercises.slice(offset + 20, offset + 40),
+    ]);
+    setOffset(offset + 20); // Increment offset for the next load
+    setIsLoadingMore(false);
+  };
 
   const filteredExercises = exercises
     ? exercises.filter(
@@ -49,11 +68,14 @@ export default function ExerciseIndexScreen() {
         value={searchQuery}
       />
       <FlatList
-        data={filteredExercises}
+        data={displayedExercises}
         renderItem={renderExercise}
         keyExtractor={(item) => item.id}
         style={styles.exerciseList}
         contentContainerStyle={styles.exerciseListContent}
+        onEndReached={loadMore}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={isLoadingMore && <ActivityIndicator />}
       />
     </SafeAreaView>
   );

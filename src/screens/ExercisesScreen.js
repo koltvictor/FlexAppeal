@@ -15,6 +15,8 @@ import targets from "../assets/targets";
 export default function ExercisesScreen({ route }) {
   // imported data
   const { exercises } = useContext(DataContext);
+
+  console.log("these are exercises:", exercises);
   let navigation = useNavigation();
 
   const [isUpdatingRoutine, setIsUpdatingRoutine] = useState(null);

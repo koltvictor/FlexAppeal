@@ -6,11 +6,13 @@ import styles from "../config/styles/ExerciseCardStyles";
 import { db } from "../app/firebase";
 
 const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
-  const { routine, addExercise } = routineStore;
-  const navigation = useNavigation();
+  const { addExercise } = routineStore;
+  // const navigation = useNavigation();
   const [updatedRoutine, setUpdatedRoutine] = useState(routineVariable);
   const [showModal, setShowModal] = useState(false);
   const [fadeAnim] = useState(new Animated.Value(0));
+
+  console.log("this is card:", exercise);
 
   const routineId = routineVariable
     ? `${routineVariable.userId}_${routineVariable.name}`
@@ -97,6 +99,7 @@ const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
         alt={"gif"}
         style={styles.image}
       />
+      <Text>{exercise.instructions}</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={() => handleAddToRoutine(exercise)}

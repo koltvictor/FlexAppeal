@@ -33,7 +33,7 @@ const ExerciseDetailsScreen = ({ route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ExerciseCard
-        exercise={exerciseDetails || exercise}
+        exercise={exercise}
         isUpdatingRoutine={isUpdatingRoutine}
         routineVariable={routine}
       />
