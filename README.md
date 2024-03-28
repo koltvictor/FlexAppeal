@@ -1,8 +1,10 @@
 # FlexAppeal
-Welcome to the FlexAppeal app! The app is temporarily hosted on expo.
+Welcome to the FlexAppeal app!
 
-This application was made to help those in need of new workout routines. It allows for users to create custom workout plans based on their goals, helping them to achieve their desired outcome.
+Are you ready for some serious gains?!  Tired of trying to find new movements and exercises?  With FlexAppeal it just got a whole lot easier.  
 
-After you create an account, you can make a workout consisting of a maximum of 10 exercises. Once you have 5 workouts in your account, you can create a weekly routine consisting of 5 workouts matched to days of the week.
+Sign up, scroll through the index of exercises or view exercises by target body part. Know the kind of exercise you want (i.e. bodyweight, barbell, stretching, bands, etc.)?  search the database for every type of exercise that fits those qualifications!  Add the exercises you like to a routine, decide the time duration and/or number of reps per exercise and get going!
 
-Enjoy your gains!
+Love the routine you've made?  Save it and share it with other FlexAppeal members. Need to modify it?  Easy!  Bored of it and want to delete the routine?  Go for it!  
+
+Become a member today and start making your life easier and healthier!
