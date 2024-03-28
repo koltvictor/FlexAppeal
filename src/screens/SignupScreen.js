@@ -47,8 +47,6 @@ const SignupScreen = () => {
             icon: initialIcon,
           })
           .then(() => {
-            console.log("User profile document created successfully");
-
             // Create a user document in Firestore for the profile
             db.collection("profiles")
               .doc(user.uid)
@@ -58,7 +56,6 @@ const SignupScreen = () => {
                 icon: initialIcon,
               })
               .then(() => {
-                console.log("User document created successfully");
                 const profileData = {
                   username,
                   email: email.toLowerCase(),
@@ -74,11 +71,6 @@ const SignupScreen = () => {
                     exercises: [],
                   })
                   .then(() => {
-                    console.log(
-                      "SavedRoutines collection created successfully"
-                    );
-
-                    // Navigate to the Login screen
                     navigation.navigate("Welcome");
                   })
                   .catch((error) => {

@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, TouchableOpacity, Animated } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 import { db } from "../app/firebase";
 
 const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
   const { addExercise } = routineStore;
-  // const navigation = useNavigation();
   const [updatedRoutine, setUpdatedRoutine] = useState(routineVariable);
   const [showModal, setShowModal] = useState(false);
   const [fadeAnim] = useState(new Animated.Value(0));
-
-  console.log("this is card:", exercise);
 
   const routineId = routineVariable
     ? `${routineVariable.userId}_${routineVariable.name}`
@@ -37,7 +33,6 @@ const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
           .update({
             exercises: updatedExercises,
           })
-          .then(() => console.log("Exercise updated in routine"))
           .catch((error) => console.log(error));
       } else {
         // Add the new exercise object to the updatedRoutine object
@@ -50,7 +45,6 @@ const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
           .update({
             exercises: updatedExercises,
           })
-          .then(() => console.log("Exercise added to routine"))
           .catch((error) => console.log(error));
       }
     } else {

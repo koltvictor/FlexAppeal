@@ -15,36 +15,56 @@ export default function ExerciseIndexScreen() {
   const { exercises } = useContext(DataContext);
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
-
   const [displayedExercises, setDisplayedExercises] = useState([]); // Store display subset
   const [offset, setOffset] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   useEffect(() => {
-    setDisplayedExercises(exercises.slice(0, 20)); // Initially display first 20
-  }, [exercises]);
+    const filteredSubset = exercises
+      ? exercises.filter(
+          (exercise) =>
+            exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            exercise.bodyPart
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            exercise.equipment
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            exercise.target.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : [];
+    setDisplayedExercises(filteredSubset.slice(0, 20)); // Initially display first 20
+    setOffset(0);
+  }, [searchQuery, exercises]);
 
   const loadMore = () => {
     setIsLoadingMore(true);
-    setDisplayedExercises((prevExercises) => [
-      ...prevExercises,
-      ...exercises.slice(offset + 20, offset + 40),
-    ]);
-    setOffset(offset + 20); // Increment offset for the next load
+
+    const filteredSubset = exercises
+      ? exercises.filter(
+          (exercise) =>
+            exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            exercise.bodyPart
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            exercise.equipment
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            exercise.target.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : [];
+
+    // Check if filteredSubset is not empty
+    if (filteredSubset.length > 0) {
+      setDisplayedExercises((prevExercises) => [
+        ...prevExercises,
+        ...filteredSubset.slice(offset + 20, offset + 40),
+      ]);
+    }
+
+    setOffset(offset + 20);
     setIsLoadingMore(false);
   };
-
-  const filteredExercises = exercises
-    ? exercises.filter(
-        (exercise) =>
-          exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          exercise.bodyPart.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          exercise.equipment
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase()) ||
-          exercise.target.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : [];
 
   const renderExercise = ({ item }) => {
     return (
