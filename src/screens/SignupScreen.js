@@ -5,6 +5,7 @@ import { auth, createUserWithEmailAndPassword, db } from "../app/firebase";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "../config/styles/SignupStyles.js";
 import colors from "../config/colors.js";
+import userStore from "../stores/UserStore.js";
 
 const SignupScreen = () => {
   const [username, setUsername] = useState("");
@@ -58,7 +59,12 @@ const SignupScreen = () => {
               })
               .then(() => {
                 console.log("User document created successfully");
-
+                const profileData = {
+                  username,
+                  email: email.toLowerCase(),
+                  icon: initialIcon,
+                };
+                userStore.setProfile(profileData);
                 // Create an empty savedroutines collection in Firestore
                 db.collection("savedroutines")
                   .doc(user.uid)

@@ -42,9 +42,7 @@ export const UserProvider = ({ children }) => {
         console.log("Error in onAuthStateChanged: ", error);
       }
     };
-
     const unsubscribe = auth.onAuthStateChanged(onAuthStateChanged);
-
     return () => {
       unsubscribe();
     };
@@ -62,6 +60,8 @@ export const UserProvider = ({ children }) => {
       await setDoc(profileDoc, profileData);
       userStore.setProfile(profileData);
       setUser(user);
+      const [forceUpdate, setForceUpdate] = useState(false);
+      setForceUpdate(!forceUpdate);
       return { success: true };
     } catch (error) {
       console.log("Error signing up: ", error);
@@ -99,6 +99,8 @@ export const UserProvider = ({ children }) => {
   const handleLogOut = async () => {
     try {
       await auth.signOut();
+      userStore.setUser(null); // Reset user in MobX
+      userStore.setProfile(null); // Reset profile in MobX
     } catch (error) {
       console.log("Error signing out: ", error);
     }

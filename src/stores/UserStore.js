@@ -1,4 +1,5 @@
-import { makeObservable, observable, action } from "mobx";
+import { makeObservable, action } from "mobx";
+import { observable } from "mobx";
 
 class UserStore {
   @observable user = null;
