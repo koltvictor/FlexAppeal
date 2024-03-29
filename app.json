@@ -43,6 +43,16 @@
     },
     "updates": {
       "url": "https://u.expo.dev/96f16341-0f56-4f01-895f-c773b3a79695"
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useModularHeaders": true 
+          }
+        }
+      ]
+    ]
   }
 }
