@@ -41,7 +41,7 @@ export default function DashboardScreen() {
           borderTopWidth: 0,
           elevation: 0,
           height: 100,
-          paddingTop: 20,
+          paddingTop: 40,
           borderTopLeftRadius: 25,
           borderTopRightRadius: 25,
         },
