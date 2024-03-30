@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.navy,
-    // padding: 60,
     alignItems: "center",
   },
   title: {
@@ -25,10 +24,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.navy,
     alignItems: "center",
   },
+  indivExerContainer: {
+    padding: 10,
+    textAlign: "center",
+  },
   exerciseName: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 8,
   },
   timerContainer: {
     flexDirection: "row",

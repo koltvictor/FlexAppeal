@@ -95,53 +95,58 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleExerciseNamePress}>
-        <Text style={styles.exerciseName}>{exercise.name}</Text>
-      </TouchableOpacity>
-      <View style={styles.timerAndButtonContainer}>
-        {exercise.time && exercise.time > 0 && (
-          <View style={styles.timerContainer}>
-            <Text style={styles.timerText}>
-              {formatTime(timeRemaining !== null ? timeRemaining : timer)}
-            </Text>
-            {isRunning ? (
-              <TouchableOpacity style={styles.timerButton} onPress={stopTimer}>
-                <Text style={styles.timerButtonText}>Stop</Text>
-              </TouchableOpacity>
-            ) : (
-              <>
+      <View style={styles.indivExerContainer}>
+        <TouchableOpacity onPress={handleExerciseNamePress}>
+          <Text style={styles.exerciseName}>{exercise.name}</Text>
+        </TouchableOpacity>
+        <View style={styles.timerAndButtonContainer}>
+          {exercise.time && exercise.time > 0 && (
+            <View style={styles.timerContainer}>
+              <Text style={styles.timerText}>
+                {formatTime(timeRemaining !== null ? timeRemaining : timer)}
+              </Text>
+              {isRunning ? (
                 <TouchableOpacity
                   style={styles.timerButton}
-                  onPress={startTimer}
+                  onPress={stopTimer}
                 >
-                  <Text style={styles.timerButtonText}>Start</Text>
+                  <Text style={styles.timerButtonText}>Stop</Text>
                 </TouchableOpacity>
-                {resetVisible && inModal && !timerReachedZero && (
+              ) : (
+                <>
                   <TouchableOpacity
-                    style={styles.resetButton}
-                    onPress={resetTimer}
+                    style={styles.timerButton}
+                    onPress={startTimer}
                   >
-                    <MaterialIcons name="replay" size={24} color="white" />
+                    <Text style={styles.timerButtonText}>Start</Text>
                   </TouchableOpacity>
-                )}
-                {resetVisible && (
-                  <TouchableOpacity
-                    style={styles.resetButton}
-                    onPress={resetTimer}
-                  >
-                    <MaterialIcons name="replay" size={24} color="white" />
-                  </TouchableOpacity>
-                )}
-              </>
-            )}
+                  {resetVisible && inModal && !timerReachedZero && (
+                    <TouchableOpacity
+                      style={styles.resetButton}
+                      onPress={resetTimer}
+                    >
+                      <MaterialIcons name="replay" size={24} color="white" />
+                    </TouchableOpacity>
+                  )}
+                  {resetVisible && (
+                    <TouchableOpacity
+                      style={styles.resetButton}
+                      onPress={resetTimer}
+                    >
+                      <MaterialIcons name="replay" size={24} color="white" />
+                    </TouchableOpacity>
+                  )}
+                </>
+              )}
+            </View>
+          )}
+        </View>
+        {exercise.reps && exercise.reps > 0 && (
+          <View style={styles.repsContainer}>
+            <Text style={styles.repsText}>{exercise.reps} Reps</Text>
           </View>
         )}
       </View>
-      {exercise.reps && exercise.reps > 0 && (
-        <View style={styles.repsContainer}>
-          <Text style={styles.repsText}>{exercise.reps} Reps</Text>
-        </View>
-      )}
       <Modal visible={showModal} transparent={true}>
         <View style={styles.modalContainer}>
           <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>

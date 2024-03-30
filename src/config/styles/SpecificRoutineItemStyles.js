@@ -7,11 +7,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.navy,
     alignItems: "center",
     justifyContent: "center",
+    paddingBottom: 20,
   },
   exerciseName: {
     fontSize: 20,
-    marginBottom: 8,
     color: colors.white,
+    fontWeight: "bold",
+    padding: 10,
+  },
+  indivExerContainer: {
+    padding: 15,
+    alignItems: "center",
   },
   timerAndButtonContainer: {
     flexDirection: "row",
