@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.navy,
-    padding: 16,
+    // padding: 60,
     alignItems: "center",
   },
   title: {

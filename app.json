@@ -27,7 +27,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.koltvictor.FA"
     },
     "description": "FlexAppeal is an app used to build workout routines.",
     "web": {
@@ -49,7 +50,7 @@
         "expo-build-properties",
         {
           "ios": {
-            "useModularHeaders": true 
+            "useModularHeaders": true
           }
         }
       ]
