@@ -1,5 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { FirebaseAppProvider } from "reactfire";
 import { firebaseConfig } from "./src/app/firebase";
 import Provider from "./src/app/providers/Provider";
@@ -12,19 +13,21 @@ import Routes from "./src/app/routes/Routes";
 
 const App = observer(() => {
   return (
-    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      <Provider>
-        <UserProvider>
-          <DataContextProvider>
-            <RoutineProvider>
-              <NavigationContainer>
-                <Routes />
-              </NavigationContainer>
-            </RoutineProvider>
-          </DataContextProvider>
-        </UserProvider>
-      </Provider>
-    </FirebaseAppProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+        <Provider>
+          <UserProvider>
+            <DataContextProvider>
+              <RoutineProvider>
+                <NavigationContainer>
+                  <Routes />
+                </NavigationContainer>
+              </RoutineProvider>
+            </DataContextProvider>
+          </UserProvider>
+        </Provider>
+      </FirebaseAppProvider>
+    </GestureHandlerRootView>
   );
 });
 
