@@ -8,7 +8,8 @@
       "distribution": "internal",
       "ios": {
         "resourceClass": "m-medium",
-        "cocoapods": "1.15.2"
+        "cocoapods": "1.15.2",
+        "autoIncrement": true
       }
     },
     "preview": {
