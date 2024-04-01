@@ -88,11 +88,7 @@ const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
           <Text style={styles.value}>{exercise.equipment}</Text>
         </View>
       </View>
-      <Image
-        source={{ uri: exercise.gifUrl }}
-        alt={"gif"}
-        style={styles.image}
-      />
+      <Image source={{ uri: exercise.gifUrl }} alt="gif" style={styles.image} />
       <Text>{exercise.instructions}</Text>
       <TouchableOpacity
         style={styles.button}

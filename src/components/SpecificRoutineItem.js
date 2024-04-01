@@ -153,7 +153,11 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
             <MaterialIcons name="close" size={24} color="white" />
           </TouchableOpacity>
 
-          <Image source={{ uri: exercise.gifUrl }} style={styles.gif} />
+          <Image
+            source={{ uri: exercise.gifUrl }}
+            alt={"gif"}
+            style={styles.gif}
+          />
           <Text style={styles.modalText}>{exercise.name}</Text>
           <Text style={styles.modalGoalText}>Goal: {exercise.reps} reps</Text>
           <View style={styles.timerModalContainer}>
