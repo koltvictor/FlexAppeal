@@ -20,7 +20,7 @@ const RoutineScreen = observer(() => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [routineName, setRoutineName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [cycles, setCycles] = useState("");
+  const [cycles, setCycles] = useState(1);
   let navigation = useNavigation();
 
   useEffect(() => {
