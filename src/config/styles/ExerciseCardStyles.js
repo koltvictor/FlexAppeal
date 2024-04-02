@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 10,
     elevation: 2,
-    margin: 10,
+    margin: 5,
     overflow: "hidden",
     paddingBottom: 20,
   },
@@ -63,6 +63,10 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "contain",
     position: "relative",
+  },
+  instructions: {
+    fontSize: 20,
+    padding: 20,
   },
   modalContainer: {
     position: "absolute",

@@ -16,10 +16,6 @@ export default function TargetCard({
       <Text
         key={exercise.id}
         onPress={() => {
-          console.log(
-            "TargetsCard onPress, fromSavedRoutine:",
-            fromSavedRoutine
-          );
           navigation.navigate("ExerciseDetails", {
             exercise,
             isUpdatingRoutine,

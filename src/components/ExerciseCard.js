@@ -78,6 +78,21 @@ const ExerciseCard = ({
     }
   }, [showModal]);
 
+  function formatInstructions(instructions) {
+    if (!Array.isArray(instructions) || !instructions.length) {
+      return ""; // Handle when instructions is not an array or the array is empty
+    }
+
+    // Process the array of instructions
+    const formattedInstructions = instructions
+      .map((sentence, index) => {
+        return `${index + 1}) ${sentence.trim()}\n`; // Add number, period, and newline
+      })
+      .join("");
+
+    return formattedInstructions;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -94,7 +109,9 @@ const ExerciseCard = ({
         </View>
       </View>
       <Image source={{ uri: exercise.gifUrl }} alt="gif" style={styles.image} />
-      <Text>{exercise.instructions}</Text>
+      <Text style={styles.instructions}>
+        {formatInstructions(exercise.instructions)}
+      </Text>
       {!fromSavedRoutine && (
         <TouchableOpacity
           style={styles.button}

@@ -7,8 +7,6 @@ import styles from "../config/styles/TargetsScreenStyles";
 export default function TargetsScreen({ route, fromSavedRoutine }) {
   const { exercises } = useContext(DataContext);
 
-  console.log("TargetsScreen", fromSavedRoutine ?? "Prop not yet received");
-
   const target = route.params.target.toLowerCase();
 
   const routine = route.params.routine;
