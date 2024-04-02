@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 import { useQuery } from "react-query";
-import { Text } from "react-native";
+import { View, Image } from "react-native";
 
 const DataContext = createContext();
 
@@ -40,7 +40,14 @@ const DataContextProvider = ({ children }) => {
   );
 
   if (isExercisesLoading || isTargetsLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Image
+          source={require("/Users/kolt/Development/FlexAppeal/DoneWithIt/src/assets/logo.png")}
+          style={{ width: 425, height: 425 }}
+        />
+      </View>
+    );
   }
 
   return (
