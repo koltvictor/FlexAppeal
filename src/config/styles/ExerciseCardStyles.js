@@ -64,6 +64,23 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     position: "relative",
   },
+  instructionsButton: {
+    backgroundColor: "black",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    marginTop: 25,
+    marginBottom: 10,
+    marginHorizontal: 20,
+  },
+  instructionsButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    textTransform: "uppercase",
+  },
   instructions: {
     fontSize: 20,
     padding: 20,

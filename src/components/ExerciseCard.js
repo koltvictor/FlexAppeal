@@ -14,6 +14,7 @@ const ExerciseCard = ({
   const [updatedRoutine, setUpdatedRoutine] = useState(routineVariable);
   const [showModal, setShowModal] = useState(false);
   const [fadeAnim] = useState(new Animated.Value(0));
+  const [showInstructions, setShowInstructions] = useState(false);
 
   const routineId = routineVariable
     ? `${routineVariable.userId}_${routineVariable.name}`
@@ -109,9 +110,19 @@ const ExerciseCard = ({
         </View>
       </View>
       <Image source={{ uri: exercise.gifUrl }} alt="gif" style={styles.image} />
-      <Text style={styles.instructions}>
-        {formatInstructions(exercise.instructions)}
-      </Text>
+      <TouchableOpacity
+        style={styles.instructionsButton}
+        onPress={() => setShowInstructions(!showInstructions)}
+      >
+        <Text style={styles.instructionsButtonText}>
+          {showInstructions ? "Hide Instructions" : "Show Instructions"}
+        </Text>
+      </TouchableOpacity>
+      {showInstructions ? (
+        <Text style={styles.instructions}>
+          {formatInstructions(exercise.instructions)}
+        </Text>
+      ) : null}
       {!fromSavedRoutine && (
         <TouchableOpacity
           style={styles.button}
