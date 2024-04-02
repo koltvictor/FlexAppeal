@@ -89,14 +89,24 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
     setResetVisible(false);
   };
 
-  const handleExerciseNamePress = () => {
-    navigation.navigate("ExerciseDetails", { exercise });
-  };
+  // const handleExerciseNamePress = () => {
+  //   navigation.navigate("ExerciseDetails", {
+  //     exercise,
+  //     fromSavedRoutine: true,
+  //   });
+  // };
 
   return (
     <View style={styles.container}>
       <View style={styles.indivExerContainer}>
-        <TouchableOpacity onPress={handleExerciseNamePress}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("ExerciseDetails", {
+              exercise,
+              fromSavedRoutine: true,
+            })
+          }
+        >
           <Text style={styles.exerciseName}>{exercise.name}</Text>
         </TouchableOpacity>
         <View style={styles.timerAndButtonContainer}>

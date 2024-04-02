@@ -59,6 +59,7 @@ export default function ExercisesScreen({ route }) {
                   target: target.toLowerCase(),
                   isUpdatingRoutine: isUpdatingRoutine,
                   routine: route.params?.routine ?? null,
+                  fromSavedRoutine: route.params?.fromSavedRoutine ?? false,
                   targets: filteredExercises.filter(
                     (exercise) => exercise.target === target.toLowerCase()
                   ),
@@ -66,7 +67,6 @@ export default function ExercisesScreen({ route }) {
               }
               style={styles.targetItem}
             >
-              {/* <Feather name="target" size={24} color="grey" /> */}
               <Text style={styles.targetText}>{target}</Text>
             </TouchableOpacity>
           ))}

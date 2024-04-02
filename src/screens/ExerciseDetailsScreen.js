@@ -4,7 +4,7 @@ import ExerciseCard from "../components/ExerciseCard";
 import useExerciseDetails from "../app/hooks/useExerciseDetails";
 import styles from "../config/styles/ExerciseDetailsStyles";
 
-const ExerciseDetailsScreen = ({ route }) => {
+const ExerciseDetailsScreen = ({ route, fromSavedRoutine }) => {
   const { exercise } = route.params;
   const { routine } = route.params;
   const [isUpdatingRoutine, setIsUpdatingRoutine] = useState(null);
@@ -36,6 +36,7 @@ const ExerciseDetailsScreen = ({ route }) => {
         exercise={exercise}
         isUpdatingRoutine={isUpdatingRoutine}
         routineVariable={routine}
+        fromSavedRoutine={route.params?.fromSavedRoutine ?? false}
       />
     </SafeAreaView>
   );

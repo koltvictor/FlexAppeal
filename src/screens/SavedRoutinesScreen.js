@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import styles from "../config/styles/SavedRoutinesStyles";
 
-function SavedRoutinesScreen({ navigation }) {
+function SavedRoutinesScreen({ navigation, route }) {
   const [savedRoutines, setSavedRoutines] = useState([]);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [deleteSuccessModalVisible, setDeleteSuccessModalVisible] =
@@ -189,6 +189,7 @@ function SavedRoutinesScreen({ navigation }) {
                   onPress={() =>
                     navigation.navigate("Specific Routine", {
                       routine: item,
+                      fromSavedRoutine: route.params?.fromSavedRoutine ?? true,
                     })
                   }
                 >

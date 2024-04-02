@@ -4,7 +4,7 @@ import SpecificRoutineItem from "../components/SpecificRoutineItem";
 import styles from "../config/styles/SpecificRoutineStyles";
 import { ScrollView } from "react-native-gesture-handler";
 
-export default function SpecificRoutineScreen({ route }) {
+export default function SpecificRoutineScreen({ route, fromSavedRoutine }) {
   const { routine } = route.params;
 
   return (

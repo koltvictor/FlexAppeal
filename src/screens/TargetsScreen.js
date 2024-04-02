@@ -4,8 +4,10 @@ import TargetCard from "../components/TargetCard";
 import { DataContext } from "../app/contexts/DataContext";
 import styles from "../config/styles/TargetsScreenStyles";
 
-export default function TargetsScreen({ route }) {
+export default function TargetsScreen({ route, fromSavedRoutine }) {
   const { exercises } = useContext(DataContext);
+
+  console.log("TargetsScreen", fromSavedRoutine ?? "Prop not yet received");
 
   const target = route.params.target.toLowerCase();
 
@@ -34,6 +36,7 @@ export default function TargetsScreen({ route }) {
                 key={exercise.id}
                 isUpdatingRoutine={isUpdatingRoutine}
                 routine={routine}
+                fromSavedRoutine={fromSavedRoutine}
               />
             );
           })}

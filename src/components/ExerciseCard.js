@@ -4,7 +4,12 @@ import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 import { db } from "../app/firebase";
 
-const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
+const ExerciseCard = ({
+  exercise,
+  isUpdatingRoutine,
+  routineVariable,
+  fromSavedRoutine,
+}) => {
   const { addExercise } = routineStore;
   const [updatedRoutine, setUpdatedRoutine] = useState(routineVariable);
   const [showModal, setShowModal] = useState(false);
@@ -90,12 +95,14 @@ const ExerciseCard = ({ exercise, isUpdatingRoutine, routineVariable }) => {
       </View>
       <Image source={{ uri: exercise.gifUrl }} alt="gif" style={styles.image} />
       <Text>{exercise.instructions}</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => handleAddToRoutine(exercise)}
-      >
-        <Text style={styles.buttonText}>Add to routine</Text>
-      </TouchableOpacity>
+      {!fromSavedRoutine && (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleAddToRoutine(exercise)}
+        >
+          <Text style={styles.buttonText}>Add to routine</Text>
+        </TouchableOpacity>
+      )}
       {showModal && (
         <Animated.View
           style={[styles.modal, { opacity: fadeAnim, top: 0, left: 0 }]}
