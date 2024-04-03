@@ -43,7 +43,7 @@ const DataContextProvider = ({ children }) => {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Image
-          source={require("/Users/kolt/Development/FlexAppeal/DoneWithIt/src/assets/logo.png")}
+          source={require("../../assets/logo.png")}
           style={{ width: 425, height: 425 }}
         />
       </View>
