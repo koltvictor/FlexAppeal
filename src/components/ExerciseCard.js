@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Image, TouchableOpacity, Animated } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Animated,
+  ScrollView,
+} from "react-native";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 import { db } from "../app/firebase";
@@ -96,48 +103,56 @@ const ExerciseCard = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{exercise.name}</Text>
-      </View>
-      <View style={styles.infoContainer}>
-        <View style={styles.info}>
-          <Text style={styles.label}>Target Muscle</Text>
-          <Text style={styles.value}>{exercise.target}</Text>
+      <ScrollView>
+        <View style={styles.header}>
+          <Text style={styles.title}>{exercise.name}</Text>
         </View>
-        <View style={styles.info}>
-          <Text style={styles.label}>Equipment</Text>
-          <Text style={styles.value}>{exercise.equipment}</Text>
+        <View style={styles.infoContainer}>
+          <View style={styles.info}>
+            <Text style={styles.label}>Target Muscle</Text>
+            <Text style={styles.value}>{exercise.target}</Text>
+          </View>
+          <View style={styles.info}>
+            <Text style={styles.label}>Equipment</Text>
+            <Text style={styles.value}>{exercise.equipment}</Text>
+          </View>
         </View>
-      </View>
-      <Image source={{ uri: exercise.gifUrl }} alt="gif" style={styles.image} />
-      <TouchableOpacity
-        style={styles.instructionsButton}
-        onPress={() => setShowInstructions(!showInstructions)}
-      >
-        <Text style={styles.instructionsButtonText}>
-          {showInstructions ? "Hide Instructions" : "Show Instructions"}
-        </Text>
-      </TouchableOpacity>
-      {showInstructions ? (
-        <Text style={styles.instructions}>
-          {formatInstructions(exercise.instructions)}
-        </Text>
-      ) : null}
-      {!fromSavedRoutine && (
+        <Image
+          source={{ uri: exercise.gifUrl }}
+          alt="gif"
+          style={styles.image}
+        />
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => handleAddToRoutine(exercise)}
+          style={styles.instructionsButton}
+          onPress={() => setShowInstructions(!showInstructions)}
         >
-          <Text style={styles.buttonText}>Add to routine</Text>
+          <Text style={styles.instructionsButtonText}>
+            {showInstructions ? "Hide Instructions" : "Show Instructions"}
+          </Text>
         </TouchableOpacity>
-      )}
-      {showModal && (
-        <Animated.View
-          style={[styles.modal, { opacity: fadeAnim, top: 0, left: 0 }]}
-        >
-          <Text style={styles.modalText}>Added to routine!</Text>
-        </Animated.View>
-      )}
+
+        {showInstructions ? (
+          <Text style={styles.instructions}>
+            {formatInstructions(exercise.instructions)}
+          </Text>
+        ) : null}
+
+        {!fromSavedRoutine && (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleAddToRoutine(exercise)}
+          >
+            <Text style={styles.buttonText}>Add to routine</Text>
+          </TouchableOpacity>
+        )}
+        {showModal && (
+          <Animated.View
+            style={[styles.modal, { opacity: fadeAnim, top: 0, left: 0 }]}
+          >
+            <Text style={styles.modalText}>Added to routine!</Text>
+          </Animated.View>
+        )}
+      </ScrollView>
     </View>
   );
 };
