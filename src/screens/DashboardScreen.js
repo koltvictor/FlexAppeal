@@ -6,6 +6,7 @@ import ProfileScreen from "./ProfileScreen";
 import ExercisesScreen from "./ExercisesScreen";
 import RoutineScreen from "./RoutineScreen";
 import SavedRoutinesScreen from "./SavedRoutinesScreen";
+import FavoritesScreen from "./FavoritesScreen";
 import styles from "../config/styles/DashboardStyles";
 import colors from "../config/colors";
 
@@ -24,16 +25,21 @@ export default function DashboardScreen() {
             iconName = focused ? "barbell" : "barbell-outline";
           } else if (route.name === "Routine") {
             iconName = focused ? "fitness" : "fitness-outline";
-          } else if (route.name === "Saved Routines") {
-            iconName = focused ? "save" : "save-outline";
+          } else if (route.name === "Saved") {
+            iconName = focused
+              ? "arrow-down-circle"
+              : "arrow-down-circle-outline";
+          } else if (route.name === "Favorites") {
+            iconName = focused ? "heart" : "heart-outline";
           }
 
           return (
             <TouchableOpacity style={styles.tabIcon}>
-              <Ionicons name={iconName} size={size} color={color} />
+              <Ionicons name={iconName} size={25} color={color} />
             </TouchableOpacity>
           );
         },
+        tabBarLabel: () => null,
         tabBarActiveTintColor: colors.white,
         tabBarInactiveTintColor: "rgba(255, 255, 255, 0.6)",
         tabBarStyle: {
@@ -50,7 +56,8 @@ export default function DashboardScreen() {
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Exercises" component={ExercisesScreen} />
       <Tab.Screen name="Routine" component={RoutineScreen} />
-      <Tab.Screen name="Saved Routines" component={SavedRoutinesScreen} />
+      <Tab.Screen name="Saved" component={SavedRoutinesScreen} />
+      <Tab.Screen name="Favorites" component={FavoritesScreen} />
     </Tab.Navigator>
   );
 }

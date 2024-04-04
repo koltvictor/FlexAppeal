@@ -17,6 +17,7 @@ import SpecificRoutineScreen from "../../screens/SpecificRoutineScreen";
 import TargetsScreen from "../../screens/TargetsScreen";
 import UpdateRoutineScreen from "../../screens/UpdateRoutineScreen";
 import SharedRoutinesScreen from "../../screens/SharedRoutinesScreen";
+import FavoritesScreen from "../../screens/FavoritesScreen";
 import colors from "../../config/colors";
 
 const Stack = createNativeStackNavigator();
@@ -169,6 +170,19 @@ const Routes = () => {
       <Stack.Screen
         name="Specific Routine"
         component={SpecificRoutineScreen}
+        options={{
+          title: "",
+          headerStyle: {
+            backgroundColor: colors.navy,
+          },
+          headerTitleStyle: {
+            display: "none",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Favorites"
+        component={FavoritesScreen}
         options={{
           title: "",
           headerStyle: {

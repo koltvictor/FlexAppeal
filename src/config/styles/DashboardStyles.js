@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textTransform: "uppercase",
     marginTop: 5,
-    alignSelf: "center", // align the text to the center of the tab
+    alignSelf: "center",
   },
 });
 
