@@ -71,6 +71,13 @@ const SignupScreen = () => {
                     exercises: [],
                   })
                   .then(() => {
+                    db.collection("favorites").doc(user.uid).set({
+                      favexercises: [],
+                      favfriends: [],
+                      favroutines: [],
+                    });
+                  })
+                  .then(() => {
                     navigation.navigate("Welcome");
                   })
                   .catch((error) => {
