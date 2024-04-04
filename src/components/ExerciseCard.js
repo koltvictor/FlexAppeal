@@ -7,9 +7,10 @@ import {
   Animated,
   ScrollView,
 } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
-import { db } from "../app/firebase";
+import { auth, db } from "../app/firebase";
 
 const ExerciseCard = ({
   exercise,
@@ -22,6 +23,7 @@ const ExerciseCard = ({
   const [showModal, setShowModal] = useState(false);
   const [fadeAnim] = useState(new Animated.Value(0));
   const [showInstructions, setShowInstructions] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
 
   const routineId = routineVariable
     ? `${routineVariable.userId}_${routineVariable.name}`
@@ -101,12 +103,48 @@ const ExerciseCard = ({
     return formattedInstructions;
   }
 
+  const toggleFavorite = async () => {
+    try {
+      const uid = auth.currentUser.uid;
+      const favoritesRef = db.collection("favorites").doc(uid);
+      const favoritesDoc = await favoritesRef.get();
+
+      let favoritesData = favoritesDoc.exists
+        ? favoritesDoc.data()
+        : { favexercises: [] };
+      const exerciseName = exercise.name;
+      const exerciseExists = favoritesData.favexercises.includes(exerciseName);
+      if (exerciseExists) {
+        if (isFavorited) {
+          favoritesData.favexercises = favoritesData.favexercises.filter(
+            (id) => id !== exerciseName
+          );
+        }
+      } else {
+        if (!isFavorited) {
+          favoritesData.favexercises.push(exerciseName);
+        }
+      }
+      await favoritesRef.set(favoritesData);
+      setIsFavorited(!isFavorited);
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
           <Text style={styles.title}>{exercise.name}</Text>
+          <TouchableOpacity onPress={toggleFavorite}>
+            <Ionicons
+              name={isFavorited ? "heart" : "heart-outline"}
+              size={24}
+              color={isFavorited ? "red" : "grey"}
+            />
+          </TouchableOpacity>
         </View>
+
         <View style={styles.infoContainer}>
           <View style={styles.info}>
             <Text style={styles.label}>Target Muscle</Text>
