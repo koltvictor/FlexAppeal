@@ -11,6 +11,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 import { auth, db } from "../app/firebase";
+import favoritesStore from "../stores/FavoritesStore";
 
 const ExerciseCard = ({
   exercise,
@@ -127,10 +128,12 @@ const ExerciseCard = ({
       }
       await favoritesRef.set(favoritesData);
       setIsFavorited(!isFavorited);
+      favoritesStore.updateFavorites(favoritesData.favexercises);
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
   };
+
   return (
     <View style={styles.container}>
       <ScrollView>
