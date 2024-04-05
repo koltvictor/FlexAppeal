@@ -1,8 +1,6 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { auth, db, doc, setDoc, getDoc, updateDoc } from "../firebase/index";
 import userStore from "../../stores/UserStore";
-import favoritesStore from "../../stores/FavoritesStore";
-import { FavoritesContext } from "./FavoritesContext";
 import { onSnapshot } from "firebase/firestore";
 
 const UserContext = createContext();
@@ -13,6 +11,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [savedroutines, setSavedRoutines] = useState(null);
+  const [unsubscribeProfile, setUnsubscribeProfile] = useState(null);
 
   useEffect(() => {
     const onAuthStateChanged = async (userAuth) => {
@@ -78,8 +77,6 @@ export const UserProvider = ({ children }) => {
       const profileSnapshot = await getDoc(profileDoc);
       const savedroutinesDoc = doc(db, "savedroutines", uid);
       const savedroutinesSnapshot = await getDoc(savedroutinesDoc);
-      const favoritesDoc = doc(db, "favorites", uid);
-      const favoritesSnapshot = await getDoc(favoritesDoc);
       if (profileSnapshot.exists()) {
         userStore.setProfile(profileSnapshot.data());
       } else {
@@ -87,12 +84,6 @@ export const UserProvider = ({ children }) => {
       }
       if (savedroutinesSnapshot.exists()) {
         userStore.setSavedRoutines(savedroutinesSnapshot.data());
-      } else {
-        console.log("No such document!");
-      }
-      if (favoritesSnapshot.exists()) {
-        favoritesStore.setFavorites(favoritesSnapshot.data().favexercises);
-        console.log("Favorites fetched:", favoritesSnapshot.data());
       } else {
         console.log("No such document!");
       }
@@ -110,7 +101,6 @@ export const UserProvider = ({ children }) => {
       await auth.signOut();
       userStore.setUser(null); // Reset user in MobX
       userStore.setProfile(null); // Reset profile in MobX
-      favoritesStore.favorites.favexercises = []; // Reset favorites in MobX
     } catch (error) {
       console.log("Error signing out: ", error);
     }

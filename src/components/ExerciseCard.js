@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Text,
   View,
@@ -123,15 +123,12 @@ const ExerciseCard = ({
         }
       } else {
         if (!isFavorited) {
-          favoritesData.favexercises = [
-            ...favoritesData.favexercises,
-            exerciseName,
-          ];
+          favoritesData.favexercises.push(exerciseName);
         }
       }
       await favoritesRef.set(favoritesData);
       setIsFavorited(!isFavorited);
-      favoritesStore.setFavorites(favoritesData.favexercises);
+      favoritesStore.updateFavorites(favoritesData.favexercises);
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }

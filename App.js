@@ -7,7 +7,6 @@ import Provider from "./src/app/providers/Provider";
 import { UserProvider } from "./src/app/contexts/UserContext";
 import { DataContextProvider } from "./src/app/contexts/DataContext";
 import { RoutineProvider } from "./src/app/contexts/RoutineContext";
-import { FavoritesProvider } from "./src/app/contexts/FavoritesContext";
 import { observer } from "mobx-react-lite";
 
 import Routes from "./src/app/routes/Routes";
@@ -20,11 +19,9 @@ const App = observer(() => {
           <UserProvider>
             <DataContextProvider>
               <RoutineProvider>
-                <FavoritesProvider>
-                  <NavigationContainer>
-                    <Routes />
-                  </NavigationContainer>
-                </FavoritesProvider>
+                <NavigationContainer>
+                  <Routes />
+                </NavigationContainer>
               </RoutineProvider>
             </DataContextProvider>
           </UserProvider>

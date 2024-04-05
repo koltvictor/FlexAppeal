@@ -8,18 +8,12 @@ class FavoritesStore {
 
   constructor() {
     makeObservable(this, {
-      isLoading: false,
       favorites: observable,
-      setFavorites: action,
       fetchFavorites: action,
       updateFavorites: action,
     });
 
     this.fetchFavorites(); // Fetch on initialization
-  }
-
-  setFavorites(favorites) {
-    this.favorites = favorites;
   }
 
   updateFavorites(newFavorites) {
@@ -29,23 +23,18 @@ class FavoritesStore {
   }
 
   async fetchFavorites() {
-    this.isLoading = true;
     try {
-      if (auth.currentUser) {
-        const userId = auth.currentUser.uid;
-        const favoritesRef = db.collection("favorites").doc(userId);
-        const snapshot = await favoritesRef.get();
+      const userId = auth.currentUser.uid;
+      const favoritesRef = db.collection("favorites").doc(userId);
+      const snapshot = await favoritesRef.get();
 
-        if (snapshot.exists) {
-          runInAction(() => {
-            this.favorites.favexercises = snapshot.data().favexercises || [];
-          });
-        }
+      if (snapshot.exists) {
+        runInAction(() => {
+          this.favorites.favexercises = snapshot.data().favexercises || [];
+        });
       }
     } catch (error) {
       console.error("Error fetching favorites:", error);
-    } finally {
-      this.isLoading = false;
     }
   }
   setupFirestoreListener() {

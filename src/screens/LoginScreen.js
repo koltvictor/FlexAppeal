@@ -13,7 +13,6 @@ import styles from "../config/styles/LoginStyles.js";
 import { Ionicons } from "@expo/vector-icons";
 import { Keyboard } from "react-native";
 import colors from "../config/colors.js";
-import { useFetchFavoriteExercises } from "../app/hooks/useFavoritesHooks.js";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
