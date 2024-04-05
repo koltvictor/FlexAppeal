@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Image, SafeAreaView, View, Text } from "react-native";
+import { Image, SafeAreaView, View, Text, ScrollView } from "react-native";
 import { options } from "../app/contexts/DataContext";
 import { useQuery } from "react-query";
 
@@ -28,18 +28,25 @@ export default function FavExerciseScreen({ route }) {
 
   return (
     <SafeAreaView>
-      {isLoading && <Text>Loading exercise data...</Text>}
+      <ScrollView>
+        {isLoading && <Text>Loading exercise data...</Text>}
 
-      {exerciseDetails && (
-        <View>
-          {exerciseDetails.map((exercise) => (
-            <View key={exercise.id} style={{ marginBottom: 10 }}>
-              <Text>{exercise.name}</Text>
-              <Text>{exercise.instructions}</Text>
-            </View>
-          ))}
-        </View>
-      )}
+        {exerciseDetails && (
+          <View>
+            {exerciseDetails.map((exercise) => (
+              <View key={exercise.id} style={{ marginBottom: 10 }}>
+                <Text>{exercise.name}</Text>
+                <Text>{exercise.instructions}</Text>
+                <Image
+                  src={exercise.gifUrl}
+                  alt={exercise.gifUrl}
+                  style={{ width: 200, height: 200 }}
+                />
+              </View>
+            ))}
+          </View>
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 }
