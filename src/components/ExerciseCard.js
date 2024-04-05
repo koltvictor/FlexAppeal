@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Text,
   View,
@@ -12,6 +12,7 @@ import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 import { auth, db } from "../app/firebase";
 import favoritesStore from "../stores/FavoritesStore";
+import { FavoritesContext } from "../app/contexts/FavoritesContext";
 
 const ExerciseCard = ({
   exercise,
@@ -123,12 +124,15 @@ const ExerciseCard = ({
         }
       } else {
         if (!isFavorited) {
-          favoritesData.favexercises.push(exerciseName);
+          favoritesData.favexercises = [
+            ...favoritesData.favexercises,
+            exerciseName,
+          ];
         }
       }
       await favoritesRef.set(favoritesData);
       setIsFavorited(!isFavorited);
-      favoritesStore.updateFavorites(favoritesData.favexercises);
+      favoritesStore.setFavorites(favoritesData.favexercises);
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
