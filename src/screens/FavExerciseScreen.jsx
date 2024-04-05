@@ -17,7 +17,7 @@ export default function FavExerciseScreen({ route }) {
             <View key={exercise.id} style={{ marginBottom: 10 }}>
               <Text>{exercise.name}</Text>
               <Image
-                alt={exercise.gifUrl}
+                alt={gifUrl}
                 source={{ uri: exercise.gifUrl }}
                 style={{ width: 100, height: 100 }}
               />

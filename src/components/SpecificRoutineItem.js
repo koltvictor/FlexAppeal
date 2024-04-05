@@ -89,13 +89,6 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
     setResetVisible(false);
   };
 
-  // const handleExerciseNamePress = () => {
-  //   navigation.navigate("ExerciseDetails", {
-  //     exercise,
-  //     fromSavedRoutine: true,
-  //   });
-  // };
-
   return (
     <View style={styles.container}>
       <View style={styles.indivExerContainer}>
