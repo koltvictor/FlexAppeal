@@ -18,6 +18,7 @@ import TargetsScreen from "../../screens/TargetsScreen";
 import UpdateRoutineScreen from "../../screens/UpdateRoutineScreen";
 import SharedRoutinesScreen from "../../screens/SharedRoutinesScreen";
 import FavoritesScreen from "../../screens/FavoritesScreen";
+import FavExerciseScreen from "../../screens/FavExerciseScreen";
 import colors from "../../config/colors";
 
 const Stack = createNativeStackNavigator();
@@ -183,6 +184,19 @@ const Routes = () => {
       <Stack.Screen
         name="Favorites"
         component={FavoritesScreen}
+        options={{
+          title: "",
+          headerStyle: {
+            backgroundColor: colors.navy,
+          },
+          headerTitleStyle: {
+            display: "none",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FavExercise"
+        component={FavExerciseScreen}
         options={{
           title: "",
           headerStyle: {

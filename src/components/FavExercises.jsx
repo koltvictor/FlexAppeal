@@ -1,17 +1,15 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { observer } from "mobx-react-lite"; // Import observer
 import favoritesStore from "../stores/FavoritesStore";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import UserContext from "../app/contexts/UserContext";
 import { useFetchFavoriteExercises } from "../app/hooks/useFavoritesHooks";
-import { FavoritesContext } from "../app/contexts/FavoritesContext";
 
 export default observer(function FavExercises() {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
   const { favorites } = favoritesStore;
-  console.log("faves!", favorites);
 
   if (user) {
     useFetchFavoriteExercises(user.uid);
@@ -24,7 +22,7 @@ export default observer(function FavExercises() {
           <TouchableOpacity
             key={exercise}
             onPress={() =>
-              navigation.navigate("ExerciseDetails", {
+              navigation.navigate("FavExercise", {
                 exercise,
                 fromSavedRoutine: false,
               })

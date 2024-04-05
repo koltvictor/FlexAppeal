@@ -12,7 +12,6 @@ import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 import { auth, db } from "../app/firebase";
 import favoritesStore from "../stores/FavoritesStore";
-import { FavoritesContext } from "../app/contexts/FavoritesContext";
 
 const ExerciseCard = ({
   exercise,
@@ -114,22 +113,22 @@ const ExerciseCard = ({
       let favoritesData = favoritesDoc.exists
         ? favoritesDoc.data()
         : { favexercises: [] };
-      const exerciseName = exercise.name;
-      const exerciseExists = favoritesData.favexercises.includes(exerciseName);
+      const exerciseId = exercise.id;
+      const exerciseExists = favoritesData.favexercises.includes(exerciseId);
       if (exerciseExists) {
         if (isFavorited) {
           favoritesData.favexercises = favoritesData.favexercises.filter(
-            (id) => id !== exerciseName
+            (id) => id !== exerciseId
           );
         }
       } else {
         if (!isFavorited) {
-          favoritesData.favexercises.push(exerciseName);
+          favoritesData.favexercises.push(exerciseId);
         }
       }
       await favoritesRef.set(favoritesData);
       setIsFavorited(!isFavorited);
-      favoritesStore.updateFavorites(favoritesData.favexercises);
+      favoritesStore.setFavorites(favoritesData.favexercises);
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
