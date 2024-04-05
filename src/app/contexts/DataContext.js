@@ -57,4 +57,4 @@ const DataContextProvider = ({ children }) => {
   );
 };
 
-export { DataContext, DataContextProvider, options };
+export { DataContext, DataContextProvider };

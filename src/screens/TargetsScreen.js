@@ -7,13 +7,13 @@ import styles from "../config/styles/TargetsScreenStyles";
 export default function TargetsScreen({ route, fromSavedRoutine }) {
   const { exercises } = useContext(DataContext);
 
-  const target = route.params.target;
+  const target = route.params.target.toLowerCase();
 
   const routine = route.params.routine;
 
   // filtering data based on selected target
   const filteredExercises = exercises.filter(
-    (exercise) => exercise.target === target
+    (exercise) => exercise.target.toLowerCase() === target
   );
 
   const [isUpdatingRoutine, setIsUpdatingRoutine] = useState(null);

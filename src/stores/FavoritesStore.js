@@ -17,6 +17,7 @@ class FavoritesStore {
   }
 
   updateFavorites(newFavorites) {
+    console.log("newFavorites", newFavorites);
     runInAction(() => {
       this.favorites.favexercises = newFavorites;
     });

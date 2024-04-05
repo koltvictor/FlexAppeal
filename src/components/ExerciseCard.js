@@ -12,6 +12,7 @@ import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 import { auth, db } from "../app/firebase";
 import favoritesStore from "../stores/FavoritesStore";
+import { FavoritesContext } from "../app/contexts/FavoritesContext";
 
 const ExerciseCard = ({
   exercise,

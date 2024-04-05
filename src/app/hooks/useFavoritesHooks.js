@@ -10,6 +10,7 @@ export const useFetchFavoriteExercises = (userId) => {
       const favoritesRef = db.collection("favorites").doc(userId);
       const doc = await favoritesRef.get();
       if (doc.exists) {
+        console.log("Favorite exercises fetched:", doc.data());
         favoritesStore.setFavorites(doc.data().favexercises || []);
       } else {
         console.log("No favorite exercises data available");
