@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: colors.lightgrey,
+    width: "100%",
   },
   input: {
     flex: 1,
@@ -39,6 +40,9 @@ const styles = StyleSheet.create({
   },
   inputIcon: {
     marginRight: 10,
+  },
+  passwordIcon: {
+    marginLeft: 320,
   },
   button: {
     backgroundColor: colors.navy,
@@ -56,6 +60,7 @@ const styles = StyleSheet.create({
   link: {
     fontSize: 16,
     marginTop: 30,
+    alignItems: "center",
   },
   linkText: {
     color: colors.softblue,

@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import styles from "../config/styles/SignupStyles.js";
 import colors from "../config/colors.js";
 import { useSignup } from "../app/hooks/useSignupHooks.js";
+import { InputField } from "./InputFieldSignup.js";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -22,81 +23,52 @@ export default function Signup() {
   };
 
   const handleSignup = useSignup();
+
   return (
     <View>
       <View style={styles.topSection}>
         <Text style={styles.title}>Sign up</Text>
         <Text style={styles.subTitle}>Create your account</Text>
       </View>
-      <View style={styles.inputContainer}>
+      <InputField
+        iconName="person-outline"
+        placeholder="Username"
+        secure={false}
+        onChangeText={(text) => setUsername(text)}
+        value={username}
+      />
+      <InputField
+        iconName="mail-outline"
+        placeholder="Email"
+        secure={false}
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+      />
+      <InputField
+        iconName="lock-closed-outline"
+        placeholder="Password"
+        secure={!passwordShown}
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+      />
+
+      <InputField
+        iconName="lock-closed-outline"
+        placeholder="Confirm Password"
+        secure={!passwordShown}
+        onChangeText={(text) => setConfirmPassword(text)}
+        value={confirmPassword}
+      />
+      <TouchableOpacity
+        style={styles.passwordIcon}
+        onPress={togglePasswordVisibility}
+      >
         <Ionicons
-          name="person-outline"
+          name={passwordShown ? "eye-outline" : "eye-off-outline"}
           size={24}
-          color={colors.navy}
-          style={styles.inputIcon}
+          color={colors.brightblue}
         />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor={colors.slate}
-          placeholder="Username"
-          onChangeText={(text) => setUsername(text)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Ionicons
-          name="mail-outline"
-          size={24}
-          color={colors.navy}
-          style={styles.inputIcon}
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor={colors.slate}
-          placeholder="Email"
-          onChangeText={(text) => setEmail(text)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Ionicons
-          name="lock-closed-outline"
-          size={24}
-          color={colors.navy}
-          style={styles.inputIcon}
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor={colors.slate}
-          placeholder="Password"
-          secureTextEntry={!passwordShown}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <TouchableOpacity
-          style={styles.inputIcon}
-          onPress={togglePasswordVisibility}
-        >
-          <Ionicons
-            name={passwordShown ? "eye-outline" : "eye-off-outline"}
-            size={24}
-            color={colors.brightblue}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.inputContainer}>
-        <Ionicons
-          name="lock-closed-outline"
-          size={24}
-          color={colors.navy}
-          style={styles.inputIcon}
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor={colors.slate}
-          placeholder="Confirm password"
-          secureTextEntry={!passwordShown}
-          value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
-        />
-      </View>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         onPress={() =>
