@@ -37,6 +37,9 @@ const styles = StyleSheet.create({
   pickerItem: {
     fontSize: 16,
   },
+  pickerItemStyle: {
+    height: 100,
+  },
   timeContainer: {
     flex: 1,
   },

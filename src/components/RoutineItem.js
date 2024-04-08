@@ -36,7 +36,8 @@ const RoutineItem = observer(({ exercise, index }) => {
       <Picker
         selectedValue={reps}
         onValueChange={handleRepsChange}
-        itemStyle={styles.pickerItem}
+        style={styles.pickerItem}
+        itemStyle={styles.pickerItemStyle}
       >
         {repsOptions}
       </Picker>
@@ -54,7 +55,12 @@ const RoutineItem = observer(({ exercise, index }) => {
     }
 
     return (
-      <Picker selectedValue={time} onValueChange={handleTimeChange}>
+      <Picker
+        selectedValue={time}
+        onValueChange={handleTimeChange}
+        style={styles.pickerItem}
+        itemStyle={styles.pickerItemStyle}
+      >
         {timeOptions}
       </Picker>
     );
