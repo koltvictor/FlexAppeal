@@ -1,6 +1,4 @@
-import { auth } from "../app/firebase/index.js";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -13,41 +11,16 @@ import styles from "../config/styles/LoginStyles.js";
 import { Ionicons } from "@expo/vector-icons";
 import { Keyboard } from "react-native";
 import colors from "../config/colors.js";
+import { useLogin } from "../app/hooks/useLoginHooks.js";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   let navigation = useNavigation();
   const [passwordShown, setPasswordShown] = useState(false);
 
-  const handleLogin = async () => {
-    try {
-      setLoading(true);
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      setLoading(false);
-      navigation.navigate("Dashboard");
-    } catch (error) {
-      console.warn("Error logging in:", error);
-      setLoading(false);
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("Dashboard");
-      }
-    });
-    return unsubscribe;
-  }, []);
+  const { handleLogin, loading, error } = useLogin();
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
@@ -110,7 +83,7 @@ const LoginScreen = () => {
           </View>
           <TouchableOpacity
             style={styles.button}
-            onPress={handleLogin}
+            onPress={() => handleLogin(email, password)}
             disabled={loading}
           >
             <Text style={styles.buttonText}>Login</Text>

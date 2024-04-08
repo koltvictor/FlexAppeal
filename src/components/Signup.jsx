@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "../config/styles/SignupStyles.js";
@@ -24,41 +24,53 @@ export default function Signup() {
 
   const handleSignup = useSignup();
 
+  const inputFieldsConfig = [
+    {
+      iconName: "person-outline",
+      placeholder: "Username",
+      secure: false,
+      stateUpdater: setUsername,
+      stateValue: username,
+    },
+    {
+      iconName: "mail-outline",
+      placeholder: "Email",
+      secure: false,
+      stateUpdater: setEmail,
+      stateValue: email,
+    },
+    {
+      iconName: "lock-closed-outline",
+      placeholder: "Password",
+      secure: !passwordShown,
+      stateUpdater: setPassword,
+      stateValue: password,
+    },
+    {
+      iconName: "lock-closed-outline",
+      placeholder: "Confirm Password",
+      secure: !passwordShown,
+      stateUpdater: setConfirmPassword,
+      stateValue: confirmPassword,
+    },
+  ];
+
   return (
     <View>
       <View style={styles.topSection}>
         <Text style={styles.title}>Sign up</Text>
         <Text style={styles.subTitle}>Create your account</Text>
       </View>
-      <InputField
-        iconName="person-outline"
-        placeholder="Username"
-        secure={false}
-        onChangeText={(text) => setUsername(text)}
-        value={username}
-      />
-      <InputField
-        iconName="mail-outline"
-        placeholder="Email"
-        secure={false}
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-      />
-      <InputField
-        iconName="lock-closed-outline"
-        placeholder="Password"
-        secure={!passwordShown}
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-      />
-
-      <InputField
-        iconName="lock-closed-outline"
-        placeholder="Confirm Password"
-        secure={!passwordShown}
-        onChangeText={(text) => setConfirmPassword(text)}
-        value={confirmPassword}
-      />
+      {inputFieldsConfig.map((inputFieldConfig, index) => (
+        <InputField
+          key={index}
+          iconName={inputFieldConfig.iconName}
+          placeholder={inputFieldConfig.placeholder}
+          secure={inputFieldConfig.secure}
+          onChangeText={(text) => inputFieldConfig.stateUpdater(text)}
+          value={inputFieldConfig.stateValue}
+        />
+      ))}
       <TouchableOpacity
         style={styles.passwordIcon}
         onPress={togglePasswordVisibility}
