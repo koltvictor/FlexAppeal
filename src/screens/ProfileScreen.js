@@ -10,7 +10,6 @@ import {
   useFetchUserProfile,
   useFetchSavedRoutines,
 } from "../app/hooks/useProfileHooks.js";
-import favoritesStore from "../stores/FavoritesStore.js";
 
 const ProfileScreen = observer(({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -26,7 +25,6 @@ const ProfileScreen = observer(({ navigation }) => {
 
   const handleLogout = () => {
     handleLogOut();
-    favoritesStore.favorites.favexercises = [];
     navigation.reset({
       index: 0,
       routes: [{ name: "Login" }],

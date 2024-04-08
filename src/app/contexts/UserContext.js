@@ -1,8 +1,7 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import { auth, db, doc, setDoc, getDoc, updateDoc } from "../firebase/index";
 import userStore from "../../stores/UserStore";
 import favoritesStore from "../../stores/FavoritesStore";
-import { FavoritesContext } from "./FavoritesContext";
 import { onSnapshot } from "firebase/firestore";
 
 const UserContext = createContext();
@@ -48,26 +47,6 @@ export const UserProvider = ({ children }) => {
       unsubscribe();
     };
   }, []);
-
-  const handleSignUp = async (email, password, username) => {
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      const uid = user.uid;
-      const profileDoc = doc(db, "profiles", uid);
-      const profileData = { email, username, icon };
-      await setDoc(profileDoc, profileData);
-      userStore.setProfile(profileData);
-      setUser(user);
-      const [forceUpdate, setForceUpdate] = useState(false);
-      setForceUpdate(!forceUpdate);
-      return { success: true };
-    } catch (error) {
-      return { success: false, message: error.message };
-    }
-  };
 
   const handleLogIn = async (email, password) => {
     try {
@@ -145,7 +124,6 @@ export const UserProvider = ({ children }) => {
     user,
     profile,
     savedroutines,
-    handleSignUp,
     handleLogIn,
     handleLogOut,
     handleUpdateProfile,

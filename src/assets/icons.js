@@ -12,13 +12,13 @@ const icons = [
   "book",
   "film",
   "settings",
-  "send",
-  "map",
+  "rose",
+  "rocket",
   "nutrition",
-  "navigate",
+  "ribbon",
   "newspaper",
   "watch",
-  "play-circle",
+  "rainy",
 ];
 
 export default icons;
