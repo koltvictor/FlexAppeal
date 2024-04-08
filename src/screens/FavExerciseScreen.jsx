@@ -24,8 +24,6 @@ export default function FavExerciseScreen({ route }) {
     }
   }, [fetchedExercise]);
 
-  console.log(exerciseDetails);
-
   return (
     <SafeAreaView>
       <ScrollView>

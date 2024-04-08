@@ -13,7 +13,6 @@ import styles from "../config/styles/ExercisesScreenStyles";
 import targets from "../assets/targets";
 
 export default function ExercisesScreen({ route }) {
-  // imported data
   const { exercises } = useContext(DataContext);
 
   let navigation = useNavigation();

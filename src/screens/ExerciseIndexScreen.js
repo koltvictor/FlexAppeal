@@ -20,18 +20,20 @@ export default function ExerciseIndexScreen() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   useEffect(() => {
+    const searchWords = searchQuery.toLowerCase().split(" "); // Split into words
+
     const filteredSubset = exercises
-      ? exercises.filter(
-          (exercise) =>
-            exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            exercise.bodyPart
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            exercise.equipment
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            exercise.target.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+      ? exercises.filter((exercise) => {
+          return searchWords.some((word) => {
+            // Check if any word is a partial match
+            return (
+              exercise.name.toLowerCase().includes(word) ||
+              exercise.bodyPart.toLowerCase().includes(word) ||
+              exercise.equipment.toLowerCase().includes(word) ||
+              exercise.target.toLowerCase().includes(word)
+            );
+          });
+        })
       : [];
     setDisplayedExercises(filteredSubset.slice(0, 20)); // Initially display first 20
     setOffset(0);

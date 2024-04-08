@@ -65,7 +65,6 @@ export const UserProvider = ({ children }) => {
       setForceUpdate(!forceUpdate);
       return { success: true };
     } catch (error) {
-      console.log("Error signing up: ", error);
       return { success: false, message: error.message };
     }
   };

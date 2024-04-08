@@ -10,7 +10,6 @@ export const useFetchUserProfile = (userId) => {
       const profileRef = db.collection("profiles").doc(userId);
       const doc = await profileRef.get();
       if (doc.exists) {
-        console.log("Profile fetched:", doc.data());
         userStore.setProfile(doc.data());
       } else {
         console.log("No profile data available");
