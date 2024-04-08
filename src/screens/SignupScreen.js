@@ -16,7 +16,7 @@ const SignupScreen = () => {
 
   const navigation = useNavigation();
 
-  const initialIcon = ["smile"];
+  const initialIcon = ["skull"];
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);

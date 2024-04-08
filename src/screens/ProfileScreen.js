@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import UserContext from "../app/contexts/UserContext";
-import Feather from "react-native-vector-icons/Feather";
+import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import userStore from "../stores/UserStore";
 import styles from "../config/styles/ProfileStyles";
@@ -36,8 +36,8 @@ const ProfileScreen = observer(({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Feather
-          name={profile ? profile.icon : "smile"}
+        <Ionicons
+          name={profile ? profile.icon : "camera"}
           size={100}
           color={colors.sandy}
           style={styles.avatar}
