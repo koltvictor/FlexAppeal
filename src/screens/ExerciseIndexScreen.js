@@ -5,10 +5,12 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  View,
 } from "react-native";
 import React, { useContext, useState, useEffect } from "react";
 import { DataContext } from "../app/contexts/DataContext";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 import styles from "../config/styles/ExerciseIndexStyles";
 
 export default function ExerciseIndexScreen() {
@@ -82,12 +84,22 @@ export default function ExerciseIndexScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Search exercises"
-        onChangeText={(text) => setSearchQuery(text)}
-        value={searchQuery}
-      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Search exercises"
+          onChangeText={(text) => setSearchQuery(text)}
+          value={searchQuery}
+        />
+        {searchQuery && (
+          <TouchableOpacity
+            style={styles.clearButton} // Style this for correct placement
+            onPress={() => setSearchQuery("")}
+          >
+            <Ionicons name="close-circle-outline" size={24} color="white" />
+          </TouchableOpacity>
+        )}
+      </View>
       <FlatList
         data={displayedExercises}
         renderItem={renderExercise}

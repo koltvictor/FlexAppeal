@@ -33,6 +33,14 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: colors.white,
   },
+  inputContainer: {
+    position: "relative",
+  },
+  clearButton: {
+    position: "absolute",
+    right: 10,
+    top: 10,
+  },
 });
 
 export default styles;
