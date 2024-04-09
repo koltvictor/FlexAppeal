@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -12,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Keyboard } from "react-native";
 import colors from "../config/colors.js";
 import { useLogin } from "../app/hooks/useLoginHooks.js";
+import { TextInputField } from "../components/InputFieldLogin.js";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -38,49 +38,30 @@ const LoginScreen = () => {
             <Text style={styles.title}>Welcome back!</Text>
           </View>
           {error && <Text style={styles.error}>{error}</Text>}
-          <View style={styles.inputContainer}>
-            <View style={styles.inputIcon}>
-              <Ionicons
-                name="mail-outline"
-                size={24}
-                color={colors.white}
-                style={styles.inputIcon}
-              />
-            </View>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize="none"
-              keyboardType="email-address"
-            />
-          </View>
-          <View style={styles.inputContainer}>
+          <TextInputField
+            iconName="mail-outline"
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            secure={false}
+          />
+          <TextInputField
+            iconName="lock-closed-outline"
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secure={!passwordShown}
+          />
+          <TouchableOpacity
+            style={styles.inputIcon}
+            onPress={togglePasswordVisibility}
+          >
             <Ionicons
-              name="lock-closed-outline"
+              name={passwordShown ? "eye-outline" : "eye-off-outline"}
               size={24}
               color={colors.white}
-              style={styles.inputIcon}
             />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry={!passwordShown}
-            />
-            <TouchableOpacity
-              style={styles.inputIcon}
-              onPress={togglePasswordVisibility}
-            >
-              <Ionicons
-                name={passwordShown ? "eye-outline" : "eye-off-outline"}
-                size={24}
-                color={colors.white}
-              />
-            </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={() => handleLogin(email, password)}

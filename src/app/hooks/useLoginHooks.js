@@ -1,7 +1,6 @@
-import { auth } from "../firebase/index.js"; // Import auth
+import { auth } from "../firebase/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState, useEffect } from "react"; // Import useState
-import { Alert } from "react-native";
+import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 export const useLogin = () => {
@@ -22,13 +21,10 @@ export const useLogin = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        // User is authenticated, handle it appropriately (e.g., navigation)
-        console.log("User logged in:", user);
         navigation.navigate("Dashboard");
       }
     });
-
-    return unsubscribe; // Cleanup function for unsubscription
+    return unsubscribe;
   }, []);
 
   return { handleLogin, loading, error };
