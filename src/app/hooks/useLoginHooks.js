@@ -32,6 +32,7 @@ export const useLogin = () => {
         text2: customMessage,
         visibilityTime: 4000,
         autoHide: true,
+        swipeable: true,
       });
     }
   };

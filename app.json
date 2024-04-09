@@ -20,7 +20,10 @@
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"
-        ]
+        ],
+        "UIApplicationSceneManifest": {
+          "UIApplicationSupportsMultipleScenes": true
+        }
       },
       "bundleIdentifier": "com.koltvictor.FA"
     },
