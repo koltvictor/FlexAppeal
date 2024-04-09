@@ -12,7 +12,6 @@ import { Keyboard } from "react-native";
 import colors from "../config/colors.js";
 import { useLogin } from "../app/hooks/useLoginHooks.js";
 import { TextInputField } from "../components/InputFieldLogin.js";
-import Toast from "react-native-toast-message";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");

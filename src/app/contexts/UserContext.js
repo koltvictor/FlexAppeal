@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react";
-import { auth, db, doc, setDoc, getDoc, updateDoc } from "../firebase/index";
+import { auth, db, doc, getDoc, updateDoc } from "../firebase/index";
 import userStore from "../../stores/UserStore";
 import favoritesStore from "../../stores/FavoritesStore";
 import { onSnapshot } from "firebase/firestore";
@@ -48,41 +48,6 @@ export const UserProvider = ({ children }) => {
     };
   }, []);
 
-  const handleLogIn = async (email, password) => {
-    try {
-      const { user } = await auth.signInWithEmailAndPassword(email, password);
-      const uid = user.uid;
-      const profileDoc = doc(db, "profiles", uid);
-      const profileSnapshot = await getDoc(profileDoc);
-      const savedroutinesDoc = doc(db, "savedroutines", uid);
-      const savedroutinesSnapshot = await getDoc(savedroutinesDoc);
-      const favoritesDoc = doc(db, "favorites", uid);
-      const favoritesSnapshot = await getDoc(favoritesDoc);
-      if (profileSnapshot.exists()) {
-        userStore.setProfile(profileSnapshot.data());
-      } else {
-        console.log("No such document!");
-      }
-      if (savedroutinesSnapshot.exists()) {
-        userStore.setSavedRoutines(savedroutinesSnapshot.data());
-      } else {
-        console.log("No such document!");
-      }
-      if (favoritesSnapshot.exists()) {
-        favoritesStore.setFavorites(favoritesSnapshot.data().favexercises);
-        console.log("Favorites fetched:", favoritesSnapshot.data());
-      } else {
-        console.log("No such document!");
-      }
-      setUser(user);
-      userStore.setUser(user);
-      return { success: true };
-    } catch (error) {
-      console.log("Error logging in: ", error);
-      return { success: false, message: error.message };
-    }
-  };
-
   const handleLogOut = async () => {
     try {
       await auth.signOut();
@@ -124,7 +89,6 @@ export const UserProvider = ({ children }) => {
     user,
     profile,
     savedroutines,
-    handleLogIn,
     handleLogOut,
     handleUpdateProfile,
   };

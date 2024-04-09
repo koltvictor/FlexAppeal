@@ -36,6 +36,7 @@ export const useLogin = () => {
       });
     }
   };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
