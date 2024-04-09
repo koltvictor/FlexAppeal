@@ -12,7 +12,7 @@ import { Keyboard } from "react-native";
 import colors from "../config/colors.js";
 import { useLogin } from "../app/hooks/useLoginHooks.js";
 import { TextInputField } from "../components/InputFieldLogin.js";
-import { Toaster } from "burnt";
+import Toast from "react-native-toast-message";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -38,7 +38,6 @@ const LoginScreen = () => {
           <View style={styles.topSection}>
             <Text style={styles.title}>Welcome back!</Text>
           </View>
-          {error && <Text style={styles.error}>{error}</Text>}
           <TextInputField
             iconName="mail-outline"
             placeholder="Email"

@@ -8,6 +8,7 @@ import { UserProvider } from "./src/app/contexts/UserContext";
 import { DataContextProvider } from "./src/app/contexts/DataContext";
 import { RoutineProvider } from "./src/app/contexts/RoutineContext";
 import { observer } from "mobx-react-lite";
+import Toast from "react-native-toast-message";
 
 import Routes from "./src/app/routes/Routes";
 
@@ -21,6 +22,7 @@ const App = observer(() => {
               <RoutineProvider>
                 <NavigationContainer>
                   <Routes />
+                  <Toast />
                 </NavigationContainer>
               </RoutineProvider>
             </DataContextProvider>
