@@ -49,7 +49,7 @@ export default function ExerciseIndexScreen() {
         />
         {searchQuery && (
           <TouchableOpacity
-            style={styles.clearButton} // Style this for correct placement
+            style={styles.clearButton}
             onPress={() => setSearchQuery("")}
           >
             <Ionicons name="close-circle-outline" size={24} color="white" />

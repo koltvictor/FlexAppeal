@@ -32,18 +32,15 @@ const ExerciseCard = ({
 
   const handleAddToRoutine = (exercise) => {
     if (isUpdatingRoutine) {
-      // Find the index of the exercise object in the updatedRoutine object
       const exerciseIndex = updatedRoutine.exercises.findIndex(
         (ex) => ex.id === exercise.id
       );
 
-      // If the exercise object exists in the updatedRoutine object, update it with the new exercise object
       if (exerciseIndex !== -1) {
         const updatedExercises = [...updatedRoutine.exercises];
         updatedExercises[exerciseIndex] = exercise;
         setUpdatedRoutine({ ...updatedRoutine, exercises: updatedExercises });
 
-        // Update the exercise in the database
         db.collection("savedroutines")
           .doc(routineId)
           .update({
@@ -51,11 +48,9 @@ const ExerciseCard = ({
           })
           .catch((error) => console.log(error));
       } else {
-        // Add the new exercise object to the updatedRoutine object
         const updatedExercises = [...updatedRoutine.exercises, exercise];
         setUpdatedRoutine({ ...updatedRoutine, exercises: updatedExercises });
 
-        // Add the new exercise object to the database
         db.collection("savedroutines")
           .doc(routineId)
           .update({
@@ -64,7 +59,6 @@ const ExerciseCard = ({
           .catch((error) => console.log(error));
       }
     } else {
-      // Add the exercise to the routine
       addExercise(exercise);
     }
     setShowModal(true);
@@ -91,13 +85,12 @@ const ExerciseCard = ({
 
   function formatInstructions(instructions) {
     if (!Array.isArray(instructions) || !instructions.length) {
-      return ""; // Handle when instructions is not an array or the array is empty
+      return "";
     }
 
-    // Process the array of instructions
     const formattedInstructions = instructions
       .map((sentence, index) => {
-        return `${index + 1}) ${sentence.trim()}\n`; // Add number, period, and newline
+        return `${index + 1}) ${sentence.trim()}\n`;
       })
       .join("");
 

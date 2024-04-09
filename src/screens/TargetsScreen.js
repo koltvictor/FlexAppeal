@@ -29,13 +29,15 @@ export default function TargetsScreen({ route, fromSavedRoutine }) {
         <ScrollView vertical={true} style={styles.listContainer}>
           {filteredExercises.map((exercise) => {
             return (
-              <TargetCard
-                exercise={exercise}
-                key={exercise.id}
-                isUpdatingRoutine={isUpdatingRoutine}
-                routine={routine}
-                fromSavedRoutine={fromSavedRoutine}
-              />
+              <View key={exercise.id} style={styles.targetWrapper}>
+                <TargetCard
+                  exercise={exercise}
+                  key={exercise.id}
+                  isUpdatingRoutine={isUpdatingRoutine}
+                  routine={routine}
+                  fromSavedRoutine={fromSavedRoutine}
+                />
+              </View>
             );
           })}
         </ScrollView>

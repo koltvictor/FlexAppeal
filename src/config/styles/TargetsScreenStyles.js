@@ -17,13 +17,19 @@ const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: 16,
     paddingTop: 16,
-    paddingBottom: 32,
+    // paddingBottom: 32,
   },
   header: {
     fontSize: 24,
     fontWeight: "bold",
     color: colors.sandy,
     marginBottom: 16,
+  },
+  targetWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingBottom: 10,
   },
 });
 
