@@ -24,8 +24,7 @@ export default function ExerciseIndexScreen() {
 
     const filteredSubset = exercises
       ? exercises.filter((exercise) => {
-          return searchWords.some((word) => {
-            // Check if any word is a partial match
+          return searchWords.every((word) => {
             return (
               exercise.name.toLowerCase().includes(word) ||
               exercise.bodyPart.toLowerCase().includes(word) ||
