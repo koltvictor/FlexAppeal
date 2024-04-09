@@ -7,67 +7,23 @@ import {
   ActivityIndicator,
   View,
 } from "react-native";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { DataContext } from "../app/contexts/DataContext";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "../config/styles/ExerciseIndexStyles";
+import useExerciseSearch from "../app/hooks/useExerciseSearch";
 
 export default function ExerciseIndexScreen() {
   const { exercises } = useContext(DataContext);
   const navigation = useNavigation();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [displayedExercises, setDisplayedExercises] = useState([]); // Store display subset
-  const [offset, setOffset] = useState(0);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-
-  useEffect(() => {
-    const searchWords = searchQuery.toLowerCase().split(" "); // Split into words
-
-    const filteredSubset = exercises
-      ? exercises.filter((exercise) => {
-          return searchWords.every((word) => {
-            return (
-              exercise.name.toLowerCase().includes(word) ||
-              exercise.bodyPart.toLowerCase().includes(word) ||
-              exercise.equipment.toLowerCase().includes(word) ||
-              exercise.target.toLowerCase().includes(word)
-            );
-          });
-        })
-      : [];
-    setDisplayedExercises(filteredSubset.slice(0, 20)); // Initially display first 20
-    setOffset(0);
-  }, [searchQuery, exercises]);
-
-  const loadMore = () => {
-    setIsLoadingMore(true);
-
-    const filteredSubset = exercises
-      ? exercises.filter(
-          (exercise) =>
-            exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            exercise.bodyPart
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            exercise.equipment
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()) ||
-            exercise.target.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      : [];
-
-    // Check if filteredSubset is not empty
-    if (filteredSubset.length > 0) {
-      setDisplayedExercises((prevExercises) => [
-        ...prevExercises,
-        ...filteredSubset.slice(offset + 20, offset + 40),
-      ]);
-    }
-
-    setOffset(offset + 20);
-    setIsLoadingMore(false);
-  };
+  const {
+    searchQuery,
+    setSearchQuery,
+    displayedExercises,
+    isLoadingMore,
+    loadMore,
+  } = useExerciseSearch(exercises);
 
   const renderExercise = ({ item }) => {
     return (
