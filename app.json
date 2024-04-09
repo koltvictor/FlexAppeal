@@ -54,9 +54,7 @@
             "useModularHeaders": true
           }
         }
-      ],
-      "expo-secure-store",
-      "expo-font"
+      ]
     ]
   }
 }
