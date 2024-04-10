@@ -32,6 +32,11 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: "bold",
   },
+  noFaves: {
+    color: "yellow",
+    fontSize: 18,
+    textAlign: "center",
+  },
 });
 
 export default styles;

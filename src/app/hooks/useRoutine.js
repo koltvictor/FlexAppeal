@@ -11,7 +11,6 @@ export const useRoutine = () => {
   let navigation = useNavigation();
 
   useEffect(() => {
-    // Subscribe to changes in the routine array in the routineStore
     const unsubscribe = routineStore.subscribeToRoutineChanges();
     return unsubscribe;
   }, []);
@@ -50,8 +49,6 @@ export const useRoutine = () => {
         numberOfCycles: parseInt(cycles),
       };
       await savedRoutineRef.set(routineData, { merge: true });
-      console.log("Routine saved successfully:", routineData);
-      // Clear routine variable in routineStore
       routineStore.clearRoutine();
       setRoutineName("");
       setCycles(1);

@@ -38,7 +38,7 @@ export default observer(function FavExercises() {
             </TouchableOpacity>
           ))
         ) : (
-          <Text>No favorited exercises yet!</Text>
+          <Text style={styles.noFaves}>No favorited exercises yet!</Text>
         )}
       </View>
     </View>

@@ -30,7 +30,6 @@ export const UserProvider = ({ children }) => {
               }
             }
           );
-          // Call the unsubscribe function inside the onAuthStateChanged callback
           const unsubscribe = () => {
             unsubscribeProfile();
           };
@@ -51,9 +50,9 @@ export const UserProvider = ({ children }) => {
   const handleLogOut = async () => {
     try {
       await auth.signOut();
-      userStore.setUser(null); // Reset user in MobX
-      userStore.setProfile(null); // Reset profile in MobX
-      favoritesStore.favorites.favexercises = []; // Reset favorites in MobX
+      userStore.setUser(null);
+      userStore.setProfile(null);
+      favoritesStore.favorites = [];
     } catch (error) {
       console.log("Error signing out: ", error);
     }
