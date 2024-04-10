@@ -1,20 +1,36 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import TargetCard from "../components/TargetCard";
 import { DataContext } from "../app/contexts/DataContext";
 import styles from "../config/styles/TargetsScreenStyles";
+import FilterModal from "../components/Filter";
 
 export default function TargetsScreen({ route, fromSavedRoutine }) {
   const { exercises } = useContext(DataContext);
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
+  const [newFilteredExercises, setNewFilteredExercises] = useState(exercises); // Assume you have allExercises
 
   const target = route.params.target.toLowerCase();
 
   const routine = route.params.routine;
 
-  // filtering data based on selected target
   const filteredExercises = exercises.filter(
     (exercise) => exercise.target.toLowerCase() === target
   );
+
+  const applyFilters = (selectedFilters) => {
+    const newlyFilteredExercises = filteredExercises.filter((exercise) => {
+      return selectedFilters.includes(exercise.equipment); // Adjust based on your exercise data
+    });
+    setNewFilteredExercises(newlyFilteredExercises);
+    setIsFilterModalVisible(false);
+  };
 
   const [isUpdatingRoutine, setIsUpdatingRoutine] = useState(null);
 
@@ -26,8 +42,16 @@ export default function TargetsScreen({ route, fromSavedRoutine }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.header}>{target}</Text>
+        <TouchableOpacity onPress={() => setIsFilterModalVisible(true)}>
+          <Text style={styles.filterButton}>Filters</Text>
+        </TouchableOpacity>
+        <FilterModal
+          visible={isFilterModalVisible}
+          onClose={() => setIsFilterModalVisible(false)}
+          onApplyFilters={applyFilters}
+        />
         <ScrollView vertical={true} style={styles.listContainer}>
-          {filteredExercises.map((exercise) => {
+          {newFilteredExercises.map((exercise) => {
             return (
               <View key={exercise.id} style={styles.targetWrapper}>
                 <TargetCard
