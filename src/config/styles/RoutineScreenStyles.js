@@ -118,6 +118,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     backgroundColor: colors.white,
   },
+  pickerItemStyle: {
+    height: 80,
+  },
 });
 
 export default styles;
