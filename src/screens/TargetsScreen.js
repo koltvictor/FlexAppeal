@@ -1,20 +1,50 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import TargetCard from "../components/TargetCard";
 import { DataContext } from "../app/contexts/DataContext";
 import styles from "../config/styles/TargetsScreenStyles";
+import FilterModal from "../components/Filter";
 
 export default function TargetsScreen({ route, fromSavedRoutine }) {
   const { exercises } = useContext(DataContext);
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
+  const [newFilteredExercises, setNewFilteredExercises] = useState(exercises);
+  const [selectedFilters, setSelectedFilters] = useState([]);
 
   const target = route.params.target.toLowerCase();
 
   const routine = route.params.routine;
 
-  // filtering data based on selected target
   const filteredExercises = exercises.filter(
     (exercise) => exercise.target.toLowerCase() === target
   );
+
+  const applyFilters = (newFilters) => {
+    setSelectedFilters(newFilters);
+    console.log("selectedFilters (inside applyFilters):", newFilters);
+    if (newFilters.length > 0) {
+      const newlyFilteredExercises = exercises.filter((exercise) => {
+        return (
+          exercise.target.toLowerCase() === target &&
+          newFilters.includes(exercise.equipment)
+        );
+      });
+      setNewFilteredExercises(newlyFilteredExercises);
+      console.log(
+        "newFilteredExercises (after filtering):",
+        newlyFilteredExercises
+      );
+    } else {
+      setNewFilteredExercises(filteredExercises);
+      console.log("newFilteredExercises (after reset):", newFilteredExercises);
+    }
+  };
 
   const [isUpdatingRoutine, setIsUpdatingRoutine] = useState(null);
 
@@ -25,21 +55,44 @@ export default function TargetsScreen({ route, fromSavedRoutine }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
+        <TouchableOpacity onPress={() => setIsFilterModalVisible(true)}>
+          <Text style={styles.filterButton}>Filters</Text>
+        </TouchableOpacity>
         <Text style={styles.header}>{target}</Text>
+
+        <FilterModal
+          visible={isFilterModalVisible}
+          onClose={() => setIsFilterModalVisible(false)}
+          onApplyFilters={applyFilters}
+        />
         <ScrollView vertical={true} style={styles.listContainer}>
-          {filteredExercises.map((exercise) => {
-            return (
-              <View key={exercise.id} style={styles.targetWrapper}>
-                <TargetCard
-                  exercise={exercise}
-                  key={exercise.id}
-                  isUpdatingRoutine={isUpdatingRoutine}
-                  routine={routine}
-                  fromSavedRoutine={fromSavedRoutine}
-                />
-              </View>
-            );
-          })}
+          {selectedFilters.length > 0
+            ? newFilteredExercises.map((exercise) => {
+                return (
+                  <View key={exercise.id} style={styles.targetWrapper}>
+                    <TargetCard
+                      exercise={exercise}
+                      key={exercise.id}
+                      isUpdatingRoutine={isUpdatingRoutine}
+                      routine={routine}
+                      fromSavedRoutine={fromSavedRoutine}
+                    />
+                  </View>
+                );
+              })
+            : filteredExercises.map((exercise) => {
+                return (
+                  <View key={exercise.id} style={styles.targetWrapper}>
+                    <TargetCard
+                      exercise={exercise}
+                      key={exercise.id}
+                      isUpdatingRoutine={isUpdatingRoutine}
+                      routine={routine}
+                      fromSavedRoutine={fromSavedRoutine}
+                    />
+                  </View>
+                );
+              })}
         </ScrollView>
       </View>
     </SafeAreaView>

@@ -31,6 +31,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingBottom: 10,
   },
+  filterButton: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    backgroundColor: colors.brightblue,
+  },
 });
 
 export default styles;
