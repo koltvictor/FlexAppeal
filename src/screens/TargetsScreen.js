@@ -27,7 +27,6 @@ export default function TargetsScreen({ route, fromSavedRoutine }) {
 
   const applyFilters = (newFilters) => {
     setSelectedFilters(newFilters);
-    console.log("selectedFilters (inside applyFilters):", newFilters);
     if (newFilters.length > 0) {
       const newlyFilteredExercises = exercises.filter((exercise) => {
         return (
@@ -36,13 +35,8 @@ export default function TargetsScreen({ route, fromSavedRoutine }) {
         );
       });
       setNewFilteredExercises(newlyFilteredExercises);
-      console.log(
-        "newFilteredExercises (after filtering):",
-        newlyFilteredExercises
-      );
     } else {
       setNewFilteredExercises(filteredExercises);
-      console.log("newFilteredExercises (after reset):", newFilteredExercises);
     }
   };
 

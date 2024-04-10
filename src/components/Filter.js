@@ -22,6 +22,12 @@ const FilterModal = ({ visible, onClose, onApplyFilters }) => {
     onClose();
   };
 
+  const clearFilters = () => {
+    setSelectedEquipmentTypes([]);
+    onApplyFilters([]);
+    onClose();
+  };
+
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.container}>
@@ -44,6 +50,9 @@ const FilterModal = ({ visible, onClose, onApplyFilters }) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={handleApply}>
               <Text style={styles.buttonText}>Apply</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={clearFilters}>
+              <Text style={styles.buttonText}>Clear Filters</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
