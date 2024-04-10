@@ -37,7 +37,7 @@ const FilterModal = ({ visible, onClose, onApplyFilters }) => {
             <View style={styles.filterItem} key={type.name}>
               <BouncyCheckbox
                 isChecked={selectedEquipmentTypes[type.name] || false}
-                fillColor="#2980b9" // Customize as needed
+                fillColor="#2980b9"
                 onPress={() => toggleEquipmentType(type.name)}
                 style={styles.checkbox}
               />
