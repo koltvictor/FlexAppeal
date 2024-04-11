@@ -31,11 +31,23 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingBottom: 10,
   },
+  buttonContainer: {
+    // justifyContent: "center",
+    alignItems: "center",
+  },
+  filterContainer: {
+    backgroundColor: colors.brightblue,
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 16,
+    width: 100,
+  },
   filterButton: {
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
     backgroundColor: colors.brightblue,
+    textAlign: "center",
   },
 });
 

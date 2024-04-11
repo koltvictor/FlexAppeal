@@ -12,8 +12,8 @@ export const equipmentTypes = [
     label: "Barbell",
   },
   {
-    name: "bodyweight",
-    label: "Bodyweight",
+    name: "body weight",
+    label: "Body weight",
   },
   {
     name: "bosu ball",

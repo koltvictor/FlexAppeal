@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   targetText: {
     fontSize: 20,
-    color: colors.sandy,
+    color: colors.white,
     fontWeight: "bold",
     marginLeft: 20,
     paddingBottom: 8,
