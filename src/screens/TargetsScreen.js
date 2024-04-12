@@ -39,7 +39,6 @@ export default function TargetsScreen({ route, fromSavedRoutine }) {
   const applyFilters = (newFilters) => {
     setSelectedFilters(newFilters);
     if (newFilters.length > 0) {
-      const allEquipment = exercises.flatMap((ex) => ex.equipment.split(","));
       const newlyFilteredExercises = exercises.filter((exercise) => {
         return (
           exercise.target.toLowerCase() === target &&

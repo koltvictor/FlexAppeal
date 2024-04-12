@@ -14,7 +14,6 @@ class FavoritesStore {
       fetchFavorites: action,
       updateFavorites: action,
     });
-
     this.fetchFavorites(); // Fetch on initialization
   }
 
@@ -25,7 +24,12 @@ class FavoritesStore {
   updateFavorites(newFavorites) {
     console.log("newFavorites", newFavorites);
     runInAction(() => {
-      this.favorites.favexercises = newFavorites;
+      if (this.favorites && this.favorites.favexercises) {
+        // Safety check
+        this.favorites.favexercises.replace(newFavorites);
+      } else {
+        console.error("favexercises is undefined");
+      }
     });
   }
 

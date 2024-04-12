@@ -4,7 +4,10 @@ import favoritesStore from "../stores/FavoritesStore";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import UserContext from "../app/contexts/UserContext";
-import { useFetchFavoriteExercises } from "../app/hooks/useFavoritesHooks";
+import {
+  useFetchFavoriteExercises,
+  handleDelete,
+} from "../app/hooks/useFavoritesHooks";
 import styles from "../config/styles/FavExercisesStyles";
 
 export default observer(function FavExercises() {
@@ -22,20 +25,29 @@ export default observer(function FavExercises() {
       <View style={styles.buttonContainer}>
         {favorites.length > 0 ? (
           favorites.map((exercise) => (
-            <TouchableOpacity
-              key={exercise}
-              style={styles.button}
-              onPress={() =>
-                navigation.navigate("FavExercise", {
-                  exercise,
-                  fromSavedRoutine: false,
-                })
-              }
-            >
-              <Text key={exercise} style={styles.exerciseName}>
-                {exercise}
-              </Text>
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity
+                key={exercise}
+                style={styles.button}
+                onPress={() =>
+                  navigation.navigate("FavExercise", {
+                    exercise,
+                    fromSavedRoutine: false,
+                  })
+                }
+              >
+                <Text key={exercise} style={styles.exerciseName}>
+                  {exercise}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                key={exercise.id}
+                style={styles.deleteButton} // Add styles as needed
+                onPress={() => handleDelete(exercise)}
+              >
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           ))
         ) : (
           <Text style={styles.noFaves}>No favorited exercises yet!</Text>

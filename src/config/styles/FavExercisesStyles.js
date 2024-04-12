@@ -37,6 +37,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
   },
+  deleteButton: {
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    backgroundColor: "red",
+  },
+  deleteButtonText: {
+    color: colors.white,
+    fontSize: 18,
+    fontWeight: "bold",
+  },
 });
 
 export default styles;

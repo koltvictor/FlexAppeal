@@ -56,14 +56,14 @@ const FilterModal = ({
             </View>
           ))}
           <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonClear} onPress={clearFilters}>
+              <Text style={styles.buttonText}>Clear</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.buttonCancel} onPress={onClose}>
               <Text style={styles.buttonText}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonApply} onPress={handleApply}>
               <Text style={styles.buttonText}>Apply</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonClear} onPress={clearFilters}>
-              <Text style={styles.buttonText}>Clear Filters</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
