@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { observer } from "mobx-react-lite"; // Import observer
+import { observer } from "mobx-react-lite";
 import favoritesStore from "../stores/FavoritesStore";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
@@ -37,7 +37,7 @@ export default observer(function FavExercises() {
                     })
                   }
                 >
-                  <Text key={exercise} style={styles.exerciseName}>
+                  <Text key={exercise.id} style={styles.exerciseName}>
                     {exercise}
                   </Text>
                 </TouchableOpacity>

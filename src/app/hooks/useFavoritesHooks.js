@@ -18,6 +18,7 @@ export const useFetchFavoriteExercises = (userId) => {
     fetchFavoriteExercises();
   }, [userId]);
 };
+
 export const handleDelete = async (exerciseToRemove) => {
   try {
     const userId = auth.currentUser.uid;
