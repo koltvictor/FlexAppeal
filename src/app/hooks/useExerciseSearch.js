@@ -21,7 +21,7 @@ const useExerciseSearch = (exercises) => {
           });
         })
       : [];
-    setDisplayedExercises(filteredSubset.slice(0, 20)); // Initially display first 20
+    setDisplayedExercises(filteredSubset.slice(0, 20));
     setOffset(0);
   }, [searchQuery, exercises]);
 

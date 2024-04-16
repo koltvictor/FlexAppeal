@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   buttonContainer: {
-    // justifyContent: "center",
     alignItems: "center",
   },
   filterContainer: {

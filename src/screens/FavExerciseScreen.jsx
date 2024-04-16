@@ -22,12 +22,12 @@ export default function FavExerciseScreen({ route }) {
     <SafeAreaView>
       <ScrollView>
         <Text style={styles.title}>{exercise.name}</Text>
-        <Text>{formatInstructions(exercise.instructions)}</Text>
-        <Image
-          src={exercise.gifUrl}
-          alt={exercise.name}
-          style={{ width: 400, height: 400 }}
-        />
+        <View style={styles.gifContainer}>
+          <Image src={exercise.gifUrl} alt={exercise.name} style={styles.gif} />
+        </View>
+        <Text style={styles.instructions}>
+          {formatInstructions(exercise.instructions)}
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );

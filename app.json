@@ -17,6 +17,8 @@
     "ios": {
       "supportsTablet": true,
       "buildNumber": "2",
+      "UIStatusBarStyle": "UIStatusBarStyleLightContent",
+      "UIViewControllerBasedStatusBarAppearance": false,
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"
