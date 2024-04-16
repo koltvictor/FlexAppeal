@@ -106,19 +106,19 @@ const ExerciseCard = ({
       let favoritesData = favoritesDoc.exists
         ? favoritesDoc.data()
         : { favexercises: [] };
-      const exerciseName = exercise.name;
-      const exerciseExists = favoritesData.favexercises.includes(exerciseName);
+
+      const exerciseExists = favoritesData.favexercises.includes(exercise.id);
       if (exerciseExists) {
         if (isFavorited) {
           favoritesData.favexercises = favoritesData.favexercises.filter(
-            (id) => id !== exerciseName
+            (id) => id !== exerciseId
           );
         }
       } else {
         if (!isFavorited) {
           favoritesData.favexercises = [
             ...favoritesData.favexercises,
-            exerciseName,
+            exercise,
           ];
         }
       }

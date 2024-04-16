@@ -1,49 +1,33 @@
-import React, { useState, useEffect } from "react";
 import { Image, SafeAreaView, View, Text, ScrollView } from "react-native";
-import { options } from "../app/contexts/DataContext";
-import { useQuery } from "react-query";
+import styles from "../config/styles/FavExerciseScreenStyles";
 
 export default function FavExerciseScreen({ route }) {
-  const exerciseName = route.params.exercise;
-  console.log(exerciseName);
+  const exercise = route.params.exercise;
 
-  const [exerciseDetails, setExerciseDetails] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const { data: fetchedExercise } = useQuery(["exercise", exerciseName], () =>
-    fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/name/${exerciseName}`,
-      options
-    ).then((res) => res.json())
-  );
-
-  useEffect(() => {
-    if (fetchedExercise) {
-      setExerciseDetails(fetchedExercise);
-      setIsLoading(false);
+  function formatInstructions(instructions) {
+    if (!Array.isArray(instructions) || !instructions.length) {
+      return "";
     }
-  }, [fetchedExercise]);
+
+    const formattedInstructions = instructions
+      .map((sentence, index) => {
+        return `${index + 1}) ${sentence.trim()}\n`;
+      })
+      .join("");
+
+    return formattedInstructions;
+  }
 
   return (
     <SafeAreaView>
       <ScrollView>
-        {isLoading && <Text>Loading exercise data...</Text>}
-
-        {exerciseDetails && (
-          <View>
-            {exerciseDetails.map((exercise) => (
-              <View key={exercise.id} style={{ marginBottom: 10 }}>
-                <Text>{exercise.name}</Text>
-                <Text>{exercise.instructions}</Text>
-                <Image
-                  src={exercise.gifUrl}
-                  alt={exercise.gifUrl}
-                  style={{ width: 200, height: 200 }}
-                />
-              </View>
-            ))}
-          </View>
-        )}
+        <Text style={styles.title}>{exercise.name}</Text>
+        <Text>{formatInstructions(exercise.instructions)}</Text>
+        <Image
+          src={exercise.gifUrl}
+          alt={exercise.name}
+          style={{ width: 400, height: 400 }}
+        />
       </ScrollView>
     </SafeAreaView>
   );

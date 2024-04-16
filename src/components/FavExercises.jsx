@@ -26,9 +26,8 @@ export default observer(function FavExercises() {
         <View style={styles.buttonContainer}>
           {favorites.length > 0 ? (
             favorites.map((exercise) => (
-              <View key={exercise.id}>
+              <View>
                 <TouchableOpacity
-                  key={exercise.id}
                   style={styles.button}
                   onPress={() =>
                     navigation.navigate("FavExercise", {
@@ -38,12 +37,12 @@ export default observer(function FavExercises() {
                   }
                 >
                   <Text key={exercise.id} style={styles.exerciseName}>
-                    {exercise}
+                    {exercise.name}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   key={exercise.id}
-                  style={styles.deleteButton} // Add styles as needed
+                  style={styles.deleteButton}
                   onPress={() => handleDelete(exercise)}
                 >
                   <Text style={styles.deleteButtonText}>Delete</Text>
