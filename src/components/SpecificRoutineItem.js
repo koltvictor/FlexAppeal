@@ -16,6 +16,7 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
   const [isRunning, setIsRunning] = useState(false);
   const [isRestRunning, setIsRestRunning] = useState(false);
   const [resetVisible, setResetVisible] = useState(false);
+  const [restResetVisible, setRestResetVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [timerReachedZero, setTimerReachedZero] = useState(false);
 
@@ -50,10 +51,31 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
         } else if (timeRemaining <= 4000 && timeRemaining > 1000) {
           playSound(beep);
         }
+        if (timeRemaining === 0 && exercise.rest) {
+          setIsRunning(false); // Stop exercise timer
+          setTimerReachedZero(false); // Reset flags
+          setRestTimeRemaining(exercise.rest); // Initialize rest time
+          setIsRestRunning(true); // Start the rest timer immediately
+        }
+      }, 1000);
+    } else if (isRestRunning && restTimeRemaining > 0) {
+      startTime = Date.now();
+      intervalId = setInterval(() => {
+        const elapsedTime = Date.now() - startTime;
+        const restTimeRemaining = Math.max(exercise.rest - elapsedTime, 0);
+        setRestTimeRemaining(restTimeRemaining);
+        if (restTimeRemaining === 0) {
+          setIsRestRunning(false);
+          setRestResetVisible(true);
+        } else if (restTimeRemaining <= 1000) {
+          playSound(endBeep);
+        } else if (restTimeRemaining <= 4000 && restTimeRemaining > 1000) {
+          playSound(beep);
+        }
       }, 1000);
     }
     return () => clearInterval(intervalId);
-  }, [isRunning, timer, exercise.rest]);
+  }, [isRunning, timer, isRestRunning, exercise.rest]);
 
   useEffect(() => {
     setTimeRemaining(timer || 0);
@@ -103,8 +125,14 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
   };
 
   const stopRestTimer = () => {
-    setIsRunning(false);
+    setIsRestRunning(false);
     setResetVisible(true);
+  };
+
+  const resetRestTimer = () => {
+    setIsRestRunning(false);
+    setRestTimeRemaining(exercise.rest);
+    setRestResetVisible(false);
   };
 
   return (
@@ -186,10 +214,10 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
                   >
                     <Text style={styles.timerButtonText}>Start</Text>
                   </TouchableOpacity>
-                  {resetVisible && (
+                  {restResetVisible && (
                     <TouchableOpacity
                       style={styles.resetButton}
-                      onPress={resetTimer}
+                      onPress={resetRestTimer}
                     >
                       <MaterialIcons name="replay" size={24} color="white" />
                     </TouchableOpacity>
