@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/RoutineItemStyles";
@@ -113,7 +113,7 @@ const RoutineItem = observer(({ exercise, index }) => {
       </View>
       <View style={styles.container}>
         <TouchableOpacity onPress={removeExercise}>
-          <MaterialIcons name="close" size={24} color="red" />
+          <Ionicons name="close-circle" size={24} color="red" />
         </TouchableOpacity>
       </View>
     </View>

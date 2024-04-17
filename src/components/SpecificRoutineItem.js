@@ -8,7 +8,7 @@ import endBeep from "../assets/sounds/endBeep.wav";
 import { Audio } from "expo-av";
 
 export default function SpecificRoutineItem({ exercise, inModal = false }) {
-  const [timer, setTimer] = useState(exercise.time || null);
+  const timer = exercise.time || null;
   const [timeRemaining, setTimeRemaining] = useState(timer);
   const [restTimeRemaining, setRestTimeRemaining] = useState(
     exercise.rest || null
@@ -119,7 +119,7 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
 
   const startRestTimer = () => {
     setIsRestRunning(true);
-    setRestTimeRemaining(timer - 1000); // update the timeRemaining state to the initial value of the timer state
+    setRestTimeRemaining(exercise.rest - 1000); // update the timeRemaining state to the initial value of the timer state
     setResetVisible(false);
     setTimerReachedZero(false);
   };
@@ -191,9 +191,9 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
           )}
         </View>
         <View>
-          <Text style={styles.restText}>Rest:</Text>
           {exercise.rest && exercise.rest > 0 && (
             <View style={styles.timerContainer}>
+              <Text style={styles.repsText}>Rest:</Text>
               <Text style={styles.timerText}>
                 {formatTime(
                   restTimeRemaining !== null ? restTimeRemaining : exercise.rest
@@ -229,7 +229,7 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
         </View>
         {exercise.reps && exercise.reps > 0 && (
           <View style={styles.repsContainer}>
-            <Text style={styles.repsText}>{exercise.reps} Reps</Text>
+            <Text style={styles.repsText}>Goal: {exercise.reps} Reps</Text>
           </View>
         )}
       </View>
@@ -245,7 +245,9 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
             style={styles.gif}
           />
           <Text style={styles.modalText}>{exercise.name}</Text>
-          <Text style={styles.modalGoalText}>Goal: {exercise.reps} reps</Text>
+          {exercise.reps && exercise.reps > 0 && (
+            <Text style={styles.modalGoalText}>Goal: {exercise.reps} reps</Text>
+          )}
           <View style={styles.timerModalContainer}>
             <Text style={styles.timerModalText}>
               {formatTime(timeRemaining !== null ? timeRemaining : timer)}
