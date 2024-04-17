@@ -23,10 +23,8 @@ export default function ExercisesScreen({ route }) {
     setIsUpdatingRoutine(route.params?.isUpdatingRoutine ?? null);
   }, [route.params]);
 
-  // searching logic
   const [searchQuery, setSearchQuery] = useState("");
 
-  // filtering data
   const filteredExercises = exercises
     ? exercises.filter(
         (exercise) =>

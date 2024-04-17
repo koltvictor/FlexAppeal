@@ -10,6 +10,7 @@ const RoutineItem = observer(({ exercise, index }) => {
   const [name, setName] = useState(exercise.name);
   const [time, setTime] = useState(routineStore.time[index]);
   const [reps, setReps] = useState(routineStore.reps[index]);
+  const [rest, setRest] = useState(routineStore.rest[index]);
 
   const removeExercise = () => {
     routineStore.removeExercise(index);
@@ -23,6 +24,11 @@ const RoutineItem = observer(({ exercise, index }) => {
   const handleTimeChange = (value) => {
     setTime(value);
     routineStore.handleTimeChange(index, value === null ? 0 : value);
+  };
+
+  const handleRestTimeChange = (value) => {
+    setRest(value);
+    routineStore.handleRestTimeChange(index, value === null ? 0 : value);
   };
 
   const renderRepsPicker = () => {
@@ -66,6 +72,28 @@ const RoutineItem = observer(({ exercise, index }) => {
     );
   };
 
+  const renderRestTimePicker = () => {
+    const restOptions = [<Picker.Item key={-1} label="--" value={null} />];
+
+    for (let i = 0; i < 1000; i += 5) {
+      const value = i * 1000;
+      const label = `${i} ${i === 1 ? "second" : "seconds"}`;
+
+      restOptions.push(<Picker.Item key={value} label={label} value={value} />);
+    }
+
+    return (
+      <Picker
+        selectedValue={rest}
+        onValueChange={handleRestTimeChange}
+        style={styles.pickerItem}
+        itemStyle={styles.pickerItemStyle}
+      >
+        {restOptions}
+      </Picker>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{name}</Text>
@@ -78,6 +106,10 @@ const RoutineItem = observer(({ exercise, index }) => {
           <Text style={styles.label}>Time</Text>
           <View style={styles.timeInput}>{renderTimePicker()}</View>
         </View>
+      </View>
+      <View style={styles.timeContainer}>
+        <Text style={styles.label}>Rest</Text>
+        <View style={styles.timeInput}>{renderRestTimePicker()}</View>
       </View>
       <View style={styles.container}>
         <TouchableOpacity onPress={removeExercise}>

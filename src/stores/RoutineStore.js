@@ -4,12 +4,14 @@ class RoutineStore {
   routine = [];
   reps = [];
   time = [];
+  rest = [];
 
   constructor() {
     makeObservable(this, {
       routine: observable,
       reps: observable,
       time: observable,
+      rest: observable,
       addExercise: action,
       clearRoutine: action,
       setRoutine: action,
@@ -24,6 +26,7 @@ class RoutineStore {
     this.setRoutine = this.setRoutine.bind(this);
     this.handleRepsChange = this.handleRepsChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleRestTimeChange = this.handleRestTimeChange.bind(this);
     this.removeExercise = this.removeExercise.bind(this);
     this.updateRoutine = this.updateRoutine.bind(this);
     this.subscribeToRoutineChanges = this.subscribeToRoutineChanges.bind(this);
@@ -63,6 +66,11 @@ class RoutineStore {
   handleTimeChange(index, value) {
     const exercise = this.routine[index];
     exercise.time = value;
+  }
+
+  handleRestTimeChange(index, value) {
+    const exercise = this.routine[index];
+    exercise.rest = value;
   }
 
   subscribeToRoutineChanges(callback) {

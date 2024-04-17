@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: "center",
   },
+  restText: {
+    color: colors.white,
+    fontSize: 20,
+  },
   timerAndButtonContainer: {
     flexDirection: "row",
     alignItems: "center",

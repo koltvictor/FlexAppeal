@@ -20,7 +20,7 @@ const LoginScreen = () => {
   let navigation = useNavigation();
   const [passwordShown, setPasswordShown] = useState(false);
 
-  const { handleLogin, loading, error } = useLogin();
+  const { handleLogin, loading } = useLogin();
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
@@ -68,7 +68,6 @@ const LoginScreen = () => {
           >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
-
           <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
             <Text style={styles.link}>Don't have an account? Sign up here</Text>
           </TouchableOpacity>
