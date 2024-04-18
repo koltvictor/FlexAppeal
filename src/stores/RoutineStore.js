@@ -19,6 +19,7 @@ class RoutineStore {
       handleTimeChange: action,
       removeExercise: action,
       updateRoutine: action,
+      setNewRoutineOrder: action,
       subscribeToRoutineChanges: action.bound,
     });
     this.addExercise = this.addExercise.bind(this);
@@ -52,7 +53,7 @@ class RoutineStore {
     });
   }
 
-  setRoutine(newOrder) {
+  setNewRoutineOrder(newOrder) {
     this.routine = newOrder;
   }
 
@@ -62,19 +63,25 @@ class RoutineStore {
     });
   }
 
-  handleRepsChange(index, value) {
-    const exercise = this.routine[index];
-    exercise.reps = value;
+  handleRepsChange(exerciseId, value) {
+    const exerciseIndex = this.routine.findIndex((ex) => ex.id === exerciseId);
+    if (exerciseIndex !== -1) {
+      this.reps[exerciseIndex] = value;
+    }
   }
 
-  handleTimeChange(index, value) {
-    const exercise = this.routine[index];
-    exercise.time = value;
+  handleTimeChange(exerciseId, value) {
+    const exerciseIndex = this.routine.findIndex((ex) => ex.id === exerciseId);
+    if (exerciseIndex !== -1) {
+      this.time[exerciseIndex] = value;
+    }
   }
 
-  handleRestTimeChange(index, value) {
-    const exercise = this.routine[index];
-    exercise.rest = value;
+  handleRestTimeChange(exerciseId, value) {
+    const exerciseIndex = this.routine.findIndex((ex) => ex.id === exerciseId);
+    if (exerciseIndex !== -1) {
+      this.rest[exerciseIndex] = value;
+    }
   }
 
   subscribeToRoutineChanges(callback) {

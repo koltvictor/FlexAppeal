@@ -42,6 +42,7 @@ export const useRoutine = () => {
             ...exercise,
             reps: exercise.reps || null,
             time: exercise.time || null,
+            rest: exercise.rest || null,
           };
         }),
         userId: uid,
@@ -66,8 +67,8 @@ export const useRoutine = () => {
     setCycles("");
   };
 
-  const handleRepsChange = (index, value) => {
-    routineStore.handleRepsChange(index, value);
+  const handleRepsChange = (exerciseId, value) => {
+    routineStore.handleRepsChange(exerciseId, value);
   };
 
   const handleTimeChange = (index, value) => {

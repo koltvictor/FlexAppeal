@@ -1,4 +1,4 @@
-import { View, ScrollView, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import RoutineModal from "../components/RoutineModal";
 import { Ionicons } from "@expo/vector-icons";
 import routineStore from "../stores/RoutineStore";
@@ -23,6 +23,8 @@ const RoutineScreen = observer(() => {
     handleRepsChange,
     handleTimeChange,
   } = useRoutine();
+
+  console.log("RoutineScreen - routineStore.routine:", routineStore.routine);
 
   return (
     <View style={styles.container}>
@@ -49,7 +51,7 @@ const RoutineScreen = observer(() => {
             )}
             keyExtractor={(item) => item.id}
             onDragEnd={({ data }) => {
-              routineStore.setRoutine(data);
+              routineStore.setNewRoutineOrder(data);
             }}
           />
         )}
@@ -66,15 +68,21 @@ const RoutineScreen = observer(() => {
         onSave={handleSaveRoutine}
       />
 
-      <View style={styles.inputContainer}>
-        <TouchableOpacity
-          onPress={() => setIsModalVisible(true)}
-          disabled={routineStore.routine.length === 0}
-        >
-          <Ionicons name="checkmark-circle-outline" size={32} color="#2980b9" />
-          <Text style={{ color: "white" }}>SAVE</Text>
-        </TouchableOpacity>
-      </View>
+      {routineStore.routine.length > 0 && (
+        <View style={styles.inputContainer}>
+          <TouchableOpacity
+            onPress={() => setIsModalVisible(true)}
+            disabled={routineStore.routine.length === 0}
+          >
+            <Ionicons
+              name="checkmark-circle-outline"
+              size={32}
+              color="#2980b9"
+            />
+            <Text style={{ color: "white" }}>SAVE</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 });

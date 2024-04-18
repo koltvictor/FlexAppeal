@@ -7,6 +7,8 @@ import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/RoutineItemStyles";
 
 const RoutineItem = observer(({ exercise, index, drag, isActive }) => {
+  console.log("RoutineItem - received index:", index);
+
   const [name, setName] = useState(exercise.name);
   const [time, setTime] = useState(routineStore.time[index]);
   const [reps, setReps] = useState(routineStore.reps[index]);
@@ -18,17 +20,17 @@ const RoutineItem = observer(({ exercise, index, drag, isActive }) => {
 
   const handleRepsChange = (value) => {
     setReps(value);
-    routineStore.handleRepsChange(index, value === null ? 0 : value);
+    routineStore.handleRepsChange(exercise.id, value === null ? 0 : value);
   };
 
   const handleTimeChange = (value) => {
     setTime(value);
-    routineStore.handleTimeChange(index, value === null ? 0 : value);
+    routineStore.handleTimeChange(exercise.id, value === null ? 0 : value);
   };
 
   const handleRestTimeChange = (value) => {
     setRest(value);
-    routineStore.handleRestTimeChange(index, value === null ? 0 : value);
+    routineStore.handleRestTimeChange(exercise.id, value === null ? 0 : value);
   };
 
   const renderRepsPicker = () => {

@@ -60,6 +60,9 @@ const ExerciseCard = ({
       }
     } else {
       addExercise(exercise);
+      routineStore.reps.push(null); // Add to reps
+      routineStore.time.push(null); // Add to time
+      routineStore.rest.push(null); // Add to rest
     }
     setShowModal(true);
   };
