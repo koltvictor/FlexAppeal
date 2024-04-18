@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 20,
+    marginBottom: 50,
   },
   emptyContainer: {
     flex: 1,
@@ -40,11 +41,17 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: colors.navy,
-    paddingBottom: 30,
+    paddingTop: 5,
+    paddingBottom: 5,
     paddingLeft: 20,
+    paddingRight: 20,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    position: "absolute",
+    bottom: 5,
+    left: 5,
+    borderRadius: 10,
   },
   input: {
     flex: 1,

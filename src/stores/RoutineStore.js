@@ -52,6 +52,10 @@ class RoutineStore {
     });
   }
 
+  setRoutine(newOrder) {
+    this.routine = newOrder;
+  }
+
   updateRoutine(updatedRoutine) {
     runInAction(() => {
       this.routine = updatedRoutine;

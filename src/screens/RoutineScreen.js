@@ -6,6 +6,8 @@ import RoutineItem from "../components/RoutineItem";
 import { observer } from "mobx-react-lite";
 import styles from "../config/styles/RoutineScreenStyles";
 import { useRoutine } from "../app/hooks/useRoutine";
+import DraggableFlatList from "react-native-draggable-flatlist";
+import { toJS } from "mobx";
 
 const RoutineScreen = observer(() => {
   const {
@@ -24,25 +26,34 @@ const RoutineScreen = observer(() => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <View style={styles.contentContainer}>
         {routineStore.routine.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No exercises added to routine</Text>
           </View>
         ) : (
-          routineStore.routine.map((exercise, index) => (
-            <View key={exercise.id} style={styles.exerciseContainer}>
-              <RoutineItem
-                exercise={exercise}
-                index={index}
-                exerciseId={exercise.id}
-                handleRepsChange={handleRepsChange}
-                handleTimeChange={handleTimeChange}
-              />
-            </View>
-          ))
+          <DraggableFlatList
+            data={toJS(routineStore.routine)}
+            renderItem={({ item, index, drag, isActive }) => (
+              <View style={styles.exerciseContainer} key={item.id}>
+                <RoutineItem
+                  exercise={item}
+                  index={index}
+                  exerciseId={item.id}
+                  handleRepsChange={handleRepsChange}
+                  handleTimeChange={handleTimeChange}
+                  drag={drag}
+                  isActive={isActive}
+                />
+              </View>
+            )}
+            keyExtractor={(item) => item.id}
+            onDragEnd={({ data }) => {
+              routineStore.setRoutine(data);
+            }}
+          />
         )}
-      </ScrollView>
+      </View>
 
       <RoutineModal
         isVisible={isModalVisible}

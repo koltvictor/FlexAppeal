@@ -168,6 +168,9 @@ function SavedRoutinesScreen({ navigation, route }) {
             const sharedWith = routineToDelete.sharedWith || [];
             if (!sharedWith.includes(sharedUserId)) {
               sharedWith.push(sharedUserId);
+              console.log("routineToDelete:", routineToDelete);
+              console.log("sharedWith:", sharedWith);
+              console.log("currentUser:", currentUser);
               await db
                 .collection("savedroutines")
                 .doc(routineToDelete.id)

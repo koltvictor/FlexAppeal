@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/RoutineItemStyles";
 
-const RoutineItem = observer(({ exercise, index }) => {
+const RoutineItem = observer(({ exercise, index, drag, isActive }) => {
   const [name, setName] = useState(exercise.name);
   const [time, setTime] = useState(routineStore.time[index]);
   const [reps, setReps] = useState(routineStore.reps[index]);
@@ -96,26 +96,28 @@ const RoutineItem = observer(({ exercise, index }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{name}</Text>
-      <View style={styles.setsRepsContainer}>
-        <View style={styles.repsContainer}>
-          <Text style={styles.label}>Reps</Text>
-          <View style={styles.repsInput}>{renderRepsPicker()}</View>
+      <TouchableOpacity style={[isActive && styles.active]} onLongPress={drag}>
+        <Text style={styles.label}>{name}</Text>
+        <View style={styles.setsRepsContainer}>
+          <View style={styles.repsContainer}>
+            <Text style={styles.label}>Reps</Text>
+            <View style={styles.repsInput}>{renderRepsPicker()}</View>
+          </View>
+          <View style={styles.timeContainer}>
+            <Text style={styles.label}>Time</Text>
+            <View style={styles.timeInput}>{renderTimePicker()}</View>
+          </View>
         </View>
         <View style={styles.timeContainer}>
-          <Text style={styles.label}>Time</Text>
-          <View style={styles.timeInput}>{renderTimePicker()}</View>
+          <Text style={styles.label}>Rest</Text>
+          <View style={styles.timeInput}>{renderRestTimePicker()}</View>
         </View>
-      </View>
-      <View style={styles.timeContainer}>
-        <Text style={styles.label}>Rest</Text>
-        <View style={styles.timeInput}>{renderRestTimePicker()}</View>
-      </View>
-      <View style={styles.container}>
-        <TouchableOpacity onPress={removeExercise}>
-          <Ionicons name="close-circle" size={24} color="red" />
-        </TouchableOpacity>
-      </View>
+        <View style={styles.container}>
+          <TouchableOpacity onPress={removeExercise}>
+            <Ionicons name="close-circle" size={24} color="red" />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 });

@@ -52,9 +52,7 @@ export default function SharedRoutinesScreen({ navigation }) {
               </View>
               <Text style={styles.sharedWith}>
                 {item.sharedBy && item.sharedBy.length > 0
-                  ? `Shared by: ${item.sharedWith.map(
-                      (userId) => userIdToUsername[userId]
-                    )}`
+                  ? `Shared by: ${item.sharedBy}`
                   : ""}
               </Text>
             </View>
