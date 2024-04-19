@@ -39,7 +39,10 @@ class RoutineStore {
   }
 
   removeExercise(exerciseId) {
-    this.routine.splice(exerciseId, 1);
+    const exerciseIndex = this.routine.findIndex((ex) => ex.id === exerciseId);
+    if (exerciseIndex !== -1) {
+      this.routine.splice(exerciseIndex, 1);
+    }
   }
 
   clearRoutine() {

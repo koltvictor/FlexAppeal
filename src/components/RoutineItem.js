@@ -14,7 +14,6 @@ const RoutineItem = observer(({ exercise, exerciseId, drag, isActive }) => {
   const [rest, setRest] = useState(routineStore.rest[exerciseId] || null);
 
   const removeExercise = () => {
-    console.log(exerciseId);
     routineStore.removeExercise(exerciseId);
   };
 
