@@ -143,6 +143,31 @@ const styles = StyleSheet.create({
   deleteButton: {
     padding: 10,
   },
+  pickerTitle: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 10,
+    color: colors.navy,
+    textAlign: "left",
+  },
+  cyclesContainer: {
+    marginBottom: 50,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  cyclesInput: {
+    width: 120,
+    borderColor: colors.black,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    backgroundColor: colors.white,
+  },
+  pickerItemStyle: {
+    height: 80,
+  },
 });
 
 export default styles;

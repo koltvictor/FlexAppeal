@@ -9,15 +9,10 @@ import { Ionicons } from "@expo/vector-icons";
 
 function UpdateRoutineScreen({ route }) {
   const { routine } = route.params;
-  const [routineId, setRoutineId] = useState(routine.id);
+  const routineId = routine.id;
+  const [routineCycles, setRoutineCycles] = useState(routine.numberOfCycles);
   const [routineData, setRoutineData] = useState(routine);
-  const [routineName, setRoutineName] = useState(routine.name);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [initialReps, setInitialReps] = useState([]);
-  const [initialTime, setInitialTime] = useState(
-    routineData.exercises.length > 0 ? routineData.exercises[0].time : 0
-  );
-  const [time, setTime] = useState(0);
 
   let navigation = useNavigation();
   const isUpdatingRoutine = true;
@@ -34,14 +29,6 @@ function UpdateRoutineScreen({ route }) {
     return () => unsubscribe();
   }, [routineId]);
 
-  useEffect(() => {
-    // Get the initial reps and time values of the routine
-    const reps = routineData.exercises.map((exercise) => exercise.reps);
-    const time = routineData.exercises.map((exercise) => exercise.time);
-    setInitialReps(reps);
-    setInitialTime(time);
-  }, [routineData]);
-
   const handleRepsChange = (exercise, index, value) => {
     const exercises = [...routineData.exercises];
     exercises[index] = { ...exercise, reps: value || null };
@@ -55,6 +42,22 @@ function UpdateRoutineScreen({ route }) {
       time: value || null,
     };
     setRoutineData({ ...routineData, exercises });
+  };
+
+  const handleRestTimeChange = (exerciseIndex, value) => {
+    const exercises = [...routineData.exercises];
+    exercises[exerciseIndex] = {
+      ...exercises[exerciseIndex],
+      rest: value || null,
+    };
+    setRoutineData({ ...routineData, exercises });
+  };
+
+  const handleRoutineCyclesChange = (value) => {
+    setRoutineCycles(value);
+    if (routineData.numberOfCycles !== value) {
+      setRoutineData({ ...routineData, numberOfCycles: value });
+    }
   };
 
   const handleDeleteExercise = (index) => {
@@ -112,10 +115,47 @@ function UpdateRoutineScreen({ route }) {
     );
   };
 
+  const renderRestTimePicker = (exerciseIndex) => {
+    const exercise = routineData.exercises[exerciseIndex];
+    const timeOptions = [];
+
+    for (let i = 0; i < 1000; i += 5) {
+      const value = i * 1000;
+      const label = `${i} ${i === 1 ? "second" : "seconds"}`;
+
+      timeOptions.push(<Picker.Item key={value} label={label} value={value} />);
+    }
+
+    return (
+      <Picker
+        selectedValue={exercise.rest}
+        onValueChange={(value) => handleRestTimeChange(exerciseIndex, value)}
+        itemStyle={styles.pickerItem}
+      >
+        {timeOptions}
+      </Picker>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <Text style={styles.routineName}>{routine.name}</Text>
+        <View style={styles.cyclesContainer}>
+          <Text style={styles.routineName}>Cycles:</Text>
+          <Picker
+            selectedValue={routineCycles}
+            onValueChange={handleRoutineCyclesChange}
+            style={styles.cyclesInput}
+            itemStyle={styles.pickerItemStyle}
+          >
+            {Array.from(Array(20).keys())
+              .filter((num) => num > 0)
+              .map((num) => (
+                <Picker.Item key={num} label={num.toString()} value={num} />
+              ))}
+          </Picker>
+        </View>
         <View>
           {routineData.exercises.map((exercise, index) => (
             <View key={index} style={styles.exerciseContainer}>
@@ -147,6 +187,12 @@ function UpdateRoutineScreen({ route }) {
                   <View style={styles.timeInput}>
                     {renderTimePicker(index)}
                   </View>
+                </View>
+              </View>
+              <View style={styles.restTimeContainer}>
+                <Text style={styles.label}>Rest Time</Text>
+                <View style={styles.timeInput}>
+                  {renderRestTimePicker(index)}
                 </View>
               </View>
 
