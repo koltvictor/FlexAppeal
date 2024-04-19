@@ -71,8 +71,12 @@ export const useRoutine = () => {
     routineStore.handleRepsChange(exerciseId, value);
   };
 
-  const handleTimeChange = (index, value) => {
-    routineStore.handleTimeChange(index, value);
+  const handleTimeChange = (exerciseId, value) => {
+    routineStore.handleTimeChange(exerciseId, value);
+  };
+
+  const handleTRestTimeChange = (exerciseId, value) => {
+    routineStore.handleTimeChange(exerciseId, value);
   };
 
   return {
@@ -88,5 +92,6 @@ export const useRoutine = () => {
     onCancel,
     handleRepsChange,
     handleTimeChange,
+    handleTRestTimeChange,
   };
 };

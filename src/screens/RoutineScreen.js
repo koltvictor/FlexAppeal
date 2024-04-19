@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import RoutineModal from "../components/RoutineModal";
 import { Ionicons } from "@expo/vector-icons";
 import routineStore from "../stores/RoutineStore";
@@ -22,40 +22,30 @@ const RoutineScreen = observer(() => {
     onCancel,
     handleRepsChange,
     handleTimeChange,
+    handleTRestTimeChange,
   } = useRoutine();
-
-  console.log("RoutineScreen - routineStore.routine:", routineStore.routine);
 
   return (
     <View style={styles.container}>
-      <View style={styles.contentContainer}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
         {routineStore.routine.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No exercises added to routine</Text>
           </View>
         ) : (
-          <DraggableFlatList
-            data={toJS(routineStore.routine)}
-            renderItem={({ item, index, drag, isActive }) => (
-              <View style={styles.exerciseContainer} key={item.id}>
-                <RoutineItem
-                  exercise={item}
-                  index={index}
-                  exerciseId={item.id}
-                  handleRepsChange={handleRepsChange}
-                  handleTimeChange={handleTimeChange}
-                  drag={drag}
-                  isActive={isActive}
-                />
-              </View>
-            )}
-            keyExtractor={(item) => item.id}
-            onDragEnd={({ data }) => {
-              routineStore.setNewRoutineOrder(data);
-            }}
-          />
+          routineStore.routine.map((exercise, index) => (
+            <View key={exercise.id} style={styles.exerciseContainer}>
+              <RoutineItem
+                exercise={exercise}
+                index={index}
+                exerciseId={exercise.id}
+                handleRepsChange={handleRepsChange}
+                handleTimeChange={handleTimeChange}
+              />
+            </View>
+          ))
         )}
-      </View>
+      </ScrollView>
 
       <RoutineModal
         isVisible={isModalVisible}

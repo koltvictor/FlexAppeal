@@ -3,34 +3,35 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
+import { action } from "mobx";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/RoutineItemStyles";
 
-const RoutineItem = observer(({ exercise, index, drag, isActive }) => {
-  console.log("RoutineItem - received index:", index);
+const RoutineItem = observer(({ exercise, exerciseId, drag, isActive }) => {
+  console.log("RoutineItem - received exerciseId:", exerciseId);
 
   const [name, setName] = useState(exercise.name);
-  const [time, setTime] = useState(routineStore.time[index]);
-  const [reps, setReps] = useState(routineStore.reps[index]);
-  const [rest, setRest] = useState(routineStore.rest[index]);
+  const [time, setTime] = useState(routineStore.time[exerciseId] || 0);
+  const [reps, setReps] = useState(routineStore.reps[exerciseId] || 0);
+  const [rest, setRest] = useState(routineStore.rest[exerciseId] || 0);
 
   const removeExercise = () => {
-    routineStore.removeExercise(index);
+    routineStore.removeExercise(exerciseId);
   };
 
-  const handleRepsChange = (value) => {
+  const handleRepsChange = action((value) => {
     setReps(value);
-    routineStore.handleRepsChange(exercise.id, value === null ? 0 : value);
-  };
+    routineStore.handleRepsChange(exerciseId, value === null ? 0 : value);
+  });
 
   const handleTimeChange = (value) => {
     setTime(value);
-    routineStore.handleTimeChange(exercise.id, value === null ? 0 : value);
+    routineStore.handleTimeChange(exerciseId, value === null ? 0 : value);
   };
 
   const handleRestTimeChange = (value) => {
     setRest(value);
-    routineStore.handleRestTimeChange(exercise.id, value === null ? 0 : value);
+    routineStore.handleRestTimeChange(exerciseId, value === null ? 0 : value);
   };
 
   const renderRepsPicker = () => {

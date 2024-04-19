@@ -37,8 +37,8 @@ class RoutineStore {
     this.routine.push(exercise);
   }
 
-  removeExercise(index) {
-    this.routine.splice(index, 1);
+  removeExercise(exerciseId) {
+    this.routine.splice(exerciseId, 1);
   }
 
   clearRoutine() {
