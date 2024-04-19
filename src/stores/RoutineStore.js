@@ -17,6 +17,7 @@ class RoutineStore {
       setRoutine: action,
       handleRepsChange: action,
       handleTimeChange: action,
+      handleRestTimeChange: action,
       removeExercise: action,
       updateRoutine: action,
       setNewRoutineOrder: action,
@@ -66,21 +67,21 @@ class RoutineStore {
   handleRepsChange(exerciseId, value) {
     const exerciseIndex = this.routine.findIndex((ex) => ex.id === exerciseId);
     if (exerciseIndex !== -1) {
-      this.reps[exerciseIndex] = value;
+      this.routine[exerciseIndex].reps = value;
     }
   }
 
   handleTimeChange(exerciseId, value) {
     const exerciseIndex = this.routine.findIndex((ex) => ex.id === exerciseId);
     if (exerciseIndex !== -1) {
-      this.time[exerciseIndex] = value;
+      this.routine[exerciseIndex].time = value;
     }
   }
 
   handleRestTimeChange(exerciseId, value) {
     const exerciseIndex = this.routine.findIndex((ex) => ex.id === exerciseId);
     if (exerciseIndex !== -1) {
-      this.rest[exerciseIndex] = value;
+      this.routine[exerciseIndex].rest = value;
     }
   }
 

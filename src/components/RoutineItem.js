@@ -8,14 +8,13 @@ import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/RoutineItemStyles";
 
 const RoutineItem = observer(({ exercise, exerciseId, drag, isActive }) => {
-  console.log("RoutineItem - received exerciseId:", exerciseId);
-
-  const [name, setName] = useState(exercise.name);
-  const [time, setTime] = useState(routineStore.time[exerciseId] || 0);
-  const [reps, setReps] = useState(routineStore.reps[exerciseId] || 0);
-  const [rest, setRest] = useState(routineStore.rest[exerciseId] || 0);
+  const name = exercise.name;
+  const [time, setTime] = useState(routineStore.time[exerciseId] || null);
+  const [reps, setReps] = useState(routineStore.reps[exerciseId] || null);
+  const [rest, setRest] = useState(routineStore.rest[exerciseId] || null);
 
   const removeExercise = () => {
+    console.log(exerciseId);
     routineStore.removeExercise(exerciseId);
   };
 

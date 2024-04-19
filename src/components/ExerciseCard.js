@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -12,6 +12,7 @@ import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 import { auth, db } from "../app/firebase";
 import favoritesStore from "../stores/FavoritesStore";
+import { runInAction } from "mobx";
 
 const ExerciseCard = ({
   exercise,
@@ -60,9 +61,11 @@ const ExerciseCard = ({
       }
     } else {
       addExercise(exercise);
-      routineStore.reps.push(null); // Add to reps
-      routineStore.time.push(null); // Add to time
-      routineStore.rest.push(null); // Add to rest
+      runInAction(() => {
+        routineStore.reps.push(null);
+        routineStore.time.push(null);
+        routineStore.rest.push(null);
+      });
     }
     setShowModal(true);
   };

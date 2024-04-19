@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import RoutineModal from "../components/RoutineModal";
 import { Ionicons } from "@expo/vector-icons";
 import routineStore from "../stores/RoutineStore";
@@ -27,25 +27,35 @@ const RoutineScreen = observer(() => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <View style={styles.contentContainer}>
         {routineStore.routine.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No exercises added to routine</Text>
           </View>
         ) : (
-          routineStore.routine.map((exercise, index) => (
-            <View key={exercise.id} style={styles.exerciseContainer}>
-              <RoutineItem
-                exercise={exercise}
-                index={index}
-                exerciseId={exercise.id}
-                handleRepsChange={handleRepsChange}
-                handleTimeChange={handleTimeChange}
-              />
-            </View>
-          ))
+          <DraggableFlatList
+            data={toJS(routineStore.routine)}
+            renderItem={({ item, drag, isActive }) => (
+              <View style={styles.exerciseContainer} key={item.id}>
+                <RoutineItem
+                  exercise={item}
+                  exerciseId={item.id}
+                  // index={item.id}
+                  handleRepsChange={handleRepsChange}
+                  handleTimeChange={handleTimeChange}
+                  handleTRestTimeChange={handleTRestTimeChange}
+                  drag={drag}
+                  isActive={isActive}
+                />
+              </View>
+            )}
+            keyExtractor={(item) => item.id}
+            onDragEnd={({ data }) => {
+              routineStore.setNewRoutineOrder(data);
+            }}
+          />
         )}
-      </ScrollView>
+      </View>
 
       <RoutineModal
         isVisible={isModalVisible}
