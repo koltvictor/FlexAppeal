@@ -19,7 +19,7 @@ function SavedRoutinesScreen({ navigation, route }) {
     useState(false);
   const [routineToDelete, setRoutineToDelete] = useState(null);
   const [shareModalVisible, setShareModalVisible] = useState(false);
-  const [shareInput, setShareInput] = useState("");
+  const [shareEmail, setShareEmail] = useState("");
   const [shareError, setShareError] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const [userIdToUsername, setUserIdToUsername] = useState({});
@@ -114,48 +114,29 @@ function SavedRoutinesScreen({ navigation, route }) {
   const handleShare = (routine) => {
     setRoutineToDelete(routine);
     setShareModalVisible(true);
-    setShareInput("");
+    setShareEmail("");
     setShareError("");
   };
 
   const handleShareSubmit = async () => {
     try {
-      if (shareInput.includes("@")) {
-        const snapshot = await db
-          .collection("users")
-          .where("email", "==", shareInput.toLowerCase())
-          .get();
-        if (snapshot.empty) {
-          setShareError("User not found");
-        } else {
-          let sharedUserId = null;
-          snapshot.forEach((doc) => {
-            if (doc.data().email === shareInput.toLowerCase()) {
-              sharedUserId = doc.id;
-            }
-          });
-          if (!sharedUserId) {
-            setShareError("User not found");
-          } else {
-            const sharedWith = routineToDelete.sharedWith || [];
-            if (!sharedWith.includes(sharedUserId)) {
-              sharedWith.push(sharedUserId);
-              await db
-                .collection("savedroutines")
-                .doc(routineToDelete.id)
-                .update({ sharedWith, sharedBy: currentUser });
-            }
-            setShareModalVisible(false);
-          }
-        }
+      const snapshot = await db
+        .collection("users")
+        .where("email", "==", shareEmail.toLowerCase())
+        .get();
+      if (snapshot.empty) {
+        setShareError("User not found");
       } else {
-        const snapshot = await db
-          .collection("users")
-          .where("username", "==", shareInput)
-          .get();
-        if (snapshot.empty) {
+        let sharedUserId = null;
+        snapshot.forEach((doc) => {
+          if (doc.data().email === shareEmail.toLowerCase()) {
+            sharedUserId = doc.id;
+          }
+        });
+        if (!sharedUserId) {
           setShareError("User not found");
         } else {
+<<<<<<< HEAD
           let sharedUserId = null;
           snapshot.forEach((doc) => {
             if (doc.data().username === shareInput) {
@@ -177,7 +158,17 @@ function SavedRoutinesScreen({ navigation, route }) {
                 .update({ sharedWith, sharedBy: currentUser });
             }
             setShareModalVisible(false);
+=======
+          const sharedWith = routineToDelete.sharedWith || [];
+          if (!sharedWith.includes(sharedUserId)) {
+            sharedWith.push(sharedUserId);
+            await db
+              .collection("savedroutines")
+              .doc(routineToDelete.id)
+              .update({ sharedWith, sharedBy: currentUser });
+>>>>>>> parent of 6a4a18c (share by username or email functioning)
           }
+          setShareModalVisible(false);
         }
       }
     } catch (error) {
@@ -285,14 +276,14 @@ function SavedRoutinesScreen({ navigation, route }) {
                 <View style={styles.shareModalContainer}>
                   <View style={styles.modalContent}>
                     <Text style={styles.modalText}>
-                      Enter the email address or username of the user with whom
-                      you would like to share this routine:
+                      Enter the email address of the user with whom you would
+                      like to share this routine:
                     </Text>
                     <TextInput
                       style={styles.modalInput}
-                      value={shareInput}
-                      onChangeText={setShareInput}
-                      placeholder="Email or Username"
+                      value={shareEmail}
+                      onChangeText={setShareEmail}
+                      placeholder="Email"
                       keyboardType="email-address"
                       autoCapitalize="none"
                       autoCorrect={false}
