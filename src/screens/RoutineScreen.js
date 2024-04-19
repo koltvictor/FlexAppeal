@@ -29,9 +29,9 @@ const RoutineScreen = observer(() => {
     <View style={styles.container}>
       <View style={styles.contentContainer}>
         {routineStore.routine.length === 0 ? (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No exercises added to routine</Text>
-          </View>
+          <Text style={styles.emptyText}>
+            No exercises yet added to routine
+          </Text>
         ) : (
           <DraggableFlatList
             data={toJS(routineStore.routine)}

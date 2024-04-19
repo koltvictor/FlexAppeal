@@ -10,14 +10,11 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 50,
   },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   emptyText: {
     fontSize: 20,
     color: colors.lightgrey,
+    textAlign: "center",
+    marginTop: 20,
   },
   exerciseContainer: {
     marginBottom: 20,

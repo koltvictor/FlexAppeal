@@ -10,9 +10,7 @@ import { Audio } from "expo-av";
 export default function SpecificRoutineItem({ exercise, inModal = false }) {
   const timer = exercise.time || null;
   const [timeRemaining, setTimeRemaining] = useState(timer);
-  const [restTimeRemaining, setRestTimeRemaining] = useState(
-    exercise.rest || null
-  );
+  const [restTimeRemaining, setRestTimeRemaining] = useState(exercise.rest);
   const [isRunning, setIsRunning] = useState(false);
   const [isRestRunning, setIsRestRunning] = useState(false);
   const [resetVisible, setResetVisible] = useState(false);
@@ -54,7 +52,7 @@ export default function SpecificRoutineItem({ exercise, inModal = false }) {
         if (timeRemaining === 0 && exercise.rest) {
           setIsRunning(false); // Stop exercise timer
           setTimerReachedZero(false); // Reset flags
-          setRestTimeRemaining(exercise.rest); // Initialize rest time
+          setRestTimeRemaining(exercise.rest - 1000); // Initialize rest time
           setIsRestRunning(true); // Start the rest timer immediately
         }
       }, 1000);
