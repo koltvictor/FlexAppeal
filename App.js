@@ -10,10 +10,11 @@ import { RoutineProvider } from "./src/app/contexts/RoutineContext";
 import { observer } from "mobx-react-lite";
 import Toast from "react-native-toast-message";
 import { StatusBar } from "react-native";
-
 import Routes from "./src/app/routes/Routes";
+import * as SecureStore from "expo-secure-store";
 
 const App = observer(() => {
+  console.log(SecureStore.getItemAsync("userCredentials"));
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>

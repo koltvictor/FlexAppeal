@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -43,6 +43,7 @@ const LoginScreen = () => {
             value={email}
             onChangeText={setEmail}
             secure={false}
+            autoComplete={true}
           />
           <TextInputField
             iconName="lock-closed-outline"
@@ -63,7 +64,7 @@ const LoginScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => handleLogin(email, password)}
+            onPress={() => handleLogin(email, password, rememberMe)}
             disabled={loading}
           >
             <Text style={styles.buttonText}>Login</Text>

@@ -41,7 +41,7 @@ const ProfileScreen = observer(({ navigation }) => {
           style={styles.avatar}
         />
         <Text style={styles.username}>{profile?.username}</Text>
-        {/* <Text style={styles.email}>{profile ? profile.email : ""}</Text> */}
+        <Text style={styles.email}>{profile ? profile.email : ""}</Text>
         <View style={styles.routineContainer}>
           <Text style={styles.routines}>
             saved routines: {numSavedRoutines}

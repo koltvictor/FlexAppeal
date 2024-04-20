@@ -59,7 +59,8 @@
             "useModularHeaders": true
           }
         }
-      ]
+      ],
+      "expo-secure-store"
     ]
   }
 }
