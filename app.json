@@ -2,7 +2,7 @@
   "expo": {
     "name": "FlexAppeal",
     "slug": "FA",
-    "version": "1.0.0",
+    "version": "1.28.0",
     "orientation": "portrait",
     "icon": "./src/assets/logo.png",
     "userInterfaceStyle": "light",
