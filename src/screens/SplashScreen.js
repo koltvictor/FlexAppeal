@@ -7,7 +7,6 @@ import styles from "../config/styles/SplashScreenStyles";
 const SplashScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
-  // Animation values
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(-50)).current;
 
@@ -28,8 +27,7 @@ const SplashScreen = ({ navigation }) => {
           setIsLoggedIn(true);
         } catch (error) {
           console.error("Firebase re-auth error:", error);
-          // Optionally: clear credentials on re-authentication failure
-          // await SecureStore.deleteItemAsync("userCredentials");
+          await SecureStore.deleteItemAsync("userCredentials");
         }
       }
       setAuthLoading(false);
@@ -65,28 +63,3 @@ const SplashScreen = ({ navigation }) => {
 };
 
 export default SplashScreen;
-
-// useEffect(() => {
-//   if (authLoading) return;
-
-//   // Fade in animation
-//   Animated.timing(fadeAnim, {
-//     toValue: 1,
-//     duration: 1000,
-//     useNativeDriver: true,
-//   }).start();
-
-//   // Slide animation
-//   Animated.timing(slideAnim, {
-//     toValue: 0,
-//     duration: 1000,
-//     useNativeDriver: true,
-//   }).start();
-
-//   // Navigate to Login screen after 2 seconds
-//   setTimeout(() => {
-//     isLoggedIn
-//       ? navigation.navigate("Dashboard")
-//       : navigation.navigate("Login");
-//   }, 2000);
-// }, [fadeAnim, navigation, slideAnim]);

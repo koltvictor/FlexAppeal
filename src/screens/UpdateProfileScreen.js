@@ -9,17 +9,17 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import Modal from "react-native-modal";
 import UserContext from "../app/contexts/UserContext";
-import styles from "../config/styles/UpdateProfileStyles";
 import icons from "../assets/icons";
+import commonStyles from "../config/styles/CommonStyles";
+import styles from "../config/styles/UpdateProfileStyles";
 import colors from "../config/colors";
 
 export default function UpdateProfileScreen({ navigation, route }) {
   const { profile } = route.params;
+  const { handleUpdateProfile } = useContext(UserContext);
   const [username, setUsername] = useState(profile.username || "");
   const [icon, setIcon] = useState(profile.icon || "");
   const [showModal, setShowModal] = useState(false);
-
-  const { handleUpdateProfile } = useContext(UserContext);
 
   const handleIconPress = () => {
     setShowModal(true);
@@ -41,7 +41,7 @@ export default function UpdateProfileScreen({ navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={commonStyles.container}>
       <View style={styles.formContainer}>
         <TouchableOpacity
           style={styles.iconContainer}
@@ -49,21 +49,27 @@ export default function UpdateProfileScreen({ navigation, route }) {
         >
           <Ionicons name={icon} size={100} color={colors.brightblue} />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleIconPress}
-          style={styles.changeIconContainer}
-        >
-          <Text style={styles.changeIconText}>Change Icon</Text>
+        <TouchableOpacity onPress={handleIconPress}>
+          <Text style={commonStyles.textButton}>Edit Icon</Text>
         </TouchableOpacity>
-        <Text style={styles.label}>Username:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your username"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-        />
-        <TouchableOpacity onPress={handleSaveChanges} style={styles.button}>
-          <Text style={styles.buttonText}>Save Changes</Text>
+        <View style={styles.rowContainer}>
+          <View>
+            <Text style={commonStyles.text}>Username:</Text>
+          </View>
+          <View>
+            <TextInput
+              style={commonStyles.textInput}
+              placeholder="Enter your username"
+              value={username}
+              onChangeText={(text) => setUsername(text)}
+            />
+          </View>
+        </View>
+        <TouchableOpacity
+          onPress={handleSaveChanges}
+          style={commonStyles.primaryButton}
+        >
+          <Text style={commonStyles.buttonText}>Save Changes</Text>
         </TouchableOpacity>
       </View>
       <Modal isVisible={showModal}>
@@ -72,7 +78,7 @@ export default function UpdateProfileScreen({ navigation, route }) {
             style={styles.closeButton}
             onPress={() => setShowModal(false)}
           >
-            <Ionicons name="close" size={30} />
+            <Ionicons name="close" size={30} style={commonStyles.closeButton} />
           </TouchableOpacity>
 
           <View style={styles.iconGrid}>

@@ -12,6 +12,7 @@ import { DataContext } from "../app/contexts/DataContext";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "../config/styles/ExerciseIndexStyles";
+import commonStyles from "../config/styles/CommonStyles";
 import useExerciseSearch from "../app/hooks/useExerciseSearch";
 
 export default function ExerciseIndexScreen() {

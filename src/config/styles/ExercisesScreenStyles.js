@@ -4,7 +4,7 @@ import colors from "../colors";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.navy,
+    backgroundColor: colors.darkgrey,
   },
   listContainer: {
     paddingHorizontal: 20,
@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderBottomColor: colors.slate,
     borderBottomWidth: 1,
+    marginLeft: 20,
   },
   targetText: {
     fontSize: 20,

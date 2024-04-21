@@ -4,7 +4,7 @@ import colors from "../colors";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.navy,
+    backgroundColor: colors.darkgrey,
     padding: 16,
   },
   input: {

@@ -4,9 +4,9 @@ export default {
   sandy: "#4169E1",
   slate: "#6c7a89",
   palegreen: "#f2f2f2",
-  softblue: "#A6BECB",
+  linkblue: "#007bff",
   red: "#FF0000",
   lightgrey: "#d3d3d3",
   brightblue: "#00bfff",
-  navy: "#1f1f1f",
+  darkgrey: "#1f1f1f",
 };

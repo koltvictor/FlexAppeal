@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import userStore from "../stores/UserStore";
 import styles from "../config/styles/ProfileStyles";
+import commonStyles from "../config/styles/CommonStyles.js";
 import colors from "../config/colors";
 import {
   useFetchUserProfile,
@@ -32,7 +33,7 @@ const ProfileScreen = observer(({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={commonStyles.container}>
       <View style={styles.avatarContainer}>
         <Ionicons
           name={profile ? profile.icon : "camera"}
@@ -40,13 +41,15 @@ const ProfileScreen = observer(({ navigation }) => {
           color={colors.sandy}
           style={styles.avatar}
         />
-        <Text style={styles.username}>{profile?.username}</Text>
-        <Text style={styles.email}>{profile ? profile.email : ""}</Text>
+        <Text style={commonStyles.titleText}>{profile?.username}</Text>
+        <Text style={commonStyles.subheaderText}>
+          {profile ? profile.email : ""}
+        </Text>
         <View style={styles.routineContainer}>
-          <Text style={styles.routines}>
+          <Text style={commonStyles.text}>
             saved routines: {numSavedRoutines}
           </Text>
-          <Text style={styles.routines}>
+          <Text style={commonStyles.text}>
             shared routines: {numSharedRoutines}
           </Text>
         </View>
@@ -57,12 +60,15 @@ const ProfileScreen = observer(({ navigation }) => {
             profile: profile,
           });
         }}
-        style={styles.button}
+        style={commonStyles.secondaryButton}
       >
-        <Text style={styles.buttonText}>Update Profile</Text>
+        <Text style={commonStyles.buttonText}>Update Profile</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-        <Text style={styles.buttonText}>Log Out</Text>
+      <TouchableOpacity
+        onPress={handleLogout}
+        style={commonStyles.primaryButton}
+      >
+        <Text style={commonStyles.buttonText}>Log Out</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

@@ -43,7 +43,7 @@ export default function DashboardScreen() {
         tabBarActiveTintColor: colors.white,
         tabBarInactiveTintColor: "rgba(255, 255, 255, 0.6)",
         tabBarStyle: {
-          backgroundColor: colors.navy,
+          backgroundColor: colors.darkgrey,
           borderTopWidth: 0,
           elevation: 0,
           height: 100,
