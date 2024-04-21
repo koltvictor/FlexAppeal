@@ -30,12 +30,13 @@ if (!firebase.apps.length) {
 }
 
 const db = firebase.firestore();
-const auth = getAuth();
+const auth = firebase.auth();
 const firestore = getFirestore();
 
 export {
   db,
   auth,
+  getAuth,
   createUserWithEmailAndPassword,
   firestore,
   collection,

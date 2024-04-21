@@ -3,6 +3,7 @@ import { auth, db, doc, getDoc, updateDoc } from "../firebase/index";
 import userStore from "../../stores/UserStore";
 import favoritesStore from "../../stores/FavoritesStore";
 import { onSnapshot } from "firebase/firestore";
+import * as SecureStore from "expo-secure-store";
 
 const UserContext = createContext();
 
@@ -53,6 +54,7 @@ export const UserProvider = ({ children }) => {
       userStore.setUser(null);
       userStore.setProfile(null);
       favoritesStore.favorites = [];
+      await SecureStore.deleteItemAsync("userCredentials");
     } catch (error) {
       console.log("Error signing out: ", error);
     }
