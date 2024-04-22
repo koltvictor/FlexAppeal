@@ -20,7 +20,6 @@ import SharedRoutinesScreen from "../../screens/SharedRoutinesScreen";
 import FavoritesScreen from "../../screens/FavoritesScreen";
 import FavExerciseScreen from "../../screens/FavExerciseScreen";
 import colors from "../../config/colors";
-// import AuthCheck from "../../components/AuthCheck";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +29,6 @@ const Routes = () => {
       <Stack.Screen name="Splash" options={{ headerShown: false }}>
         {(props) => <SplashScreen {...props} navigation={props.navigation} />}
       </Stack.Screen>
-      {/* <Stack.Screen name="AuthCheck" component={AuthCheck} /> */}
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -62,7 +60,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -75,7 +73,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -88,7 +86,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -101,7 +99,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -119,7 +117,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -132,7 +130,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -145,7 +143,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -163,7 +161,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -176,7 +174,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -189,7 +187,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",
@@ -202,7 +200,7 @@ const Routes = () => {
         options={{
           title: "",
           headerStyle: {
-            backgroundColor: colors.navy,
+            backgroundColor: colors.darkgrey,
           },
           headerTitleStyle: {
             display: "none",

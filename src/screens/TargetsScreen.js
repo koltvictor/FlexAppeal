@@ -9,6 +9,7 @@ import React, { useContext, useEffect, useState } from "react";
 import TargetCard from "../components/TargetCard";
 import { DataContext } from "../app/contexts/DataContext";
 import styles from "../config/styles/TargetsScreenStyles";
+import commonStyles from "../config/styles/CommonStyles";
 import FilterModal from "../components/Filter";
 
 export default function TargetsScreen({ route, fromSavedRoutine }) {
@@ -58,17 +59,17 @@ export default function TargetsScreen({ route, fromSavedRoutine }) {
   }, [route.params]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={commonStyles.container}>
       <View style={styles.content}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => setIsFilterModalVisible(true)}
-            style={styles.filterContainer}
+            style={commonStyles.secondaryButton}
           >
-            <Text style={styles.filterButton}>Filters</Text>
+            <Text style={commonStyles.buttonText}>Filters</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.header}>{target}</Text>
+        <Text style={commonStyles.headerText}>{target}</Text>
 
         <FilterModal
           visible={isFilterModalVisible}

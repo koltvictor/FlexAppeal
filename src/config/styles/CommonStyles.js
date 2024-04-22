@@ -53,6 +53,13 @@ const commonStyles = StyleSheet.create({
     color: colors.white,
     marginBottom: 10,
   },
+  headerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: colors.sandy,
+    marginBottom: 16,
+    // textTransform: "uppercase",
+  },
   subheaderText: {
     fontSize: 20,
     fontWeight: "bold",
