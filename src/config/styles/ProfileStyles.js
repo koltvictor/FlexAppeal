@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
   avatar: {
     marginBottom: 20,
   },
+  centerCenter: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   routineContainer: {
     backgroundColor: colors.slate,
     borderRadius: 10,

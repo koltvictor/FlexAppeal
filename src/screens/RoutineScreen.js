@@ -5,6 +5,7 @@ import routineStore from "../stores/RoutineStore";
 import RoutineItem from "../components/RoutineItem";
 import { observer } from "mobx-react-lite";
 import styles from "../config/styles/RoutineScreenStyles";
+import commonStyles from "../config/styles/CommonStyles";
 import { useRoutine } from "../app/hooks/useRoutine";
 import DraggableFlatList from "react-native-draggable-flatlist";
 import { toJS } from "mobx";
@@ -26,7 +27,7 @@ const RoutineScreen = observer(() => {
   } = useRoutine();
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <View style={styles.contentContainer}>
         {routineStore.routine.length === 0 ? (
           <Text style={styles.emptyText}>

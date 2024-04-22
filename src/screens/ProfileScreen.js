@@ -34,42 +34,44 @@ const ProfileScreen = observer(({ navigation }) => {
 
   return (
     <SafeAreaView style={commonStyles.container}>
-      <View style={styles.avatarContainer}>
-        <Ionicons
-          name={profile ? profile.icon : "camera"}
-          size={100}
-          color={colors.sandy}
-          style={styles.avatar}
-        />
-        <Text style={commonStyles.titleText}>{profile?.username}</Text>
-        <Text style={commonStyles.subheaderText}>
-          {profile ? profile.email : ""}
-        </Text>
-        <View style={styles.routineContainer}>
-          <Text style={commonStyles.text}>
-            saved routines: {numSavedRoutines}
+      <View style={styles.centerCenter}>
+        <View style={styles.avatarContainer}>
+          <Ionicons
+            name={profile ? profile.icon : "camera"}
+            size={100}
+            color={colors.sandy}
+            style={styles.avatar}
+          />
+          <Text style={commonStyles.titleText}>{profile?.username}</Text>
+          <Text style={commonStyles.subheaderText}>
+            {profile ? profile.email : ""}
           </Text>
-          <Text style={commonStyles.text}>
-            shared routines: {numSharedRoutines}
-          </Text>
+          <View style={styles.routineContainer}>
+            <Text style={commonStyles.text}>
+              saved routines: {numSavedRoutines}
+            </Text>
+            <Text style={commonStyles.text}>
+              shared routines: {numSharedRoutines}
+            </Text>
+          </View>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Update Profile", {
+              profile: profile,
+            });
+          }}
+          style={commonStyles.secondaryButton}
+        >
+          <Text style={commonStyles.buttonText}>Update Profile</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleLogout}
+          style={commonStyles.primaryButton}
+        >
+          <Text style={commonStyles.buttonText}>Log Out</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Update Profile", {
-            profile: profile,
-          });
-        }}
-        style={commonStyles.secondaryButton}
-      >
-        <Text style={commonStyles.buttonText}>Update Profile</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={handleLogout}
-        style={commonStyles.primaryButton}
-      >
-        <Text style={commonStyles.buttonText}>Log Out</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 });
