@@ -1,13 +1,13 @@
 import { View, Text } from "react-native";
 import React from "react";
 import SpecificRoutineItem from "../components/SpecificRoutineItem";
-import styles from "../config/styles/SpecificRoutineStyles";
 import commonStyles from "../config/styles/CommonStyles";
 import { ScrollView } from "react-native-gesture-handler";
+import { useKeepAwake } from "expo-keep-awake";
 
-export default function SpecificRoutineScreen({ route, fromSavedRoutine }) {
+export default function SpecificRoutineScreen({ route }) {
   const { routine } = route.params;
-
+  useKeepAwake();
   return (
     <View style={commonStyles.container}>
       <View style={commonStyles.centerCenter}>
