@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db, auth } from "../app/firebase";
+import { db, auth, FieldValue } from "../app/firebase";
 import {
   Text,
   TextInput,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import styles from "../config/styles/SavedRoutinesStyles";
@@ -24,6 +25,9 @@ function SavedRoutinesScreen({ navigation, route }) {
   const [shareError, setShareError] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const [userIdToUsername, setUserIdToUsername] = useState({});
+  const [unshareModalVisible, setUnshareModalVisible] = useState(false);
+  const [routineToUnshare, setRoutineToUnshare] = useState(null);
+  const [checkedUsers, setCheckedUsers] = useState({});
 
   const [sharedRoutines, setSharedRoutines] = useState([]);
 
@@ -184,6 +188,52 @@ function SavedRoutinesScreen({ navigation, route }) {
     }
   };
 
+  const handleUnshare = (routine) => {
+    setRoutineToUnshare(routine);
+    setCheckedUsers(
+      routine.sharedWith.reduce(
+        (acc, userId) => ({ ...acc, [userId]: false }),
+        {}
+      )
+    );
+    setUnshareModalVisible(true);
+  };
+
+  const handleUnshareSubmit = async () => {
+    console.log("this is checkedUsers:", checkedUsers);
+    const usersToUnshare = Object.entries(checkedUsers)
+      .filter(([, isChecked]) => isChecked)
+      .map(([userId]) => userId);
+
+    console.log("this is usersToUnshare:", usersToUnshare);
+    console.log("routineToUnshare.id:", routineToUnshare.id);
+
+    if (!routineToUnshare.id) {
+      console.error("Error: routineToUnshare.id is invalid");
+      return;
+    }
+
+    try {
+      const sharedWithRef = db
+        .collection("savedroutines")
+        .doc(routineToUnshare.id);
+
+      const newSharedWith = routineToUnshare.sharedWith.filter(
+        (userId) => !usersToUnshare.includes(userId)
+      );
+
+      await sharedWithRef.update({
+        sharedWith: newSharedWith,
+      });
+
+      // Reset state
+      setUnshareModalVisible(false);
+      setRoutineToUnshare(null);
+      setCheckedUsers({});
+    } catch (error) {
+      console.error("Error unsharing routine:", error);
+    }
+  };
   //  delete routine
   const handleDelete = () => {
     db.collection("savedroutines").doc(routineToDelete.id).delete();
@@ -282,6 +332,14 @@ function SavedRoutinesScreen({ navigation, route }) {
                         .join(", ")}`
                     : ""}
                 </Text>
+                <TouchableOpacity onPress={() => handleUnshare(item)}>
+                  <Ionicons
+                    name="remove-circle"
+                    size={24}
+                    color={colors.red}
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
                 <Modal
                   animationType="slide"
                   transparent={true}
@@ -314,6 +372,50 @@ function SavedRoutinesScreen({ navigation, route }) {
                           onPress={() => handleShareSubmit(item)}
                         >
                           <Text style={commonStyles.buttonText}>Share</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                </Modal>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={unshareModalVisible}
+                >
+                  <View style={styles.shareModalContainer}>
+                    <View style={styles.modalContent}>
+                      <Text style={commonStyles.text}>Unshare Routine:</Text>
+                      {routineToUnshare?.sharedWith?.map((userId) => (
+                        <View key={userId} style={styles.checkboxItem}>
+                          <BouncyCheckbox
+                            isChecked={checkedUsers[userId]}
+                            fillColor="orange"
+                            onPress={() =>
+                              setCheckedUsers({
+                                ...checkedUsers,
+                                [userId]: !checkedUsers[userId],
+                              })
+                            }
+                            style={styles.checkbox}
+                          />
+                          <Text style={commonStyles.text}>
+                            {userIdToUsername[userId]}
+                          </Text>
+                        </View>
+                      ))}
+
+                      <View style={styles.modalButtons}>
+                        <TouchableOpacity
+                          style={styles.modalButton}
+                          onPress={() => setUnshareModalVisible(false)}
+                        >
+                          <Text style={styles.modalButtonText}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.modalButton}
+                          onPress={() => handleUnshareSubmit()}
+                        >
+                          <Text style={styles.modalButtonText}>Unshare</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
