@@ -12,6 +12,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import styles from "../config/styles/SavedRoutinesStyles";
+import userStore from "../stores/UserStore";
 import commonStyles from "../config/styles/CommonStyles";
 
 function SavedRoutinesScreen({ navigation, route }) {

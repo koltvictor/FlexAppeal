@@ -10,6 +10,7 @@ import styles from "../config/styles/LoginStyles.js";
 import { Ionicons } from "@expo/vector-icons";
 import { Keyboard } from "react-native";
 import colors from "../config/colors.js";
+import commonStyles from "../config/styles/CommonStyles.js";
 import { useLogin } from "../app/hooks/useLoginHooks.js";
 import { TextInputField } from "../components/InputFieldLogin.js";
 
@@ -31,7 +32,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
           <View style={styles.topSection}>
