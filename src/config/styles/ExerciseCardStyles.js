@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   },
 
   modal: {
+    flex: 1,
     backgroundColor: "rgba(0,0,0,0.7)",
     position: "absolute",
     top: 0,

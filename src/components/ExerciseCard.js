@@ -149,7 +149,6 @@ const ExerciseCard = ({
             />
           </TouchableOpacity>
         </View>
-
         <View style={styles.infoContainer}>
           <View style={styles.info}>
             <Text style={styles.label}>Target Muscle</Text>
@@ -160,6 +159,16 @@ const ExerciseCard = ({
             <Text style={styles.value}>{exercise.equipment}</Text>
           </View>
         </View>
+        {exercise.secondaryMuscles.length > 0 ? (
+          <View style={styles.info}>
+            <Text style={styles.label}>Secondary Muscles</Text>
+            <Text style={styles.value}>
+              {exercise.secondaryMuscles.join(", ") || "None"}
+            </Text>
+          </View>
+        ) : (
+          ""
+        )}
         <Image
           source={{ uri: exercise.gifUrl }}
           alt="gif"

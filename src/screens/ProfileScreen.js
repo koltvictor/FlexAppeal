@@ -20,8 +20,8 @@ const ProfileScreen = observer(({ navigation }) => {
   const numSavedRoutines = userStore.numSavedRoutines;
 
   if (user) {
-    useFetchUserProfile(user.uid);
-    useFetchSavedRoutines(user.uid);
+    useFetchUserProfile(user?.uid);
+    useFetchSavedRoutines(user?.uid);
   }
 
   const handleLogout = () => {

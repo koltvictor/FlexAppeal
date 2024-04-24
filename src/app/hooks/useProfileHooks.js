@@ -22,6 +22,8 @@ export const useFetchUserProfile = (userId) => {
 
 export const useFetchSavedRoutines = (userId) => {
   useEffect(() => {
+    if (!userId) return;
+
     const fetchSavedRoutines = async () => {
       const savedRoutinesRef = db.collection("savedroutines");
       const query = savedRoutinesRef.where("userId", "==", userId);

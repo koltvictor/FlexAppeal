@@ -49,6 +49,9 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const handleLogOut = async () => {
+    console.log("Logging out...", user.email);
+    console.log("userStore", userStore);
+    console.log("profile", userStore.profile);
     try {
       await auth.signOut();
       userStore.setUser(null);
@@ -58,6 +61,9 @@ export const UserProvider = ({ children }) => {
     } catch (error) {
       console.log("Error signing out: ", error);
     }
+    console.log("After Logging out...", user.email);
+    console.log("userStore", userStore);
+    console.log("profile", userStore.profile);
   };
 
   const handleUpdateProfile = async (username, icon) => {

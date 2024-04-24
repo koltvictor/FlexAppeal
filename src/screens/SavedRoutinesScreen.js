@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db, auth, FieldValue } from "../app/firebase";
+import { db, auth } from "../app/firebase";
 import {
   Text,
   TextInput,
@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import styles from "../config/styles/SavedRoutinesStyles";
 import commonStyles from "../config/styles/CommonStyles";
+import userStore from "../stores/UserStore";
 
 function SavedRoutinesScreen({ navigation, route }) {
   const [savedRoutines, setSavedRoutines] = useState([]);
@@ -28,12 +29,25 @@ function SavedRoutinesScreen({ navigation, route }) {
   const [unshareModalVisible, setUnshareModalVisible] = useState(false);
   const [routineToUnshare, setRoutineToUnshare] = useState(null);
   const [checkedUsers, setCheckedUsers] = useState({});
-
   const [sharedRoutines, setSharedRoutines] = useState([]);
 
-  // fetching savedroutines and sharedroutines from firebase
+  console.log(
+    "savedRoutinesScreen:",
+    "userStore user:",
+    userStore.user,
+    "firestore auth user:",
+    auth.currentUser,
+    "userStore profile:",
+    userStore.profile,
+    "userStore savedRoutines:",
+    userStore.savedRoutines,
+    userStore.numSavedRoutines,
+    userStore.numSharedRoutines
+  );
+
   useEffect(() => {
-    const uid = auth.currentUser.uid;
+    const uid = auth.currentUser?.uid;
+    if (!uid) return;
     const userRef = db.collection("users").doc(uid);
     const unsubscribeUser = userRef.onSnapshot(
       (doc) => {
@@ -68,7 +82,7 @@ function SavedRoutinesScreen({ navigation, route }) {
       unsubscribeSavedRoutines();
       unsubscribeUser();
     };
-  }, []);
+  }, [auth.currentUser]);
 
   // map user ids to usernames for shared routines
 
@@ -200,13 +214,9 @@ function SavedRoutinesScreen({ navigation, route }) {
   };
 
   const handleUnshareSubmit = async () => {
-    console.log("this is checkedUsers:", checkedUsers);
     const usersToUnshare = Object.entries(checkedUsers)
       .filter(([, isChecked]) => isChecked)
       .map(([userId]) => userId);
-
-    console.log("this is usersToUnshare:", usersToUnshare);
-    console.log("routineToUnshare.id:", routineToUnshare.id);
 
     if (!routineToUnshare.id) {
       console.error("Error: routineToUnshare.id is invalid");
@@ -226,14 +236,27 @@ function SavedRoutinesScreen({ navigation, route }) {
         sharedWith: newSharedWith,
       });
 
+      //  Signal to userStore to update the number of shared routines:
+      if (newSharedWith.length === 0) {
+        // Routine is no longer shared
+        userStore.decrementNumSharedRoutines();
+      }
+
       // Reset state
       setUnshareModalVisible(false);
       setRoutineToUnshare(null);
       setCheckedUsers({});
+      // userStore.updateUnsharedRoutine(routineToUnshare.id, newSharedWith);
+      console.log(
+        "inside handleUnshareSubmit:",
+        routineToUnshare.id,
+        newSharedWith
+      );
     } catch (error) {
       console.error("Error unsharing routine:", error);
     }
   };
+
   //  delete routine
   const handleDelete = () => {
     db.collection("savedroutines").doc(routineToDelete.id).delete();
@@ -324,6 +347,16 @@ function SavedRoutinesScreen({ navigation, route }) {
                       style={styles.icon}
                     />
                   </TouchableOpacity>
+                  {item.sharedWith && item.sharedWith.length > 0 ? (
+                    <TouchableOpacity onPress={() => handleUnshare(item)}>
+                      <Ionicons
+                        name="remove-circle"
+                        size={24}
+                        color={colors.red}
+                        style={styles.icon}
+                      />
+                    </TouchableOpacity>
+                  ) : null}
                 </View>
                 <Text style={styles.sharedWith}>
                   {item.sharedWith && item.sharedWith.length > 0
@@ -332,14 +365,7 @@ function SavedRoutinesScreen({ navigation, route }) {
                         .join(", ")}`
                     : ""}
                 </Text>
-                <TouchableOpacity onPress={() => handleUnshare(item)}>
-                  <Ionicons
-                    name="remove-circle"
-                    size={24}
-                    color={colors.red}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
+
                 <Modal
                   animationType="slide"
                   transparent={true}
