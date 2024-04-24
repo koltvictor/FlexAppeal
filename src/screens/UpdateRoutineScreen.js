@@ -3,7 +3,6 @@ import { Text, View, TouchableOpacity, Modal, ScrollView } from "react-native";
 import { db } from "../app/firebase";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/UpdateRoutineStyles";
-import commonStyles from "../config/styles/CommonStyles";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
@@ -109,7 +108,7 @@ function UpdateRoutineScreen({ route }) {
       <Picker
         selectedValue={exercise.time}
         onValueChange={(value) => handleTimeChange(exerciseIndex, value)}
-        itemStyle={styles.pickerItemStyle}
+        itemStyle={styles.pickerItem}
       >
         {timeOptions}
       </Picker>
@@ -131,7 +130,7 @@ function UpdateRoutineScreen({ route }) {
       <Picker
         selectedValue={exercise.rest}
         onValueChange={(value) => handleRestTimeChange(exerciseIndex, value)}
-        itemStyle={styles.pickerItemStyle}
+        itemStyle={styles.pickerItem}
       >
         {timeOptions}
       </Picker>
@@ -139,11 +138,11 @@ function UpdateRoutineScreen({ route }) {
   };
 
   return (
-    <View style={commonStyles.container}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <Text style={commonStyles.titleText}>{routine.name}</Text>
+        <Text style={styles.routineName}>{routine.name}</Text>
         <View style={styles.cyclesContainer}>
-          <Text style={commonStyles.subheaderText}>Cycles:</Text>
+          <Text style={styles.routineName}>Cycles:</Text>
           <Picker
             selectedValue={routineCycles}
             onValueChange={handleRoutineCyclesChange}
@@ -164,14 +163,14 @@ function UpdateRoutineScreen({ route }) {
 
               <View style={styles.setsRepsContainer}>
                 <View style={styles.repsContainer}>
-                  <Text style={commonStyles.text}>Reps</Text>
+                  <Text style={styles.label}>Reps</Text>
                   <View style={styles.repsInput}>
                     <Picker
                       selectedValue={exercise.reps}
                       onValueChange={(value) =>
                         handleRepsChange(exercise, index, value)
                       }
-                      itemStyle={styles.pickerItemStyle}
+                      itemStyle={styles.pickerItem}
                     >
                       {[...Array(201).keys()].map((value) => (
                         <Picker.Item
@@ -184,14 +183,14 @@ function UpdateRoutineScreen({ route }) {
                   </View>
                 </View>
                 <View style={styles.timeContainer}>
-                  <Text style={commonStyles.text}>Time</Text>
+                  <Text style={styles.label}>Time</Text>
                   <View style={styles.timeInput}>
                     {renderTimePicker(index)}
                   </View>
                 </View>
               </View>
               <View style={styles.restTimeContainer}>
-                <Text style={commonStyles.text}>Rest Time</Text>
+                <Text style={styles.label}>Rest Time</Text>
                 <View style={styles.timeInput}>
                   {renderRestTimePicker(index)}
                 </View>

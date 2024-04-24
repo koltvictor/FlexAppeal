@@ -22,10 +22,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 20,
-    shadowColor: colors.lightgrey,
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.2,
-    shadowRadius: 20,
   },
   gif: {
     width: 300,

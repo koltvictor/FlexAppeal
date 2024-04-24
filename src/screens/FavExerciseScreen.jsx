@@ -1,6 +1,5 @@
 import { Image, SafeAreaView, View, Text, ScrollView } from "react-native";
 import styles from "../config/styles/FavExerciseScreenStyles";
-import commonStyles from "../config/styles/CommonStyles";
 
 export default function FavExerciseScreen({ route }) {
   const exercise = route.params.exercise;
@@ -20,13 +19,13 @@ export default function FavExerciseScreen({ route }) {
   }
 
   return (
-    <SafeAreaView style={commonStyles.container}>
+    <SafeAreaView>
       <ScrollView>
-        <Text style={commonStyles.titleText}>{exercise.name}</Text>
+        <Text style={styles.title}>{exercise.name}</Text>
         <View style={styles.gifContainer}>
           <Image src={exercise.gifUrl} alt={exercise.name} style={styles.gif} />
         </View>
-        <Text style={commonStyles.text}>
+        <Text style={styles.instructions}>
           {formatInstructions(exercise.instructions)}
         </Text>
       </ScrollView>

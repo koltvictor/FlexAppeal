@@ -9,7 +9,6 @@ import {
   handleDelete,
 } from "../app/hooks/useFavoritesHooks";
 import styles from "../config/styles/FavExercisesStyles";
-import commonStyles from "../config/styles/CommonStyles";
 
 export default observer(function FavExercises() {
   const navigation = useNavigation();
@@ -22,8 +21,8 @@ export default observer(function FavExercises() {
 
   return (
     <ScrollView>
-      <View style={commonStyles.centerCenter}>
-        <Text style={commonStyles.titleText}>Exercises</Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>Exercises</Text>
         <View style={styles.buttonContainer}>
           {favorites.length > 0 ? (
             favorites.map((exercise) => (
@@ -43,9 +42,10 @@ export default observer(function FavExercises() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   key={exercise.id}
+                  style={styles.deleteButton}
                   onPress={() => handleDelete(exercise)}
                 >
-                  <Text style={commonStyles.textButton}>Remove</Text>
+                  <Text style={styles.deleteButtonText}>Remove</Text>
                 </TouchableOpacity>
               </View>
             ))

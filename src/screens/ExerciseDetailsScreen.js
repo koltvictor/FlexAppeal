@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 import { options } from "../app/contexts/DataContext";
 import ExerciseCard from "../components/ExerciseCard";
 import useExerciseDetails from "../app/hooks/useExerciseDetails";
-import commonStyles from "../config/styles/CommonStyles";
+import styles from "../config/styles/ExerciseDetailsStyles";
 
 const ExerciseDetailsScreen = ({ route }) => {
   const { exercise } = route.params;
@@ -21,15 +21,13 @@ const ExerciseDetailsScreen = ({ route }) => {
   }
 
   return (
-    <SafeAreaView style={commonStyles.container}>
-      <View style={{ flex: 1, justifyContent: "center", padding: 10 }}>
-        <ExerciseCard
-          exercise={exercise}
-          isUpdatingRoutine={isUpdatingRoutine}
-          routineVariable={routine}
-          fromSavedRoutine={route.params?.fromSavedRoutine ?? false}
-        />
-      </View>
+    <SafeAreaView style={styles.container}>
+      <ExerciseCard
+        exercise={exercise}
+        isUpdatingRoutine={isUpdatingRoutine}
+        routineVariable={routine}
+        fromSavedRoutine={route.params?.fromSavedRoutine ?? false}
+      />
     </SafeAreaView>
   );
 };

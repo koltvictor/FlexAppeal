@@ -5,12 +5,8 @@ const commonStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.darkgrey,
-  },
-  centerCenter: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
   },
   buttonText: {
     fontSize: 18,
@@ -56,14 +52,13 @@ const commonStyles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.white,
     marginBottom: 10,
-    textAlign: "center",
   },
   headerText: {
     fontSize: 24,
     fontWeight: "bold",
     color: colors.sandy,
     marginBottom: 16,
-    textAlign: "center",
+    // textTransform: "uppercase",
   },
   subheaderText: {
     fontSize: 20,

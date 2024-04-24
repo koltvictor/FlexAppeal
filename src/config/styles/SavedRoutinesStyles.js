@@ -2,11 +2,12 @@ import { StyleSheet } from "react-native";
 import colors from "../colors";
 
 const styles = StyleSheet.create({
-  centerCenter: {
+  container: {
     flex: 1,
+    backgroundColor: colors.navy,
+    paddingHorizontal: 20,
+    paddingTop: 50,
     alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
   },
   routineContainer: {
     backgroundColor: colors.slate,
@@ -17,7 +18,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
+  routineName: {
+    color: colors.white,
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textTransform: "uppercase",
+    fontFamily: "Helvetica",
+  },
   iconsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -35,22 +43,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors.navy,
   },
   shareModalContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors.navy,
   },
   modalContent: {
     backgroundColor: colors.slate,
     padding: 20,
     borderRadius: 10,
-    borderColor: colors.white,
-    borderWidth: 3,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 20,
     alignItems: "center",
   },
   shareModalContent: {
@@ -68,7 +72,6 @@ const styles = StyleSheet.create({
   modalInput: {
     borderWidth: 1,
     borderColor: colors.black,
-    backgroundColor: colors.white,
     borderRadius: 5,
     width: 325,
     padding: 10,
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   modalButtons: {
-    flexDirection: "column",
+    flexDirection: "row",
     width: "100%",
   },
   modalButton: {

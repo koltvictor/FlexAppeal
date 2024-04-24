@@ -13,7 +13,6 @@ import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import styles from "../config/styles/SavedRoutinesStyles";
 import commonStyles from "../config/styles/CommonStyles";
-import userStore from "../stores/UserStore";
 
 function SavedRoutinesScreen({ navigation, route }) {
   const [savedRoutines, setSavedRoutines] = useState([]);
@@ -268,231 +267,171 @@ function SavedRoutinesScreen({ navigation, route }) {
   };
 
   return (
-    <View style={commonStyles.container}>
-      <View style={styles.centerCenter}>
-        <TouchableOpacity
-          style={commonStyles.secondaryButton}
-          onPress={() =>
-            navigation.navigate("Shared Routines", {
-              sharedRoutines: sharedRoutines,
-            })
-          }
-        >
-          <Text style={commonStyles.buttonText}>Shared Routines</Text>
-        </TouchableOpacity>
-        <Text style={commonStyles.headerText}>My Saved Routines</Text>
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate("Shared Routines", {
+            sharedRoutines: sharedRoutines,
+          })
+        }
+      >
+        <Text style={styles.buttonText}>View Shared Routines → </Text>
+      </TouchableOpacity>
+      <Text style={styles.listHeader}>My Saved Routines</Text>
 
-        <FlatList
-          data={savedRoutines}
-          renderItem={({ item }) => {
-            return (
-              <View style={styles.routineContainer}>
-                <Text style={commonStyles.subheaderText}>{item.name}</Text>
-                <Text style={commonStyles.text}>
-                  Cycles: {item.numberOfCycles}
-                </Text>
-                <Text style={commonStyles.text}>
-                  Exercises: {item.exercises.length}
-                </Text>
-                <View style={styles.iconsContainer}>
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("Specific Routine", {
-                        routine: item,
-                        fromSavedRoutine:
-                          route.params?.fromSavedRoutine ?? true,
-                      })
-                    }
-                  >
-                    <Ionicons
-                      name="eye"
-                      size={24}
-                      color={colors.brightblue}
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("Update Routine", {
-                        routine: item,
-                      })
-                    }
-                  >
-                    <Ionicons
-                      name="pencil"
-                      size={24}
-                      color={colors.sandy}
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => handleShare(item)}>
-                    <Ionicons
-                      name="share"
-                      size={24}
-                      color={colors.lightgrey}
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    title="Delete Routine"
-                    onPress={() => {
-                      setRoutineToDelete(item);
-                      setDeleteModalVisible(true);
-                    }}
-                  >
-                    <Ionicons
-                      name="trash"
-                      size={24}
-                      color={colors.black}
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
-                  {item.sharedWith && item.sharedWith.length > 0 ? (
-                    <TouchableOpacity onPress={() => handleUnshare(item)}>
-                      <Ionicons
-                        name="remove-circle"
-                        size={24}
-                        color={colors.red}
-                        style={styles.icon}
-                      />
-                    </TouchableOpacity>
-                  ) : null}
-                </View>
-                <Text style={styles.sharedWith}>
-                  {item.sharedWith && item.sharedWith.length > 0
-                    ? `Shared with: ${item.sharedWith
-                        .map((userId) => userIdToUsername[userId])
-                        .join(", ")}`
-                    : ""}
-                </Text>
-
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={shareModalVisible}
+      <FlatList
+        data={savedRoutines}
+        renderItem={({ item }) => {
+          return (
+            <View style={styles.routineContainer}>
+              <Text style={styles.routineName}>{item.name}</Text>
+              <Text style={styles.cycles}>Cycles: {item.numberOfCycles}</Text>
+              <View style={styles.iconsContainer}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("Specific Routine", {
+                      routine: item,
+                      fromSavedRoutine: route.params?.fromSavedRoutine ?? true,
+                    })
+                  }
                 >
-                  <View style={styles.shareModalContainer}>
-                    <View style={styles.modalContent}>
-                      <Text style={commonStyles.text}>share routine:</Text>
-                      <TextInput
-                        style={styles.modalInput}
-                        value={shareInput}
-                        onChangeText={setShareInput}
-                        placeholder="username or email address"
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                      />
-                      {shareError ? (
-                        <Text style={styles.modalError}>{shareError}</Text>
-                      ) : null}
-                      <View style={styles.modalButtons}>
-                        <TouchableOpacity
-                          style={commonStyles.secondaryButton}
-                          onPress={() => setShareModalVisible(false)}
-                        >
-                          <Text style={commonStyles.buttonText}>Cancel</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          style={commonStyles.primaryButton}
-                          onPress={() => handleShareSubmit(item)}
-                        >
-                          <Text style={commonStyles.buttonText}>Share</Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </View>
-                </Modal>
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={unshareModalVisible}
+                  <Ionicons
+                    name="eye"
+                    size={24}
+                    color={colors.brightblue}
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("Update Routine", {
+                      routine: item,
+                    })
+                  }
                 >
-                  <View style={styles.shareModalContainer}>
-                    <View style={styles.modalContent}>
-                      <Text style={commonStyles.text}>Unshare Routine:</Text>
-                      {routineToUnshare?.sharedWith?.map((userId) => (
-                        <View key={userId} style={styles.checkboxItem}>
-                          <BouncyCheckbox
-                            isChecked={checkedUsers[userId]}
-                            fillColor="orange"
-                            onPress={() =>
-                              setCheckedUsers({
-                                ...checkedUsers,
-                                [userId]: !checkedUsers[userId],
-                              })
-                            }
-                            style={styles.checkbox}
-                          />
-                          <Text style={commonStyles.text}>
-                            {userIdToUsername[userId]}
-                          </Text>
-                        </View>
-                      ))}
-
-                      <View style={styles.modalButtons}>
-                        <TouchableOpacity
-                          style={styles.modalButton}
-                          onPress={() => setUnshareModalVisible(false)}
-                        >
-                          <Text style={styles.modalButtonText}>Cancel</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          style={styles.modalButton}
-                          onPress={() => handleUnshareSubmit()}
-                        >
-                          <Text style={styles.modalButtonText}>Unshare</Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </View>
-                </Modal>
+                  <Ionicons
+                    name="pencil"
+                    size={24}
+                    color={colors.sandy}
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleShare(item)}>
+                  <Ionicons
+                    name="share"
+                    size={24}
+                    color={colors.lightgrey}
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  title="Delete Routine"
+                  onPress={() => {
+                    setRoutineToDelete(item);
+                    setDeleteModalVisible(true);
+                  }}
+                >
+                  <Ionicons
+                    name="trash"
+                    size={24}
+                    color={colors.black}
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
               </View>
-            );
-          }}
-          keyExtractor={(item) => item.id}
-        />
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={deleteModalVisible}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalText}>
-                Are you sure you want to delete this routine?
+              <Text style={styles.sharedWith}>
+                {item.sharedWith && item.sharedWith.length > 0
+                  ? `Shared with: ${item.sharedWith
+                      .map((userId) => userIdToUsername[userId])
+                      .join(", ")}`
+                  : ""}
               </Text>
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={styles.modalButtonNo}
-                  onPress={() => setDeleteModalVisible(false)}
-                >
-                  <Text style={styles.modalButtonText}>NO</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={handleDelete}
-                >
-                  <Text style={styles.modalButtonText}>YES</Text>
-                </TouchableOpacity>
-              </View>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={shareModalVisible}
+              >
+                <View style={styles.shareModalContainer}>
+                  <View style={styles.modalContent}>
+                    <Text style={styles.modalText}>
+                      Enter the email address or username of the user with whom
+                      you would like to share this routine:
+                    </Text>
+                    <TextInput
+                      style={styles.modalInput}
+                      value={shareInput}
+                      onChangeText={setShareInput}
+                      placeholder="Email or Username"
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                    />
+                    {shareError ? (
+                      <Text style={styles.modalError}>{shareError}</Text>
+                    ) : null}
+                    <View style={styles.modalButtons}>
+                      <TouchableOpacity
+                        style={styles.modalButton}
+                        onPress={() => setShareModalVisible(false)}
+                      >
+                        <Text style={styles.modalButtonText}>Cancel</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.modalButton}
+                        onPress={() => handleShareSubmit(item)}
+                      >
+                        <Text style={styles.modalButtonText}>Share</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
             </View>
-          </View>
-        </Modal>
+          );
+        }}
+        keyExtractor={(item) => item.id}
+      />
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={deleteSuccessModalVisible}
-        >
-          <View style={styles.modalContainer}>
-            <View>
-              <Text style={styles.modalText}>Routine Deleted!</Text>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={deleteModalVisible}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>
+              Are you sure you want to delete this routine?
+            </Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={styles.modalButtonNo}
+                onPress={() => setDeleteModalVisible(false)}
+              >
+                <Text style={styles.modalButtonText}>NO</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={handleDelete}
+              >
+                <Text style={styles.modalButtonText}>YES</Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </Modal>
-      </View>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={deleteSuccessModalVisible}
+      >
+        <View style={styles.modalContainer}>
+          <View>
+            <Text style={styles.modalText}>Routine Deleted!</Text>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
