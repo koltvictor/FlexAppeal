@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import styles from "../config/styles/SavedRoutinesStyles";
@@ -26,6 +25,7 @@ function SavedRoutinesScreen({ navigation, route }) {
   const [shareError, setShareError] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const [userIdToUsername, setUserIdToUsername] = useState({});
+
   const [unshareModalVisible, setUnshareModalVisible] = useState(false);
   const [routineToUnshare, setRoutineToUnshare] = useState(null);
   const [checkedUsers, setCheckedUsers] = useState({});
@@ -214,9 +214,13 @@ function SavedRoutinesScreen({ navigation, route }) {
   };
 
   const handleUnshareSubmit = async () => {
+    console.log("this is checkedUsers:", checkedUsers);
     const usersToUnshare = Object.entries(checkedUsers)
       .filter(([, isChecked]) => isChecked)
       .map(([userId]) => userId);
+
+    console.log("this is usersToUnshare:", usersToUnshare);
+    console.log("routineToUnshare.id:", routineToUnshare.id);
 
     if (!routineToUnshare.id) {
       console.error("Error: routineToUnshare.id is invalid");
@@ -236,27 +240,14 @@ function SavedRoutinesScreen({ navigation, route }) {
         sharedWith: newSharedWith,
       });
 
-      //  Signal to userStore to update the number of shared routines:
-      if (newSharedWith.length === 0) {
-        // Routine is no longer shared
-        userStore.decrementNumSharedRoutines();
-      }
-
       // Reset state
       setUnshareModalVisible(false);
       setRoutineToUnshare(null);
       setCheckedUsers({});
-      // userStore.updateUnsharedRoutine(routineToUnshare.id, newSharedWith);
-      console.log(
-        "inside handleUnshareSubmit:",
-        routineToUnshare.id,
-        newSharedWith
-      );
     } catch (error) {
       console.error("Error unsharing routine:", error);
     }
   };
-
   //  delete routine
   const handleDelete = () => {
     db.collection("savedroutines").doc(routineToDelete.id).delete();
@@ -286,8 +277,13 @@ function SavedRoutinesScreen({ navigation, route }) {
         renderItem={({ item }) => {
           return (
             <View style={styles.routineContainer}>
-              <Text style={styles.routineName}>{item.name}</Text>
-              <Text style={styles.cycles}>Cycles: {item.numberOfCycles}</Text>
+              <Text style={commonStyles.subheaderText}>{item.name}</Text>
+              <Text style={commonStyles.text}>
+                Cycles: {item.numberOfCycles}
+              </Text>
+              <Text style={commonStyles.text}>
+                Exercises: {item.exercises.length}
+              </Text>
               <View style={styles.iconsContainer}>
                 <TouchableOpacity
                   onPress={() =>
@@ -348,6 +344,14 @@ function SavedRoutinesScreen({ navigation, route }) {
                       .join(", ")}`
                   : ""}
               </Text>
+              <TouchableOpacity onPress={() => handleUnshare(item)}>
+                <Ionicons
+                  name="remove-circle"
+                  size={24}
+                  color={colors.red}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
               <Modal
                 animationType="slide"
                 transparent={true}
@@ -355,15 +359,12 @@ function SavedRoutinesScreen({ navigation, route }) {
               >
                 <View style={styles.shareModalContainer}>
                   <View style={styles.modalContent}>
-                    <Text style={styles.modalText}>
-                      Enter the email address or username of the user with whom
-                      you would like to share this routine:
-                    </Text>
+                    <Text style={commonStyles.text}>share routine:</Text>
                     <TextInput
                       style={styles.modalInput}
                       value={shareInput}
                       onChangeText={setShareInput}
-                      placeholder="Email or Username"
+                      placeholder="username or email address"
                       keyboardType="email-address"
                       autoCapitalize="none"
                       autoCorrect={false}
@@ -373,16 +374,60 @@ function SavedRoutinesScreen({ navigation, route }) {
                     ) : null}
                     <View style={styles.modalButtons}>
                       <TouchableOpacity
-                        style={styles.modalButton}
+                        style={commonStyles.secondaryButton}
                         onPress={() => setShareModalVisible(false)}
+                      >
+                        <Text style={commonStyles.buttonText}>Cancel</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={commonStyles.primaryButton}
+                        onPress={() => handleShareSubmit(item)}
+                      >
+                        <Text style={commonStyles.buttonText}>Share</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={unshareModalVisible}
+              >
+                <View style={styles.shareModalContainer}>
+                  <View style={styles.modalContent}>
+                    <Text style={commonStyles.text}>Unshare Routine:</Text>
+                    {routineToUnshare?.sharedWith?.map((userId) => (
+                      <View key={userId} style={styles.checkboxItem}>
+                        <BouncyCheckbox
+                          isChecked={checkedUsers[userId]}
+                          fillColor="orange"
+                          onPress={() =>
+                            setCheckedUsers({
+                              ...checkedUsers,
+                              [userId]: !checkedUsers[userId],
+                            })
+                          }
+                          style={styles.checkbox}
+                        />
+                        <Text style={commonStyles.text}>
+                          {userIdToUsername[userId]}
+                        </Text>
+                      </View>
+                    ))}
+
+                    <View style={styles.modalButtons}>
+                      <TouchableOpacity
+                        style={styles.modalButton}
+                        onPress={() => setUnshareModalVisible(false)}
                       >
                         <Text style={styles.modalButtonText}>Cancel</Text>
                       </TouchableOpacity>
                       <TouchableOpacity
                         style={styles.modalButton}
-                        onPress={() => handleShareSubmit(item)}
+                        onPress={() => handleUnshareSubmit()}
                       >
-                        <Text style={styles.modalButtonText}>Share</Text>
+                        <Text style={styles.modalButtonText}>Unshare</Text>
                       </TouchableOpacity>
                     </View>
                   </View>

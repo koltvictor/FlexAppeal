@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Modal, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import styles from "../config//styles/FilterStyles";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
@@ -40,7 +47,7 @@ const FilterModal = ({
           {availableEquipmentTypes.map((type) => (
             <View style={styles.filterItem} key={type}>
               <BouncyCheckbox
-                isChecked={selectedEquipmentTypes.includes(type)}
+                isChecked={selectedEquipmentTypes.includes(type)} // Change here
                 fillColor="#2980b9"
                 onPress={() => toggleEquipmentType(type)}
                 style={styles.checkbox}
