@@ -12,6 +12,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import styles from "../config/styles/SavedRoutinesStyles";
+import Toast from "react-native-toast-message";
 import commonStyles from "../config/styles/CommonStyles";
 
 function SavedRoutinesScreen({ navigation, route }) {
@@ -239,10 +240,12 @@ function SavedRoutinesScreen({ navigation, route }) {
   const handleDelete = () => {
     db.collection("savedroutines").doc(routineToDelete.id).delete();
     setDeleteModalVisible(false);
-    setDeleteSuccessModalVisible(true);
-    setTimeout(() => {
-      setDeleteSuccessModalVisible(false);
-    }, 1500);
+    Toast.show({
+      type: "success",
+      text1: "Routine deleted",
+      visibilityTime: 2000,
+      topOffset: 100,
+    });
   };
 
   return (

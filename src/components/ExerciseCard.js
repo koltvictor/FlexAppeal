@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Animated,
-  ScrollView,
-} from "react-native";
+import React, { useState } from "react";
+import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
@@ -74,6 +67,7 @@ const ExerciseCard = ({
       type: "success",
       text1: "Exercise added to routine",
       visibilityTime: 2000,
+      topOffset: 100,
     });
   };
 

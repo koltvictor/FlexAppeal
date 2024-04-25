@@ -26,11 +26,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: colors.sandy,
   },
-  exerciseItem: {
-    backgroundColor: colors.red,
-    padding: 10,
+  inputContainer: {
+    backgroundColor: colors.navy,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 20,
+    paddingRight: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    position: "absolute",
+    bottom: 5,
+    left: 5,
     borderRadius: 10,
-    marginBottom: 10,
   },
   input: {
     flex: 1,
