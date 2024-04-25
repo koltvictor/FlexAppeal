@@ -6,6 +6,7 @@ import styles from "../config/styles/SignupStyles.js";
 import colors from "../config/colors.js";
 import { useSignup } from "../app/hooks/useSignupHooks.js";
 import { InputField } from "./InputFieldSignup.js";
+import commonStyles from "../config/styles/CommonStyles.js";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -56,11 +57,9 @@ export default function Signup() {
   ];
 
   return (
-    <View>
-      <View style={styles.topSection}>
-        <Text style={styles.title}>Sign up</Text>
-        <Text style={styles.subTitle}>Create your account</Text>
-      </View>
+    <View style={commonStyles.centerCenter}>
+      <Text style={commonStyles.titleText}>Sign up</Text>
+      <Text style={commonStyles.headerText}>Create your account</Text>
       {inputFieldsConfig.map((inputFieldConfig, index) => (
         <InputField
           key={index}
@@ -71,18 +70,15 @@ export default function Signup() {
           value={inputFieldConfig.stateValue}
         />
       ))}
-      <TouchableOpacity
-        style={styles.passwordIcon}
-        onPress={togglePasswordVisibility}
-      >
+      <TouchableOpacity onPress={togglePasswordVisibility}>
         <Ionicons
           name={passwordShown ? "eye-outline" : "eye-off-outline"}
           size={24}
-          color={colors.brightblue}
+          color={colors.white}
         />
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.button}
+        style={commonStyles.primaryButton}
         onPress={() =>
           handleSignup(
             username,
@@ -94,13 +90,15 @@ export default function Signup() {
           )
         }
       >
-        <Text style={styles.buttonText}>Sign up</Text>
+        <Text style={commonStyles.buttonText}>Sign up</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.link}
         onPress={() => navigation.navigate("Login")}
       >
-        <Text style={styles.linkText}>Already have an account? Login</Text>
+        <Text style={commonStyles.subheaderText}>
+          Already have an account? Login
+        </Text>
       </TouchableOpacity>
     </View>
   );

@@ -53,6 +53,21 @@ const LoginScreen = () => {
             onChangeText={setPassword}
             secure={!passwordShown}
           />
+          <View style={styles.checkboxContainer}>
+            <TouchableOpacity
+              style={styles.checkboxContainer}
+              onPress={toggleRememberMe}
+            >
+              <View
+                style={rememberMe ? styles.checkedBox : styles.uncheckedBox}
+              >
+                {rememberMe && (
+                  <Ionicons name="checkmark" size={24} color={colors.black} />
+                )}
+              </View>
+              <Text style={styles.label}>Remember me</Text>
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
             style={styles.inputIcon}
             onPress={togglePasswordVisibility}
@@ -73,21 +88,6 @@ const LoginScreen = () => {
           <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
             <Text style={styles.link}>Don't have an account? Sign up here</Text>
           </TouchableOpacity>
-          <View style={styles.checkboxContainer}>
-            <TouchableOpacity
-              style={styles.checkboxContainer}
-              onPress={toggleRememberMe}
-            >
-              <View
-                style={rememberMe ? styles.checkedBox : styles.uncheckedBox}
-              >
-                {rememberMe && (
-                  <Ionicons name="checkmark" size={24} color={colors.black} />
-                )}
-              </View>
-              <Text style={styles.label}>Remember me</Text>
-            </TouchableOpacity>
-          </View>
         </View>
       </TouchableWithoutFeedback>
     </View>

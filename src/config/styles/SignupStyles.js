@@ -41,9 +41,6 @@ const styles = StyleSheet.create({
   inputIcon: {
     marginRight: 10,
   },
-  passwordIcon: {
-    marginLeft: 320,
-  },
   button: {
     backgroundColor: colors.navy,
     paddingVertical: 10,
