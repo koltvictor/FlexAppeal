@@ -14,6 +14,7 @@ export const useLogin = () => {
     "auth/user-not-found": "User not found",
     "auth/wrong-password": "Incorrect password",
     "auth/invalid-email": "Invalid email",
+    "auth/too-many-requests": "Too many requests, try again later",
   };
 
   const handleLogin = async (email, password, rememberMe) => {
@@ -36,14 +37,16 @@ export const useLogin = () => {
     } catch (error) {
       setLoading(false);
       console.log(error.code, error.message);
-      const customMessage =
-        firebaseErrorMessages[error.code] || "An Unknown Error Occurred";
+      const customMessage = firebaseErrorMessages[error.code];
       setError(customMessage);
       Toast.show({
         type: "error",
         position: "top",
+        topOffset: 100,
         text1: "Hoppla!",
+        text1Style: { fontSize: 18, color: "red", textAlign: "center" },
         text2: customMessage,
+        text2Style: { fontSize: 14, textAlign: "center" },
         visibilityTime: 4000,
         autoHide: true,
         swipeable: true,

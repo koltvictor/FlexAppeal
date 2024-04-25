@@ -42,35 +42,38 @@ export default function UpdateProfileScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={commonStyles.container}>
-      <View style={styles.formContainer}>
-        <TouchableOpacity
-          style={styles.iconContainer}
-          onPress={handleIconPress}
-        >
-          <Ionicons name={icon} size={100} color={colors.brightblue} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleIconPress}>
-          <Text style={commonStyles.textButton}>Edit Icon</Text>
-        </TouchableOpacity>
-        <View style={styles.rowContainer}>
-          <View>
-            <Text style={commonStyles.text}>Username:</Text>
+      <View style={commonStyles.centerCenter}>
+        <View style={styles.formContainer}>
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={handleIconPress}
+          >
+            <Ionicons name={icon} size={100} color={colors.brightblue} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleIconPress}>
+            <Text style={commonStyles.textButton}>Edit Icon</Text>
+          </TouchableOpacity>
+          <View style={styles.rowContainer}>
+            <View>
+              <Text style={commonStyles.text}>Username:</Text>
+            </View>
+            <View>
+              <TextInput
+                style={commonStyles.textInput}
+                placeholder="Enter your username"
+                value={username}
+                onChangeText={(text) => setUsername(text)}
+              />
+            </View>
           </View>
-          <View>
-            <TextInput
-              style={commonStyles.textInput}
-              placeholder="Enter your username"
-              value={username}
-              onChangeText={(text) => setUsername(text)}
-            />
-          </View>
+
+          <TouchableOpacity
+            onPress={handleSaveChanges}
+            style={commonStyles.primaryButton}
+          >
+            <Text style={commonStyles.buttonText}>Save Changes</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={handleSaveChanges}
-          style={commonStyles.primaryButton}
-        >
-          <Text style={commonStyles.buttonText}>Save Changes</Text>
-        </TouchableOpacity>
       </View>
       <Modal isVisible={showModal}>
         <View style={styles.modalContainer}>
@@ -80,7 +83,6 @@ export default function UpdateProfileScreen({ navigation, route }) {
           >
             <Ionicons name="close" size={30} style={commonStyles.closeButton} />
           </TouchableOpacity>
-
           <View style={styles.iconGrid}>
             {icons.map((iconName) => (
               <TouchableOpacity
