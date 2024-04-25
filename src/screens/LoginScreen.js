@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/LoginStyles.js";
 import { Ionicons } from "@expo/vector-icons";
-import { Keyboard } from "react-native";
 import colors from "../config/colors.js";
 import commonStyles from "../config/styles/CommonStyles.js";
 import { useLogin } from "../app/hooks/useLoginHooks.js";
@@ -86,7 +86,9 @@ const LoginScreen = () => {
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-            <Text style={styles.link}>Don't have an account? Sign up here</Text>
+            <Text style={commonStyles.link}>
+              Don't have an account? Sign up here
+            </Text>
           </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>

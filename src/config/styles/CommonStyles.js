@@ -87,6 +87,13 @@ const commonStyles = StyleSheet.create({
     margin: 10,
     marginBottom: 20,
   },
+  link: {
+    color: colors.white,
+    fontSize: 16,
+    marginTop: 30,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
 });
 
 export default commonStyles;

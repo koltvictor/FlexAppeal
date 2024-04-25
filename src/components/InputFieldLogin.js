@@ -16,13 +16,14 @@ export const TextInputField = ({
         <Ionicons
           name={iconName}
           size={24}
-          color={colors.white}
+          color={colors.lightgrey}
           style={styles.inputIcon}
         />
       </View>
       <TextInput
         style={styles.input}
         placeholder={placeholder}
+        placeholderTextColor={colors.slate}
         value={value}
         onChangeText={onChangeText}
         autoCapitalize="none"

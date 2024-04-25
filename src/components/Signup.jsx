@@ -96,9 +96,7 @@ export default function Signup() {
         style={styles.link}
         onPress={() => navigation.navigate("Login")}
       >
-        <Text style={commonStyles.subheaderText}>
-          Already have an account? Login
-        </Text>
+        <Text style={commonStyles.link}>Already have an account? Login</Text>
       </TouchableOpacity>
     </View>
   );

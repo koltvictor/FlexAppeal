@@ -12,12 +12,14 @@ export const InputField = ({
 }) => {
   return (
     <View style={styles.inputContainer}>
-      <Ionicons
-        name={iconName}
-        size={24}
-        color={colors.navy}
-        style={styles.inputIcon}
-      />
+      <View style={styles.inputIcon}>
+        <Ionicons
+          name={iconName}
+          size={24}
+          color={colors.lightgrey}
+          style={styles.inputIcon}
+        />
+      </View>
       <TextInput
         style={styles.input}
         placeholderTextColor={colors.slate}

@@ -1,10 +1,10 @@
 import { View } from "react-native";
-import styles from "../config/styles/SignupStyles.js";
+import commonStyles from "../config/styles/CommonStyles.js";
 import Signup from "../components/Signup.jsx";
 
 const SignupScreen = () => {
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <Signup />
     </View>
   );

@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: colors.lightgrey,
-    width: "100%",
+    borderBottomColor: colors.slate,
   },
   input: {
     flex: 1,
