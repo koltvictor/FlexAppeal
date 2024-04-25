@@ -24,7 +24,6 @@ class FavoritesStore {
   updateFavorites(newFavorites) {
     console.log("newFavorites", newFavorites);
     console.log("favorites before update:", this.favorites);
-    console.log(this.favorites.favexercises);
 
     runInAction(() => {
       // Initialize favexercises if not already present

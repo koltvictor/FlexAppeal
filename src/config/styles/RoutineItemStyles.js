@@ -3,15 +3,10 @@ import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.sandy,
+    backgroundColor: "lightgreen",
+    padding: 20,
     borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
-    shadowColor: colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    marginBottom: 20,
   },
   label: {
     fontSize: 18,
@@ -49,6 +44,21 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 5,
     backgroundColor: colors.white,
+  },
+  closeIcon: {
+    position: "relative",
+    padding: 10,
+  },
+  active: {
+    backgroundColor: "lightblue",
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 20,
+    shadowColor: colors.white,
+    shadowOffset: { width: 10, height: 10 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 4,
   },
 });
 

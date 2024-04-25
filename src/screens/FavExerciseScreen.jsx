@@ -26,9 +26,11 @@ export default function FavExerciseScreen({ route }) {
         <View style={styles.gifContainer}>
           <Image src={exercise.gifUrl} alt={exercise.name} style={styles.gif} />
         </View>
-        <Text style={commonStyles.text}>
-          {formatInstructions(exercise.instructions)}
-        </Text>
+        <View style={commonStyles.centerCenter}>
+          <Text style={commonStyles.text}>
+            {formatInstructions(exercise.instructions)}
+          </Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

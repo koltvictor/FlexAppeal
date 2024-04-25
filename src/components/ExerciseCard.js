@@ -12,6 +12,7 @@ import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/ExerciseCardStyles";
 import { auth, db } from "../app/firebase";
 import favoritesStore from "../stores/FavoritesStore";
+import Toast from "react-native-toast-message";
 import { runInAction } from "mobx";
 
 const ExerciseCard = ({
@@ -22,8 +23,6 @@ const ExerciseCard = ({
 }) => {
   const { addExercise } = routineStore;
   const [updatedRoutine, setUpdatedRoutine] = useState(routineVariable);
-  const [showModal, setShowModal] = useState(false);
-  const [fadeAnim] = useState(new Animated.Value(0));
   const [showInstructions, setShowInstructions] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
 
@@ -58,6 +57,10 @@ const ExerciseCard = ({
             exercises: updatedExercises,
           })
           .catch((error) => console.log(error));
+        Toast.show({
+          type: "error",
+          text1: "Error adding to routine",
+        });
       }
     } else {
       addExercise(exercise);
@@ -67,27 +70,12 @@ const ExerciseCard = ({
         routineStore.rest.push(null);
       });
     }
-    setShowModal(true);
+    Toast.show({
+      type: "success",
+      text1: "Exercise added to routine",
+      visibilityTime: 2000,
+    });
   };
-
-  useEffect(() => {
-    if (showModal) {
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 500,
-        useNativeDriver: true,
-      }).start(() => {
-        setTimeout(() => {
-          setShowModal(false);
-          Animated.timing(fadeAnim, {
-            toValue: 0,
-            duration: 500,
-            useNativeDriver: true,
-          }).start();
-        }, 500);
-      });
-    }
-  }, [showModal]);
 
   function formatInstructions(instructions) {
     if (!Array.isArray(instructions) || !instructions.length) {
@@ -117,7 +105,7 @@ const ExerciseCard = ({
       if (exerciseExists) {
         if (isFavorited) {
           favoritesData.favexercises = favoritesData.favexercises.filter(
-            (id) => id !== exerciseId
+            (id) => id !== exercise.id
           );
         }
       } else {
@@ -196,13 +184,6 @@ const ExerciseCard = ({
           >
             <Text style={styles.buttonText}>Add to routine</Text>
           </TouchableOpacity>
-        )}
-        {showModal && (
-          <Animated.View
-            style={[styles.modal, { opacity: fadeAnim, top: 0, left: 0 }]}
-          >
-            <Text style={styles.modalText}>Added to routine!</Text>
-          </Animated.View>
         )}
       </ScrollView>
     </View>

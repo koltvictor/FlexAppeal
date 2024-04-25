@@ -96,8 +96,8 @@ const RoutineItem = observer(({ exercise, exerciseId, drag, isActive }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={[isActive && styles.active]} onLongPress={drag}>
+    <View style={isActive ? styles.active : styles.container}>
+      <TouchableOpacity onLongPress={drag}>
         <Text style={styles.label}>{name}</Text>
         <View style={styles.setsRepsContainer}>
           <View style={styles.repsContainer}>
@@ -113,11 +113,13 @@ const RoutineItem = observer(({ exercise, exerciseId, drag, isActive }) => {
           <Text style={styles.label}>Rest</Text>
           <View style={styles.timeInput}>{renderRestTimePicker()}</View>
         </View>
-        <View style={styles.container}>
-          <TouchableOpacity onPress={removeExercise}>
-            <Ionicons name="close-circle" size={24} color="red" />
-          </TouchableOpacity>
-        </View>
+        <Ionicons
+          name="close-circle"
+          size={24}
+          color="red"
+          onPress={removeExercise}
+          style={styles.closeIcon}
+        />
       </TouchableOpacity>
     </View>
   );

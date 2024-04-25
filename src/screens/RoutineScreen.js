@@ -41,12 +41,12 @@ const RoutineScreen = observer(() => {
                 <RoutineItem
                   exercise={item}
                   exerciseId={item.id}
-                  // index={item.id}
                   handleRepsChange={handleRepsChange}
                   handleTimeChange={handleTimeChange}
                   handleTRestTimeChange={handleTRestTimeChange}
                   drag={drag}
                   isActive={isActive}
+                  style={styles.exerciseItem}
                 />
               </View>
             )}
