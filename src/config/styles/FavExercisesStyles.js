@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: colors.brightblue,
   },
+  buttonContainer: {
+    padding: 25,
+  },
   exerciseName: {
     padding: 10,
     margin: 10,
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     fontSize: 18,
-    color: colors.white,
+    color: colors.darkgrey,
     fontWeight: "bold",
   },
   noFaves: {
@@ -37,17 +40,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
   },
-  deleteButton: {
-    borderRadius: 25,
+  indivContainer: {
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
-    backgroundColor: "red",
+    padding: 10,
   },
-  deleteButtonText: {
-    color: colors.white,
-    fontSize: 18,
-    fontWeight: "bold",
+  removeIcon: {
+    color: colors.red,
+    fontSize: 24,
+    padding: 10,
   },
 });
 

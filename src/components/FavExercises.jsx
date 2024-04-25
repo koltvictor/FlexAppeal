@@ -8,6 +8,7 @@ import {
   useFetchFavoriteExercises,
   handleDelete,
 } from "../app/hooks/useFavoritesHooks";
+import { Ionicons } from "@expo/vector-icons";
 import styles from "../config/styles/FavExercisesStyles";
 import commonStyles from "../config/styles/CommonStyles";
 
@@ -23,11 +24,11 @@ export default observer(function FavExercises() {
   return (
     <ScrollView>
       <View style={commonStyles.centerCenter}>
-        <Text style={commonStyles.titleText}>Exercises</Text>
+        <Text style={commonStyles.titleText}>Favourite Exercises</Text>
         <View style={styles.buttonContainer}>
           {favorites.length > 0 ? (
             favorites.map((exercise) => (
-              <View key={exercise.id}>
+              <View key={exercise.id} style={styles.indivContainer}>
                 <TouchableOpacity
                   style={styles.button}
                   onPress={() =>
@@ -41,12 +42,12 @@ export default observer(function FavExercises() {
                     {exercise.name}
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+                <Ionicons
+                  style={styles.removeIcon}
+                  name="close"
                   key={exercise.id}
                   onPress={() => handleDelete(exercise)}
-                >
-                  <Text style={commonStyles.textButton}>Remove</Text>
-                </TouchableOpacity>
+                />
               </View>
             ))
           ) : (
