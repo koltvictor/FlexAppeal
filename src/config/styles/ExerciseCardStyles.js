@@ -9,6 +9,8 @@ const styles = StyleSheet.create({
     margin: 5,
     overflow: "hidden",
     paddingBottom: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   header: {
     flexDirection: "row",

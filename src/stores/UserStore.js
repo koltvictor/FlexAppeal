@@ -45,10 +45,6 @@ class UserStore {
     }
   }
 
-  @action decrementNumSharedRoutines() {
-    this.numSharedRoutines--;
-  }
-
   @action addRoutine(routineName, routineData) {
     if (!this.savedRoutines) {
       this.savedRoutines = {};

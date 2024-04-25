@@ -16,7 +16,7 @@ export default function DashboardScreen() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({ focused, color }) => {
           let iconName;
 
           if (route.name === "Profile") {

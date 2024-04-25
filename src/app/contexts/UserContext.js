@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext } from "react";
+import { AppState } from "react-native";
 import { auth, db, doc, getDoc, updateDoc } from "../firebase/index";
 import userStore from "../../stores/UserStore";
 import favoritesStore from "../../stores/FavoritesStore";
@@ -12,7 +13,6 @@ export default UserContext;
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
-  const [savedroutines, setSavedRoutines] = useState(null);
 
   useEffect(() => {
     const onAuthStateChanged = async (userAuth) => {
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
               }
             }
           );
-          const unsubscribe = () => {
+          return () => {
             unsubscribeProfile();
           };
         } else {
@@ -49,21 +49,16 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const handleLogOut = async () => {
-    console.log("Logging out...", user.email);
-    console.log("userStore", userStore);
-    console.log("profile", userStore.profile);
     try {
-      await auth.signOut();
-      userStore.setUser(null);
-      userStore.setProfile(null);
-      favoritesStore.favorites = [];
-      await SecureStore.deleteItemAsync("userCredentials");
+      await auth.signOut().then(() => {
+        userStore.setUser(null);
+        userStore.setProfile(null);
+        favoritesStore.setFavorites([]);
+        SecureStore.deleteItemAsync("userCredentials");
+      });
     } catch (error) {
       console.log("Error signing out: ", error);
     }
-    console.log("After Logging out...", user.email);
-    console.log("userStore", userStore);
-    console.log("profile", userStore.profile);
   };
 
   const handleUpdateProfile = async (username, icon) => {
@@ -95,7 +90,6 @@ export const UserProvider = ({ children }) => {
   const value = {
     user,
     profile,
-    savedroutines,
     handleLogOut,
     handleUpdateProfile,
   };

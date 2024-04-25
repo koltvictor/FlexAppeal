@@ -2,12 +2,11 @@ import { StyleSheet } from "react-native";
 import colors from "../colors";
 
 const styles = StyleSheet.create({
-  container: {
+  centerCenter: {
     flex: 1,
-    backgroundColor: colors.navy,
-    paddingHorizontal: 20,
-    paddingTop: 50,
     alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
   },
   routineContainer: {
     backgroundColor: colors.slate,
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
     width: 325,
     padding: 10,
     marginBottom: 20,
-    color: colors.white,
+    color: colors.black,
   },
   modalButtons: {
     flexDirection: "row",

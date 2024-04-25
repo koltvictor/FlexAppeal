@@ -23,13 +23,19 @@ class FavoritesStore {
 
   updateFavorites(newFavorites) {
     console.log("newFavorites", newFavorites);
+    console.log("favorites before update:", this.favorites);
+    console.log(this.favorites.favexercises);
+
     runInAction(() => {
-      if (this.favorites && this.favorites.favexercises) {
-        // Safety check
-        this.favorites.favexercises.replace(newFavorites);
-      } else {
-        console.error("favexercises is undefined");
+      // Initialize favexercises if not already present
+      if (!this.favorites) {
+        this.favorites = { favexercises: [] };
+      } else if (!this.favorites.favexercises) {
+        this.favorites.favexercises = [];
       }
+
+      // Now safely replace the values
+      this.favorites.favexercises.replace(newFavorites);
     });
   }
 
@@ -45,6 +51,8 @@ class FavoritesStore {
           runInAction(() => {
             this.favorites.favexercises = snapshot.data().favexercises || [];
           });
+        } else {
+          console.log("No favorites data available");
         }
       }
     } catch (error) {
