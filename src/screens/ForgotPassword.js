@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import commonStyles from "../config/styles/CommonStyles";
 import { TextInputField } from "../components/InputFieldLogin";
-import { auth, sendPasswordResetEmail } from "../app/firebase/index";
+import { auth, sendPasswordResetEmail } from "../app/firebase";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ export default function ForgotPassword() {
       await sendPasswordResetEmail(auth, email);
       console.log("Password reset email sent successfully");
     } catch (error) {
-      console.log("Error sending password reset email", error);
+      console.log("Error sending password reset email", error, error.code);
     }
   };
 

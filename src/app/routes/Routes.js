@@ -208,7 +208,19 @@ const Routes = () => {
           },
         }}
       />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
+        options={{
+          title: "",
+          headerStyle: {
+            backgroundColor: colors.darkgrey,
+          },
+          headerTitleStyle: {
+            display: "none",
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 };
