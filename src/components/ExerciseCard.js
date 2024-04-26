@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import routineStore from "../stores/RoutineStore";
-import styles from "../config/styles/ExerciseCardStyles";
-import { auth, db } from "../app/firebase";
 import favoritesStore from "../stores/FavoritesStore";
-import Toast from "react-native-toast-message";
-import { runInAction } from "mobx";
+import styles from "../config/styles/ExerciseCardStyles";
+import {
+  handleAddToRoutine,
+  formatInstructions,
+  toggleFavorite,
+} from "../app/hooks/exerciseCardHelpers";
 
 const ExerciseCard = ({
   exercise,
@@ -14,7 +15,6 @@ const ExerciseCard = ({
   routineVariable,
   fromSavedRoutine,
 }) => {
-  const { addExercise } = routineStore;
   const [updatedRoutine, setUpdatedRoutine] = useState(routineVariable);
   const [showInstructions, setShowInstructions] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -23,107 +23,32 @@ const ExerciseCard = ({
     ? `${routineVariable.userId}_${routineVariable.name}`
     : null;
 
-  const handleAddToRoutine = (exercise) => {
-    if (isUpdatingRoutine) {
-      const exerciseIndex = updatedRoutine.exercises.findIndex(
-        (ex) => ex.id === exercise.id
-      );
-
-      if (exerciseIndex !== -1) {
-        const updatedExercises = [...updatedRoutine.exercises];
-        updatedExercises[exerciseIndex] = exercise;
-        setUpdatedRoutine({ ...updatedRoutine, exercises: updatedExercises });
-
-        db.collection("savedroutines")
-          .doc(routineId)
-          .update({
-            exercises: updatedExercises,
-          })
-          .catch((error) => console.log(error));
-      } else {
-        const updatedExercises = [...updatedRoutine.exercises, exercise];
-        setUpdatedRoutine({ ...updatedRoutine, exercises: updatedExercises });
-
-        db.collection("savedroutines")
-          .doc(routineId)
-          .update({
-            exercises: updatedExercises,
-          })
-          .catch((error) => console.log(error));
-        Toast.show({
-          type: "error",
-          text1: "Error adding to routine",
-        });
-      }
-    } else {
-      addExercise(exercise);
-      runInAction(() => {
-        routineStore.reps.push(null);
-        routineStore.time.push(null);
-        routineStore.rest.push(null);
-      });
-    }
-    Toast.show({
-      type: "success",
-      text1: "Exercise added to routine",
-      visibilityTime: 2000,
-      topOffset: 100,
-    });
+  const handleAddToRoutineWrapper = () => {
+    console.log("handleAddToRoutineWrapper called!");
+    handleAddToRoutine(
+      exercise,
+      isUpdatingRoutine,
+      updatedRoutine,
+      setUpdatedRoutine,
+      routineId
+    );
   };
 
-  function formatInstructions(instructions) {
-    if (!Array.isArray(instructions) || !instructions.length) {
-      return "";
-    }
-
-    const formattedInstructions = instructions
-      .map((sentence, index) => {
-        return `${index + 1}) ${sentence.trim()}\n`;
-      })
-      .join("");
-
-    return formattedInstructions;
-  }
-
-  const toggleFavorite = async () => {
-    try {
-      const uid = auth.currentUser.uid;
-      const favoritesRef = db.collection("favorites").doc(uid);
-      const favoritesDoc = await favoritesRef.get();
-
-      let favoritesData = favoritesDoc.exists
-        ? favoritesDoc.data()
-        : { favexercises: [] };
-
-      const exerciseExists = favoritesData.favexercises.includes(exercise.id);
-      if (exerciseExists) {
-        if (isFavorited) {
-          favoritesData.favexercises = favoritesData.favexercises.filter(
-            (id) => id !== exercise.id
-          );
-        }
-      } else {
-        if (!isFavorited) {
-          favoritesData.favexercises = [
-            ...favoritesData.favexercises,
-            exercise,
-          ];
-        }
-      }
-      await favoritesRef.set(favoritesData);
-      setIsFavorited(!isFavorited);
-      favoritesStore.setFavorites(favoritesData.favexercises);
-    } catch (error) {
-      console.error("Error toggling favorite:", error);
-    }
-  };
+  useEffect(() => {
+    const fetchedFaveIds = favoritesStore.favorites.map((ex) => ex.id);
+    setIsFavorited(fetchedFaveIds.includes(exercise.id));
+  }, [exercise.id, favoritesStore.favorites]); // Dependency array
 
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
           <Text style={styles.title}>{exercise.name}</Text>
-          <TouchableOpacity onPress={toggleFavorite}>
+          <TouchableOpacity
+            onPress={() =>
+              toggleFavorite(exercise, isFavorited, setIsFavorited)
+            }
+          >
             <Ionicons
               name={isFavorited ? "heart" : "heart-outline"}
               size={24}
@@ -174,7 +99,7 @@ const ExerciseCard = ({
         {!fromSavedRoutine && (
           <TouchableOpacity
             style={styles.button}
-            onPress={() => handleAddToRoutine(exercise)}
+            onPress={handleAddToRoutineWrapper}
           >
             <Text style={styles.buttonText}>Add to routine</Text>
           </TouchableOpacity>

@@ -23,6 +23,7 @@ export const InputField = ({
       <TextInput
         style={styles.input}
         placeholderTextColor={colors.slate}
+        color={colors.white}
         placeholder={placeholder}
         secureTextEntry={secure}
         onChangeText={onChangeText}
