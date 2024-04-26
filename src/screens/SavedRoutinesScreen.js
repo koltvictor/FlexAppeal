@@ -18,8 +18,6 @@ import commonStyles from "../config/styles/CommonStyles";
 function SavedRoutinesScreen({ navigation, route }) {
   const [savedRoutines, setSavedRoutines] = useState([]);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-  const [deleteSuccessModalVisible, setDeleteSuccessModalVisible] =
-    useState(false);
   const [routineToDelete, setRoutineToDelete] = useState(null);
   const [shareModalVisible, setShareModalVisible] = useState(false);
   const [shareInput, setShareInput] = useState("");
@@ -459,18 +457,6 @@ function SavedRoutinesScreen({ navigation, route }) {
                   <Text style={styles.modalButtonText}>YES</Text>
                 </TouchableOpacity>
               </View>
-            </View>
-          </View>
-        </Modal>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={deleteSuccessModalVisible}
-        >
-          <View style={styles.modalContainer}>
-            <View>
-              <Text style={styles.modalText}>Routine Deleted!</Text>
             </View>
           </View>
         </Modal>

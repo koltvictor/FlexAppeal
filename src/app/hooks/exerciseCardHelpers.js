@@ -13,7 +13,6 @@ export const handleAddToRoutine = (
   setUpdatedRoutine,
   routineId
 ) => {
-  console.log("handleAddToRoutine called!");
   if (isUpdatingRoutine) {
     const exerciseIndex = updatedRoutine.exercises.findIndex(
       (ex) => ex.id === exercise.id

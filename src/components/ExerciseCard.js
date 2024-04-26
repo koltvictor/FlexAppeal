@@ -24,7 +24,6 @@ const ExerciseCard = ({
     : null;
 
   const handleAddToRoutineWrapper = () => {
-    console.log("handleAddToRoutineWrapper called!");
     handleAddToRoutine(
       exercise,
       isUpdatingRoutine,
