@@ -19,6 +19,7 @@ import UpdateRoutineScreen from "../../screens/UpdateRoutineScreen";
 import SharedRoutinesScreen from "../../screens/SharedRoutinesScreen";
 import FavoritesScreen from "../../screens/FavoritesScreen";
 import FavExerciseScreen from "../../screens/FavExerciseScreen";
+import ForgotPassword from "../../screens/ForgotPassword";
 import colors from "../../config/colors";
 
 const Stack = createNativeStackNavigator();
@@ -207,6 +208,7 @@ const Routes = () => {
           },
         }}
       />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
     </Stack.Navigator>
   );
 };

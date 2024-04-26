@@ -5,6 +5,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updatePassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -44,6 +45,7 @@ export {
   getDoc,
   updateDoc,
   updatePassword,
+  sendPasswordResetEmail,
   doc,
   firebaseConfig,
   firebase,

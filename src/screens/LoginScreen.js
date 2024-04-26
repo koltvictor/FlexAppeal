@@ -90,6 +90,12 @@ const LoginScreen = () => {
               Don't have an account? Sign up here
             </Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ForgotPassword")}
+          >
+            <Text style={commonStyles.textButton}>Forgot Password?</Text>
+          </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>
     </View>
