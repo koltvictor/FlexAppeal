@@ -3,7 +3,7 @@ import colors from "../colors";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "lightgreen",
+    backgroundColor: colors.sandy,
     padding: 20,
     borderRadius: 10,
     marginBottom: 20,

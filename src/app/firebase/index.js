@@ -34,12 +34,17 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 const firestore = getFirestore();
 
+function passwordReset(email) {
+  return firebase.auth().sendPasswordResetEmail(email);
+}
+
 export {
   db,
   auth,
   getAuth,
   createUserWithEmailAndPassword,
   firestore,
+  passwordReset,
   collection,
   addDoc,
   getDoc,
