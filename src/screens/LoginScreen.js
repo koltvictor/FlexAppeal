@@ -18,8 +18,9 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  let navigation = useNavigation();
   const [passwordShown, setPasswordShown] = useState(false);
+
+  let navigation = useNavigation();
 
   const { handleLogin, loading } = useLogin();
 
@@ -46,13 +47,22 @@ const LoginScreen = () => {
             secure={false}
             autoComplete={true}
           />
-          <TextInputField
-            iconName="lock-closed-outline"
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            secure={!passwordShown}
-          />
+          <View style={styles.passViewContainer}>
+            <TextInputField
+              iconName="lock-closed-outline"
+              placeholder="Password"
+              value={password}
+              onChangeText={setPassword}
+              secure={!passwordShown}
+            />
+            <Ionicons
+              name={passwordShown ? "eye-outline" : "eye-off-outline"}
+              size={24}
+              color={colors.white}
+              onPress={togglePasswordVisibility}
+              style={styles.eyeIcon}
+            />
+          </View>
           <View style={styles.checkboxContainer}>
             <TouchableOpacity
               style={styles.checkboxContainer}
@@ -68,16 +78,7 @@ const LoginScreen = () => {
               <Text style={styles.label}>Remember me</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={styles.inputIcon}
-            onPress={togglePasswordVisibility}
-          >
-            <Ionicons
-              name={passwordShown ? "eye-outline" : "eye-off-outline"}
-              size={24}
-              color={colors.white}
-            />
-          </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.button}
             onPress={() => handleLogin(email, password, rememberMe)}
@@ -90,12 +91,13 @@ const LoginScreen = () => {
               Don't have an account? Sign up here
             </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ForgotPassword")}
-          >
-            <Text style={commonStyles.textButton}>Forgot Password?</Text>
-          </TouchableOpacity>
+          <View style={styles.forgotContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ForgotPassword")}
+            >
+              <Text style={commonStyles.textButton}>Forgot Password?</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </View>

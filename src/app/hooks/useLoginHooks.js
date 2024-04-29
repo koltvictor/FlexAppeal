@@ -7,7 +7,6 @@ import * as SecureStore from "expo-secure-store";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   let navigation = useNavigation();
 
   const firebaseErrorMessages = {
@@ -38,7 +37,6 @@ export const useLogin = () => {
       setLoading(false);
       console.log(error.code, error.message);
       const customMessage = firebaseErrorMessages[error.code];
-      setError(customMessage);
       Toast.show({
         type: "error",
         position: "top",
@@ -63,5 +61,5 @@ export const useLogin = () => {
     return unsubscribe;
   }, []);
 
-  return { handleLogin, loading, error };
+  return { handleLogin, loading };
 };

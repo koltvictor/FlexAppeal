@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: colors.slate,
+    width: "100%",
   },
   input: {
     flex: 1,
@@ -101,6 +102,19 @@ const styles = StyleSheet.create({
   label: {
     color: colors.white,
     fontSize: 16,
+  },
+  forgotContainer: {
+    padding: 20,
+    alignItems: "center",
+  },
+  passViewContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  eyeIcon: {
+    position: "absolute",
+    right: 0,
+    bottom: 30,
   },
 });
 

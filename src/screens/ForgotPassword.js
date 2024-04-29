@@ -7,7 +7,6 @@ import Toast from "react-native-toast-message";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
 
   const firebaseErrorMessages = {
     "auth/user-not-found": "Email not found",
