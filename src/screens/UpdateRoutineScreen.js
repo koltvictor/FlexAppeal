@@ -6,6 +6,7 @@ import styles from "../config/styles/UpdateRoutineStyles";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
+import commonStyles from "../config/styles/CommonStyles";
 
 function UpdateRoutineScreen({ route }) {
   const { routine } = route.params;
@@ -138,7 +139,7 @@ function UpdateRoutineScreen({ route }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <Text style={styles.routineName}>{routine.name}</Text>
         <View style={styles.cyclesContainer}>

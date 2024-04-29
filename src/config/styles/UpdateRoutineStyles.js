@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
   },
   pickerItem: {
     fontSize: 16,
+    height: 80,
   },
   timeContainer: {
     flex: 1,
