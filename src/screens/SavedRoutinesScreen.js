@@ -7,6 +7,8 @@ import {
   View,
   TouchableOpacity,
   Modal,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Ionicons } from "@expo/vector-icons";
@@ -344,44 +346,46 @@ function SavedRoutinesScreen({ navigation, route }) {
                         .join(", ")}`
                     : ""}
                 </Text>
-
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={shareModalVisible}
-                >
-                  <View style={styles.shareModalContainer}>
-                    <View style={styles.modalContent}>
-                      <Text style={commonStyles.text}>share routine:</Text>
-                      <TextInput
-                        style={styles.modalInput}
-                        value={shareInput}
-                        onChangeText={setShareInput}
-                        placeholder="username or email address"
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                      />
-                      {shareError ? (
-                        <Text style={styles.modalError}>{shareError}</Text>
-                      ) : null}
-                      <View style={styles.modalButtons}>
-                        <TouchableOpacity
-                          style={commonStyles.secondaryButton}
-                          onPress={() => setShareModalVisible(false)}
-                        >
-                          <Text style={commonStyles.buttonText}>Cancel</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          style={commonStyles.primaryButton}
-                          onPress={() => handleShareSubmit(item)}
-                        >
-                          <Text style={commonStyles.buttonText}>Share</Text>
-                        </TouchableOpacity>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                  <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={shareModalVisible}
+                  >
+                    <View style={styles.shareModalContainer}>
+                      <View style={styles.modalContent}>
+                        <Text style={styles.modalText}>Share:</Text>
+                        <TextInput
+                          style={styles.modalInput}
+                          value={shareInput}
+                          onChangeText={setShareInput}
+                          placeholder="username or email address"
+                          placeholderTextColor="grey"
+                          keyboardType="email-address"
+                          autoCapitalize="none"
+                          autoCorrect={false}
+                        />
+                        {shareError ? (
+                          <Text style={styles.modalError}>{shareError}</Text>
+                        ) : null}
+                        <View style={styles.modalButtons}>
+                          <TouchableOpacity
+                            style={commonStyles.secondaryButton}
+                            onPress={() => setShareModalVisible(false)}
+                          >
+                            <Text style={commonStyles.buttonText}>Cancel</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            style={commonStyles.primaryButton}
+                            onPress={() => handleShareSubmit(item)}
+                          >
+                            <Text style={commonStyles.buttonText}>Share</Text>
+                          </TouchableOpacity>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </Modal>
+                  </Modal>
+                </TouchableWithoutFeedback>
               </View>
             );
           }}
@@ -395,12 +399,12 @@ function SavedRoutinesScreen({ navigation, route }) {
         >
           <View style={styles.shareModalContainer}>
             <View style={styles.modalContent}>
-              <Text style={commonStyles.text}>Unshare Routine:</Text>
+              <Text style={styles.modalText}>Unshare Routine:</Text>
               {routineToUnshare?.sharedWith?.map((userId) => (
                 <View key={userId} style={styles.checkboxItem}>
                   <BouncyCheckbox
                     isChecked={checkedUsers[userId]}
-                    fillColor="orange"
+                    fillColor={colors.red}
                     onPress={() =>
                       setCheckedUsers({
                         ...checkedUsers,
@@ -409,7 +413,7 @@ function SavedRoutinesScreen({ navigation, route }) {
                     }
                     style={styles.checkbox}
                   />
-                  <Text style={commonStyles.text}>
+                  <Text style={styles.modalText}>
                     {userIdToUsername[userId]}
                   </Text>
                 </View>
@@ -417,16 +421,16 @@ function SavedRoutinesScreen({ navigation, route }) {
 
               <View style={styles.modalButtons}>
                 <TouchableOpacity
-                  style={styles.modalButton}
+                  style={commonStyles.secondaryButton}
                   onPress={() => setUnshareModalVisible(false)}
                 >
-                  <Text style={styles.modalButtonText}>Cancel</Text>
+                  <Text style={commonStyles.buttonText}>Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.modalButton}
+                  style={commonStyles.primaryButton}
                   onPress={() => handleUnshareSubmit()}
                 >
-                  <Text style={styles.modalButtonText}>Unshare</Text>
+                  <Text style={commonStyles.buttonText}>Unshare</Text>
                 </TouchableOpacity>
               </View>
             </View>

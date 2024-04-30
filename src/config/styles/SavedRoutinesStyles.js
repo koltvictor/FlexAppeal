@@ -42,22 +42,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.navy,
   },
   shareModalContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.navy,
   },
   modalContent: {
-    backgroundColor: colors.slate,
-    padding: 20,
+    backgroundColor: colors.lightgrey,
+    borderColor: colors.white,
+    borderWidth: 5,
+    padding: 10,
     borderRadius: 10,
     alignItems: "center",
+    width: "100%",
   },
   shareModalContent: {
-    backgroundColor: colors.white,
     padding: 20,
     borderRadius: 10,
     alignItems: "center",
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 20,
-    color: colors.white,
+    color: colors.black,
+    marginTop: 10,
   },
   modalInput: {
     borderWidth: 1,
@@ -74,12 +74,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 325,
     padding: 10,
-    marginBottom: 20,
+    margin: 20,
     color: colors.black,
   },
   modalButtons: {
-    flexDirection: "row",
+    flexDirection: "column",
     width: "100%",
+    alignItems: "center",
   },
   modalButton: {
     backgroundColor: colors.palegreen,
@@ -139,6 +140,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     color: colors.softblue,
+  },
+  checkboxItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    margin: 20,
+    padding: 10,
   },
 });
 

@@ -24,19 +24,21 @@ const ExerciseCard = ({
     : null;
 
   const handleAddToRoutineWrapper = () => {
+    const uniqueId = `${exercise.id}_${Date.now()}`;
     handleAddToRoutine(
       exercise,
       isUpdatingRoutine,
       updatedRoutine,
       setUpdatedRoutine,
-      routineId
+      routineId,
+      uniqueId
     );
   };
 
   useEffect(() => {
     const fetchedFaveIds = favoritesStore.favorites.map((ex) => ex.id);
     setIsFavorited(fetchedFaveIds.includes(exercise.id));
-  }, [exercise.id, favoritesStore.favorites]); // Dependency array
+  }, [exercise.id, favoritesStore.favorites]);
 
   return (
     <View style={styles.container}>

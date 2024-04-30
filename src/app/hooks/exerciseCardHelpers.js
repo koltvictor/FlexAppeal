@@ -11,7 +11,8 @@ export const handleAddToRoutine = (
   isUpdatingRoutine,
   updatedRoutine,
   setUpdatedRoutine,
-  routineId
+  routineId,
+  uniqueId
 ) => {
   if (isUpdatingRoutine) {
     const exerciseIndex = updatedRoutine.exercises.findIndex(
@@ -45,7 +46,8 @@ export const handleAddToRoutine = (
       });
     }
   } else {
-    addExercise(exercise);
+    const exerciseWithKey = { ...exercise, key: uniqueId };
+    addExercise(exerciseWithKey);
     runInAction(() => {
       routineStore.reps.push(null);
       routineStore.time.push(null);

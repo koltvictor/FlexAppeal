@@ -37,7 +37,7 @@ const RoutineScreen = observer(() => {
           <DraggableFlatList
             data={toJS(routineStore.routine)}
             renderItem={({ item, drag, isActive }) => (
-              <View style={styles.exerciseContainer} key={item.id}>
+              <View style={styles.exerciseContainer}>
                 <RoutineItem
                   exercise={item}
                   exerciseId={item.id}
