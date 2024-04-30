@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   shareModalContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
   },
   modalContent: {
     backgroundColor: colors.lightgrey,
@@ -54,7 +53,6 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     padding: 10,
     borderRadius: 10,
-    alignItems: "center",
     width: "100%",
   },
   shareModalContent: {
@@ -67,6 +65,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.black,
     marginTop: 10,
+    textAlign: "center",
   },
   modalInput: {
     borderWidth: 1,
@@ -146,6 +145,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 20,
     padding: 10,
+  },
+  closeIcon: {
+    position: "relative",
+    padding: 10,
+    textAlign: "left",
   },
 });
 

@@ -346,46 +346,45 @@ function SavedRoutinesScreen({ navigation, route }) {
                         .join(", ")}`
                     : ""}
                 </Text>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                  <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={shareModalVisible}
-                  >
-                    <View style={styles.shareModalContainer}>
-                      <View style={styles.modalContent}>
-                        <Text style={styles.modalText}>Share:</Text>
-                        <TextInput
-                          style={styles.modalInput}
-                          value={shareInput}
-                          onChangeText={setShareInput}
-                          placeholder="username or email address"
-                          placeholderTextColor="grey"
-                          keyboardType="email-address"
-                          autoCapitalize="none"
-                          autoCorrect={false}
-                        />
-                        {shareError ? (
-                          <Text style={styles.modalError}>{shareError}</Text>
-                        ) : null}
-                        <View style={styles.modalButtons}>
-                          <TouchableOpacity
-                            style={commonStyles.secondaryButton}
-                            onPress={() => setShareModalVisible(false)}
-                          >
-                            <Text style={commonStyles.buttonText}>Cancel</Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            style={commonStyles.primaryButton}
-                            onPress={() => handleShareSubmit(item)}
-                          >
-                            <Text style={commonStyles.buttonText}>Share</Text>
-                          </TouchableOpacity>
-                        </View>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={shareModalVisible}
+                >
+                  <View style={styles.shareModalContainer}>
+                    <View style={styles.modalContent}>
+                      <Ionicons
+                        name="close"
+                        size={24}
+                        color={colors.black}
+                        onPress={() => setShareModalVisible(false)}
+                        style={styles.closeIcon}
+                      />
+                      <Text style={styles.modalText}>Share:</Text>
+                      <TextInput
+                        style={styles.modalInput}
+                        value={shareInput}
+                        onChangeText={setShareInput}
+                        placeholder="username or email address"
+                        placeholderTextColor="grey"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                      />
+                      {shareError ? (
+                        <Text style={styles.modalError}>{shareError}</Text>
+                      ) : null}
+                      <View style={styles.modalButtons}>
+                        <TouchableOpacity
+                          style={commonStyles.primaryButton}
+                          onPress={() => handleShareSubmit(item)}
+                        >
+                          <Text style={commonStyles.buttonText}>Share</Text>
+                        </TouchableOpacity>
                       </View>
                     </View>
-                  </Modal>
-                </TouchableWithoutFeedback>
+                  </View>
+                </Modal>
               </View>
             );
           }}
@@ -399,6 +398,13 @@ function SavedRoutinesScreen({ navigation, route }) {
         >
           <View style={styles.shareModalContainer}>
             <View style={styles.modalContent}>
+              <Ionicons
+                name="close"
+                size={24}
+                color={colors.black}
+                onPress={() => setUnshareModalVisible(false)}
+                style={styles.closeIcon}
+              />
               <Text style={styles.modalText}>Unshare Routine:</Text>
               {routineToUnshare?.sharedWith?.map((userId) => (
                 <View key={userId} style={styles.checkboxItem}>
@@ -420,12 +426,6 @@ function SavedRoutinesScreen({ navigation, route }) {
               ))}
 
               <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={commonStyles.secondaryButton}
-                  onPress={() => setUnshareModalVisible(false)}
-                >
-                  <Text style={commonStyles.buttonText}>Cancel</Text>
-                </TouchableOpacity>
                 <TouchableOpacity
                   style={commonStyles.primaryButton}
                   onPress={() => handleUnshareSubmit()}
