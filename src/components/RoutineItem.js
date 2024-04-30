@@ -4,6 +4,7 @@ import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import { action } from "mobx";
+import Toast from "react-native-toast-message";
 import routineStore from "../stores/RoutineStore";
 import styles from "../config/styles/RoutineItemStyles";
 
@@ -15,6 +16,16 @@ const RoutineItem = observer(({ exercise, exerciseId, drag, isActive }) => {
 
   const removeExercise = () => {
     routineStore.removeExercise(exerciseId);
+    Toast.show({
+      type: "info",
+      position: "top",
+      topOffset: 100,
+      text1: `${exercise.name} removed`,
+      text1Style: { fontSize: 12, color: "black", textAlign: "center" },
+      visibilityTime: 2000,
+      autoHide: true,
+      swipeable: true,
+    });
   };
 
   const handleRepsChange = action((value) => {
