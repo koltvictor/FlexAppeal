@@ -53,13 +53,20 @@ export default function Signup() {
       secure: !passwordShown,
       stateUpdater: setConfirmPassword,
       stateValue: confirmPassword,
+      style: { flexDirection: "row" },
     },
   ];
+
+  if (passwordShown) {
+    inputFieldsConfig[2].iconName = "lock-open-outline";
+    inputFieldsConfig[3].iconName = "lock-open-outline";
+  }
 
   return (
     <View style={commonStyles.centerCenter}>
       <Text style={commonStyles.titleText}>Sign up</Text>
       <Text style={commonStyles.headerText}>Create your account</Text>
+
       {inputFieldsConfig.map((inputFieldConfig, index) => (
         <InputField
           key={index}
@@ -70,13 +77,13 @@ export default function Signup() {
           value={inputFieldConfig.stateValue}
         />
       ))}
-      <TouchableOpacity onPress={togglePasswordVisibility}>
-        <Ionicons
-          name={passwordShown ? "eye-outline" : "eye-off-outline"}
-          size={24}
-          color={colors.white}
-        />
-      </TouchableOpacity>
+      <Ionicons
+        name={passwordShown ? "eye-outline" : "eye-off-outline"}
+        size={24}
+        color={colors.white}
+        onPress={togglePasswordVisibility}
+      />
+
       <TouchableOpacity
         style={commonStyles.primaryButton}
         onPress={() =>

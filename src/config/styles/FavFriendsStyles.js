@@ -15,21 +15,28 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
-  button: {
-    borderRadius: 25,
+  searchContainer: {
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
-    backgroundColor: colors.brightblue,
-  },
-  exerciseName: {
-    padding: 10,
+    backgroundColor: colors.white,
     margin: 10,
     borderRadius: 5,
-    alignItems: "center",
+  },
+  searchInput: {
+    flex: 1,
     fontSize: 18,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: colors.white,
+  },
+  searchButton: {
     color: colors.white,
-    fontWeight: "bold",
+    backgroundColor: colors.brightblue,
+    padding: 10,
+    borderRadius: 5,
+    margin: 10,
+    textAlign: "center",
   },
 });
 

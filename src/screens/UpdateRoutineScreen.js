@@ -3,7 +3,6 @@ import { Text, View, TouchableOpacity, Modal, ScrollView } from "react-native";
 import { db } from "../app/firebase";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../config/styles/UpdateRoutineStyles";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
 import commonStyles from "../config/styles/CommonStyles";
@@ -198,13 +197,13 @@ function UpdateRoutineScreen({ route }) {
               </View>
 
               <View style={styles.deleteButtonContainer}>
-                <TouchableOpacity
+                <Ionicons
+                  name="close-circle-outline"
+                  size={24}
+                  color="red"
                   onPress={() => handleDeleteExercise(index)}
                   style={styles.deleteButton}
-                >
-                  <MaterialIcons name="close" size={24} color="red" />
-                  <Text>Remove Exercise</Text>
-                </TouchableOpacity>
+                />
               </View>
             </View>
           ))}

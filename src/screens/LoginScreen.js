@@ -49,7 +49,9 @@ const LoginScreen = () => {
           />
           <View style={styles.passViewContainer}>
             <TextInputField
-              iconName="lock-closed-outline"
+              iconName={
+                !passwordShown ? "lock-closed-outline" : "lock-open-outline"
+              }
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
