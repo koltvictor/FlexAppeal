@@ -31,8 +31,8 @@ class UserStore {
     this.numSharedRoutines = 0; // Reset the count
     if (this.savedRoutines) {
       Object.values(this.savedRoutines).forEach((routine) => {
-        if (routine.sharedWith) {
-          this.numSharedRoutines += routine.sharedWith.length; // Add the lengths
+        if (routine.sharedWith && routine.sharedWith.length > 0) {
+          this.numSharedRoutines++; // Increment if shared
         }
       });
     }
