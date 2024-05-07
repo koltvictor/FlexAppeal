@@ -23,7 +23,7 @@ const RoutineScreen = observer(() => {
     onCancel,
     handleRepsChange,
     handleTimeChange,
-    handleTRestTimeChange,
+    handleRestTimeChange,
   } = useRoutine();
 
   return (
@@ -43,7 +43,7 @@ const RoutineScreen = observer(() => {
                   exerciseId={item.id}
                   handleRepsChange={handleRepsChange}
                   handleTimeChange={handleTimeChange}
-                  handleTRestTimeChange={handleTRestTimeChange}
+                  handleTRestTimeChange={handleRestTimeChange}
                   drag={drag}
                   isActive={isActive}
                   style={styles.exerciseItem}

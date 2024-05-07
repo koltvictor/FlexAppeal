@@ -7,8 +7,6 @@ import {
   View,
   TouchableOpacity,
   Modal,
-  TouchableWithoutFeedback,
-  Keyboard,
 } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Ionicons } from "@expo/vector-icons";
@@ -178,6 +176,8 @@ function SavedRoutinesScreen({ navigation, route }) {
                 .collection("savedroutines")
                 .doc(routineToDelete.id)
                 .update({ sharedWith, sharedBy: currentUser });
+
+              console.log("sharedWith:", sharedWith.length);
             }
             setShareModalVisible(false);
           }

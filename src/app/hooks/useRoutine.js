@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { db, auth } from "../firebase";
 import routineStore from "../../stores/RoutineStore";
 import { useNavigation } from "@react-navigation/native";
+import userStore from "../../stores/UserStore";
 
 export const useRoutine = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -50,6 +51,7 @@ export const useRoutine = () => {
         numberOfCycles: parseInt(cycles),
       };
       await savedRoutineRef.set(routineData, { merge: true });
+      userStore.updateNumSavedRoutines();
       routineStore.clearRoutine();
       setRoutineName("");
       setCycles(1);
@@ -75,7 +77,7 @@ export const useRoutine = () => {
     routineStore.handleTimeChange(exerciseId, value);
   };
 
-  const handleTRestTimeChange = (exerciseId, value) => {
+  const handleRestTimeChange = (exerciseId, value) => {
     routineStore.handleTimeChange(exerciseId, value);
   };
 
@@ -92,6 +94,6 @@ export const useRoutine = () => {
     onCancel,
     handleRepsChange,
     handleTimeChange,
-    handleTRestTimeChange,
+    handleRestTimeChange,
   };
 };

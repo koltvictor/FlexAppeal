@@ -32,6 +32,7 @@ export default function useSavedRoutines() {
             ...doc.data(),
           };
           routines.push(routine);
+          console.log(routine);
         });
         setSavedRoutines(routines);
       },
@@ -67,7 +68,9 @@ export default function useSavedRoutines() {
     // Query for routines that have been shared with the current user
     const savedRoutinesRef = db
       .collection("savedroutines")
-      .where("sharedWith", "array-contains", uid);
+      .where("sharedBy", "==", uid);
+
+    console.log(savedRoutinesRef);
 
     const unsubscribeSavedRoutines = savedRoutinesRef.onSnapshot(
       (snapshot) => {
@@ -80,6 +83,8 @@ export default function useSavedRoutines() {
           routines.push(routine);
         });
         setSharedRoutines(routines);
+        console.log(routines.length);
+        userStore.updateNumSharedRoutines(routines.length);
       },
       (error) => {
         console.error(error);
