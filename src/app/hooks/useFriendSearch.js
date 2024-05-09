@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
+import Toast from "react-native-toast-message";
 
 const useFriendSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -11,7 +12,7 @@ const useFriendSearch = () => {
       return;
     }
 
-    const usersCollection = db.collection("users");
+    const usersCollection = db.collection("profiles");
 
     const querySnapshot = await usersCollection
       .where("username", "==", searchQuery)
@@ -21,14 +22,70 @@ const useFriendSearch = () => {
       id: doc.id,
       ...doc.data(),
     }));
-    setDisplayedUsers(searchResults);
+    const currentUserId = auth.currentUser.uid;
+    const filteredResults = searchResults.filter(
+      (user) => user.id !== currentUserId
+    );
+    setDisplayedUsers(filteredResults);
   };
 
+  const handleFriendRequest = async (targetUserId) => {
+    const currentUserId = auth.currentUser.uid;
+
+    const requestDocRef = db
+      .collection("users")
+      .doc(targetUserId)
+      .collection("friendRequests")
+      .doc(currentUserId); // Use targetUserId as the document ID (sender)
+
+    const requestDoc = await requestDocRef.get();
+
+    if (requestDoc.exists) {
+      const requestData = requestDoc.data();
+      const status = requestData.status;
+
+      // Handle Existing Request based on status
+      if (status === "pending") {
+        Toast.show({
+          type: "error",
+          text1: "Friend request already pending.",
+        });
+      } else if (status === "accepted") {
+        Toast.show({
+          type: "error",
+          text1: "You are already friends with this user.",
+        });
+      } else if (status === "blocked") {
+        Toast.show({
+          type: "error",
+          text1: "This user is blocked.",
+        });
+      } else {
+        console.log("Unexpected friend request status:", status); // Handle unexpected cases
+      }
+    } else {
+      // Send New Friend Request
+      try {
+        await requestDocRef.set({
+          senderId: currentUserId,
+          receiverId: targetUserId,
+          status: "pending",
+        });
+        Toast.show({
+          type: "success",
+          text1: "Friend request sent!",
+        });
+      } catch (error) {
+        console.error("Error sending friend request:", error);
+      }
+    }
+  };
   return {
     searchQuery,
     setSearchQuery,
     displayedUsers,
     performSearch,
+    handleFriendRequest,
   };
 };
 

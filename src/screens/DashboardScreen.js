@@ -7,6 +7,7 @@ import ExercisesScreen from "./ExercisesScreen";
 import RoutineScreen from "./RoutineScreen";
 import SavedRoutinesScreen from "./SavedRoutinesScreen";
 import FavoritesScreen from "./FavoritesScreen";
+import FriendsScreen from "./FriendsScreen";
 import styles from "../config/styles/DashboardStyles";
 import colors from "../config/colors";
 
@@ -31,6 +32,8 @@ export default function DashboardScreen() {
               : "arrow-down-circle-outline";
           } else if (route.name === "Favorites") {
             iconName = focused ? "heart" : "heart-outline";
+          } else if (route.name === "Friends") {
+            iconName = focused ? "people" : "people-outline";
           }
 
           return (
@@ -58,6 +61,7 @@ export default function DashboardScreen() {
       <Tab.Screen name="Routine" component={RoutineScreen} />
       <Tab.Screen name="Saved" component={SavedRoutinesScreen} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
+      <Tab.Screen name="Friends" component={FriendsScreen} />
     </Tab.Navigator>
   );
 }

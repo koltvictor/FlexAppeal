@@ -6,8 +6,9 @@ class UserStore {
   @observable profile = null;
   @observable savedRoutines = null;
   @observable numSharedRoutines = 0;
-
   @observable numSavedRoutines = 0;
+  @observable pendingRequests = [];
+  @observable isLoadingFriendRequests = false;
 
   constructor() {
     makeObservable(this);
@@ -19,6 +20,14 @@ class UserStore {
 
   @action setProfile(profile) {
     this.profile = profile;
+  }
+
+  @action setPendingRequests(requests) {
+    this.pendingRequests = requests;
+  }
+
+  @action setIsLoadingFriendRequests(state) {
+    this.isLoadingFriendRequests = state;
   }
 
   @action setSavedRoutines(savedRoutines) {
