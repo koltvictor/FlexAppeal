@@ -72,14 +72,15 @@ export const UserProvider = ({ children }) => {
         .collection("users")
         .doc(uid)
         .collection("friendRequests")
-        .where("status", "==", "pending");
+        .where("status", "==", "pending")
+        .where("senderId", "!=", uid)
+        .orderBy("senderId", "_name_");
 
       const snapshot = await pendingRef.get();
       const requests = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-
       // Update MobX directly - will trigger re-render
       userStore.setPendingRequests(requests);
     };

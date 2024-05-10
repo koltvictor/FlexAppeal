@@ -2,6 +2,7 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import styles from "../config/styles/FavFriendsStyles";
 import useFriendSearch from "../app/hooks/useFriendSearch";
+import useFriendRequest from "../app/hooks/useFriendRequest";
 import { Ionicons } from "@expo/vector-icons";
 import userStore from "../stores/UserStore";
 import { observer } from "mobx-react-lite";
@@ -14,6 +15,7 @@ const FavFriends = observer(() => {
     performSearch,
     handleFriendRequest,
   } = useFriendSearch();
+  const { handleAcceptRequest } = useFriendRequest();
   const [isSearching, setIsSearching] = useState(false);
   const { pendingRequests, isLoadingFriendRequests } = userStore;
 
@@ -79,6 +81,7 @@ const FavFriends = observer(() => {
             >
               <Ionicons name={user.icon} size={24} color="white" />
               <Text style={{ color: "white" }}>{user.senderUsername}</Text>
+              <Text onPress={() => handleAcceptRequest(user.id)}>Accept</Text>
             </View>
           ))
         )}
