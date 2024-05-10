@@ -9,6 +9,7 @@ class UserStore {
   @observable numSavedRoutines = 0;
   @observable pendingRequests = [];
   @observable isLoadingFriendRequests = false;
+  @observable friends = [];
 
   constructor() {
     makeObservable(this);
@@ -24,6 +25,10 @@ class UserStore {
 
   @action setPendingRequests(requests) {
     this.pendingRequests = requests;
+  }
+
+  @action setFriends(newFriends) {
+    this.friends = newFriends;
   }
 
   @action setIsLoadingFriendRequests(state) {

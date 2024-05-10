@@ -42,9 +42,9 @@ const FavFriends = observer(() => {
       </View>
       <View style={styles.resultsContainer}>
         {displayedUsers.length > 0 &&
-          displayedUsers.map((user) => (
+          displayedUsers.map((sender) => (
             <View
-              key={user.id}
+              key={sender.id}
               style={{
                 flexDirection: "row",
                 alignItems: "center",
@@ -52,13 +52,13 @@ const FavFriends = observer(() => {
                 backgroundColor: "blue",
               }}
             >
-              <Ionicons name={user.icon} size={24} color="white" />
-              <Text style={{ color: "white" }}>{user.username}</Text>
+              <Ionicons name={sender.icon} size={24} color="white" />
+              <Text style={{ color: "white" }}>{sender.username}</Text>
               <Ionicons
                 name="add-circle-outline"
                 size={24}
                 color="white"
-                onPress={() => handleFriendRequest(user.id)}
+                onPress={() => handleFriendRequest(sender.id)}
               />
             </View>
           ))}

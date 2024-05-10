@@ -63,6 +63,14 @@ const useFriendRequest = () => {
       });
 
       Toast.show({ type: "success", text1: "Friend request accepted!" });
+      const friendsSnapshot = await db
+        .collection("users")
+        .doc(currentUserId)
+        .collection("friends")
+        .get();
+
+      const friendList = friendsSnapshot.docs.map((doc) => doc.data());
+      userStore.setFriends(friendList);
     } catch (error) {
       console.error("Error accepting friend request:", error);
       Toast.show({ type: "error", text1: "Error accepting request." });

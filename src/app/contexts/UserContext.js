@@ -13,6 +13,56 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const pendingRequests = [];
+  const [friends, setFriends] = useState([]);
+  const [isLoadingFriends, setIsLoadingFriends] = useState(false);
+  const [fetchFriendsError, setFetchFriendsError] = useState(null);
+
+  useEffect(() => {
+    let unsubscribeFriends = null;
+
+    const fetchFriends = async () => {
+      setIsLoadingFriends(true);
+      setFetchFriendsError(null);
+
+      if (user) {
+        const currentUserId = user.uid;
+
+        try {
+          unsubscribeFriends = onSnapshot(
+            db.collection("users").doc(currentUserId).collection("friends"),
+            (snapshot) => {
+              const updatedFriends = snapshot.docs.map((doc) => doc.data());
+              setFriends(updatedFriends);
+              userStore.setFriends(updatedFriends);
+              console.log("userStore friends", userStore.friends);
+            },
+            (error) => {
+              console.error("Error fetching friends:", error);
+              setFetchFriendsError(error); // Store error
+            }
+          );
+        } catch (error) {
+          console.error("Error fetching friends:", error);
+          setFetchFriendsError(error);
+        } finally {
+          setIsLoadingFriends(false);
+        }
+      }
+    };
+
+    if (user) {
+      fetchFriends();
+    } else {
+      setFriends([]);
+      userStore.setFriends([]);
+    }
+
+    return () => {
+      if (unsubscribeFriends) {
+        unsubscribeFriends();
+      }
+    };
+  }, [user]);
 
   useEffect(() => {
     const onAuthStateChanged = async (userAuth) => {
@@ -53,7 +103,6 @@ export const UserProvider = ({ children }) => {
                 userStore.setIsLoadingFriendRequests(false);
               });
             });
-
           return () => {
             unsubscribeProfile();
             unsubscribeRequests();
@@ -81,7 +130,6 @@ export const UserProvider = ({ children }) => {
         id: doc.id,
         ...doc.data(),
       }));
-      // Update MobX directly - will trigger re-render
       userStore.setPendingRequests(requests);
     };
     return () => {
@@ -94,6 +142,7 @@ export const UserProvider = ({ children }) => {
       await auth.signOut().then(() => {
         userStore.setUser(null);
         userStore.setProfile(null);
+        userStore.setFriends([]);
         favoritesStore.setFavorites([]);
         SecureStore.deleteItemAsync("userCredentials");
       });
@@ -134,6 +183,9 @@ export const UserProvider = ({ children }) => {
     handleLogOut,
     handleUpdateProfile,
     pendingRequests,
+    friends,
+    isLoadingFriends,
+    fetchFriendsError,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
