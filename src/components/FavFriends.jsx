@@ -15,7 +15,7 @@ const FavFriends = observer(() => {
     performSearch,
     handleFriendRequest,
   } = useFriendSearch();
-  const { handleAcceptRequest } = useFriendRequest();
+  const { handleAcceptRequest, handleRejectRequest } = useFriendRequest();
   const [isSearching, setIsSearching] = useState(false);
   const { pendingRequests, isLoadingFriendRequests } = userStore;
 
@@ -82,6 +82,7 @@ const FavFriends = observer(() => {
               <Ionicons name={user.icon} size={24} color="white" />
               <Text style={{ color: "white" }}>{user.senderUsername}</Text>
               <Text onPress={() => handleAcceptRequest(user.id)}>Accept</Text>
+              <Text onPress={() => handleRejectRequest(user.id)}>Reject</Text>
             </View>
           ))
         )}

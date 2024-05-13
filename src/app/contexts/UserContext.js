@@ -122,7 +122,7 @@ export const UserProvider = ({ children }) => {
         .doc(uid)
         .collection("friendRequests")
         .where("status", "==", "pending")
-        .where("senderId", "!=", uid)
+        .where("senderId", "==", uid)
         .orderBy("senderId", "_name_");
 
       const snapshot = await pendingRef.get();
