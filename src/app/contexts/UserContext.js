@@ -38,7 +38,7 @@ export const UserProvider = ({ children }) => {
             },
             (error) => {
               console.error("Error fetching friends:", error);
-              setFetchFriendsError(error); // Store error
+              setFetchFriendsError(error);
             }
           );
         } catch (error) {
@@ -63,6 +63,23 @@ export const UserProvider = ({ children }) => {
       }
     };
   }, [user]);
+
+  const fetchPendingRequests = async (uid) => {
+    const pendingRef = db
+      .collection("users")
+      .doc(uid)
+      .collection("friendRequests")
+      .where("status", "==", "pending")
+      .where("receiverId", "==", uid)
+      .orderBy("senderId", "_name_");
+
+    const snapshot = await pendingRef.get();
+    const requests = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    userStore.setPendingRequests(requests);
+  };
 
   useEffect(() => {
     const onAuthStateChanged = async (userAuth) => {
@@ -116,22 +133,7 @@ export const UserProvider = ({ children }) => {
       }
     };
     const unsubscribe = auth.onAuthStateChanged(onAuthStateChanged);
-    const fetchPendingRequests = async (uid) => {
-      const pendingRef = db
-        .collection("users")
-        .doc(uid)
-        .collection("friendRequests")
-        .where("status", "==", "pending")
-        .where("senderId", "==", uid)
-        .orderBy("senderId", "_name_");
 
-      const snapshot = await pendingRef.get();
-      const requests = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      userStore.setPendingRequests(requests);
-    };
     return () => {
       unsubscribe();
     };

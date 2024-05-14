@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { db, auth } from "../app/firebase";
 import {
   Text,
@@ -14,6 +14,7 @@ import colors from "../config/colors";
 import styles from "../config/styles/SavedRoutinesStyles";
 import Toast from "react-native-toast-message";
 import commonStyles from "../config/styles/CommonStyles";
+import UserContext from "../app/contexts/UserContext";
 
 function SavedRoutinesScreen({ navigation, route }) {
   const [savedRoutines, setSavedRoutines] = useState([]);
@@ -28,6 +29,7 @@ function SavedRoutinesScreen({ navigation, route }) {
   const [routineToUnshare, setRoutineToUnshare] = useState(null);
   const [checkedUsers, setCheckedUsers] = useState({});
   const [sharedRoutines, setSharedRoutines] = useState([]);
+  const { friends } = useContext(UserContext);
 
   useEffect(() => {
     const uid = auth.currentUser?.uid;

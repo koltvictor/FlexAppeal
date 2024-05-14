@@ -61,6 +61,7 @@ export default function TargetsScreen({ route, fromSavedRoutine }) {
   return (
     <SafeAreaView style={commonStyles.container}>
       <View style={styles.content}>
+        <Text style={commonStyles.titleText}>{target}</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => setIsFilterModalVisible(true)}
@@ -69,7 +70,6 @@ export default function TargetsScreen({ route, fromSavedRoutine }) {
             <Text style={commonStyles.buttonText}>Filters</Text>
           </TouchableOpacity>
         </View>
-        <Text style={commonStyles.headerText}>{target}</Text>
 
         <FilterModal
           visible={isFilterModalVisible}

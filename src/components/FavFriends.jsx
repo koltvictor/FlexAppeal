@@ -17,7 +17,7 @@ const FavFriends = observer(() => {
   } = useFriendSearch();
   const { handleAcceptRequest, handleRejectRequest } = useFriendRequest();
   const [isSearching, setIsSearching] = useState(false);
-  const { pendingRequests, isLoadingFriendRequests } = userStore;
+  const { pendingRequests } = userStore;
 
   useEffect(() => {
     if (isSearching) {
@@ -28,7 +28,6 @@ const FavFriends = observer(() => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Friends</Text>
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -65,10 +64,7 @@ const FavFriends = observer(() => {
       </View>
       <Text style={styles.title}>Pending Requests</Text>
       <View style={styles.resultsContainer}>
-        {isLoadingFriendRequests ? (
-          <Text style={{ color: "white" }}>Loading ... </Text>
-        ) : (
-          pendingRequests.length > 0 &&
+        {pendingRequests.length > 0 &&
           pendingRequests.map((user) => (
             <View
               key={user.id}
@@ -84,8 +80,7 @@ const FavFriends = observer(() => {
               <Text onPress={() => handleAcceptRequest(user.id)}>Accept</Text>
               <Text onPress={() => handleRejectRequest(user.id)}>Reject</Text>
             </View>
-          ))
-        )}
+          ))}
 
         {pendingRequests.length === 0 && (
           <Text style={{ color: "white" }}>No pending requests</Text>
