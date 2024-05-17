@@ -263,7 +263,7 @@ function SavedRoutinesScreen({ navigation, route }) {
         >
           <Text style={commonStyles.buttonText}>Shared Routines</Text>
         </TouchableOpacity>
-        <Text style={commonStyles.headerText}>My Saved Routines</Text>
+        <Text style={commonStyles.headerText}>Saved Routines</Text>
 
         <FlatList
           data={savedRoutines}

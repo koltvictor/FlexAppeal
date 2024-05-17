@@ -25,7 +25,9 @@
         ],
         "UIApplicationSceneManifest": {
           "UIApplicationSupportsMultipleScenes": true
-        }
+        },
+        "NSCameraUsageDescription": "FlexAppeal wants to access your camera",
+              "NSPhotoLibraryUsageDescription": "FlexAppeal needs access to your photo library"
       },
       "bundleIdentifier": "com.koltvictor.FA"
     },
@@ -60,7 +62,8 @@
           }
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-font"
     ]
   }
 }

@@ -6,7 +6,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   avatar: {
-    marginBottom: 20,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
   },
   centerCenter: {
     flex: 1,

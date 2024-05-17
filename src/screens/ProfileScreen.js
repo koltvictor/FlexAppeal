@@ -1,12 +1,18 @@
 import React, { useContext, useEffect } from "react";
-import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import UserContext from "../app/contexts/UserContext";
-import { Ionicons } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import userStore from "../stores/UserStore";
 import styles from "../config/styles/ProfileStyles";
 import commonStyles from "../config/styles/CommonStyles.js";
 import colors from "../config/colors";
+import { Ionicons } from "@expo/vector-icons";
 import { useFetchSavedRoutines } from "../app/hooks/useProfileHooks.js";
 
 const ProfileScreen = observer(({ navigation }) => {
@@ -38,12 +44,15 @@ const ProfileScreen = observer(({ navigation }) => {
     <SafeAreaView style={commonStyles.container}>
       <View style={styles.centerCenter}>
         <View style={styles.avatarContainer}>
-          <Ionicons
-            name={profile ? profile.icon : "camera"}
-            size={100}
-            color={colors.sandy}
-            style={styles.avatar}
-          />
+          {profile?.icon ? (
+            <Image source={{ uri: profile.icon }} style={styles.avatar} />
+          ) : (
+            <Ionicons
+              name="person-circle-outline"
+              size={100}
+              color={colors.sandy}
+            />
+          )}
           <Text style={commonStyles.titleText}>{profile?.username}</Text>
           <Text style={commonStyles.subheaderText}>
             {profile ? profile.email : ""}

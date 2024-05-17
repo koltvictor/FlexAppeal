@@ -3,6 +3,8 @@ import { auth, db, doc, getDoc, updateDoc } from "../firebase/index";
 import userStore from "../../stores/UserStore";
 import favoritesStore from "../../stores/FavoritesStore";
 import { onSnapshot } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 import * as SecureStore from "expo-secure-store";
 
 const UserContext = createContext();
@@ -158,11 +160,35 @@ export const UserProvider = ({ children }) => {
       const uid = user.uid;
       const profileDocRef = doc(db, "profiles", uid);
       const updatedFields = {};
+      let updatedIcon = icon; // Store a copy of the icon
+
+      if (icon && icon.startsWith("file://")) {
+        // Handle only if it's a local file URI
+
+        const storage = getStorage();
+        const filename = icon.substring(icon.lastIndexOf("/") + 1);
+        const storageRef = ref(storage, `profileImages/${uid}/${filename}`);
+
+        // Fetch and Convert Image Data to Blob
+        const response = await fetch(icon);
+        if (!response.ok) {
+          throw new Error(`Error fetching image: ${response.status}`);
+        }
+        const blob = await response.blob();
+
+        // Upload Image to Storage
+        await uploadBytes(storageRef, blob);
+
+        // Get Download URL from Storage
+        const imageUrl = await getDownloadURL(storageRef);
+        updatedIcon = imageUrl;
+      }
+
       if (username) {
         updatedFields.username = username;
       }
       if (icon) {
-        updatedFields.icon = icon;
+        updatedFields.icon = updatedIcon;
       }
       await updateDoc(profileDocRef, updatedFields);
       console.log("Profile updated successfully");
