@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import React, { useState, useEffect } from "react";
 import styles from "../config/styles/FavFriendsStyles";
 import useFriendSearch from "../app/hooks/useFriendSearch";
@@ -51,7 +51,10 @@ const FavFriends = observer(() => {
                 backgroundColor: "blue",
               }}
             >
-              <Ionicons name={sender.icon} size={24} color="white" />
+              <Image
+                source={{ uri: sender.icon }}
+                style={{ width: 50, height: 50, borderRadius: 25 }}
+              />
               <Text style={{ color: "white" }}>{sender.username}</Text>
               <Ionicons
                 name="add-circle-outline"
@@ -75,7 +78,10 @@ const FavFriends = observer(() => {
                 backgroundColor: "blue",
               }}
             >
-              <Ionicons name={user.icon} size={24} color="white" />
+              <Image
+                source={{ uri: user.senderIcon }}
+                style={{ width: 50, height: 50, borderRadius: 25 }}
+              />
               <Text style={{ color: "white" }}>{user.senderUsername}</Text>
               <Text onPress={() => handleAcceptRequest(user.id)}>Accept</Text>
               <Text onPress={() => handleRejectRequest(user.id)}>Reject</Text>

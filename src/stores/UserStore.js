@@ -25,6 +25,7 @@ class UserStore {
 
   @action setPendingRequests(requests) {
     this.pendingRequests = requests;
+    console.log("Pending requests in userStore:", this.pendingRequests);
   }
 
   @action setFriends(newFriends) {

@@ -20,6 +20,7 @@ const useFriendRequest = () => {
         }
 
         const senderId = requestDoc.data().senderId;
+        const senderIcon = requestDoc.data().senderIcon;
         const senderRef = db.collection("users").doc(senderId);
         const senderDoc = await transaction.get(senderRef);
 
@@ -34,6 +35,18 @@ const useFriendRequest = () => {
         const receiverDoc = await transaction.get(receiverRef);
         const receiverUsername = receiverDoc.data().username;
 
+        const receiverIconRef = db.collection("profiles").doc(currentUserId);
+        const receiverIconDoc = await transaction.get(receiverIconRef);
+        const receiverIcon = receiverIconDoc.data().icon;
+
+        console.log(
+          "handleAccept data:",
+          receiverUsername,
+          receiverIcon,
+          senderUsername,
+          senderIcon
+        );
+
         transaction.update(requestDocRef, { receiverStatus: "accepted" });
 
         transaction.set(
@@ -45,6 +58,7 @@ const useFriendRequest = () => {
           {
             userId: senderId,
             username: senderUsername,
+            userIcon: senderIcon,
           }
         );
 
@@ -57,6 +71,7 @@ const useFriendRequest = () => {
           {
             userId: currentUserId,
             username: receiverUsername,
+            userIcon: receiverIcon,
           }
         );
 

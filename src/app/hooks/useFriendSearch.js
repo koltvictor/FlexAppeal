@@ -31,6 +31,13 @@ const useFriendSearch = () => {
 
   const handleFriendRequest = async (targetUserId) => {
     const currentUserId = auth.currentUser.uid;
+    const currentUserProfileDoc = await db
+      .collection("profiles")
+      .doc(currentUserId)
+      .get();
+    const currentUserIcon = currentUserProfileDoc.exists
+      ? currentUserProfileDoc.data().icon
+      : null;
 
     const checkIfFriends = async (user1Id, user2Id) => {
       const friendsSnapshot = await db
@@ -86,6 +93,7 @@ const useFriendSearch = () => {
             senderId: currentUserId,
             receiverId: targetUserId,
             status: "pending",
+            senderIcon: currentUserIcon,
           });
           Toast.show({
             type: "success",

@@ -1,11 +1,11 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import UserContext from "../app/contexts/UserContext";
 import { useContext } from "react";
 import commonStyles from "../config/styles/CommonStyles";
-import { Ionicons } from "@expo/vector-icons";
 
 export default function Friends() {
   const { friends } = useContext(UserContext);
+  console.log("friends", friends);
 
   return (
     <View>
@@ -13,6 +13,10 @@ export default function Friends() {
       {friends.map((friend) => (
         <View key={friend.userId}>
           <Text style={commonStyles.subheaderText}>{friend.username}</Text>
+          <Image
+            source={{ uri: friend.userIcon }}
+            style={{ width: 50, height: 50, borderRadius: 25 }}
+          />
         </View>
       ))}
     </View>

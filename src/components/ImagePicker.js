@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Button, Image, View, StyleSheet } from "react-native";
+import { Button, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import PropTypes from "prop-types";
 
 export default function ImagePickerExample({ onImageSelected }) {
-  // Receive onImageSelected as a parameter
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
@@ -17,7 +16,7 @@ export default function ImagePickerExample({ onImageSelected }) {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      onImageSelected(result); // Call directly
+      onImageSelected(result);
     }
   };
 
@@ -29,5 +28,5 @@ export default function ImagePickerExample({ onImageSelected }) {
 }
 
 ImagePickerExample.propTypes = {
-  onImageSelected: PropTypes.func.isRequired, // Define prop type
+  onImageSelected: PropTypes.func.isRequired,
 };

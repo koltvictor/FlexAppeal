@@ -21,12 +21,12 @@ export default function UpdateProfileScreen({ navigation, route }) {
   const handleImageSelected = useCallback((result) => {
     if (!result.canceled && result.assets && result.assets.length > 0) {
       const imageUri = result.assets[0].uri;
-      setIcon(imageUri); // Set icon state directly with the image URI
+      setIcon(imageUri);
     }
   }, []);
 
   const handleSaveChanges = () => {
-    handleUpdateProfile(username, icon) // Pass the updated 'icon' value
+    handleUpdateProfile(username, icon)
       .then(() => {
         navigation.goBack();
       })

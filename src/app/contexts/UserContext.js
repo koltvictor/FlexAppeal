@@ -81,6 +81,7 @@ export const UserProvider = ({ children }) => {
       ...doc.data(),
     }));
     userStore.setPendingRequests(requests);
+    console.log("requests:", requests);
   };
 
   useEffect(() => {
@@ -111,11 +112,12 @@ export const UserProvider = ({ children }) => {
               const requests = [];
               snapshot.forEach((doc) => {
                 const senderId = doc.data().senderId;
+                const senderIcon = doc.data().senderIcon;
                 const senderRef = db.collection("users").doc(senderId);
                 senderRef.get().then((senderDoc) => {
                   const senderUsername = senderDoc.data()?.username;
                   if (senderUsername) {
-                    requests.push({ id: doc.id, senderUsername });
+                    requests.push({ id: doc.id, senderUsername, senderIcon });
                     userStore.setPendingRequests(requests);
                   }
                 });
@@ -163,23 +165,18 @@ export const UserProvider = ({ children }) => {
       let updatedIcon = icon; // Store a copy of the icon
 
       if (icon && icon.startsWith("file://")) {
-        // Handle only if it's a local file URI
-
         const storage = getStorage();
         const filename = icon.substring(icon.lastIndexOf("/") + 1);
         const storageRef = ref(storage, `profileImages/${uid}/${filename}`);
 
-        // Fetch and Convert Image Data to Blob
         const response = await fetch(icon);
         if (!response.ok) {
           throw new Error(`Error fetching image: ${response.status}`);
         }
         const blob = await response.blob();
 
-        // Upload Image to Storage
         await uploadBytes(storageRef, blob);
 
-        // Get Download URL from Storage
         const imageUrl = await getDownloadURL(storageRef);
         updatedIcon = imageUrl;
       }
@@ -193,12 +190,10 @@ export const UserProvider = ({ children }) => {
       await updateDoc(profileDocRef, updatedFields);
       console.log("Profile updated successfully");
 
-      // Update userStore
       const updatedProfileDoc = await getDoc(profileDocRef);
       const updatedProfile = updatedProfileDoc.data();
       userStore.setProfile(updatedProfile);
 
-      // Update local state
       setProfile(updatedProfile);
     } catch (error) {
       console.log("Error updating profile:", error);
