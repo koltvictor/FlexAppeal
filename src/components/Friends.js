@@ -5,7 +5,6 @@ import commonStyles from "../config/styles/CommonStyles";
 
 export default function Friends() {
   const { friends } = useContext(UserContext);
-  console.log("friends", friends);
 
   return (
     <View>

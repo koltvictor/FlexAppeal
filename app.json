@@ -2,7 +2,7 @@
   "expo": {
     "name": "FlexAppeal",
     "slug": "FA",
-    "version": "1.28.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/logo.png",
     "userInterfaceStyle": "light",
@@ -27,7 +27,7 @@
           "UIApplicationSupportsMultipleScenes": true
         },
         "NSCameraUsageDescription": "FlexAppeal wants to access your camera",
-              "NSPhotoLibraryUsageDescription": "FlexAppeal needs access to your photo library"
+        "NSPhotoLibraryUsageDescription": "FlexAppeal needs access to your photo library"
       },
       "bundleIdentifier": "com.koltvictor.FA"
     },
@@ -47,9 +47,7 @@
         "projectId": "96f16341-0f56-4f01-895f-c773b3a79695"
       }
     },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
+    "runtimeVersion": "sdkVersion",
     "updates": {
       "url": "https://u.expo.dev/96f16341-0f56-4f01-895f-c773b3a79695"
     },

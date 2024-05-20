@@ -36,7 +36,6 @@ export const UserProvider = ({ children }) => {
               const updatedFriends = snapshot.docs.map((doc) => doc.data());
               setFriends(updatedFriends);
               userStore.setFriends(updatedFriends);
-              console.log("userStore friends", userStore.friends);
             },
             (error) => {
               console.error("Error fetching friends:", error);
@@ -81,7 +80,6 @@ export const UserProvider = ({ children }) => {
       ...doc.data(),
     }));
     userStore.setPendingRequests(requests);
-    console.log("requests:", requests);
   };
 
   useEffect(() => {
